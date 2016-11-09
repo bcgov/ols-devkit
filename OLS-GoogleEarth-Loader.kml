@@ -18,7 +18,7 @@
 	<refreshVisibility>1</refreshVisibility>
 	<flyToView>1</flyToView>
 	<Link>
-		<href>http://openmaps.gov.bc.ca/kml/BCGov_Physical_Address_Viewer.kml</href>
+		<href>https://raw.githubusercontent.com/bcgov/ols-devkit/master/OLS-GoogleEarth-Viewer.kml</href>
 	</Link>
 </NetworkLink>
 </kml>
