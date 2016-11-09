@@ -14,7 +14,7 @@ if(env == "devel") {
 } else if(env == "test") {
 	geocoder_url = "http://test.apps.gov.bc.ca/pub/geocoder";
 } else {
-	geocoder_url = "http://apps.gov.bc.ca/pub/geocoder";
+	geocoder_url = "https://apps.gov.bc.ca/pub/geocoder";
 }
 
 var MAX_REQUESTS = 1000;
