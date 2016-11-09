@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Geocoder Developer Toolkit</title>
+<script type="text/javascript" src="https://unipear.api.gov.bc.ca/v1/bcgov/"></script>
+<script type="text/javascript">
+    unippear({
+        "headerContainer": "#chs",
+        "footerContainer": "#cfs"
+    });
+</script>
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+<link href="css/widget_style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="chs"></div>
+			<div id="main" class="body">
+				<h1>Address Finder Widget</h1>
+			<div id="content">
+				<div>The Address finder widget allows web application
+					developers to incorporate the power of the BC Physical Address
+					Geocoder service into their application easily, including advanced
+					auto-complete functionality. Below is an example of the 'basic'
+					usage of the address finder widget:</div>
+
+				<div class="spacer">
+					<input type="text" class="bc-geocoder typeahead"
+						data-url="http://apps.gov.bc.ca/pub/geocoder/addresses.geojsonp?ver=1.2&addressString=%QUERY"
+						data-output-S-R-S=4326 data-template="simple" data-max-Results="8"
+						data-min-Score="0" data-set-Back="0" data-echo="false"
+						data-interpolation="adaptive" data-location-Descriptor="any"
+						data-callback="showCoordsBasic" autocomplete="off"
+						placeholder="Find a place (basic)" x-webkit-speech />
+				</div>
+				Basic Result:
+				<div id="basic_output"></div>
+
+				<div>And below is an example of the 'advanced' usage of the
+					address finder widget:</div>
+
+				<div class="spacer">
+					<input type="text" class="bc-geocoder typeahead"
+						data-url="http://apps.gov.bc.ca/pub/geocoder/addresses.geojsonp?ver=1.2&addressString=%QUERY"
+						data-output-S-R-S=3005 data-template="accuracy" data-max-Results=5
+						data-min-Score="0" data-set-Back="0" data-echo="false"
+						data-interpolation="adaptive" data-location-Descriptor="any"
+						data-callback="showCoordsAdvanced" autocomplete="off"
+						placeholder="Find a place (advanced)" x-webkit-speech />
+				</div>
+				Advanced Result:
+				<div id="advanced_output"></div>
+				<script type="text/javascript"
+						src="https://code.jquery.com/jquery-1.9.1.min.js"
+						integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+						crossorigin="anonymous"></script>
+				<script type="text/javascript" src="js/geocoder-widget-1.0.0.js"></script>
+				<script type="text/javascript" src="js/geocoder-widget-demo.js"></script>
+				<h2>Documentation</h2>
+				<p>To include the Address Finder Widget on your page, you must
+					first include the following javascript files:</p>
+				<pre>
+&lt;script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://apps.gov.bc.ca/pub/geocoder/js/geocoder-widget-1.0.0.js"&gt;&lt;/script&gt;
+</pre>
+				<p>You may also use your own version of jquery. Note that jQuery
+					must be included first as the Geocoder-Widget extends jQuery.</p>
+				<p>Next you must include a text input field on your page, which
+					must have the CSS classes bc-geocoder and typeahead, and may have
+					various other options as shown and documented below:</p>
+				<pre>
+&lt;input
+  type="text"
+  class="bc-geocoder typeahead"
+  data-template="simple"
+  data-output-S-R-S="4326"
+  data-max-Results="8"
+  data-min-Score="0"
+  data-set-Back="0"
+  data-echo="false"
+  data-interpolation="adaptive"
+  data-location-Descriptor="any"
+  data-callback="showCoords"
+  autocomplete="off"
+  placeholder="Find a place"/&gt;
+</pre>
+				<p>Here is a description of the attributes which can be used to
+					configure the Address Finder Widget:</p>
+					<h3>class</h3>
+					<p>The input field must have the classes "bc-geocoder" and
+						"typeahead". Other additional styles can be applied.</p>
+					<h4>data-output-S-R-S</h4>
+					<p>
+						This specifies the Spatial Reference System to use for the output
+						coordinates, using standard EPSG codes. The list of acceptable
+						code is specified <a
+							href="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#spatialReferenceSystem">here</a>.
+					</p>
+					<h4>data-template</h4>
+					<p>The template determines how to display the individual
+						results in the drop-down list. This can be set to either "simple"
+						or "accuracy", which correspond to the lists shown above in the
+						simple and advanced examples.</p>
+					<h4>data-max-Results</h4>
+					<p>This specifies the maximum number of results to show in
+						the drop-down list while the user is typing.</p>
+					<h4>data-min-Score</h4>
+					<p>This specifies the minimum score of results to return. Any
+						results with a score less than the specified minimum will not be
+						returned.</p>
+					<h4>data-set-Back</h4>
+					<p>This specifies the distance from the street curb to set
+						back the returned point, in meters. By default the returned point
+						is intended to be located on the curb.</p>
+					<h4>data-echo</h4>
+					<p>If echo is set to true, site name and unit number details
+						will be echoed back as part of the results even if they are not
+						actually matched.</p>
+					<h4>data-interpolation</h4>
+					<p>This specifies the allowable method of interpolation. By
+						default, "adaptive" interpolation is used. Alternatively, "linear"
+						or "none" can be specified.</p>
+					<h4>data-location-Descriptor</h4>
+					<p>This specifies the type of location point to return, one
+						of "any", "accessPoint", "frontDoorPoint", "parcelPoint",
+						"rooftopPoint", or "routingPoint".</p>
+					<h4>data-bbox</h4>
+					<p>This specifies a bounding box to filter the results,
+						specified as "minx,miny,maxx,maxy" in the output-SRS coordinate
+						system.</p>
+					<h4>data-centre</h4>
+					<p>This specifies the centre point of a distance filter,
+						specified as "x,y" in the output-SRS coordinate system. Must also
+						use data-distance.</p>
+					<h4>data-max-Distance</h4>
+					<p>This specifies the maximum distance from the centre point
+						which results may be, in meters, relative to the point specified
+						in data-centre.</p>
+					<h4>data-callback</h4>
+					<p>This specifies the name of the javascript function to call
+						with the results of the geocoding after "enter" is pressed. This
+						is generally a custom javascript function which you have written
+						to perform the desired action after the query is input. In the
+						examples above, this function is used to display the result
+						information below the query input box.</p>
+					<h4>autocomplete</h4>
+					<p>The browser's autocomplete should set "off" in order to
+						allow the widget's internal autocomplete to function correctly</p>
+					<h4>placeholder</h4>
+					<p>This specifies the "placeholder" text to display in the
+						field before a user has edited it.</p>
+				<p>
+					For more information on these geocoder parameters, see page 7 of
+					the <a
+						href="http://www.data.gov.bc.ca/local/dbc/docs/geo/services/standards-procedures/online_geocoder_rest_api.pdf">REST
+						API documentation</a>
+      </div>
+    </div>
+<div id="cfs"></div>
+  </body>
+</html>

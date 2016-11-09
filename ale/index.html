@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="en">
+<head>
+<title>Geocoder Developer Toolkit</title>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.9.1.min.js"
+	integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://unipear.api.gov.bc.ca/v1/bcgov/"></script>
+<script type="text/javascript">
+    unippear({
+        "headerContainer": "#chs",
+        "footerContainer": "#cfs"
+    });
+</script>
+<script type="text/javascript" src="js/papaparse.min.js"></script>
+<script type="text/javascript" src="../js-api/geocode.js"></script>
+<script type="text/javascript" src="js/ale.js"></script>
+<link rel="stylesheet" href="css/ale.css" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+	<div id="chs"></div>
+	<div id="main" class="body">
+			<h1>
+				<a href="index.jsp">Geocoder Address List Editor</a>
+			</h1>
+		<div id="content">
+
+			<div class="instructions" id="instructions1">
+				<h3>Instructions</h3>
+
+				<div class="stage1">
+					<table>
+						<tr>
+							<td class="instruct_col1">Step 1 -</td>
+							<td>Select all of the addresses that you wish to geocode
+								from your spreadsheet, and copy/paste them into the text area
+								below. You must include the column headings in your copy/paste,
+								and you must have one column named addressString which must
+								contain the input address.</td>
+						</tr>
+						<tr>
+							<td class="instruct_col1">Step 2 -</td>
+							<td>Press "Geocode Data".</td>
+						</tr>
+					</table>
+				</div>
+				<div class="stage2">
+					<table>
+						<tr>
+							<td class="instruct_col1">Step 3 -</td>
+							<td>Delete any rows you do not want in your results by
+								pressing the "Delete Row" button in the row.</td>
+						</tr>
+						<tr>
+							<td class="instruct_col1">Step 4 -</td>
+							<td>Review the results and identify any low scoring
+								addresses. Revise or correct the addressString and press the
+								"Re-geocode Row" button to update the result. Show in Map shows
+								the geocoded location, not the parcelPoint.</td>
+						</tr>
+						<tr>
+							<td class="instruct_col1">Step 5 -</td>
+							<td>Press the "Export Results" button to save your changes,
+								or alternatively press the "Copy Results to Clipboard" button
+								and then paste the results into an existing spreadsheet.</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="centered">
+				<p>
+					<span id="srsSpan" class="stage2">SRS=4396</span> <input
+						type="button" id="restartButton" class="stage2"
+						value="New Address List" /> <input type="button"
+						id="moreInfoButton" value="More Info/Glossary" /> <input
+						type="button" id="geocodeAllButton" class="stage2"
+						value="Geocode All" /> <input type="button"
+						id="exportResultsButton" class="stage2" value="Export Results" />
+					<input type="button" id="copyResultsButton" class="stage2"
+						value="Copy Results to Clipboard" />
+				</p>
+				<div class="stage1">
+					<textarea id="inputArea">
+</textarea>
+					<p>
+						<input type="button" id="geocodeButton" value="Geocode Data" />
+					</p>
+				</div>
+				<div id="status" class="stage2"></div>
+			</div>
+		</div>
+	</div>
+	<table id="resultsTable" class="stage2">
+		<thead>
+			<tr>
+				<th>Row</th>
+				<th>addressString</th>
+				<th class="fullAddress">fullAddress</th>
+				<th>score</th>
+				<th>precision</th>
+				<th>faults</th>
+				<th>X</th>
+				<th>Y</th>
+				<th>Notes</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+		<div>
+			<div style="height: 20px" />
+			<div id="moreInfo">
+				<h3>Application Information</h3>
+				<ul>
+					<li>This site is best viewed in Firefox 18+, Chrome 15+ or IE
+						8+.</li>
+					<li>The site requires Javascript to be enabled.</li>
+				</ul>
+				<h3>Glossary</h3>
+				<ul>
+					<li><a target="_blank"
+						href="https://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md">Geocoder
+							Glossary of Terms</a></li>
+					<li>SRS - Spatial Reference System, EPSG, projection code.
+						Indicates which geographic projection that the coordinates are
+						listed in, see <a target="_blank"
+						href="http://spatialreference.org/ref/epsg/">http://spatialreference.org/ref/epsg/</a>
+					</li>
+				</ul>
+				<div class="centered">
+					<input type="button" id="closeMoreInfoButton" value="Close Window" />
+				</div>
+			</div>
+			<div id="copyToClipboard">
+				<div class="centered">
+					<h3>Copy to Clipboard</h3>
+					<p>Press Ctrl-C on your keyboard to copy your results, then you
+						can press Ctrl-V to paste it into an existing spreadsheet</p>
+					<textarea id="copyArea"></textarea>
+					<p>
+						<input type="button" id="closeCopyToClipboardButton"
+							value="Close Window" />
+					</p>
+				</div>
+			</div>
+		</div>
+	<div id="cfs"></div>
+</body>
+</html>

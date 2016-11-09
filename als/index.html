@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="en">
+<head>
+<title>Geocoder Developer Toolkit</title>
+<script type="text/javascript" src="https://unipear.api.gov.bc.ca/v1/bcgov/"></script>
+<script type="text/javascript">
+    unippear({
+        "headerContainer": "#chs",
+        "footerContainer": "#cfs"
+    });
+</script>
+
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="chs"></div>
+	<div id="main" class="body">
+				<h1>Batch Address List Submitter</h1>
+				<div>The following Python code is an example of how to use the
+					CPF's web API to submit a batch of addresses to geocode.</div>
+				<textarea style="font-family:Lucida Console;color:#003399;margin: 10px" readonly cols="100" rows="40">
+#!/usr/local/bin/python
+
+import sys
+import time
+import requests
+import re
+import json
+import csv
+from requests.auth import HTTPDigestAuth
+
+# Uncomment the appropriate SERVICE_URL for the target environment
+# Delivery
+#SERVICE_URL = 'http://delivery.apps.gov.bc.ca/pub/cpf/ws/'
+# Test
+#SERVICE_URL = 'http://test.apps.gov.bc.ca/pub/cpf/ws/'
+# Production
+SERVICE_URL = 'http://apps.gov.bc.ca/pub/cpf/ws/'
+
+def log(msg):
+	print(time.strftime("%Y/%m/%d|%H:%M:%S|") + msg)
+
+# Get parameters from the command-line
+if len(sys.argv) < 5 or len(sys.argv) > 6:
+	print 'Usage: <python> address_list_submitter.py <url |file> <localfile> <username> <password> [<e-mail>]'
+	sys.exit(0)
+# Alternatively you can hard-code the parameters below
+filename = sys.argv[1]
+localFile = sys.argv[2]
+username = sys.argv[3]
+password = sys.argv[4]
+email = None
+if len(sys.argv) == 6:
+	email = sys.argv[5]
+
+# Setup parameters for job submission
+headers = {'Accept': 'application/json'}
+fields = {'inputDataContentType': 'text/csv',
+	'resultSrid':'3005',
+	'notificationEmail':'blah',
+	'interpolation':'adaptive',
+	'locationDescriptor':'any',
+	'resultDataContentType':'text/csv', 
+	'media': 'application/json'}
+if email:
+	fields['notificationEmail'] = email
+
+files = None
+
+m = re.search('^(http|ftp)s?://', filename)
+if m:
+	fields['inputDataUrl'] = filename
+else:
+	files = {'inputData': open(filename,'rb')}
+
+# Submit the job
+url = SERVICE_URL + 'apps/geocoder/multiple.json'
+log("Sending initial request to: " + url)
+r1 = requests.post(url,files=files,headers=headers,data=fields,auth=HTTPDigestAuth(username,password))
+m = re.search('\/jobs\/(\d+)\/',r1.url)
+if m:
+	jobId = m.group(1)
+else:
+	jobStatus = json.loads(r1.text)
+	jobId = jobStatus[u'id']
+	m = re.search('\/jobs\/(\d+)\/',jobId)
+	jobId = m.group(1)
+
+# Poll the status URL for the job to determine when it is finished
+url = SERVICE_URL + 'jobs/' + jobId + '.json'
+# Maximum time to wait for job to complete, in seconds
+MAX_WAIT_TIME = 60
+startTime = time.clock()
+while True:
+	log("Checking status of job " + jobId + " at: " + url)
+	r2 = requests.get(url,headers=headers,auth=HTTPDigestAuth(username,password))
+	jobStatus = json.loads(r2.text)
+	if jobStatus[u'jobStatus'] == 'resultsCreated':
+		break
+	else:
+		if time.clock() - startTime  > MAX_WAIT_TIME:
+                        log("Maximum wait time (" + str(MAX_WAIT_TIME) + "s) exceeded")
+                        exit()
+
+		waitSecs = float(jobStatus[u'secondsToWaitForStatusCheck'])
+		if waitSecs == None or waitSecs < 1:
+			waitSecs = 1
+		if time.clock() - startTime + waitSecs > MAX_WAIT_TIME:
+			waitSecs = MAX_WAIT_TIME - (time.clock() - startTime)
+		log("Waiting for job to complete (%ds)" % waitSecs)
+		time.sleep(waitSecs)
+
+# Request the result information to determine the URL to retrieve the results from
+url = SERVICE_URL + 'jobs/' + jobId + '/results.json'
+log("Fetching result file url from: " + url)
+r3 = requests.get(url,headers=headers,auth=HTTPDigestAuth(username,password))
+resultStatus = json.loads(r3.text)
+try:
+	resultUrl = resultStatus[u'resources'][0][u'resourceUri']
+except KeyError:
+	print 'Geocoding failed on input file.'
+	sys.exit(0)
+
+# download the file and save it locally
+log("Fetching job results from: " + resultUrl)
+r4 = requests.get(resultUrl,headers=headers,auth=HTTPDigestAuth(username,password),stream=True)
+with open(localFile, 'wb') as f:
+	for chunk in r4.iter_content(chunk_size=1024):
+		if chunk:
+			f.write(chunk)
+			f.flush()
+
+# process the file
+log("Processing results from local file: " + localFile)
+with open(localFile, 'rb') as f:
+	cr = csv.DictReader(f)
+	count = 0
+	totalScore = 0
+	for row in cr:
+		count += 1
+		totalScore += float(row['score'])
+log("Average Score: " + str(totalScore/count))
+					</textarea>
+	</div>
+	<div id="cfs"></div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright 2008-2015, Province of British Columbia
+    All rights reserved.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://gov.bc.ca/ols">
+
+<xs:element name="searchResult">
+  <xs:complexType>  <xs:sequence>
+    <xs:element name="queryAddress" type="xs:string"/>
+    <xs:element name="searchTimestamp" type="xs:string"/>
+    <xs:element name="disclaimer" type="xs:string"/>
+    <xs:element name="privacyStatement" type="xs:string"/>
+    <xs:element name="copyrightNotice" type="xs:string"/>
+    <xs:element name="copyrightLicense" type="xs:string"/>
+    <xs:element name="srsCode" type="xs:integer"/>
+  	<xs:element name="matches">
+  		<xs:complexType><xs:sequence>
+  			<xs:element name="FeatureCollection">
+  				<xs:complexType><xs:sequence>
+  					<xs:element name="featureMember">
+  						<xs:complexType><xs:sequence>
+  							<xs:element name="match">
+  								<xs:complexType><xs:sequence>
+  									<xs:element name="siteAddress">
+  										<xs:complexType><xs:sequence>
+      										<xs:element name="location" type="xs:string"/>
+      										<xs:element name="unitDesignator" type="xs:string"/>
+      										<xs:element name="unitNumber" type="xs:string"/>
+      										<xs:element name="unitNumberSuffix" type="xs:string"/>
+      										<xs:element name="civicNumber" type="xs:string"/>
+      										<xs:element name="civicNumberSuffix" type="xs:string"/>
+      										<xs:element name="streetName" type="xs:string"/>
+   									   		<xs:element name="streetType" type="xs:string"/>
+      										<xs:element name="streetDirection" type="xs:string"/>
+      										<xs:element name="localityName" type="xs:string"/>
+     										<xs:element name="localityType" type="xs:string"/>
+      										<xs:element name="provinceCode" type="xs:string"/>
+      										<xs:element name="fullAddress" type="xs:string"/>
+      										<xs:element name="fullSiteDescriptor" type="xs:string"/>
+      										<xs:element name="siteID" type="xs:integer"/>
+      										<xs:element name="siteName" type="xs:string"/>
+      										<xs:element name="narrativeLocation" type="xs:string"/>
+      										<xs:element name="accessNotes" type="xs:string"/>
+      										<xs:element name="isPrimary" type="xs:boolean"/>
+      										<xs:element name="locationDescriptor" type="xs:string"/>
+      										<xs:element name="locationPositionalAccuracy" type="xs:string"/>
+      										<xs:element name="siteStatus" type="xs:string"/>
+      										<xs:element name="siteRetireDate" type="xs:date"/>
+      										<xs:element name="changeDate" type="xs:date"/>
+      									</xs:sequence></xs:complexType>
+      								</xs:element>
+      								<xs:element name="intersectionAddress">
+  										<xs:complexType><xs:sequence>
+      										<xs:element name="localityName" type="xs:string"/>
+      										<xs:element name="localityType" type="xs:string"/>
+      										<xs:element name="provinceCode" type="xs:string"/>
+      										<xs:element name="fullAddress" type="xs:string"/>
+      										<xs:element name="location" type="xs:string"/>
+      										<xs:element name="fullSiteDescriptor" type="xs:string"/>
+      										<xs:element name="intersectionId" type="xs:integer"/>
+      										<xs:element name="intersectionName" type="xs:string"/>
+										</xs:sequence></xs:complexType>
+      								</xs:element>
+									<xs:element name="precision" type="xs:string"/>
+      								<xs:element name="precisionPoints" type="xs:string"/>
+      								<xs:element name="faults">
+  										<xs:complexType><xs:sequence>
+  											<xs:element name="matchFaults">
+  												<xs:complexType><xs:sequence>
+      												<xs:element name="element" type="xs:string"/>
+      												<xs:element name="fault" type="xs:string"/>
+      												<xs:element name="penalty" type="xs:integer"/>
+      											</xs:sequence></xs:complexType>
+											</xs:element>
+										</xs:sequence></xs:complexType>
+									</xs:element>
+									<xs:element name="score" type="xs:integer"/>
+  								</xs:sequence></xs:complexType>
+							</xs:element>
+						</xs:sequence></xs:complexType>
+      				</xs:element>
+  				</xs:sequence></xs:complexType>
+			</xs:element>
+		</xs:sequence></xs:complexType>
+	</xs:element>
+  </xs:sequence></xs:complexType>
+</xs:element>
+
+</xs:schema>

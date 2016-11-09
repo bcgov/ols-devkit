@@ -1,0 +1,124 @@
+/**
+ * Copyright 2008-2015, Province of British Columbia
+ * All rights reserved.
+ */
+h3{
+	text-align: center;
+}
+
+.centered{
+	width: 100%;
+	margin: auto;
+	text-align: center;
+}
+
+#srsSpan{
+	margin-right: 20px;
+	font-weight: bold;
+}
+#inputArea{
+	width: 90%;
+	height: 270px;
+	margin: 10px auto;
+	resize:none;
+}
+
+#moreInfo{
+    width: 800px;
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -100px;
+	margin-left: -400px;
+	background-color:#ffffff;
+	border: 1px solid;
+}
+
+#copyToClipboard{
+    width: 800px;
+	height: 400px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -200px;
+	margin-left: -400px;
+	background-color:#ffffff;
+	border: 1px solid;
+}
+
+#copyArea{
+	width:700px;
+	height: 250px;
+	resize:none;
+}
+
+#status{
+	font-weight: bold;
+	color: black; 
+}
+
+#resultsTable{
+	border-collapse: collapse;
+	margin: auto;
+}
+
+#resultsTable thead tr{
+	background-color:#99aaff;
+}
+
+#resultsTable > thead > tr > th, 
+#resultsTable > tbody > tr > td{
+	padding: 2px 5px;
+	text-align:center;
+	border: 1px solid white;
+}
+
+#resultsTable > thead > tr > th.fullAddress{
+	min-width: 200px;
+}
+
+#resultsTable > tbody > tr > td.buttonCell{
+	padding-top:0px;
+	border-top: none;
+}
+
+td.extraCol{
+}
+
+#resultsTable > tbody > tr:nth-child(4n+1):not(.failed),
+#resultsTable > tbody > tr:nth-child(4n+2):not(.failed){
+	background-color:#ccc; 
+}
+
+#resultsTable > tbody > tr:nth-child(4n+3):not(.failed), 
+#resultsTable > tbody > tr:nth-child(4n+4):not(.failed){ 
+	background-color:#ddd; 
+}
+
+#resultsTable > tbody > tr.failed {
+	background-color:#ffaaaa;
+}
+
+.addressString{
+	resize:none;
+}
+
+.small_link{
+	font-size: 0.6em;
+}
+
+.instruct_col1{
+	vertical-align:text-top;
+	width: 75px;
+	font-weight:bold;
+	text-align: center;
+}
+
+.logo{
+	border-style:none;
+}
+
+.red {
+	color: red;
+}
