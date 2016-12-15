@@ -30,12 +30,7 @@ import json
 import csv
 from requests.auth import HTTPDigestAuth
 
-# Uncomment the appropriate SERVICE_URL for the target environment
-# Delivery
-#SERVICE_URL = 'http://delivery.apps.gov.bc.ca/pub/cpf/ws/'
-# Test
-#SERVICE_URL = 'http://test.apps.gov.bc.ca/pub/cpf/ws/'
-# Production
+# target environment
 SERVICE_URL = 'http://apps.gov.bc.ca/pub/cpf/ws/'
 
 def log(msg):
@@ -45,24 +40,26 @@ def log(msg):
 if len(sys.argv) < 5 or len(sys.argv) > 6:
 	print 'Usage: <python> address_list_submitter.py <url |file> <localfile> <username> <password> [<e-mail>]'
 	sys.exit(0)
+
 # Alternatively you can hard-code the parameters below
 filename = sys.argv[1]
 localFile = sys.argv[2]
 username = sys.argv[3]
 password = sys.argv[4]
 email = None
+
 if len(sys.argv) == 6:
 	email = sys.argv[5]
 
 # Setup parameters for job submission
 headers = {'Accept': 'application/json'}
-fields = {'inputDataContentType': 'text/csv',
+fields = {'inputDataContentType': 'csv',
 	'resultSrid':'3005',
 	'notificationEmail':'blah',
 	'interpolation':'adaptive',
 	'locationDescriptor':'any',
-	'resultDataContentType':'text/csv', 
-	'media': 'application/json'}
+	'resultDataContentType':'csv', 
+	'media': 'json'}
 if email:
 	fields['notificationEmail'] = email
 
