@@ -275,7 +275,7 @@
           <body>
            <form action="http://apps.gov.bc.ca/pub/bcgnws/names/official/soundlike?" target="Soundlike Search" method="get" id="Soundlike Search">
       
-            <table border="0" cellspacing="0" cellpadding="0" name="Table 2" width ="300">
+            <table width="63%" border="0" cellpadding="4" cellspacing="0">
                <input type="hidden" name="startIndex" value="0" id="startIndex"></input>
                <input type="hidden" name="itemsPerPage" value="20" id="itemsPerPage"></input>
                <input type="hidden" name="maxResults" value="1000" id="maxResults"></input>
@@ -284,18 +284,33 @@
                <input type="hidden" name="outputSRS" value="4326" id="outputSRS"></input>
                <input type="hidden" name="asAttachment" value="0" id="asAttachment"></input>
                <input type="hidden" name="embed" value="0" id="embed"></input>
-               <input type="hidden" name="featureClass" value="*" id="featureClass"></input>
                <input type="hidden" name="featureCategory" value="*" id="featureCategory"></input>
                <input type="hidden" name="outputFormat" value="kml" id="outputFormat"></input>
                
                <tr>
                  <td>
-                  <input name="name" type="text" id="name" size="37" wrap="virtual"></textarea> 
+                  Name: <input name="name" type="text" id="name" size="37" wrap="virtual" required autofocus></textarea> 
                  </td>
                  <td>
                   <input type="submit" value="Search"></input>
                  </td>
-               </tr>      
+               </tr>
+               
+               <tr>
+                  <td colspan="3">
+                    Feature Class: <select name="featureClass">
+                                   <option value="*" selected>Any</option>
+                                   <option value="1">Populated places</option>
+                                   <option value="2">Administrative areas</option>
+                                   <option value="3">Water features</option>
+                                   <option value="4">Terrain features</option>
+                                   <option value="5">Features associated with vegetation</option>
+                                   <option value="6">Constructed features and cultural sites</option>
+                                   <option value="7">Unclassified</option>
+                                   </select>
+                  </td>
+               </tr>               
+                     
 
             </table>
 
@@ -304,7 +319,6 @@
           
      </html>]]></description>
 		</Folder>
-    
     
 		<Folder>
 			<name>Site Addresses</name>
@@ -1086,8 +1100,9 @@
 
 
 		<Folder>
-			<name>Geographical Names from the BC Geographical Names Web Service</name>
+			<name>Geographical Names</name>
 			<visibility>0</visibility>
+			<Snippet maxLines="1">from the BC Geographical Names Web Service</Snippet>
 			<open>1</open>
       <Style>
 				<ListStyle>
