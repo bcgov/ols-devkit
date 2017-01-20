@@ -55,8 +55,9 @@
 				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
 			</LookAt>
 		</Folder>
+
 		<Folder>
-			<name>Find an Occupant</name>
+			<name>Find an Address</name>
 			<visibility>0</visibility>
 			<Snippet maxLines="1">Uses the BC Physical Address Geocoder</Snippet>
 			<description><![CDATA[<html>
@@ -65,31 +66,26 @@
       
         <body>
               
-             <form action="http://apps.gov.bc.ca/pub/geocoder/occupants/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
+             <form action="http://apps.gov.bc.ca/pub/geocoder/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
         
                  <table width="63%" border="0" cellpadding="4" cellspacing="0">
                     <input type="hidden" name="outputSRS" id="outputSRS" value="4326"></input>
                     <tr>
                       <td align="left" colspan="3">
-                        Occupant name:
+                        Address:
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <input type="text" name="addressString" id="addressString" size="45" autofocus required pattern=".*--.*" title="name -- optionalAddress"> </input>
+                        <input type="text" name="addressString" id="addressString" size="45" autofocus required> </input>
                       </td>
                     </tr>
                     <tr>
                       <td colspan="3">
                         <b>Examples:</b><br>
-                           <i>Redfish Elementary --</i><br>
-                           <i>Redfish Elementary -- Balfour</i><br>
-                           <i>Redfish Elementary School -- 265 Bryan Rd, Balfour, BC</i><br>
-                      </td>
-                    </tr>
-                    <tr>
-                    <td colspan="3">
-                        Tags: <input type="text" name="tags" id="tags" value="schools"></input>
+                   <i>525 Superior Street, Victoria, BC</i><br>
+                           <i>301-780 Blanshard St, Victoria, BC</i><br>
+                           <i>Johnson St and Government St, Victoria, BC</i><br>
                       </td>
                     </tr>
                     <tr>
@@ -157,6 +153,681 @@
       </description>
       
 		</Folder>
+    
+    
+		<Folder>
+			<name>Find an Occupant</name>
+			<visibility>0</visibility>
+			<Snippet maxLines="1">Uses the BC Physical Address Geocoder</Snippet>
+			<description><![CDATA[<html>
+      
+        <head></head>
+      
+        <body>
+              
+             <form action="http://apps.gov.bc.ca/pub/geocoder/occupants/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
+        
+                 <table width="63%" border="0" cellpadding="4" cellspacing="0">
+                    <input type="hidden" name="outputSRS" id="outputSRS" value="4326"></input>
+                    <input type="hidden" name="matchPrecisionNot" id="matchPrecisionNot" value="SITE"></input>
+                    <tr>
+                      <td align="left" colspan="3">
+                        Occupant name:
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="text" name="addressString" id="addressString" size="45" autofocus required pattern=".*--.*" title="name -- optionalAddress"> </input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <b>Examples:</b><br>
+                           <i>Salmo Secondary --</i><br>
+                           <i>Salmo Secondary -- Salmo</i><br>
+                           <i>Salmo Secondary -- 715 Davies Ave, Salmo</i><br>
+                      </td>
+                    </tr>
+<!--
+                   <tr>
+                   <td colspan="3">
+                        Tags: <input type="text" name="tags" id="tags"></input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>                  
+                        <b>Preferences:</b>
+                      </td>
+                   </tr>
+-->
+                    <tr>
+                      <td colspan="3">
+                        Setback (in metres): <input type="text" name="setBack" id="setBack" value="0"></input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        Min Score (0-100): <input type="text" name="minScore" id="minScore" value="0"></input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        Max Results: <input type="text" name="maxResults" id="maxResults" value="1"></input>
+                      </td>
+                    </tr>
+
+            <tr>
+                      <td colspan="3">
+                    Point Type: <select name="locationDescriptor">
+                        <option value="any" selected>Any</option>
+                        <option value="accessPoint">Access</option>
+                        <option value="frontDoorPoint">Front Door</option>
+                        <option value="parcelPoint">Parcel</option>
+                        <option value="rooftopPoint">Rooftop</option>
+                        <option value="routingPoint">Routing</option>
+                    </select>
+                </td>
+            </tr>
+
+                    <tr>
+                      <td colspan="3">
+                        Interpolation: <input type="radio" name="interpolation" value="adaptive" checked="checked">Adaptive </input>
+                                             <input type="radio" name="interpolation" value="linear">Linear </input>
+                                             <input type="radio" name="interpolation" value="none">None </input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        Echo unmatched address details: <input type="radio" name="echo" value="true" checked="checked">Yes </input>
+                        <input type="radio" name="echo" value="false">No</input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="submit" value="Geocode"></input>
+                      </td>
+                    </tr>
+               </table>
+
+            </form>
+
+       </body>
+      
+      </html>
+      
+      ]]>
+      
+      </description>
+      
+		</Folder>
+    
+
+		<Folder>
+			<name>Find a Geographical Name in BC</name>
+			<visibility>0</visibility>
+        <Snippet maxLines="0"></Snippet>
+			<description><![CDATA[<html>
+        
+          <head>
+            <meta http-equiv="Content-Type" content="text/xml">
+          </head>
+            
+          <body>
+           <form action="http://apps.gov.bc.ca/pub/bcgnws/names/official/soundlike?" target="Soundlike Search" method="get" id="Soundlike Search">
+      
+            <table border="0" cellspacing="0" cellpadding="0" name="Table 2" width ="300">
+               <input type="hidden" name="startIndex" value="0" id="startIndex"></input>
+               <input type="hidden" name="itemsPerPage" value="20" id="itemsPerPage"></input>
+               <input type="hidden" name="maxResults" value="1000" id="maxResults"></input>
+               <input type="hidden" name="minScore" value="0.5" id="minScore"></input>
+               <input type="hidden" name="outputStyle" value="summary" id="outputFormat"></input>
+               <input type="hidden" name="outputSRS" value="4326" id="outputSRS"></input>
+               <input type="hidden" name="asAttachment" value="0" id="asAttachment"></input>
+               <input type="hidden" name="embed" value="0" id="embed"></input>
+               <input type="hidden" name="featureClass" value="*" id="featureClass"></input>
+               <input type="hidden" name="featureCategory" value="*" id="featureCategory"></input>
+               <input type="hidden" name="outputFormat" value="kml" id="outputFormat"></input>
+               
+               <tr>
+                 <td>
+                  <input name="name" type="text" id="name" size="37" wrap="virtual"></textarea> 
+                 </td>
+                 <td>
+                  <input type="submit" value="Search"></input>
+                 </td>
+               </tr>      
+
+            </table>
+
+           </form>   
+          </body>
+          
+     </html>]]></description>
+		</Folder>
+    
+    
+		<Folder>
+			<name>Site Addresses</name>
+			<open>0</open>
+			<Snippet maxLines="1">Uses the BC Physical Address Geocoder</Snippet>
+    <description>
+        <![CDATA[
+        Civic and non-civic addresses of 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#site">sites</a> in BC
+        <br><br>Every site has an 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access point</a>, 
+        and a 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#routingPoint">routing point</a> and may also have a         
+              
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#parcelPoint">parcel point</a>,
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#rooftopPoint"> roof top point</a>, or
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#frontDoorPoint"> front door point</a>
+      <br><br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height="36" width="36"> routing point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
+<i><b>low - </i></b>interpolated along a block face address range<br>
+<i><b>coarse - </i></b>point represents an entire street, locality, or the province<br>
+<br> credit for frontDoor,8 intersection and routing icons:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+       
+        ]]>
+    </description>
+			<Style>
+				<ListStyle>
+					<listItemType>radioFolder</listItemType>
+					<bgColor>00ffffff</bgColor>
+					<maxSnippetLines>2</maxSnippetLines>
+				</ListStyle>
+			</Style>
+			<NetworkLink>
+				<name>Parcel, rooftop, or front door points (excluding units)</name>
+				<open>0</open>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>Display 
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#parcelPoint">parcel points</a>,
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#RooftopPoint"> roof top points</a>, or
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#frontDoorPoint"> front door points</a> of site addresses if known, otherwise display 
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a>
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
+<i><b>low - </i></b>interpolated along a block face address range<br>
+<br> credit for frontDoor icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]&amp;excludeUnits=true</viewFormat>
+				</Link>
+			</NetworkLink>
+      <NetworkLink>
+				<name>Parcel, rooftop, or front door points</name>
+				<open>0</open>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>Display 
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#parcelPoint">parcel points</a>,
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#RooftopPoint"> roof top points</a>, or
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#frontDoorPoint"> front door points</a> of site addresses if known, otherwise display 
+      
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a>
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
+<i><b>low - </i></b>interpolated along a block face address range<br>
+<br> credit for frontDoor icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Access points (excluding units)</name>
+				<visibility>0</visibility>
+				<open>0</open>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a> of site addresses
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
+<i><b>low - </i></b>interpolated along a block face address range<br>
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=accessPoint&amp;excludeUnits=true&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Access points</name>
+				<visibility>0</visibility>
+				<open>0</open>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a> of site addresses
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
+<i><b>low - </i></b>interpolated along a block face address range<br>
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=accessPoint&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Routing points (excluding units)</name>
+				<visibility>0</visibility>
+				<open>0</open>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#routingPoint">routing points</a> of site addresses
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
+<i><b>low - </i></b>interpolated along a block face address range<br>
+<br> credit for routing icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=routingPoint&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]&amp;excludeUnits=true</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Routing Points</name>
+				<visibility>0</visibility>
+				<open>0</open>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#routingPoint">routing points</a> of site addresses
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
+<i><b>low - </i></b>interpolated along a block face address range<br>
+<br> credit for routing icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=routingPoint&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+		</Folder>
+		<Folder>
+			<name>Intersection Addresses</name>
+			<open>0</open>
+			<Snippet maxLines="1">Uses the BC Physical Address Geocoder</Snippet>
+    <description>
+        <![CDATA[
+        Addresses of 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> in BC (e.g., Douglas St and Yates St, Victoria, BC)
+        <br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+        <br> <i><b>Positional Accuracy Terms </i></b><br>
+        <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+        <br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+        ]]>
+    </description>
+			<Style>
+				<ListStyle>
+					<listItemType>radioFolder</listItemType>
+					<bgColor>00ffffff</bgColor>
+					<maxSnippetLines>2</maxSnippetLines>
+				</ListStyle>
+			</Style>
+			<NetworkLink>
+				<name>All except dead-ends</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to more than one road segment
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=2</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>2</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Dead-ends</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to one road segment
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=1&amp;maxDegree=1</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>2</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Two-way</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to two road segments
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=2&amp;maxDegree=2</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>2</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Three-way</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to three road segments
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=3&amp;maxDegree=3</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>2</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Four-way</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to four road segments
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=4&amp;maxDegree=4</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>2</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+			<NetworkLink>
+				<name>Five-way and higher</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>
+      Display 
+ 
+
+ <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to five or more road segments
+            
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+
+            
+<br> <i><b>Positional Accuracy Terms </i></b><br>
+<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
+<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
+     
+      ]]>
+      </description>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=5</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>2</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+		</Folder>
+    
 		<Folder>
 			<name>Site Occupants</name>
 			<visibility>0</visibility>
@@ -296,565 +967,198 @@
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
 				</Link>
 			</NetworkLink>
-		</Folder>
+      
+      
+			<NetworkLink>
+				<name>First Responders</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>]]></description>
+				<LookAt>
+					<longitude>-122.0706195541377</longitude>
+					<latitude>51.16412751329542</latitude>
+					<altitude>0</altitude>
+					<heading>-0.2358034280927319</heading>
+					<tilt>0</tilt>
+					<range>970545.6030209884</range>
+					<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+				</LookAt>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Protective%20Services&amp;maxResults=100&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+      
+			<NetworkLink>
+				<name>Ports, terminals, harbours, and shipyards</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>]]></description>
+				<LookAt>
+					<longitude>-122.0706195541377</longitude>
+					<latitude>51.16412751329542</latitude>
+					<altitude>0</altitude>
+					<heading>-0.2358034280927319</heading>
+					<tilt>0</tilt>
+					<range>970545.6030209884</range>
+					<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+				</LookAt>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Water%20Transportation&amp;maxResults=100&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>
+      
+			<NetworkLink>
+				<name>Airports, airstrips, heliports, and seaplane docks</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>]]></description>
+				<LookAt>
+					<longitude>-122.0706195541377</longitude>
+					<latitude>51.16412751329542</latitude>
+					<altitude>0</altitude>
+					<heading>-0.2358034280927319</heading>
+					<tilt>0</tilt>
+					<range>970545.6030209884</range>
+					<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+				</LookAt>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Air%20Transportation&amp;maxResults=100&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink> 
+      
+      
+			<NetworkLink>
+				<name>First Nations Business Listings</name>
+				<visibility>0</visibility>
+				<description><![CDATA[Visible below 500m eye altitude <br><br>]]></description>
+				<LookAt>
+					<longitude>-122.0706195541377</longitude>
+					<latitude>51.16412751329542</latitude>
+					<altitude>0</altitude>
+					<heading>-0.2358034280927319</heading>
+					<tilt>0</tilt>
+					<range>970545.6030209884</range>
+					<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+				</LookAt>
+				<Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				</Style>
+				<Link>
+					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Aboriginal%20Business%20Listings&amp;maxResults=100&amp;</href>
+					<viewRefreshMode>onStop</viewRefreshMode>
+					<viewRefreshTime>1</viewRefreshTime>
+					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
+				</Link>
+			</NetworkLink>           
+ 
+ 		</Folder>
+
+
 		<Folder>
-			<name>Find an Address</name>
+			<name>Geographical Names from the BC Geographical Names Web Service</name>
 			<visibility>0</visibility>
-			<Snippet maxLines="1">Uses the BC Physical Address Geocoder</Snippet>
-			<description><![CDATA[<html>
-      
-        <head></head>
-      
-        <body>
-              
-             <form action="http://apps.gov.bc.ca/pub/geocoder/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
-        
-                 <table width="63%" border="0" cellpadding="4" cellspacing="0">
-                    <input type="hidden" name="outputSRS" id="outputSRS" value="4326"></input>
-                    <tr>
-                      <td align="left" colspan="3">
-                        Address:
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="text" name="addressString" id="addressString" size="45" autofocus required> </input>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="3">
-                        <b>Examples:</b><br>
-                   <i>525 Superior Street, Victoria, BC</i><br>
-                           <i>301-780 Blanshard St, Victoria, BC</i><br>
-                           <i>Johnson St and Government St, Victoria, BC</i><br>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>                  
-                        <b>Preferences:</b>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="3">
-                        Setback (in metres): <input type="text" name="setBack" id="setBack" value="0"></input>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="3">
-                        Min Score (0-100): <input type="text" name="minScore" id="minScore" value="0"></input>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="3">
-                        Max Results: <input type="text" name="maxResults" id="maxResults" value="1"></input>
-                      </td>
-                    </tr>
-
-            <tr>
-                      <td colspan="3">
-                    Point Type: <select name="locationDescriptor">
-                        <option value="any" selected>Any</option>
-                        <option value="accessPoint">Access</option>
-                        <option value="frontDoorPoint">Front Door</option>
-                        <option value="parcelPoint">Parcel</option>
-                        <option value="rooftopPoint">Rooftop</option>
-                        <option value="routingPoint">Routing</option>
-                    </select>
-                </td>
-            </tr>
-
-                    <tr>
-                      <td colspan="3">
-                        Interpolation: <input type="radio" name="interpolation" value="adaptive" checked="checked">Adaptive </input>
-                                             <input type="radio" name="interpolation" value="linear">Linear </input>
-                                             <input type="radio" name="interpolation" value="none">None </input>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="3">
-                        Echo unmatched address details: <input type="radio" name="echo" value="true" checked="checked">Yes </input>
-                        <input type="radio" name="echo" value="false">No</input>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="submit" value="Geocode"></input>
-                      </td>
-                    </tr>
-               </table>
-
-            </form>
-
-       </body>
-      
-      </html>
-      
-      ]]>
-      
-      </description>
-      
-		</Folder>
-		<Folder>
-			<name>Site Addresses</name>
-			<open>0</open>
-			<Snippet maxLines="1">Uses the BC Physical Address Geocoder</Snippet>
-    <description>
-        <![CDATA[
-        Civic and non-civic addresses of 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#site">sites</a> in BC
-        <br><br>Every site has an 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#accessPoint">access point</a>, 
-        and a 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#Routingpoint">routing point</a> and may also have a         
-              
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#parcelPoint">parcel point</a>,
-      
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#RooftopPoint"> roof top point</a>, or
-      
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#frontDoorPoint"> front door point</a>
-      <br><br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height="36" width="36"> routing point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
-<i><b>low - </i></b>interpolated along a block face address range<br>
-<i><b>coarse - </i></b>point represents an entire street, locality, or the province<br>
-<br> credit for frontDoor,8 intersection and routing icons:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-       
-        ]]>
-    </description>
-			<Style>
+			<open>1</open>
+      <Style>
 				<ListStyle>
 					<listItemType>radioFolder</listItemType>
 					<bgColor>00ffffff</bgColor>
 					<maxSnippetLines>2</maxSnippetLines>
 				</ListStyle>
 			</Style>
-			<NetworkLink>
-				<name>Any Points</name>
-				<open>0</open>
-				<visibility>0</visibility>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>Display 
       
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#parcelPoint">parcel points</a>,
+  	  <NetworkLink>
+			   <name>Populated Place Names</name>
+			   <visibility>0</visibility>
+			   <description/>
+			   <LookAt>
+				    <longitude>-124.478119020778</longitude>
+		    		<latitude>52.82030658064183</latitude>
+		    		<altitude>0</altitude>
+		    		<heading>0.925602876244341</heading>
+			     	<tilt>0</tilt>
+			     	<range>1485899.677234376</range>
+				    <altitudeMode>relativeToGround</altitudeMode>
+			   </LookAt>
+         <Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				 </Style>
+		     <Link>
+				    <href>http://apps.gov.bc.ca/pub/bcgnws/names/official/inside?itemsPerPage=100&amp;sortBy=name&amp;featureClass=1&amp;</href>
+				    <viewRefreshMode>onStop</viewRefreshMode>
+				    <viewRefreshTime>1</viewRefreshTime>
+				    <viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;mapWidthPixels=[horizPixels]&amp;mapHeightPixels=[vertPixels]</viewFormat>
+				    <httpQuery>&amp;outputFormat=kml&amp;outputStyle=summary</httpQuery>
+			   </Link>
+		  </NetworkLink>
       
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#RooftopPoint"> roof top points</a>, or
+      <NetworkLink>
+			   <name>Geographical Names</name>
+			   <visibility>0</visibility>
+			   <description/>
+			   <LookAt>
+				    <longitude>-124.478119020778</longitude>
+		    		<latitude>52.82030658064183</latitude>
+		    		<altitude>0</altitude>
+		    		<heading>0.925602876244341</heading>
+			     	<tilt>0</tilt>
+			     	<range>1485899.677234376</range>
+				    <altitudeMode>relativeToGround</altitudeMode>
+			   </LookAt>
+         <Style>
+					<ListStyle>
+						<listItemType>check</listItemType>
+						<bgColor>00ffffff</bgColor>
+						<maxSnippetLines>1</maxSnippetLines>
+					</ListStyle>
+				 </Style>
+		     <Link>
+				    <href>http://apps.gov.bc.ca/pub/bcgnws/names/official/inside?itemsPerPage=100&amp;sortBy=name&amp;</href>
+				    <viewRefreshMode>onStop</viewRefreshMode>
+				    <viewRefreshTime>1</viewRefreshTime>
+				    <viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;mapWidthPixels=[horizPixels]&amp;mapHeightPixels=[vertPixels]</viewFormat>
+				    <httpQuery>&amp;outputFormat=kml&amp;outputStyle=summary</httpQuery>
+			   </Link>
+		  </NetworkLink>
       
- 
+    </Folder>
 
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#frontDoorPoint"> front door points</a> of site addresses if known, otherwise display 
-      
- 
 
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#accessPoint">access points</a>
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
-<i><b>low - </i></b>interpolated along a block face address range<br>
-<br> credit for frontDoor icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>1</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-			<NetworkLink>
-				<name>Access Points</name>
-				<visibility>0</visibility>
-				<open>0</open>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#accessPoint">access points</a> of site addresses
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
-<i><b>low - </i></b>interpolated along a block face address range<br>
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=accessPoint&amp;</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>1</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-			<NetworkLink>
-				<name>Routing Points</name>
-				<visibility>0</visibility>
-				<open>0</open>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#Routingpoint">routing points</a> of site addresses
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
-<i><b>low - </i></b>interpolated along a block face address range<br>
-<br> credit for routing icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=routingPoint&amp;</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>1</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-		</Folder>
-		<Folder>
-			<name>Intersection Addresses</name>
-			<open>0</open>
-			<Snippet maxLines="1">Uses the BC Physical Address Geocoder</Snippet>
-    <description>
-        <![CDATA[
-        Addresses of 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#intersection">intersections</a> in BC (e.g., Douglas St and Yates St, Victoria, BC)
-        <br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
-        <br> <i><b>Positional Accuracy Terms </i></b><br>
-        <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-        <br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-        ]]>
-    </description>
-			<Style>
-				<ListStyle>
-					<listItemType>radioFolder</listItemType>
-					<bgColor>00ffffff</bgColor>
-					<maxSnippetLines>2</maxSnippetLines>
-				</ListStyle>
-			</Style>
-			<NetworkLink>
-				<name>All except dead-ends</name>
-				<visibility>0</visibility>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#intersection">intersections</a> connected to more than one road segment
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
-
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=2</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>2</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-			<NetworkLink>
-				<name>Dead-ends</name>
-				<visibility>0</visibility>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#intersection">intersections</a> connected to one road segment
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
-
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=1&amp;maxDegree=1</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>2</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-			<NetworkLink>
-				<name>Two-way</name>
-				<visibility>0</visibility>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#intersection">intersections</a> connected to two road segments
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
-
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=2&amp;maxDegree=2</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>2</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-			<NetworkLink>
-				<name>Three-way</name>
-				<visibility>0</visibility>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#intersection">intersections</a> connected to three road segments
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
-
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=3&amp;maxDegree=3</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>2</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-			<NetworkLink>
-				<name>Four-way</name>
-				<visibility>0</visibility>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#intersection">intersections</a> connected to four road segments
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
-
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=4&amp;maxDegree=4</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>2</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-			<NetworkLink>
-				<name>Five-way and higher</name>
-				<visibility>0</visibility>
-				<description><![CDATA[Visible below 500m eye altitude <br><br>
-      Display 
- 
-
- <A HREF="http://www.data.gov.bc.ca/dbc/geographic/locate/physical_address_geo/glossary_of_terms.page?WT.svl=LeftNav#intersection">intersections</a> connected to five or more road segments
-            
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
-
-            
-<br> <i><b>Positional Accuracy Terms </i></b><br>
-<i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
-<br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
-     
-      ]]>
-      </description>
-				<Style>
-					<ListStyle>
-						<listItemType>check</listItemType>
-						<bgColor>00ffffff</bgColor>
-						<maxSnippetLines>1</maxSnippetLines>
-					</ListStyle>
-				</Style>
-				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=5</href>
-					<viewRefreshMode>onStop</viewRefreshMode>
-					<viewRefreshTime>2</viewRefreshTime>
-					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
-				</Link>
-			</NetworkLink>
-		</Folder>
-		<Folder>
-			<name>Find a Geographical Name in BC</name>
-			<visibility>0</visibility>
-        <Snippet maxLines="0"></Snippet>
-			<description><![CDATA[<html>
-        
-          <head>
-            <meta http-equiv="Content-Type" content="text/xml">
-          </head>
-            
-          <body>
-           <form action="http://apps.gov.bc.ca/pub/bcgnws/names/official/soundlike?" target="Soundlike Search" method="get" id="Soundlike Search">
-      
-            <table border="0" cellspacing="0" cellpadding="0" name="Table 2" width ="300">
-               <input type="hidden" name="startIndex" value="0" id="startIndex"></input>
-               <input type="hidden" name="itemsPerPage" value="20" id="itemsPerPage"></input>
-               <input type="hidden" name="maxResults" value="1000" id="maxResults"></input>
-               <input type="hidden" name="minScore" value="0.5" id="minScore"></input>
-               <input type="hidden" name="outputStyle" value="summary" id="outputFormat"></input>
-               <input type="hidden" name="outputSRS" value="4326" id="outputSRS"></input>
-               <input type="hidden" name="asAttachment" value="0" id="asAttachment"></input>
-               <input type="hidden" name="embed" value="0" id="embed"></input>
-               <input type="hidden" name="featureClass" value="*" id="featureClass"></input>
-               <input type="hidden" name="featureCategory" value="*" id="featureCategory"></input>
-               <input type="hidden" name="outputFormat" value="kml" id="outputFormat"></input>
-               
-               <tr>
-                 <td>
-                  <input name="name" type="text" id="name" size="37" wrap="virtual"></textarea> 
-                 </td>
-                 <td>
-                  <input type="submit" value="Search"></input>
-                 </td>
-               </tr>      
-
-            </table>
-
-           </form>   
-          </body>
-          
-     </html>]]></description>
-		</Folder>
-		<NetworkLink>
-			<name>Geographical Names from BCGNIS</name>
-			<visibility>0</visibility>
-			<description>Official geographical names from the BC Geographical Names Information System</description>
-			<LookAt>
-				<longitude>-124.478119020778</longitude>
-				<latitude>52.82030658064183</latitude>
-				<altitude>0</altitude>
-				<heading>0.925602876244341</heading>
-				<tilt>0</tilt>
-				<range>1485899.677234376</range>
-				<altitudeMode>relativeToGround</altitudeMode>
-			</LookAt>
-			<Link>
-				<href>http://apps.gov.bc.ca/pub/bcgnws/names/official/inside?itemsPerPage=50&amp;sortBy=name&amp;</href>
-				<viewRefreshMode>onStop</viewRefreshMode>
-				<viewRefreshTime>1</viewRefreshTime>
-				<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;mapWidthPixels=[horizPixels]&amp;mapHeightPixels=[vertPixels]</viewFormat>
-				<httpQuery>&amp;outputFormat=kml&amp;outputStyle=summary</httpQuery>
-			</Link>
-		</NetworkLink>
+    
 		<Folder>
 			<name>Property Lines</name>
 			<visibility>1</visibility>
@@ -985,26 +1289,9 @@
 				</Link>
 			</NetworkLink>
 		</Folder>
-		<NetworkLink>
-			<name>BCGov QuickBase</name>
-			<open>1</open>
-			<LookAt>
-				<longitude>-125.790485103603</longitude>
-				<latitude>54.53529082074053</latitude>
-				<altitude>0</altitude>
-				<heading>-0.5347266315948855</heading>
-				<tilt>0</tilt>
-				<range>1826047.023906531</range>
-				<altitudeMode>relativeToGround</altitudeMode>
-				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
-			</LookAt>
-			<refreshVisibility>1</refreshVisibility>
-			<Link>
-				<href>http://openmaps.gov.bc.ca/kml/BCGov_Quickbase.kml</href>
-			</Link>
-		</NetworkLink>
+
 		<GroundOverlay>
-			<name>Integrated Transportation Network</name>
+			<name>Digital Road Atlas</name>
     <snippet></snippet>
 			<description><![CDATA[<img src='http://openmaps.gov.bc.ca/mapserver/base3?service=wms&version=1.1.1&service=WMS&request=GetLegendGraphic&layer=DRA_DIGITAL_ROAD_ATLAS&format=image/png&STYLE=default'>]]></description>
 			<drawOrder>6</drawOrder>
@@ -1020,6 +1307,25 @@
 				<west>-122.5032411783113</west>
 			</LatLonBox>
 		</GroundOverlay>
+
+		<NetworkLink>
+			<name>BCGov QuickBase</name>
+			<open>0</open>
+			<LookAt>
+				<longitude>-125.790485103603</longitude>
+				<latitude>54.53529082074053</latitude>
+				<altitude>0</altitude>
+				<heading>-0.5347266315948855</heading>
+				<tilt>0</tilt>
+				<range>1826047.023906531</range>
+				<altitudeMode>relativeToGround</altitudeMode>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<refreshVisibility>1</refreshVisibility>
+			<Link>
+				<href>http://openmaps.gov.bc.ca/kml/BCGov_Quickbase.kml</href>
+			</Link>
+		</NetworkLink>
 		<ScreenOverlay>
 			<name>DataBC Logo</name>
 			<visibility>1</visibility>
