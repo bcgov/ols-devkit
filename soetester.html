@@ -62,11 +62,12 @@
   </head>
   <body>
       <div id='root'>
+	      <div id="main" class="body">
   <h1>SOE Testing Page</h1>
 This is a basic debugging page for testing different Overlay Report Request scenarios.
 <br><br>
 Before submitting your test please ensure that the URL to the SOE is correct for the <br>
-version that you wish to test. The default value is set for the MSRM develpment version.
+version that you wish to test. The default value is set for the develpment version.
 <br><br>
   <form method="post" action="" name="reportTest" target="_new">
     <input name="reportRequest" type="hidden" value="">
@@ -74,11 +75,6 @@ version that you wish to test. The default value is set for the MSRM develpment 
     <br>
     <u><h3>Request Server Settings</h3></u>
 
-    <!--<b>SOE Report Title: </b>
-    <br>
-    <input type="text" name="soeReportTitle" value="SOE Test Report" style="width:300px">
-    <br>
-    <br>-->
     <b>SOE Report Name: </b>
 	<br>
     <input type="text" name="soeReportName" value="SOE Test Report" style="width:300px">
@@ -200,5 +196,6 @@ version that you wish to test. The default value is set for the MSRM develpment 
     <input type="submit" Value="Submit Text Area" class="ButtonSmall" onclick="useTextArea();" style="width:150px">
   </form>
       </div>
+ </div>
   </body>
 </html>
