@@ -1,4 +1,3 @@
-
 <html>
   <head>
     <!-- stylesheet -->
@@ -132,6 +131,114 @@ version that you wish to test. The default value is set for the develpment versi
     <b>Return Type:</b> <br>
     <input type="text" name="returnType" value="html" style="width:150px">
     <select name="returnTypeSelect" size="1" style="width:100px" onChange="swap(document.all.returnType, this.value)">
+<h1>SOE Testing Page</h1>
+This is a basic debugging page for testing different Overlay Report Request scenarios.
+<br><br>
+Before submitting your test please ensure that the URL to the SOE is correct for the <br>
+version that you wish to test. The default value is set for the DataBC development version.
+<br><br>
+  <form method="post" action="" name="reportTest" target="_new">
+    <input name="reportRequest" type="hidden" value="">
+    <input name="layerList" type="hidden" value="">
+    <br>
+    <u><h3>Request Server Settings</h3></u>
+
+    <!--<b>SOE Report Title: </b>
+    <br>
+    <input type="text" name="soeReportTitle" value="SOE Test Report" style="width:300px">
+    <br>
+    <br>-->
+    <b>SOE Report Name: </b>
+	<br>
+    <input type="text" name="soeReportName" value="SOE Test Report" style="width:300px">
+    <br>
+    <br>
+    <b>SOE Report Conflict Title: </b>
+	<br>
+	<input type="text" name="soeConflictTitle" value="Conflict:" style="width:300px">
+	<br>
+    <br>
+
+    <b>Spatial Overlay Engine URL: </b>
+    <br>
+    <input type="text" name="soeUrl" value="http://delivery.apps.gov.bc.ca/pub/soe/" style="width:300px">
+    <select name="soeUrlSelect" size="1" style="width:200px" onChange="swap(document.all.soeUrl, this.value)">
+      <!-- <option value='http://smolder.geobc.gov.bc.ca/pub/soe/'>Delivery (smolder) -->
+      <!-- <option value='http://singe.geobc.gov.bc.ca/pub/soe/'>Test (singe) -->
+      <!-- <option value='http://maps.gov.bc.ca/apps/soe/'>maps.gov.bc.ca -->
+      <!-- <option value='http://srmapps.gov.bc.ca/apps/soe/'>srmapps.gov.bc.ca -->
+      <!-- <option value='http://vivid-w12vm001:8080/MSRMSOE/'>vivid-w12vm001:8080 -->
+      <!-- <option value='http://oas.vividsolutions.com/pub/soe/'>Vivid Solutions - Dev -->
+      <!-- <option value='http://oas.vividsolutions.com/pub/soe-test/'>Vivid Solutions - Test -->
+      <option value='http://delivery.apps.gov.bc.ca/pub/soe/'>iMapBC - Delivery
+      <option value='http://test.apps.gov.bc.ca/pub/soe/'>iMapBC - Test
+      <option value='http://apps.gov.bc.ca/pub/soe/'>iMapBC - Production
+    </select>
+    <br>
+    <br>
+
+    <b>XML Layer List Source Server:</b>
+    <br>
+    <input type="text" name="xmlUrl" value="http://delivery.maps.gov.bc.ca/soe/" style="width:300px">
+    <select name="xmlUrlSelect" size="1" style="width:200px" onChange="swap(document.all.xmlUrl, this.value)">
+      <!-- <option value='http://smolder.geobc.gov.bc.ca/pub/soe/xml/'>Delivery (smolder) -->
+      <!-- <option value='http://singe.geobc.gov.bc.ca/pub/xml/'>Test (singe) -->
+      <!-- <option value='http://maps.gov.bc.ca/apps/soe/xml/'>maps.gov.bc.ca -->
+      <!-- <option value='http://srmapps.gov.bc.ca/apps/soe/xml/'>srmapps.gov.bc.ca -->
+      <!-- <option value='http://vivid-w12vm001:8080/MSRMSOE/xml/'>vivid-w12vm001:8080 -->
+      <!-- <option value='http://oas.vividsolutions.com/pub/soe/xml/'>Vivid Solutions - Dev -->
+      <!-- <option value='http://oas.vividsolutions.com/pub/soe-test/xml/'>Vivid Solutions - Test -->
+      <option value='http://delivery.maps.gov.bc.ca/soe/'>iMapBC - Delivery
+      <option value='http://test.maps.gov.bc.ca/soe/'>iMapBC - Test
+      <option value='http://maps.gov.bc.ca/soe/'>iMapBC - Production
+      <option value='http://nekkar.dmz/soe/'>iMapBC development SOE (my S: drive unc)
+      <option value='http://apps.gov.bc.ca/apps/ilrr/html/'> ilrr
+	  <option value='http://test.maps.gov.bc.ca/Ess/rest/sites/imapbc/viewers/imapbc/VirtualDirectory/Resources/workflow/'> Essentials
+      <option value='http://delivery.openmaps.gov.bc.ca/soe/'> development SOE
+    </select>
+    <br>
+    <br>
+
+    <b>Layer Configuration File:</b> <br>
+    <input type="text" name="xmlFile" value="cad.xml" style="width:300px">
+    <select name="xmlFileSelect" size="1" style="width:200px" onChange="swap(document.all.xmlFile, this.value)">
+      <!-- <option value='fta_lrdw_report_layers.xml'>FTA LRDW Report Layers -->
+      <!-- <option value='fta_osdb_report_layers.xml'>FTA OSDB Report Layer -->
+      <!-- <option value='mof-soe-layers.xml'>MOF SOE Report Layers -->
+      <!-- <option value='fta_lrdw_report_layers_short.xml'>FTA LRDW Report Layers SHORT -->
+      <!-- <option value='fta_lrdw_report_layers_test.xml'>FTA LRDW Report Layers TEST -->
+      <!-- <option value='fta_osdb_report_layers_test.xml'>FTA OSDB Report Layer TEST -->
+      <!-- <option value='tus_soe.xml'>TUS Report Layer TEST -->
+      <!-- <option value='master.xml'>iMapBC Master -->
+      <option value='cad.xml'>CAD
+      <option value='crown_license.xml'>crown_license
+      <option value='ogc_app_processing.xml'>ogc_app_processing
+      <option value='ogc_app_review.xml'>ogc_app_review
+      <option value='ogc_c_and_n_review.xml'>ogc_c_and_n_review
+      <option value='ogc_fn_review.xml'>ogc_fn_review
+      <option value='ogc_land_mngmt_review.xml'>ogc_nat_resource_review
+      <option value='first_nations_soe_report_priv.xml'>first nations private
+      <!-- <option value='ilrrSOELayers.xml'>ILRR -->
+      <option value='FCBC_ConflictContraintRpt_SOE.xml'>ILRR - FCBC
+      <option value='tml.xml'>TML test
+      <option value='First_Nations_SOE_Report_priv.xml'>First_Nations_SOE_Report_priv
+    </select>
+    <br>
+    <br>
+
+    <b>Source Database: </b><br>
+    <input type="text" name="sourceDatabase" value="warehouse" style="width:150px">
+    <select name="sourceDatabaseSelect" size="1" style="width:100px" onChange="swap(document.all.sourceDatabase, this.value)">
+      <option value='warehouse'>warehouse
+      <option value='dbc'>dbc
+      <option value='imapbc'>iMapBC
+    </select>
+    <br>
+    <br>
+
+    <b>Return Type:</b> <br>
+    <input type="text" name="returnType" value="html" style="width:150px">
+    <select name="returnTypeSelect" size="1" style="width:100px" onChange="swap(document.all.returnType, this.value)">
       <option value='html'>HTML
       <option value='xml'>XML
       <option value='shape'>Shape
@@ -181,6 +288,13 @@ version that you wish to test. The default value is set for the develpment versi
       <option value='%3Coverlay-shape+shape-name%3D%22Points+Test+Shape%22+adjacency-buffer%3D%225%22+%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3CPoint%3E%3Ccoordinates%3E1195523.78545869%2C382130.432621668%3C%2Fcoordinates%3E%3C%2FPoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3CPoint%3E%3Ccoordinates%3E1195156.78946687%2C382069.533723461%3C%2Fcoordinates%3E%3C%2FPoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3CPoint%3E%3Ccoordinates%3E1195171.21289012%2C381902.863054685%3C%2Fcoordinates%3E%3C%2FPoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+'>Bad XML
       <option value="%3Coverlay-shape+shape-name%3D%22TUS+Shape1%22+adjacency-buffer%3D%225%22+%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1195523.78545869%2C382130.432621668%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1195156.78946687%2C382069.533723461%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1065533%2C428084%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+">TUS Test Point 1
 	  <option value="%3Coverlay-shape+shape-name%3D%22TUS+Shape2%22+adjacency-buffer%3D%225%22+%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1195523.78545869%2C382130.432621668%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1195156.78946687%2C382069.533723461%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E521457%2C5987243%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+">TUS Test Point 2
+      <option value='%3Coverlay-shape%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1306347.000%2C490714.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1306347.00%2C490714.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1195171.21289012%2C381902.863054685%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+'>Harrison Lake (island)
+      <option value='%3Coverlay-shape%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E827092.000%2C1008529.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E827092.000%2C1008529.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E827092.000%2C1008529.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+'>Kitimat
+      <option value='%3Coverlay-shape%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1265950.000%2C1318070.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1265950.000%2C1318070.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1265950.000%2C1318070.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+'>OGC epass 64932
+      <option value='%3Coverlay-shape+adjacency-buffer%3D%2250%22+%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1265950.000%2C1318070.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1265950.000%2C1318070.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1265950.000%2C1318070.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+'>OGC epass 64932 buffered
+      <option value='%3Coverlay-shape%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1230579.000%2C467253.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1230579.00%2C467253.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1230579.000%2C467253.000%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+'>heath example
+      <option value='%3Coverlay-shape%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1444072.000%2C665686.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1444072.00%2C665686.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1444072.000%2C665686.000%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+'>heath duplicates example
+      <option value='%3Coverlay-shape%3E+%3CFEATURECOLLECTION%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1126305.000%2C432407.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1126305.00%2C432407.00%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3CFEATURE%3E%3CGEOMETRY%3E%3Cpoint%3E%3Ccoordinates%3E1126305.000%2C432407.000%3C%2Fcoordinates%3E%3C%2Fpoint%3E%3C%2FGEOMETRY%3E%3C%2FFEATURE%3E+%3C%2FFEATURECOLLECTION%3E+%3C%2Foverlay-shape%3E+'>ILRR example
     </select>
     <br>
     <br>
