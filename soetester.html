@@ -6,7 +6,7 @@
     <script type='text/javascript'>
         unippear({
         'headerContainer': '#root',
-        'footerContainer': '#root'
+        'footerContainer': '#rootf'
         });
     </script>
   <script LANGUAGE="JavaScript">
@@ -60,82 +60,13 @@
   </script>
   </head>
   <body>
-      <div id='root'>
+      <div id='root'></div>
 	      <div id="main" class="body">
   <h1>SOE Testing Page</h1>
 This is a basic debugging page for testing different Overlay Report Request scenarios.
 <br><br>
 Before submitting your test please ensure that the URL to the SOE is correct for the <br>
 version that you wish to test. The default value is set for the develpment version.
-<br><br>
-  <form method="post" action="" name="reportTest" target="_new">
-    <input name="reportRequest" type="hidden" value="">
-    <input name="layerList" type="hidden" value="">
-    <br>
-    <u><h3>Request Server Settings</h3></u>
-
-    <b>SOE Report Name: </b>
-	<br>
-    <input type="text" name="soeReportName" value="SOE Test Report" style="width:300px">
-    <br>
-    <br>
-    <b>SOE Report Conflict Title: </b>
-	<br>
-	<input type="text" name="soeConflictTitle" value="Conflict:" style="width:300px">
-	<br>
-    <br>
-
-    <b>Spatial Overlay Engine URL: </b>
-    <br>
-    <input type="text" name="soeUrl" value="http://delivery.apps.gov.bc.ca/pub/soe/" style="width:300px">
-    <select name="soeUrlSelect" size="1" style="width:200px" onChange="swap(document.all.soeUrl, this.value)">
-      <option value='http://delivery.apps.gov.bc.ca/pub/soe/'>Delivery (delivery)
-      <option value='http://test.apps.gov.bc.ca/pub/soe/'>Test (test)
-	  <option value='http://apps.gov.bc.ca/pub/soe/'>Production (prod)
-      <option value='http://maps.gov.bc.ca/apps/soe/'>maps.gov.bc.ca
-    </select>
-    <br>
-    <br>
-
-    <b>XML Layer List Source Server:</b>
-    <br>
-    <input type="text" name="xmlUrl" value="http://delivery.apps.gov.bc.ca/pub/soe/xml/" style="width:300px">
-    <select name="xmlUrlSelect" size="1" style="width:200px" onChange="swap(document.all.xmlUrl, this.value)">
-      <option value='http://delivery.apps.gov.bc.ca/pub/soe/xml/'>Delivery (delivery)
-      <option value='http://test.apps.gov.bc.ca/pub/xml/'>Test (test)
-	  <option value='http://apps.gov.bc.ca/pub/xml/'>Production (prod)
-      <option value='http://maps.gov.bc.ca/apps/soe/xml/'>maps.gov.bc.ca
-    </select>
-    <br>
-    <br>
-
-    <b>Layer Configuration File:</b> <br>
-    <input type="text" name="xmlFile" value="lrdw_report_layers.xml" style="width:300px">
-    <select name="xmlFileSelect" size="1" style="width:200px" onChange="swap(document.all.xmlFile, this.value)">
-      <option value='lrdw_report_layers.xml'>BCGW Report Layers
-      <option value='master.xml'>iMapBC Master
-    </select>
-    <br>
-    <br>
-
-    <b>Source Database: </b><br>
-    <input type="text" name="sourceDatabase" value="warehouse" style="width:150px">
-    <select name="sourceDatabaseSelect" size="1" style="width:100px" onChange="swap(document.all.sourceDatabase, this.value)">
-      <option value='warehouse'>warehouse
-      <option value='oracle'>oracle
-      <option value='operational'>operational
-    </select>
-    <br>
-    <br>
-
-    <b>Return Type:</b> <br>
-    <input type="text" name="returnType" value="html" style="width:150px">
-    <select name="returnTypeSelect" size="1" style="width:100px" onChange="swap(document.all.returnType, this.value)">
-<h1>SOE Testing Page</h1>
-This is a basic debugging page for testing different Overlay Report Request scenarios.
-<br><br>
-Before submitting your test please ensure that the URL to the SOE is correct for the <br>
-version that you wish to test. The default value is set for the DataBC development version.
 <br><br>
   <form method="post" action="" name="reportTest" target="_new">
     <input name="reportRequest" type="hidden" value="">
@@ -310,6 +241,6 @@ version that you wish to test. The default value is set for the DataBC developme
     <input type="submit" Value="Submit Text Area" class="ButtonSmall" onclick="useTextArea();" style="width:150px">
   </form>
       </div>
- </div>
+       <div id='rootf'></div>
   </body>
 </html>
