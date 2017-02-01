@@ -72,11 +72,6 @@ version that you wish to test. The default value is set for the develpment versi
     <br>
     <u><h3>Request Server Settings</h3></u>
 
-    <!--<b>SOE Report Title: </b>
-    <br>
-    <input type="text" name="soeReportTitle" value="SOE Test Report" style="width:300px">
-    <br>
-    <br>-->
     <b>SOE Report Name: </b>
 	<br>
     <input type="text" name="soeReportName" value="SOE Test Report" style="width:300px">
@@ -92,16 +87,9 @@ version that you wish to test. The default value is set for the develpment versi
     <br>
     <input type="text" name="soeUrl" value="http://delivery.apps.gov.bc.ca/pub/soe/" style="width:300px">
     <select name="soeUrlSelect" size="1" style="width:200px" onChange="swap(document.all.soeUrl, this.value)">
-      <!-- <option value='http://smolder.geobc.gov.bc.ca/pub/soe/'>Delivery (smolder) -->
-      <!-- <option value='http://singe.geobc.gov.bc.ca/pub/soe/'>Test (singe) -->
-      <!-- <option value='http://maps.gov.bc.ca/apps/soe/'>maps.gov.bc.ca -->
-      <!-- <option value='http://srmapps.gov.bc.ca/apps/soe/'>srmapps.gov.bc.ca -->
-      <!-- <option value='http://vivid-w12vm001:8080/MSRMSOE/'>vivid-w12vm001:8080 -->
-      <!-- <option value='http://oas.vividsolutions.com/pub/soe/'>Vivid Solutions - Dev -->
-      <!-- <option value='http://oas.vividsolutions.com/pub/soe-test/'>Vivid Solutions - Test -->
-      <option value='http://delivery.apps.gov.bc.ca/pub/soe/'>iMapBC - Delivery
-      <option value='http://test.apps.gov.bc.ca/pub/soe/'>iMapBC - Test
-      <option value='http://apps.gov.bc.ca/pub/soe/'>iMapBC - Production
+      <option value='https://delivery.apps.gov.bc.ca/pub/soe/'>iMapBC - Delivery
+      <option value='https://test.apps.gov.bc.ca/pub/soe/'>iMapBC - Test
+      <option value='https://apps.gov.bc.ca/pub/soe/'>iMapBC - Production
     </select>
     <br>
     <br>
@@ -110,19 +98,12 @@ version that you wish to test. The default value is set for the develpment versi
     <br>
     <input type="text" name="xmlUrl" value="http://delivery.maps.gov.bc.ca/soe/" style="width:300px">
     <select name="xmlUrlSelect" size="1" style="width:200px" onChange="swap(document.all.xmlUrl, this.value)">
-      <!-- <option value='http://smolder.geobc.gov.bc.ca/pub/soe/xml/'>Delivery (smolder) -->
-      <!-- <option value='http://singe.geobc.gov.bc.ca/pub/xml/'>Test (singe) -->
-      <!-- <option value='http://maps.gov.bc.ca/apps/soe/xml/'>maps.gov.bc.ca -->
-      <!-- <option value='http://srmapps.gov.bc.ca/apps/soe/xml/'>srmapps.gov.bc.ca -->
-      <!-- <option value='http://vivid-w12vm001:8080/MSRMSOE/xml/'>vivid-w12vm001:8080 -->
-      <!-- <option value='http://oas.vividsolutions.com/pub/soe/xml/'>Vivid Solutions - Dev -->
-      <!-- <option value='http://oas.vividsolutions.com/pub/soe-test/xml/'>Vivid Solutions - Test -->
       <option value='http://delivery.maps.gov.bc.ca/soe/'>iMapBC - Delivery
       <option value='http://test.maps.gov.bc.ca/soe/'>iMapBC - Test
       <option value='http://maps.gov.bc.ca/soe/'>iMapBC - Production
       <option value='http://nekkar.dmz/soe/'>iMapBC development SOE (my S: drive unc)
       <option value='http://apps.gov.bc.ca/apps/ilrr/html/'> ilrr
-	  <option value='http://test.maps.gov.bc.ca/Ess/rest/sites/imapbc/viewers/imapbc/VirtualDirectory/Resources/workflow/'> Essentials
+      <option value='http://test.maps.gov.bc.ca/Ess/rest/sites/imapbc/viewers/imapbc/VirtualDirectory/Resources/workflow/'> Essentials
       <option value='http://delivery.openmaps.gov.bc.ca/soe/'> development SOE
     </select>
     <br>
@@ -131,14 +112,6 @@ version that you wish to test. The default value is set for the develpment versi
     <b>Layer Configuration File:</b> <br>
     <input type="text" name="xmlFile" value="cad.xml" style="width:300px">
     <select name="xmlFileSelect" size="1" style="width:200px" onChange="swap(document.all.xmlFile, this.value)">
-      <!-- <option value='fta_lrdw_report_layers.xml'>FTA LRDW Report Layers -->
-      <!-- <option value='fta_osdb_report_layers.xml'>FTA OSDB Report Layer -->
-      <!-- <option value='mof-soe-layers.xml'>MOF SOE Report Layers -->
-      <!-- <option value='fta_lrdw_report_layers_short.xml'>FTA LRDW Report Layers SHORT -->
-      <!-- <option value='fta_lrdw_report_layers_test.xml'>FTA LRDW Report Layers TEST -->
-      <!-- <option value='fta_osdb_report_layers_test.xml'>FTA OSDB Report Layer TEST -->
-      <!-- <option value='tus_soe.xml'>TUS Report Layer TEST -->
-      <!-- <option value='master.xml'>iMapBC Master -->
       <option value='cad.xml'>CAD
       <option value='crown_license.xml'>crown_license
       <option value='ogc_app_processing.xml'>ogc_app_processing
@@ -147,7 +120,6 @@ version that you wish to test. The default value is set for the develpment versi
       <option value='ogc_fn_review.xml'>ogc_fn_review
       <option value='ogc_land_mngmt_review.xml'>ogc_nat_resource_review
       <option value='first_nations_soe_report_priv.xml'>first nations private
-      <!-- <option value='ilrrSOELayers.xml'>ILRR -->
       <option value='FCBC_ConflictContraintRpt_SOE.xml'>ILRR - FCBC
       <option value='tml.xml'>TML test
       <option value='First_Nations_SOE_Report_priv.xml'>First_Nations_SOE_Report_priv
