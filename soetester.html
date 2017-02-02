@@ -59,14 +59,14 @@
   </head>
   <body>
       <div id='root'></div>
-	      <div id="main" class="body">
+	      <div id="main" class="body wrapper constrained content container">
   <h1>SOE Testing Page</h1>
-This is a basic debugging page for testing different Overlay Report Request scenarios.
-<br><br>
-Before submitting your test please ensure that the URL to the SOE is correct for the <br>
+<p>This is a basic debugging page for testing different Overlay Report Request scenarios.
+</p>
+<p>Before submitting your test please ensure that the URL to the SOE is correct for the <br>
 version that you wish to test. The default value is set for the develpment version.
-<br><br>
-  <form method="post" action="" name="reportTest" target="_new">
+</p>
+  <form class="main" method="post" action="" name="reportTest" target="_new">
     <input name="reportRequest" type="hidden" value="">
     <input name="layerList" type="hidden" value="">
     <br>
@@ -101,7 +101,6 @@ version that you wish to test. The default value is set for the develpment versi
       <option value='http://delivery.maps.gov.bc.ca/soe/'>iMapBC - Delivery
       <option value='http://test.maps.gov.bc.ca/soe/'>iMapBC - Test
       <option value='http://maps.gov.bc.ca/soe/'>iMapBC - Production
-      <option value='http://nekkar.dmz/soe/'>iMapBC development SOE (my S: drive unc)
       <option value='http://apps.gov.bc.ca/apps/ilrr/html/'> ilrr
       <option value='http://test.maps.gov.bc.ca/Ess/rest/sites/imapbc/viewers/imapbc/VirtualDirectory/Resources/workflow/'> Essentials
       <option value='http://delivery.openmaps.gov.bc.ca/soe/'> development SOE
