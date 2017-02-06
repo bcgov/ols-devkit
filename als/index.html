@@ -67,7 +67,7 @@ files = None
 
 m = re.search('^(http|ftp)s?://', filename)
 if m:
-	fields['inputDataUrl'] = filename
+	files = {'inputDataUrl': ('', filename)}
 else:
 	files = {'inputData': open(filename,'rb')}
 
