@@ -30,24 +30,27 @@ import json
 import csv
 from requests.auth import HTTPDigestAuth
 
-# target environment
-SERVICE_URL = 'http://apps.gov.bc.ca/pub/cpf/ws/'
+# Uncomment the appropriate SERVICE_URL for the target environment
+# Delivery
+SERVICE_URL = 'http://delivery.apps.gov.bc.ca/pub/cpf/ws/'
+# Test
+#SERVICE_URL = 'http://test.apps.gov.bc.ca/pub/cpf/ws/'
+# Production
+#SERVICE_URL = 'http://apps.gov.bc.ca/pub/cpf/ws/'
 
 def log(msg):
 	print(time.strftime("%Y/%m/%d|%H:%M:%S|") + msg)
 
 # Get parameters from the command-line
 if len(sys.argv) < 5 or len(sys.argv) > 6:
-	print 'Usage: <python> address_list_submitter.py <url |file> <localfile> <username> <password> [<e-mail>]'
+	print('Usage: <python> address_list_submitter.py <url|file> <local file> <username> <password> [<e-mail>]')
 	sys.exit(0)
-
 # Alternatively you can hard-code the parameters below
 filename = sys.argv[1]
 localFile = sys.argv[2]
 username = sys.argv[3]
 password = sys.argv[4]
 email = None
-
 if len(sys.argv) == 6:
 	email = sys.argv[5]
 
@@ -55,11 +58,10 @@ if len(sys.argv) == 6:
 headers = {'Accept': 'application/json'}
 fields = {'inputDataContentType': 'csv',
 	'resultSrid':'3005',
-	'notificationEmail':'blah',
 	'interpolation':'adaptive',
 	'locationDescriptor':'any',
 	'resultDataContentType':'csv', 
-	'media': 'json'}
+	'media': 'application/json'}
 if email:
 	fields['notificationEmail'] = email
 
@@ -67,7 +69,8 @@ files = None
 
 m = re.search('^(http|ftp)s?://', filename)
 if m:
-	files = {'inputDataUrl': ('', filename)}
+	fields['inputDataUrl'] = filename
+	files = {'foo': ('', 'bar')}
 else:
 	files = {'inputData': open(filename,'rb')}
 
@@ -97,8 +100,8 @@ while True:
 		break
 	else:
 		if time.clock() - startTime  > MAX_WAIT_TIME:
-                        log("Maximum wait time (" + str(MAX_WAIT_TIME) + "s) exceeded")
-                        exit()
+			log("Maximum wait time (" + str(MAX_WAIT_TIME) + "s) exceeded")
+			exit()
 
 		waitSecs = float(jobStatus[u'secondsToWaitForStatusCheck'])
 		if waitSecs == None or waitSecs < 1:
@@ -116,7 +119,7 @@ resultStatus = json.loads(r3.text)
 try:
 	resultUrl = resultStatus[u'resources'][0][u'resourceUri']
 except KeyError:
-	print 'Geocoding failed on input file.'
+	print('Geocoding failed on input file.')
 	sys.exit(0)
 
 # download the file and save it locally
@@ -130,7 +133,7 @@ with open(localFile, 'wb') as f:
 
 # process the file
 log("Processing results from local file: " + localFile)
-with open(localFile, 'rb') as f:
+with open(localFile, 'r') as f:
 	cr = csv.DictReader(f)
 	count = 0
 	totalScore = 0
@@ -138,6 +141,7 @@ with open(localFile, 'rb') as f:
 		count += 1
 		totalScore += float(row['score'])
 log("Average Score: " + str(totalScore/count))
+
 					</textarea>
 	</div>
 	<div id="cfs"></div>
