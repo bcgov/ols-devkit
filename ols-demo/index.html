@@ -14,10 +14,19 @@
 		body {
             padding: 0;
             margin: 0;
-        }
-        html, body, #map {
+			display: flex;
+    		flex-flow: column wrap;
+		}
+        html, body {
             height: 100%;
             width: 100%;
+        }
+		#map {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 255px;
+			right:0;
         }
 
 		/* remove the header bar from the jquery-ui tabs */
@@ -40,10 +49,6 @@
 		    -webkit-border-radius: 0px;
 		    border-radius: 0px;
 		}
-		#tabs .ui-tabs-nav li.ui-tabs-active {
-			/*background-color: #DDD;
-			background-image: none;*/
-		}
 		#tabs .ui-tabs-panel {
     		border-width: 0px 1px 1px 1px;
 			background-color: #FFF;
@@ -52,7 +57,7 @@
 
 		.ui-autocomplete{
     		z-index:1001 !important;
-		}
+		}*/
 	</style>
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 </head>
@@ -74,7 +79,11 @@
 			Route:<br/>
 			Address From: <input id="fromGeocodeField" type="text" style="width:400px"/><br/>
 			Address To: <input id="toGeocodeField" type="text" style="width:400px"/><br/>
-			<button id="geocode" type="button">Route</button>
+			<div class="section">
+				<input type="radio" name="criteria" value="fastest" checked="checked"/>fastest
+				<input type="radio" name="criteria" value="shortest"/>shortest
+			</div>
+			<button id="addRoute" type="button">Add Route to Layers</button>
 		</div>
 		<div id="tabs-3">
 			Find occupants nearby:<br/>
@@ -121,18 +130,7 @@
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
 		// tabs UI setup
-		$( "#tabs" ).tabs({
-			/*collapsible: true,
-			show: "slideDown",
-			hide: "slideUp"
-			beforeActivate: function(event, ui) {
-				if(ui.oldPanel.length == 0) {
-					ui.newPanel.slideDown();
-				} else if(ui.newPanel.length == 0) {
-					ui.oldPanel.slideUp();
-				}
-			}*/
-		});
+		$( "#tabs" ).tabs();
 
 		// reusable function for suggesting geocode autocompletion options
 		function geocodeSuggest(request, response) {
@@ -147,7 +145,10 @@
 					var list = [];
 					if(data.features && data.features.length > 0) {
 						list = data.features.map( function(item) {
-							return item.properties.fullAddress;
+							return {
+								value: item.properties.fullAddress,
+								data: item
+							}
 						});
 					}
 					response(list);
@@ -177,12 +178,13 @@
 							layer.bindPopup(JSON.stringify(feature.properties));
 						}
 					}).addTo(map);
-					map.fitBounds(newLayer.getBounds());
+					map.fitBounds(newLayer.getBounds().pad(0.5));
 					layerControl.addOverlay(newLayer, "Geocode results for \""
 						+ $('#geocodeField').val() + "\"");
 				},
 				error: function(stuff) {
-					alert("error loading geocode results." + stuff);
+					alert("error loading geocode results.");
+					console.log(stuff);
 				}
 			});
 		}
@@ -199,16 +201,114 @@
 		});
 
 		// Routing
+		var fromAddress, toAddress;
+		var fromLayer, toLayer, routeLayer;
+
+		function route(fromAddress, toAddress) {
+			if(!fromAddress || !toAddress) {
+				return;
+			}
+
+			var routeUrl = "https://router.api.gov.bc.ca/route.json";
+			$.ajax({
+				url: routeUrl,
+				data: {
+					apikey: "a82472ff8f754968b4e70943adc63888",
+					criteria: $('input[name=criteria]:checked').val(),
+					points: fromAddress.geometry.coordinates[0] + ","
+							+ fromAddress.geometry.coordinates[1] + ","
+							+ toAddress.geometry.coordinates[0] + ","
+							+ toAddress.geometry.coordinates[1]
+				},
+				success: function(data) {
+					if(routeLayer) {
+						map.removeLayer(routeLayer);
+					}
+					routeLayer = L.geoJson({
+							type: "Feature",
+							properties: {},
+							geometry: {
+								type: "LineString",
+								coordinates: data.route
+							}
+						}, {
+						onEachFeature: function(feature, layer) {
+							layer.bindPopup(JSON.stringify(feature.properties));
+						}
+					}).addTo(map);
+					map.fitBounds(routeLayer.getBounds().pad(0.5));
+				},
+				error: function(stuff) {
+					alert("error loading route results.");
+					console.log(stuff);
+				}
+			});
+			// $('#directions').empty();
+			// var directionsUrl = routeUrl.replace("route.kml", "directions.json");
+			// $.getJSON(directionsUrl, function(data) {
+			// 	$('#timing').empty();
+			// 	$('#timing').append("Trip Duration: " + data.time);
+			// 			var dirs = data.directions;
+			// 	for(i = 0; i < dirs.length; i++) {
+			// 		$('#directions').append("<div class=\"direction\">" + dirs[i] + "</div>");
+			// 	}
+			// });
+		}
+
 		// Routing - from Address autocomplete
 		$('#fromGeocodeField').autocomplete({
 			minLength: 3,
-			source: geocodeSuggest
+			source: geocodeSuggest,
+			select: function(event,ui) {
+				if(fromLayer) {
+					map.removeLayer(fromLayer);
+				}
+				fromAddress = ui.item.data;
+				fromLayer = L.geoJson(ui.item.data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(JSON.stringify(feature.properties));
+					}
+				}).addTo(map);
+				route(fromAddress,toAddress);
+			}
 		});
 
 		// Routing - to Address autocomplete
 		$('#toGeocodeField').autocomplete({
 			minLength: 3,
-			source: geocodeSuggest
+			source: geocodeSuggest,
+			select: function(event,ui) {
+				if(toLayer) {
+					map.removeLayer(toLayer);
+				}
+				toAddress = ui.item.data;
+				toLayer = L.geoJson(ui.item.data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(JSON.stringify(feature.properties));
+					}
+				}).addTo(map);
+				route(fromAddress,toAddress);
+			}
+		});
+
+		// handle changes to the criteria by re-routing
+		$('input[name=criteria]').change( function() {
+				route(fromAddress,toAddress);
+		});
+
+		// add the layer to the layer List more "permanently"
+		$('#addRoute').click( function() {
+			var newLayer = L.layerGroup([fromLayer, toLayer, routeLayer]);
+			layerControl.addOverlay(newLayer, "Route from "
+				+ fromAddress.properties.fullAddress + " to "
+				+ toAddress.properties.fullAddress);
+			fromLayer = null;
+			toLayer = null;
+			routeLayer = null;
+			fromAddress = null;
+			toAddress = null;
+			$('#fromGeocodeField').val('');
+			$('#toGeocodeField').val('');
 		});
 
 		// Tag-it setup (including autocomplete) for Occupants by tag
@@ -231,36 +331,42 @@
 		// Find nearby Occupants by Tag event handler
 		$('#findNearbyOccs').on("click", function() {
 			if(navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition( function(position) {
-					var tagList = $('#tags').tagit("assignedTags").join(";");
-					$.ajax({
-						url: "https://test.apps.gov.bc.ca/pub/geocoder/occupants/near.json",
-						data: {
-							tags: tagList,
-							point: position.coords.longitude + "," +position.coords.latitude
-						},
-						success: function(data) {
-							if(data.features && data.features.length > 0) {
-								var newLayer = L.geoJson(data, {
-									onEachFeature: function(feature, layer) {
-										layer.bindPopup(JSON.stringify(feature.properties));
-									}
-								}).addTo(map);
+				navigator.geolocation.getCurrentPosition(
+					function(position) {
+						var tagList = $('#tags').tagit("assignedTags").join(";");
+						$.ajax({
+							url: "https://test.apps.gov.bc.ca/pub/geocoder/occupants/near.json",
+							data: {
+								tags: tagList,
+								maxResults: 10,
+								point: position.coords.longitude + "," +position.coords.latitude
+							},
+							success: function(data) {
+								if(data.features && data.features.length > 0) {
+									var newLayer = L.geoJson(data, {
+										onEachFeature: function(feature, layer) {
+											layer.bindPopup(JSON.stringify(feature.properties));
+										}
+									}).addTo(map);
 
-								map.fitBounds(newLayer.getBounds().pad(0.5));
-								layerControl.addOverlay(newLayer, "Occupants tagged with \""
-									+ tagList + "\"");
-							} else {
-								alert("No occupants were found.");
+									map.fitBounds(newLayer.getBounds().pad(0.5));
+									layerControl.addOverlay(newLayer, "Occupants tagged with \""
+										+ tagList + "\"");
+								} else {
+									alert("No occupants were found.");
+								}
+							},
+							error: function(stuff) {
+								alert("Error loading nearby occupants.");
+								console.log(stuff);
 							}
-						},
-						error: function(stuff) {
-							alert("Error loading nearby occupants." + stuff);
-						}
-					});
-				}, function() {
-					alert("There was a problem determining your location.");
-				}, {timeout:5000});
+						});
+					},
+					function() {
+						alert("There was a problem determining your location.");
+					},
+					{timeout:5000}
+				);
 			} else {
 				alert("Your browser doesn't support geolocation.")
 			}
@@ -310,7 +416,8 @@
 						+ tagList + "\"");
 				},
 				error: function(stuff) {
-					alert("error loading nearby occupants." + stuff);
+					alert("Error loading occupants by name.");
+					console.log(stuff);
 				}
 			});
 		});
