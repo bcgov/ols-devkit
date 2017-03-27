@@ -192,6 +192,20 @@
 		});
 		baseLayers['OpenStreetMap'] = osmLayer;
 
+		var siteLayer = new L.layerJSON({
+			url: "https://apps.gov.bc.ca/pub/geocoder/sites/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 17,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(JSON.stringify(feature));
+			}
+		});
+		overlays["Sites"] = siteLayer;
+
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
 		// tabs UI setup
