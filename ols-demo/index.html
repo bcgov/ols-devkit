@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<title>BC Open Location Services Demo</title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
 	<link href="https://aehlke.github.io/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
@@ -59,7 +62,6 @@
     		z-index:1001 !important;
 		}*/
 	</style>
-	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -72,30 +74,93 @@
 			<li><a href="#tabs-4">Occupants By Name</a></li>
 		</ul>
 		<div id="tabs-1">
-			Geocode Address: <input id="geocodeField" type="text" style="width:400px"/><br/>
-			<button id="geocode" type="button">Geocode</button>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="geocodeField" class="col-sm-2 control-label">Geocode Address:</label>
+					<div class="col-sm-10">
+      					<input type="text" class="form-control" id="geocodeField" placeholder="Address">
+    				</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+				    	<button id="geocode" type="button" class="btn btn-default">Geocode</button>
+				    </div>
+				</div>
+			</form>
 		</div>
 		<div id="tabs-2">
-			Route:<br/>
-			Address From: <input id="fromGeocodeField" type="text" style="width:400px"/><br/>
-			Address To: <input id="toGeocodeField" type="text" style="width:400px"/><br/>
-			<div class="section">
-				<input type="radio" name="criteria" value="fastest" checked="checked"/>fastest
-				<input type="radio" name="criteria" value="shortest"/>shortest
-			</div>
-			<button id="addRoute" type="button">Add Route to Layers</button>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="fromGeocodeField" class="col-sm-2 control-label">Address From:</label>
+					<div class="col-sm-10">
+      					<input type="text" class="form-control" id="fromGeocodeField" placeholder="From Address">
+    				</div>
+				</div>
+				<div class="form-group">
+					<label for="toGeocodeField" class="col-sm-2 control-label">Address To:</label>
+					<div class="col-sm-10">
+      					<input type="text" class="form-control" id="toGeocodeField" placeholder="To Address">
+    				</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<label class="radio-inline">
+	  						<input type="radio" name="criteria" value="fastest" checked> fastest
+						</label>
+						<label class="radio-inline">
+	  						<input type="radio" name="criteria" value="shortest"> shortest
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+				    	<button id="addRoute" type="button" class="btn btn-default">Add Route to Layers</button>
+				    </div>
+				</div>
+			</form>
 		</div>
 		<div id="tabs-3">
-			Find occupants nearby:<br/>
-			Tags: <ul id="tags"></ul>
-			<button id="findNearbyOccs" type="button">Find nearby</button>
+			<h4 class="col-sm-offset-2 col-sm-10">Find Occupants Nearby</h4>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="tags" class="col-sm-2 control-label">Tags:</label>
+					<div class="col-sm-10">
+      					<ul id="tags"></ul>
+    				</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<label>
+	  						<input id="geoLocCheckbox" type="checkbox" checked /> Use GeoLocation
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+				    	<button id="findNearbyOccs" type="button" class="btn btn-default">Find nearby</button>
+				    </div>
+				</div>
+			</form>
 		</div>
 		<div id="tabs-4">
-			Find Occupants by Name:<br/>
-			Name: <input id="nameField" type="text" /><br/>
-			<button id="findOccsByName" type="button">Find Occupants</button>
+			<h4 class="col-sm-offset-2 col-sm-10">Find Occupants by Name</h4>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="nameField" class="col-sm-2 control-label">Occupant Name:</label>
+					<div class="col-sm-10">
+      					<input type="text" class="form-control" id="nameField" placeholder="Occupant Name">
+    				</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+				    	<button id="findOccsByName" type="button" class="btn btn-default">Find Occupants</button>
+				    </div>
+				</div>
+			</form>
 		</div>
 	</div>
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<script src="leaflet-layerjson.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 	<script src="https://aehlke.github.io/tag-it/js/tag-it.js"></script>
@@ -118,7 +183,7 @@
 			});
 		baseLayers['BC Base'] = bcBaseLayer;
 
-		var osmLayer = L.tileLayer('httpss://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		var osmLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 			maxZoom: 18,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -179,6 +244,9 @@
 						}
 					}).addTo(map);
 					map.fitBounds(newLayer.getBounds().pad(0.5));
+					if(map.getZoom() > 16) {
+						map.setZoom(16);
+					}
 					layerControl.addOverlay(newLayer, "Geocode results for \""
 						+ $('#geocodeField').val() + "\"");
 				},
@@ -206,6 +274,12 @@
 
 		function route(fromAddress, toAddress) {
 			if(!fromAddress || !toAddress) {
+				if(fromAddress) {
+					map.panTo(L.latLng(fromAddress.geometry.coordinates[1], fromAddress.geometry.coordinates[0]));
+				}
+				if(toAddress) {
+					map.panTo(L.latLng(toAddress.geometry.coordinates[1], toAddress.geometry.coordinates[0]));
+				}
 				return;
 			}
 
@@ -401,10 +475,14 @@
 
 		// Find Occupants By Name event handler
 		$('#findOccsByName').on("click", function() {
+			var addr = $('#nameField').val();
+			if(addr.indexOf("--") == -1) {
+				addr += " --";
+			}
 			$.ajax({
 				url: "https://test.apps.gov.bc.ca/pub/geocoder/occupants/addresses.json",
 				data: {
-					addressString: $('#nameField').val() + "--"
+					addressString: addr
 				},
 				success: function(data) {
 					var newLayer = L.geoJson(data, {
@@ -412,8 +490,9 @@
 							layer.bindPopup(JSON.stringify(feature.properties));
 						}
 					}).addTo(map);
-					layerControl.addOverlay(newLayer, "Occupants tagged with \""
-						+ tagList + "\"");
+					map.fitBounds(newLayer.getBounds().pad(0.5));
+					layerControl.addOverlay(newLayer, "Occupants named like \""
+						+ $('#nameField').val()  + "\"");
 				},
 				error: function(stuff) {
 					alert("Error loading occupants by name.");
