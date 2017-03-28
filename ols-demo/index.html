@@ -68,25 +68,26 @@
 	<div id="map"></div>
 	<div id="tabs">
 		<ul>
-			<li><a href="#tabs-1">Geocode</a></li>
+			<li><a href="#tabs-1">Address</a></li>
 			<li><a href="#tabs-2">Route</a></li>
-			<li><a href="#tabs-3">Occupants By Tags</a></li>
-			<li><a href="#tabs-4">Occupants By Name</a></li>
+			<li><a href="#tabs-3">Find Nearby</a></li>
+			<li><a href="#tabs-4">Public Places</a></li>
 		</ul>
 		<div id="tabs-1">
 			<form class="form-horizontal">
-				<div class="form-group">
-					<label for="geocodeField" class="col-sm-2 control-label">Geocode Address:</label>
-					<div class="col-sm-10">
-      					<input type="text" class="form-control" id="geocodeField" placeholder="Address">
-    				</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-				    	<button id="geocode" type="button" class="btn btn-default">Geocode</button>
-				    </div>
+				<div class="input-group">
+					<input type="text" class="form-control" id="geocodeField" placeholder="Enter civic or intersection address">
+					<div class="input-group-btn">
+						<button class="btn btn-default btn-block" type="button">
+							<span class="glyphicon glyphicon-search" aria-label="Search"></span>
+						</button>
+						<button class="btn btn-default btn-block" type="button">
+							<span class="glyphicon glyphicon-remove-circle" aria-label="Clear"></span>
+						</button>
+					</div>
 				</div>
 			</form>
+			<div class="row">
 		</div>
 		<div id="tabs-2">
 			<form class="form-horizontal">
@@ -204,7 +205,50 @@
 				layer.bindPopup(JSON.stringify(feature));
 			}
 		});
-		overlays["Sites"] = siteLayer;
+		overlays["Addresses"] = siteLayer;
+
+		var occLayer = new L.layerJSON({
+			url: "https://apps.gov.bc.ca/pub/geocoder/occupants/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 17,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(JSON.stringify(feature));
+			}
+		});
+		overlays["Public Places"] = occLayer;
+
+		var intLayer = new L.layerJSON({
+			url: "https://apps.gov.bc.ca/pub/geocoder/intersections/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 17,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(JSON.stringify(feature));
+			}
+		});
+		overlays["Intersections"] = intLayer;
+
+		var apLayer = new L.layerJSON({
+			url: "https://apps.gov.bc.ca/pub/geocoder/sites/within.json"
+				+ "?locationDescriptor=accessPoint&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 17,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(JSON.stringify(feature));
+			}
+		});
+		overlays["Addresses – access point "] = apLayer;
 
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
