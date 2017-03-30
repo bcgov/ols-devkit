@@ -15,16 +15,14 @@
 	<link href="https://aehlke.github.io/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
 	<style>
 		/* make the map fullscreen */
-		body {
-            padding: 0;
-            margin: 0;
-			display: flex;
-    		flex-flow: column wrap;
-		}
-        html, body {
+		html, body {
             height: 100%;
             width: 100%;
         }
+		body {
+            padding: 0;
+            margin: 0;
+		}
 		#container {
 			height: 100%;
             width: 100%;
@@ -393,7 +391,6 @@
 
 		var parcelLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/mapserver/land-ownership-and-status?',
 			{
-				minZoom: 14,
 				layers: 'CBM_CADASTRAL_FABRIC_PUB_O',
 				transparent: true,
 				format: 'image/png'
