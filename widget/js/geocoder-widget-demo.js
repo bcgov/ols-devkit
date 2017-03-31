@@ -5,7 +5,7 @@
 function showCoordsBasic (data) {
 	$("#basic_output").fadeOut(function () {
 		$(this).
-		html("Longitude: "+data.lon+", Latitude: "+data.lat).
+		html("Latitude, Longitude: "+data.lat+","+data.lon).
 		fadeIn();
 	});
 }
