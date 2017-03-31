@@ -119,11 +119,6 @@
 			flex: 0 0 auto;
 		}
 		#directions {
-			display: flex;
-			flex-direction: column;
-			flex-wrap: nowrap;
-			flex: 1 1 auto;
-			/*max-height: 100%;*/
 			overflow-y: scroll;
 		}
 		.direction {
@@ -131,11 +126,16 @@
 			margin: 2px;
 			border: 1px solid #99ff99;
 			background-color: #ddffdd;
-			flex: 1 1 auto;
 		}
-		#timing{
+		.timing {
 			margin-top: 8px;
 			margin-bottom: 8px;
+		}
+		span.red {
+			color: red;
+		}
+		span.grey {
+			color: grey;
 		}
 	</style>
 </head>
@@ -179,8 +179,8 @@
 									<div class="input-group">
 										<input type="text" class="form-control" id="fromGeocodeField" placeholder="From Address" />
 										<div class="input-group-btn">
-											<button class="btn btn-default input-clear" type="button">
-												<span class="glyphicon glyphicon-remove" title="Clear"  aria-label="Clear"></span>
+											<button id="fromClear" class="btn btn-default input-clear" type="button">
+												<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
 											</button>
 										</div>
 									</div>
@@ -189,13 +189,14 @@
 									<div class="input-group">
 										<input type="text" class="form-control" id="toGeocodeField" placeholder="To Address" />
 										<div class="input-group-btn">
-											<button class="btn btn-default input-clear" type="button">
-												<span class="glyphicon glyphicon-remove" title="Clear"  aria-label="Clear"></span>
+											<button id="toClear" class="btn btn-default input-clear" type="button">
+												<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
 											</button>
 										</div>
 									</div>
 								</div>
-								<div id="timing"></div>
+								<div id="fastestTiming" class="timing"></div>
+								<div id="shortestTiming" class="timing"></div>
 								Directions:
 							</div>
 							<div id="directions"></div>
@@ -208,7 +209,7 @@
 								<button id="findNearbyOccs" class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
 								</button>
-								<button class="btn btn-default input-clear" type="button">
+								<button id="clearTags" class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
 								</button>
 							</div>
@@ -251,7 +252,9 @@
 		var routeApi = "https://routerdlv.api.gov.bc.ca/";
 
 		// Leaflet Map setup
-		var map = L.map('map').setView([48.44, -123.43], 12);
+		var map = L.map('map', {
+			minZoom: 5
+		}).setView([48.44, -123.43], 12);
 		map.zoomControl.setPosition('bottomright');
 		L.control.locate({
 			position: 'bottomright',
@@ -508,6 +511,20 @@
 		var fromAddress, toAddress;
 		var fromLayer, toLayer, fastestRouteLayer, shortestRouteLayer;
 
+		function clearRoute() {
+			$('#fastestTiming').empty();
+			$('#shortestTiming').empty();
+			$('#directions').empty();
+			if(fastestRouteLayer) {
+				map.removeLayer(fastestRouteLayer);
+				fastestRouteLayer = null;
+			}
+			if(shortestRouteLayer) {
+				map.removeLayer(shortestRouteLayer);
+				shortestRouteLayer = null;
+			}
+		}
+
 		function route(fromAddress, toAddress) {
 			if(!fromAddress || !toAddress) {
 				if(fromAddress) {
@@ -518,13 +535,8 @@
 				}
 				return;
 			}
-			$('#timing').empty();
-			$('#directions').empty();
+			clearRoute();
 
-			if(fastestRouteLayer) {
-				map.removeLayer(fastestRouteLayer);
-				fastestRouteLayer = null;
-			}
 			$.ajax({
 				url: routeApi + 'directions.json',
 				data: {
@@ -551,7 +563,8 @@
 					}).addTo(map);
 					centerMap(fastestRouteLayer.getBounds());
 
-					$('#timing').append("Fastest route is: " + data.distance + " km in " + data.timeText);
+					$('#fastestTiming').append('Fastest route (in <span class="red">red</span>): '
+							+ data.distance + ' km in ' + data.timeText);
 					var dirs = data.directions;
 					for(i = 0; i < dirs.length; i++) {
 						$('#directions').append("<div class=\"direction\">" + dirs[i] + "</div>");
@@ -563,10 +576,6 @@
 				}
 			});
 			// also do shortest
-			if(shortestRouteLayer) {
-				map.removeLayer(shortestRouteLayer);
-				shortestRouteLayer = null;
-			}
 			$.ajax({
 				url: routeApi + 'route.json',
 				data: {
@@ -592,6 +601,8 @@
 						}
 					}).addTo(map);
 					centerMap(shortestRouteLayer.getBounds());
+					$('#shortestTiming').append('Shortest route (in <span class="grey">grey</span>): '
+							+ data.distance + ' km in ' + data.timeText);
 					if(fastestRouteLayer) {
 						fastestRouteLayer.bringToFront();
 					}
@@ -602,6 +613,19 @@
 				}
 			});
 		}
+
+		$('#fromClear').on('click', function() {
+				clearRoute();
+				if(fromLayer) {
+					map.removeLayer(fromLayer);
+				}
+		});
+		$('#toClear').on('click', function() {
+				clearRoute();
+				if(toLayer) {
+					map.removeLayer(toLayer);
+				}
+		});
 
 		// Routing - from Address autocomplete
 		$('#fromGeocodeField').autocomplete({
@@ -666,7 +690,6 @@
 			var newLayer = new L.layerJSON({
 				url: gcApi + "occupants/within.json?tags=" + tagList + "&bbox={lon1},{lat1},{lon2},{lat2}",
 				caching: false,
-				minZoom: 1,
 				propertyItems: "features",
 				propertyId: "properties.fullAddress",
 				locAsGeoJSON: true,
@@ -681,38 +704,11 @@
 			});
 			newLayer.addTo(map);
 			layerControl.addOverlay(newLayer, "Occupants tagged with \"" + tagList + "\"");
-
-			/*
-			$.ajax({
-				url: gcApi + "occupants/near.json",
-				data: {
-					tags: tagList,
-					maxResults: 10,
-					point: position.coords.longitude + "," +position.coords.latitude
-				},
-				success: function(data) {
-					if(data.features && data.features.length > 0) {
-						var newLayer = L.geoJson(data, {
-							onEachFeature: function(feature, layer) {
-								layer.bindPopup(makePopupText(feature.properties));
-								layer.options['title'] = feature.properties.fullAddress;
-							}
-						}).addTo(map);
-
-						centerMap(newLayer.getBounds());
-						layerControl.addOverlay(newLayer, "Occupants tagged with \""
-							+ tagList + "\"");
-					} else {
-						alert("No occupants were found.");
-					}
-				},
-				error: function(stuff) {
-					alert("Error loading nearby occupants.");
-					console.log(stuff);
-				}
-			});
-			*/
 		});
+
+		$('#clearTags').on('click', function() {
+			$('#tags').tagit('removeAll');
+		})
 
 		// Find Occupants By Name Autocomplete
 		$('#nameField').autocomplete({
