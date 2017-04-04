@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>DataBC Location Services in Action</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.css" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+	<link href="https://aehlke.github.io/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+	<style>
+		/* make the map fullscreen */
+		html, body {
+            height: 100%;
+            width: 100%;
+        }
+		body {
+            padding: 0;
+            margin: 0;
+		}
+		#container {
+			height: 100%;
+            width: 100%;
+			overflow: hidden;
+		}
+		#map {
+			height: 100%;
+            width: 100%;
+        }
+		/* Slideable Sidebar */
+		#tabWrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: flex;
+			align-items: center;
+			height: 100%;
+			z-index: 1000;
+		}
+		#tabs {
+			height: 100%;
+			width: 400px;
+			background-color: transparent;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+		}
+		#hideButton {
+			border-color: lightSlateGrey;
+			border-left: none;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+			padding-left: 6px;
+			padding-right: 6px;
+		}
+		.nav-tabs {
+			flex: 0 0 auto;
+			border-bottom-color: lightSlateGrey;
+		}
+		.nav-tabs > li > a {
+			padding: 6px 8px 5px 8px;
+			background-color: white;
+			border-top: 1px solid lightgrey;
+			border-right: 1px solid lightgrey;
+			border-left: 1px solid lightgrey;
+			border-bottom-color: lightSlateGrey;
+		}
+		.nav-tabs > li.active > a,
+		.nav-tabs > li.active > a:hover,
+		.nav-tabs > li.active > a:focus {
+			border: 1px solid lightSlateGrey;
+			border-bottom-color: transparent;
+			cursor: default;
+		}
+		.nav-tabs > li > a:hover {
+			border-color: LightSteelBlue ;
+			border-bottom-color: lightSlateGrey;
+		}
+		.tab-content {
+			background-color: white;
+			border-right: 1px solid lightSlateGrey;
+			flex: 1 1 1px;
+			overflow: hidden;
+		}
+		.tab-pane {
+			padding: 10px;
+			height: 100%;
+		}
+		.tag-input-group {
+			vertical-align: top;
+		}
+		.tagit {
+			list-style-type: none;
+		}
+		.ui-front {
+			z-index: 1001;
+		}
+		.popup-title {
+			font-size: 1.2em;
+			font-weight: bold;
+		}
+		table.popup-table tr td {
+			padding: 2px;
+			border: 1px solid lightgrey;
+			border-collapse: collapse;
+		}
+		#title {
+			position: absolute;
+			z-index: 999;
+			top: 0px;
+			left: 50%;
+    		transform: translate(-50%,0);
+			border: 1px solid lightSlateGrey;
+			border-top: none;
+			background-color: white;
+			border-radius: 0 0 4px 4px;
+			padding: 4px 8px 4px 8px;
+			font-family: Verdana, Arial, Helvetica, sans-serif;
+			font-size: 1.2em;
+			font-weight: bold;
+			color: #445566;
+		}
+		#routerWrapper {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			height: 100%;
+		}
+		#routerForm {
+			flex: 0 0 auto;
+		}
+		#directions {
+			overflow-y: scroll;
+		}
+		.direction {
+			padding: 5px;
+			margin: 2px;
+			border: 1px solid #99ff99;
+			background-color: #ddffdd;
+		}
+		.timing {
+			margin-top: 8px;
+			margin-bottom: 8px;
+		}
+		span.red {
+			color: red;
+		}
+		span.grey {
+			color: grey;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		<div id="title">DataBC Location Services in Action</div>
+		<div id="tabWrapper">
+			<div id="tabs">
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active">
+						<a href="#tabs-1" aria-controls="tabs-1" role="tab" data-toggle="tab">Address</a>
+					</li>
+					<li role="presentation">
+						<a href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Route</a>
+					</li>
+					<li role="presentation">
+						<a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Places by Tag</a>
+					</li>
+					<li role="presentation">
+						<a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Places by Name</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="tabs-1">
+						<div class="input-group">
+							<input type="text" class="form-control" id="geocodeField" placeholder="Enter civic or intersection address" />
+							<div class="input-group-btn">
+								<button id="geocodeBtn" class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
+								</button>
+								<button class="btn btn-default input-clear" type="button">
+									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="tabs-2">
+						<div id="routerWrapper">
+							<div id="routerForm">
+								<div class="form-group">
+									<div class="input-group">
+										<input type="text" class="form-control" id="fromGeocodeField" placeholder="From Address" />
+										<div class="input-group-btn">
+											<button id="fromClear" class="btn btn-default input-clear" type="button">
+												<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<input type="text" class="form-control" id="toGeocodeField" placeholder="To Address" />
+										<div class="input-group-btn">
+											<button id="toClear" class="btn btn-default input-clear" type="button">
+												<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div id="fastestTiming" class="timing"></div>
+								<div id="shortestTiming" class="timing"></div>
+								Directions:
+							</div>
+							<div id="directions"></div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="tabs-3">
+						<div class="input-group">
+							<ul id="tags"></ul>
+							<div class="input-group-btn tag-input-group">
+								<button id="findNearbyOccs" class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
+								</button>
+								<button id="clearTags" class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="tabs-4">
+						<div class="input-group">
+							<input type="text" class="form-control" id="nameField" placeholder="Enter name of public place or business" />
+							<div class="input-group-btn">
+								<button id="findOccsByName" class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
+								</button>
+								<button class="btn btn-default input-clear" type="button">
+									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="hideHandle">
+				<button id="hideButton" type="button" class="btn btn-default" title="Collapse side panel">
+					<span class="glyphicon glyphicon-chevron-left" aria-label="Clear"></span>
+				</button>
+			</div>
+		</div> <!-- tabWrapper -->
+		<div id="map"></div>
+	</div> <!-- container -->
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
+	<script src="leaflet-layerjson.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+	<script src="https://aehlke.github.io/tag-it/js/tag-it.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
+	<script>
+		// API URLs
+		var gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
+		var routeApi = "https://routerdlv.api.gov.bc.ca/";
+
+		// Leaflet Map setup
+		var map = L.map('map', {
+			minZoom: 5
+		}).setView([48.44, -123.43], 12);
+		map.zoomControl.setPosition('bottomright');
+		L.control.locate({
+			position: 'bottomright',
+			icon: 'glyphicon glyphicon-map-marker',
+			iconLoading: 'glyphicon glyphicon-time',
+			locateOptions: {
+				maxZoom: 16
+			}
+		}).addTo(map);
+
+		var baseLayers = {};
+		var overlays = {};
+
+		// define icons to use for markers
+		var siteIcon = L.icon({
+				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png',
+				iconSize: [32,32],
+				iconAnchor: [16,16],
+				popupAnchor: [0,-10],
+		});
+
+		var apIcon = L.icon({
+				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png',
+				iconSize: [32,32],
+				iconAnchor: [16,32],
+				popupAnchor: [0,-32],
+		});
+
+		var intIcon = L.icon({
+				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png',
+				iconSize: [32,37],
+				iconAnchor: [16,37],
+				popupAnchor: [0,-32],
+		});
+
+		var occIcon = L.icon({
+				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/gsr/black_border_32p/bcgsr.unclassified.png',
+				iconSize: [26,32],
+				iconAnchor: [13,16],
+				popupAnchor: [0,-16],
+		});
+
+		var mapboxStreetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
+			maxZoom: 18,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		});
+		baseLayers['MapBox Streets'] = mapboxStreetsLayer;
+		mapboxStreetsLayer.addTo(map);
+
+		var mapboxSatlayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
+			maxZoom: 18,
+			attribution: 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.satellite'
+		});
+		baseLayers['MapBox Satellite'] = mapboxSatlayer;
+
+		var bcRoadsBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcgis/services/province/roads_wm/MapServer/WmsServer?',
+			{
+				layers: '0'
+			});
+		baseLayers['BC Digital Road Atlas'] = bcRoadsBaseLayer;
+
+		var bcBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcserver/services/province/web_mercator_cache/MapServer/WMSServer?',
+			{
+				layers: '0'
+			});
+		baseLayers['BC Base'] = bcBaseLayer;
+
+		var siteLayer = new L.layerJSON({
+			url: gcApi + "sites/within.json?excludeUnits=true&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return siteIcon;
+			},
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(makePopupText(feature.properties));
+				layer.options['title'] = feature.properties.fullAddress;
+			}
+		});
+		overlays["Addresses"] = siteLayer;
+
+		var occLayer = new L.layerJSON({
+			url: gcApi + "occupants/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return occIcon;
+			},
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(makePopupText(feature.properties));
+				layer.options['title'] = feature.properties.fullAddress;
+			}
+		});
+		overlays["Public Places"] = occLayer;
+
+		var intLayer = new L.layerJSON({
+			url: gcApi + "intersections/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return intIcon;
+			},
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(makePopupText(feature.properties));
+				layer.options['title'] = feature.properties.fullAddress;
+			}
+		});
+		overlays["Intersections"] = intLayer;
+
+		var apLayer = new L.layerJSON({
+			url: gcApi + "sites/within.json"
+				+ "?excludeUnits=true&locationDescriptor=accessPoint&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return apIcon;
+			},
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(makePopupText(feature.properties));
+				layer.options['title'] = feature.properties.fullAddress;
+			}
+		});
+		overlays["Addresses – access point "] = apLayer;
+
+		var parcelLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/mapserver/land-ownership-and-status?',
+			{
+				layers: 'CBM_CADASTRAL_FABRIC_PUB_O',
+				transparent: true,
+				format: 'image/png'
+			});
+		parcelLayer.addTo(map);
+		overlays['Parcels'] = parcelLayer;
+
+		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+
+		// tabs UI setup
+		//$( "#tabs" ).tabs();
+		$('#myTabs a').click(function (e) {
+			e.preventDefault()
+			$(this).tab('show')
+		});
+
+ 		$('.input-clear').click( function() {
+			$(this).parent().parent().find('input').val('');
+		});
+
+		function makePopupText(props) {
+			var str = '<span class="popup-title">' + props.fullAddress
+					+ '</span><table class="popup-table">';
+
+			if(props.score) {
+				str += '<tr><td>Score:</td><td>' + props.score + '</td></tr>';
+				str += '<tr><td>Match Precision:</td><td>' + props.matchPrecision + '</td></tr>';
+				str += '<tr><td>Precision Points:</td><td>' + props.precisionPoints + '</td></tr>';
+				str += '<tr><td>Faults:</td><td><table class="popup-table">';
+				for(var i = 0, len = props.faults.length; i < len; i++) {
+					var f = props.faults[i];
+					str += '<tr><td>' + f.element + '.' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+				}
+				str += '</table></td></tr>';
+			}
+
+			if(props.degree) {
+				str += '<tr><td>Degree:</td><td>' + props.degree + '</td></tr>';
+			}
+
+			str += '</table>';
+			return str;
+		}
+
+		// reusable function for suggesting geocode autocompletion options
+		function geocodeSuggest(request, response) {
+			$.ajax({
+				url: gcApi + "addresses.json",
+				data: {
+					minScore: 50,
+					maxResults: 5,
+					addressString: request.term
+				},
+				success: function(data) {
+					var list = [];
+					if(data.features && data.features.length > 0) {
+						list = data.features.map( function(item) {
+							return {
+								value: item.properties.fullAddress,
+								data: item
+							}
+						});
+					}
+					response(list);
+				},
+				error: function() {
+					response([]);
+				}
+			});
+		}
+
+		// Geocode Address autocomplete
+		$('#geocodeField').autocomplete({
+			minLength: 3,
+			source: geocodeSuggest
+		});
+
+		// Geocode Address event handler
+		function geocode($field) {
+			$.ajax({
+				url: gcApi + "addresses.json",
+				data: {
+					addressString: $field.val()
+				},
+				success: function(data) {
+					var newLayer = L.geoJson(data, {
+						onEachFeature: function(feature, layer) {
+							layer.bindPopup(makePopupText(feature.properties));
+							layer.options['title'] = feature.properties.fullAddress;
+						}
+					}).addTo(map);
+					centerMap(newLayer.getBounds());
+					layerControl.addOverlay(newLayer, "Geocode results for \""
+						+ $('#geocodeField').val() + "\"");
+				},
+				error: function(stuff) {
+					alert("error loading geocode results.");
+					console.log(stuff);
+				}
+			});
+		}
+
+		$('#geocodeField').keypress(function(e) {
+ 			if(e.which == 13) {
+    			geocode($('#geocodeField'));
+    			return false;
+  			}
+		});
+
+		$('#geocodeBtn').on("click", function() {
+			geocode($('#geocodeField'));
+		});
+
+		// Routing
+		var fromAddress, toAddress;
+		var fromLayer, toLayer, fastestRouteLayer, shortestRouteLayer;
+
+		function clearRoute() {
+			$('#fastestTiming').empty();
+			$('#shortestTiming').empty();
+			$('#directions').empty();
+			if(fastestRouteLayer) {
+				map.removeLayer(fastestRouteLayer);
+				fastestRouteLayer = null;
+			}
+			if(shortestRouteLayer) {
+				map.removeLayer(shortestRouteLayer);
+				shortestRouteLayer = null;
+			}
+		}
+
+		function route(fromAddress, toAddress) {
+			if(!fromAddress || !toAddress) {
+				if(fromAddress) {
+					map.panTo(L.latLng(fromAddress.geometry.coordinates[1], fromAddress.geometry.coordinates[0]));
+				}
+				if(toAddress) {
+					map.panTo(L.latLng(toAddress.geometry.coordinates[1], toAddress.geometry.coordinates[0]));
+				}
+				return;
+			}
+			clearRoute();
+
+			$.ajax({
+				url: routeApi + 'directions.json',
+				data: {
+					apikey: "a82472ff8f754968b4e70943adc63888",
+					criteria: "fastest",
+					points: fromAddress.geometry.coordinates[0] + ","
+							+ fromAddress.geometry.coordinates[1] + ","
+							+ toAddress.geometry.coordinates[0] + ","
+							+ toAddress.geometry.coordinates[1]
+				},
+				success: function(data) {
+					fastestRouteLayer = L.geoJson({
+							type: "Feature",
+							properties: {},
+							geometry: {
+								type: "LineString",
+								coordinates: data.route
+							}
+						}, {
+						onEachFeature: function(feature, layer) {
+							layer.options['title'] = "fastest";
+							layer.setStyle({color:"#FF0000", weight:4});
+						}
+					}).addTo(map);
+					centerMap(fastestRouteLayer.getBounds());
+
+					$('#fastestTiming').append('Fastest route (in <span class="red">red</span>): '
+							+ data.distance + ' km in ' + data.timeText);
+					var dirs = data.directions;
+					for(i = 0; i < dirs.length; i++) {
+						$('#directions').append("<div class=\"direction\">" + dirs[i] + "</div>");
+					}
+				},
+				error: function(stuff) {
+					alert("error loading route results.");
+					console.log(stuff);
+				}
+			});
+			// also do shortest
+			$.ajax({
+				url: routeApi + 'route.json',
+				data: {
+					apikey: "a82472ff8f754968b4e70943adc63888",
+					criteria: "shortest",
+					points: fromAddress.geometry.coordinates[0] + ","
+							+ fromAddress.geometry.coordinates[1] + ","
+							+ toAddress.geometry.coordinates[0] + ","
+							+ toAddress.geometry.coordinates[1]
+				},
+				success: function(data) {
+					shortestRouteLayer = L.geoJson({
+							type: "Feature",
+							properties: {},
+							geometry: {
+								type: "LineString",
+								coordinates: data.route
+							}
+						}, {
+						onEachFeature: function(feature, layer) {
+							layer.options['title'] = "shortest";
+							layer.setStyle({color:"#888888", weight:7});
+						}
+					}).addTo(map);
+					centerMap(shortestRouteLayer.getBounds());
+					$('#shortestTiming').append('Shortest route (in <span class="grey">grey</span>): '
+							+ data.distance + ' km in ' + data.timeText);
+					if(fastestRouteLayer) {
+						fastestRouteLayer.bringToFront();
+					}
+				},
+				error: function(stuff) {
+					alert("error loading route results.");
+					console.log(stuff);
+				}
+			});
+		}
+
+		$('#fromClear').on('click', function() {
+				clearRoute();
+				if(fromLayer) {
+					map.removeLayer(fromLayer);
+				}
+		});
+		$('#toClear').on('click', function() {
+				clearRoute();
+				if(toLayer) {
+					map.removeLayer(toLayer);
+				}
+		});
+
+		// Routing - from Address autocomplete
+		$('#fromGeocodeField').autocomplete({
+			minLength: 3,
+			source: geocodeSuggest,
+			select: function(event,ui) {
+				if(fromLayer) {
+					map.removeLayer(fromLayer);
+				}
+				fromAddress = ui.item.data;
+				fromLayer = L.geoJson(ui.item.data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(makePopupText(feature.properties));
+						layer.options['title'] = feature.properties.fullAddress;
+					}
+				}).addTo(map);
+				route(fromAddress,toAddress);
+			}
+		});
+
+		// Routing - to Address autocomplete
+		$('#toGeocodeField').autocomplete({
+			minLength: 3,
+			source: geocodeSuggest,
+			select: function(event,ui) {
+				if(toLayer) {
+					map.removeLayer(toLayer);
+				}
+				toAddress = ui.item.data;
+				toLayer = L.geoJson(ui.item.data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(makePopupText(feature.properties));
+						layer.options['title'] = feature.properties.fullAddress;
+					}
+				}).addTo(map);
+				route(fromAddress,toAddress);
+			}
+		});
+
+		// Tag-it setup (including autocomplete) for Occupants by tag
+		$('#tags').tagit({
+			allowSpaces: true,
+			autocomplete: {
+				source: function(request, response) {
+					$.ajax({
+						url: gcApi + "occupants/tags.json",
+						data: {tag: request.term},
+						success: response,
+						error: function() {
+							response([]);
+						}
+					});
+				}
+			}
+		});
+
+		$('.tagit-new > input').attr('placeholder', 'Enter tags');
+
+		// Find nearby Occupants by Tag event handler
+		$('#findNearbyOccs').on("click", function() {
+			var tagList = $('#tags').tagit("assignedTags").join(";");
+			var newLayer = new L.layerJSON({
+				url: gcApi + "occupants/within.json?tags=" + tagList + "&bbox={lon1},{lat1},{lon2},{lat2}",
+				caching: false,
+				propertyItems: "features",
+				propertyId: "properties.fullAddress",
+				locAsGeoJSON: true,
+				propertyLoc: "geometry.coordinates",
+				buildIcon: function() {
+					return occIcon;
+				},
+				onEachMarker: function(feature, layer) {
+					layer.bindPopup(makePopupText(feature.properties));
+					layer.options['title'] = feature.properties.fullAddress;
+				}
+			});
+			newLayer.addTo(map);
+			layerControl.addOverlay(newLayer, "Occupants tagged with \"" + tagList + "\"");
+		});
+
+		$('#clearTags').on('click', function() {
+			$('#tags').tagit('removeAll');
+		})
+
+		// Find Occupants By Name Autocomplete
+		$('#nameField').autocomplete({
+			minLength: 4,
+			source: function(request, response) {
+				$.ajax({
+					url: gcApi + "occupants/addresses.json",
+					data: {
+						minScore: 50,
+						maxResults: 5,
+						addressString: request.term + "--"
+					},
+					success: function(data) {
+						var list = [];
+						if(data.features && data.features.length > 0) {
+							list = data.features.map( function(item) {
+								return item.properties.fullAddress;
+							});
+						}
+						response(list);
+					},
+					error: function() {
+						response([]);
+					}
+				});
+			}
+		});
+
+		// Find Occupants By Name event handler
+		function findOccs($field) {
+			var addr = $field.val();
+			if(addr.indexOf("--") == -1) {
+				addr += " --";
+			}
+			$.ajax({
+				url: gcApi + "occupants/addresses.json",
+				data: {
+					addressString: addr
+				},
+				success: function(data) {
+					var newLayer = L.geoJson(data, {
+						onEachFeature: function(feature, layer) {
+							layer.bindPopup(makePopupText(feature.properties));
+							layer.options['title'] = feature.properties.fullAddress;
+						}
+					}).addTo(map);
+					centerMap(newLayer.getBounds());
+					layerControl.addOverlay(newLayer, "Occupants named like \""
+						+ $field.val()  + "\"");
+				},
+				error: function(stuff) {
+					alert("Error loading occupants by name.");
+					console.log(stuff);
+				}
+			});
+		};
+
+		$('#nameField').keypress(function(e) {
+			if(e.which == 13) {
+				findOccs($('#nameField'));
+				return false;
+			}
+		});
+
+		$('#findOccsByName').on("click", function() {
+			findOccs($('#nameField'));
+		});
+
+		var tabs = true;
+		$('#hideButton').on('click', function() {
+			if(tabs) {
+				$('#tabWrapper').animate({
+					left: -400
+				}, 400, "swing", function() {
+					$('#hideButton').attr('title', 'Expand side panel');
+					$('#hideButton span').removeClass('glyphicon-chevron-left');
+					$('#hideButton span').addClass('glyphicon-chevron-right');
+					tabs = false;
+					map.invalidateSize();
+				});
+			} else {
+				$('#tabWrapper').animate({
+					left: 0
+				}, 400, "swing", function() {
+					$('#hideButton').attr('title', 'Collapse side panel');
+					$('#hideButton span').removeClass('glyphicon-chevron-right');
+					$('#hideButton span').addClass('glyphicon-chevron-left');
+					tabs = true;
+					map.invalidateSize();
+				});
+			}
+		});
+
+		function centerMap(bounds) {
+			var options = {
+				maxZoom: 16
+			};
+			if(tabs) {
+				options.paddingTopLeft = [400,0];
+			}
+			map.fitBounds(bounds.pad(0.25), options);
+		}
+	</script>
+</body>
+
+</html>
