@@ -91,7 +91,7 @@
 	<Style id="reverse_rooftopPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/rooftopPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -146,7 +146,7 @@
 	<Style id="reverse_frontDoorPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/frontDoorPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -200,7 +200,7 @@
 	<Style id="reverse_parcelPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -253,7 +253,7 @@
 	<Style id="reverse_parcelPoint_medium">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_medium.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -306,7 +306,7 @@
 	<Style id="reverse_accessPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -359,7 +359,7 @@
 	<Style id="reverse_accessPoint_medium">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -412,7 +412,7 @@
 	<Style id="reverse_accessPoint_low">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -466,7 +466,7 @@
 	<Style id="reverse_routingPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -519,7 +519,7 @@
 	<Style id="reverse_routingPoint_medium">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_medium.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -572,7 +572,7 @@
 	<Style id="reverse_routingPoint_low">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_low.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -626,7 +626,7 @@
 	<Style id="geocoded_rooftopPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/rooftopPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -685,7 +685,7 @@
 	<Style id="geocoded_frontDoorPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/frontDoorPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -744,7 +744,7 @@
 	<Style id="geocoded_parcelPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -802,7 +802,7 @@
 	<Style id="geocoded_parcelPoint_medium">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_medium.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -860,7 +860,7 @@
 	<Style id="geocoded_accessPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -919,7 +919,7 @@
 	<Style id="geocoded_accessPoint_medium">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -978,7 +978,7 @@
 	<Style id="geocoded_accessPoint_low">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1037,7 +1037,7 @@
 	<Style id="geocoded_routingPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1096,7 +1096,7 @@
 	<Style id="geocoded_routingPoint_medium">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_medium.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1155,7 +1155,7 @@
 	<Style id="geocoded_routingPoint_low">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_low.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1214,7 +1214,7 @@
 	<Style id="geocoded_streetPoint_coarse">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/streetPoint_coarse.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/streetPoint_coarse.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1258,7 +1258,7 @@
 	<Style id="geocoded_localityPoint_coarse">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/localityPoint_coarse.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/localityPoint_coarse.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1297,7 +1297,7 @@
 	<Style id="geocoded_provincePoint_coarse">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/provincePoint_coarse.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/provincePoint_coarse.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1333,7 +1333,7 @@
 	<Style id="geocoded_intersectionPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
@@ -1371,7 +1371,7 @@
 	<Style id="reverse_intersectionPoint_high">
 		<IconStyle>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png</href>
 			</Icon>
 			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
 		</IconStyle>
