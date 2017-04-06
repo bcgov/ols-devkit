@@ -159,13 +159,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_1.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_1.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_1.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_1.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -188,13 +188,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_2.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_2.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_2.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_2.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -216,13 +216,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_3.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_3.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_3.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_3.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -243,13 +243,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_4.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_4.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_4.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_4.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -270,13 +270,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_5.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_5.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_5.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_5.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -299,13 +299,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_6.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_6.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_6.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_6.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -327,13 +327,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_7.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_7.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_7.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_7.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -354,13 +354,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_8.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_8.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_8.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_8.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -381,13 +381,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_9.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_9.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_9.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_9.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -408,13 +408,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_10.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_10.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_10.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_10.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -435,13 +435,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_11.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_11.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_11.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_11.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -464,13 +464,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_12.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_12.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_12.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_12.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -492,13 +492,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_13.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_13.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_13.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_13.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -519,13 +519,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_14.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_14.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_14.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_14.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -546,13 +546,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_15.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_15.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_15.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_15.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -575,13 +575,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_16.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_16.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_16.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_16.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -603,13 +603,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_17.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_17.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_17.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_17.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -630,13 +630,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_18.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_18.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_18.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_18.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -657,13 +657,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_19.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_19.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_19.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_19.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -684,13 +684,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_20.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_20.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_20.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_20.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -711,13 +711,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_21.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_21.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_21.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_21.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -740,13 +740,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_22.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_22.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_22.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_22.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -768,13 +768,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_23.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_23.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_23.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_23.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -795,13 +795,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_24.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_24.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_24.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_24.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -822,13 +822,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_25.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_25.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_25.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_25.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -851,13 +851,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_26.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_26.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_26.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_26.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -879,13 +879,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_27.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_27.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_27.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_27.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -906,13 +906,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_28.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_28.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_28.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_28.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -933,13 +933,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_29.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_29.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_29.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_29.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -960,13 +960,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_30.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_30.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_30.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_30.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -987,13 +987,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_31.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_31.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_31.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_31.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1016,13 +1016,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_32.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_32.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_32.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_32.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1044,13 +1044,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_33.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_33.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_33.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_33.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1071,13 +1071,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_34.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_34.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_34.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_34.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1098,13 +1098,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_35.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_35.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_35.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_35.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1127,13 +1127,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_36.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_36.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_36.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_36.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1155,13 +1155,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_37.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_37.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_37.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_37.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1182,13 +1182,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_38.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_38.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_38.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_38.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1209,13 +1209,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_39.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_39.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_39.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_39.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1236,13 +1236,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_40.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_40.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_40.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_40.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1263,13 +1263,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_41.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_41.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_41.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_41.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1292,13 +1292,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_42.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_42.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_42.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_42.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1320,13 +1320,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_43.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_43.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_43.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_43.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1347,13 +1347,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_44.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_44.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_44.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_44.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1374,13 +1374,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_45.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_45.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_45.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_45.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1403,13 +1403,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_46.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_46.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_46.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_46.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1431,13 +1431,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_47.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_47.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_47.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_47.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1458,13 +1458,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_48.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_48.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_48.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_48.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1485,13 +1485,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_49.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_49.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_49.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_49.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1512,13 +1512,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_50.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_50.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_50.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_50.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1539,13 +1539,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_51.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_51.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_51.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_51.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1568,13 +1568,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_52.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_52.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_52.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_52.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1596,13 +1596,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_53.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_53.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_53.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_53.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1623,13 +1623,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_54.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_54.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_54.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_54.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1650,13 +1650,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_55.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_55.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_55.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_55.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1679,13 +1679,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_56.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_56.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_56.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_56.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1707,13 +1707,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_57.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_57.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_57.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_57.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1734,13 +1734,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_58.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_58.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_58.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_58.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1761,13 +1761,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_59.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_59.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_59.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_59.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1788,13 +1788,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_60.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_60.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_60.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_60.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1815,13 +1815,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_61.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_61.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_61.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_61.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1844,13 +1844,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_62.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_62.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_62.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_62.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1872,13 +1872,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_63.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_63.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_63.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_63.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1899,13 +1899,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_64.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_64.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_64.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_64.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1926,13 +1926,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_65.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_65.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_65.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_65.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1955,13 +1955,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_66.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_66.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_66.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_66.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -1983,13 +1983,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_67.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_67.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_67.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_67.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2010,13 +2010,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_68.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_68.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_68.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_68.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2037,13 +2037,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_69.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_69.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_69.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_69.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2064,13 +2064,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_70.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_70.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_70.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_70.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2091,13 +2091,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_71.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_71.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_71.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_71.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2120,13 +2120,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_72.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_72.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_72.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_72.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2148,13 +2148,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_73.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_73.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_73.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_73.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2175,13 +2175,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_74.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_74.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_74.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_74.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2202,13 +2202,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_75.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_75.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_75.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_75.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2231,13 +2231,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_76.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_76.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_76.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_76.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2259,13 +2259,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_77.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_77.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_77.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_77.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2286,13 +2286,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_78.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_78.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_78.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_78.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2313,13 +2313,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_79.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_79.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_79.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_79.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2340,13 +2340,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_80.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_80.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_80.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_80.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2367,13 +2367,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_81.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_81.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_81.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_81.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2396,13 +2396,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_82.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_82.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_82.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_82.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2424,13 +2424,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_83.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_83.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_83.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_83.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2451,13 +2451,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_84.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_84.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_84.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_84.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2478,13 +2478,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_85.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_85.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_85.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_85.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2507,13 +2507,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_86.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_86.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_86.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_86.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2535,13 +2535,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_87.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_87.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_87.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_87.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2562,13 +2562,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_88.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_88.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_88.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_88.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2589,13 +2589,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_89.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_89.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_89.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_89.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2616,13 +2616,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_90.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_90.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_90.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_90.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2644,13 +2644,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_91.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_91.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_91.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_91.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2673,13 +2673,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_92.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_92.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_92.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_92.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2701,13 +2701,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_93.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_93.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_93.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_93.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2728,13 +2728,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_94.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_94.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_94.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_94.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2755,13 +2755,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_95.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_95.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_95.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_95.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2784,13 +2784,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_96.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_96.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_96.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_96.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2812,13 +2812,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_97.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_97.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_97.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_97.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2839,13 +2839,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_98.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_98.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_98.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_98.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2866,13 +2866,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_99.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_99.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_99.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_99.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
@@ -2893,13 +2893,13 @@
     <IconStyle>
 			<scale>1.1</scale>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_100.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_100.png</href>
 			</Icon>
 			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 		<ListStyle>
 			<ItemIcon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/router/number_100.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/router/number_100.png</href>
 			</ItemIcon>
 		</ListStyle>
     <LabelStyle>
