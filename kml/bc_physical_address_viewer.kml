@@ -563,7 +563,7 @@
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#routingPoint">routing points</a> of site addresses
             
 <br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044cekml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
         <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
