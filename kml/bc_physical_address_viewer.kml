@@ -635,7 +635,7 @@
  
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> in BC (e.g., Douglas St and Yates St, Victoria, BC)
-        <br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+        <br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
         <br> <i><b>Positional Accuracy Terms </i></b><br>
         <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
         <br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
@@ -657,7 +657,7 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to more than one road segment
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
 
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
@@ -1347,7 +1347,7 @@
             <Snippet maxLines="0"></Snippet>
 			<drawOrder>97</drawOrder>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/DataBC_logo.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/DataBC_logo.png</href>
 			</Icon>
 			<overlayXY x="0.0800000" y="0.300000001" xunits="fraction" yunits="fraction"/>
 			<screenXY x="0" y="0.04000000000000001" xunits="fraction" yunits="fraction"/>
