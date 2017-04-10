@@ -183,7 +183,7 @@
 								<button id="geocodeBtn" class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
 								</button>
-								<button class="btn btn-default input-clear" type="button">
+								<button id="addressClear" class="btn btn-default input-clear" type="button">
 									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
 								</button>
 							</div>
@@ -239,7 +239,7 @@
 								<button id="findOccsByName" class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
 								</button>
-								<button class="btn btn-default input-clear" type="button">
+								<button id="nameClear" class="btn btn-default input-clear" type="button">
 									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
 								</button>
 							</div>
@@ -495,6 +495,8 @@
 			source: geocodeSuggest
 		});
 
+		var geocodeLayer = null;
+
 		// Geocode Address event handler
 		function geocode($field) {
 			$.ajax({
@@ -503,15 +505,17 @@
 					addressString: $field.val()
 				},
 				success: function(data) {
-					var newLayer = L.geoJson(data, {
+					if(geocodeLayer) {
+						map.removeLayer(geocodeLayer);
+						geocodeLayer = null;
+					}
+					geocodeLayer = L.geoJson(data, {
 						onEachFeature: function(feature, layer) {
 							layer.bindPopup(makePopupText(feature.properties));
 							layer.options['title'] = feature.properties.fullAddress;
 						}
 					}).addTo(map);
-					centerMap(newLayer.getBounds());
-					layerControl.addOverlay(newLayer, "Geocode results for \""
-						+ $('#geocodeField').val() + "\"");
+					centerMap(geocodeLayer.getBounds());
 				},
 				error: function(stuff) {
 					alert("error loading geocode results.");
@@ -529,6 +533,13 @@
 
 		$('#geocodeBtn').on("click", function() {
 			geocode($('#geocodeField'));
+		});
+
+		$('#addressClear').on("click", function() {
+			if(geocodeLayer) {
+				map.removeLayer(geocodeLayer);
+				geocodeLayer = null;
+			}
 		});
 
 		// Routing
@@ -761,6 +772,8 @@
 			}
 		});
 
+		var namedOccLayer;
+
 		// Find Occupants By Name event handler
 		function findOccs($field) {
 			var addr = $field.val();
@@ -773,15 +786,17 @@
 					addressString: addr
 				},
 				success: function(data) {
-					var newLayer = L.geoJson(data, {
+					if(namedOccLayer) {
+						map.removeLayer(namedOccLayer);
+						namedOccLayer = null;
+					}
+					namedOccLayer = L.geoJson(data, {
 						onEachFeature: function(feature, layer) {
 							layer.bindPopup(makePopupText(feature.properties));
 							layer.options['title'] = feature.properties.fullAddress;
 						}
 					}).addTo(map);
-					centerMap(newLayer.getBounds());
-					layerControl.addOverlay(newLayer, "Occupants named like \""
-						+ $field.val()  + "\"");
+					centerMap(namedOccLayer.getBounds());
 				},
 				error: function(stuff) {
 					alert("Error loading occupants by name.");
@@ -799,6 +814,13 @@
 
 		$('#findOccsByName').on("click", function() {
 			findOccs($('#nameField'));
+		});
+
+		$('#nameClear').on('click', function() {
+			if(namedOccLayer) {
+				map.removeLayer(namedOccLayer);
+				namedOccLayer = null;
+			}
 		});
 
 		var tabs = true;
