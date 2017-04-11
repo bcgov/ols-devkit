@@ -2,8 +2,7 @@ FROM alpine:3.4
 MAINTAINER leo.lou@gov.bc.ca
 
 RUN apk update \
-  && apk add alpine-sdk nodejs \
-  && git config --global url.https://github.com/.insteadOf git://github.com/ \
+  && apk add nodejs \
   && npm install -g serve
 
 RUN mkdir -p /app
@@ -11,11 +10,9 @@ RUN mkdir -p /app
 WORKDIR /app
 ADD . /app
 
-RUN adduser -S appuser
-RUN chown -R appuser:0 /app && chmod -R 770 /app
-RUN apk del --purge alpine-sdk
+RUN adduser -S app
+RUN chown -R appr:0 /app && chmod -R 770 /app
+USER app
 
-USER appuser
-
-EXPOSE 3000
-CMD serve -C -D -J -S --compress .
+EXPOSE 5000
+CMD serve -C -S /app
