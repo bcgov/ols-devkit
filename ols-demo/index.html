@@ -265,8 +265,12 @@
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
 	<script>
 		// API URLs
-		var gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
-		var routeApi = "https://routerdlv.api.gov.bc.ca/";
+		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
+		var routeApi = "https://router.api.gov.bc.ca/";
+		if( window.location.search.search(/(\?|&)test\=true/) != -1) {
+			gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
+			routeApi = "https://routerdlv.api.gov.bc.ca/";
+		}
 
 		// Leaflet Map setup
 		var map = L.map('map', {
