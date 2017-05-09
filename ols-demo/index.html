@@ -525,12 +525,27 @@
 			});
 		}
 
+		// function to put geocode point on map
+		function placeGeocode(data) {
+			if(geocodeLayer) {
+				map.removeLayer(geocodeLayer);
+				geocodeLayer = null;
+			}
+			geocodeLayer = L.geoJson(data, {
+				onEachFeature: function(feature, layer) {
+					layer.bindPopup(makePopupText(feature.properties));
+					layer.options['title'] = feature.properties.fullAddress;
+				}
+			}).addTo(map);
+			centerMap(geocodeLayer.getBounds());
+		}
+
 		// Geocode Address autocomplete
 		$('#geocodeField').autocomplete({
 			minLength: 3,
 			source: geocodeSuggest,
 			select: function(evt, ui) {
-				geocode($('#geocodeField'));
+				placeGeocode(ui.item.data);
 			}
 		});
 
@@ -544,19 +559,7 @@
 					echo: 'false',
 					addressString: $field.val()
 				},
-				success: function(data) {
-					if(geocodeLayer) {
-						map.removeLayer(geocodeLayer);
-						geocodeLayer = null;
-					}
-					geocodeLayer = L.geoJson(data, {
-						onEachFeature: function(feature, layer) {
-							layer.bindPopup(makePopupText(feature.properties));
-							layer.options['title'] = feature.properties.fullAddress;
-						}
-					}).addTo(map);
-					centerMap(geocodeLayer.getBounds());
-				},
+				success: placeGeocode,
 				error: function(stuff) {
 					alert("error loading geocode results.");
 					console.log(stuff);
