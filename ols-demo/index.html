@@ -44,7 +44,7 @@
 		}
 		#tabs {
 			height: 100%;
-			width: 400px;
+			width: 425px;
 			background-color: transparent;
 			display: flex;
 			flex-direction: column;
@@ -100,6 +100,10 @@
 		.ui-front {
 			z-index: 1001;
 		}
+		.ui-widget input {
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-size: 14px;
+		}
 		.popup-title {
 			font-size: 1.2em;
 			font-weight: bold;
@@ -147,11 +151,11 @@
 			margin-top: 8px;
 			margin-bottom: 8px;
 		}
-		span.red {
-			color: red;
+		span.fastest {
+			color: #FF00FF;
 		}
-		span.grey {
-			color: grey;
+		span.shortest {
+			color: #0000FF;
 		}
 	</style>
 </head>
@@ -169,10 +173,10 @@
 						<a href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Route</a>
 					</li>
 					<li role="presentation">
-						<a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Places by Tag</a>
+						<a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Businesses by Tag</a>
 					</li>
 					<li role="presentation">
-						<a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Places by Name</a>
+						<a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Businesses by Name</a>
 					</li>
 				</ul>
 				<div class="tab-content">
@@ -318,6 +322,24 @@
 				popupAnchor: [0,-16],
 		});
 
+		var redIcon = new L.Icon({
+			iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+			shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+			iconSize: [25, 41],
+			iconAnchor: [12, 41],
+			popupAnchor: [1, -34],
+			shadowSize: [41, 41]
+		});
+
+		var greenIcon = new L.Icon({
+			iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+			shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+			iconSize: [25, 41],
+			iconAnchor: [12, 41],
+			popupAnchor: [1, -34],
+			shadowSize: [41, 41]
+		});
+
 		var mapboxStreetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
 			maxZoom: 18,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -339,7 +361,7 @@
 			{
 				layers: '0'
 			});
-		baseLayers['BC Digital Road Atlas'] = bcRoadsBaseLayer;
+		baseLayers['BC Transportation Base'] = bcRoadsBaseLayer;
 
 		var bcBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcserver/services/province/web_mercator_cache/MapServer/WMSServer?',
 			{
@@ -381,7 +403,7 @@
 				layer.options['title'] = feature.properties.fullAddress;
 			}
 		});
-		overlays["Public Places"] = occLayer;
+		overlays["Businesses"] = occLayer;
 
 		var intLayer = new L.layerJSON({
 			url: gcApi + "intersections/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
@@ -429,13 +451,20 @@
 		parcelLayer.addTo(map);
 		overlays['Parcels'] = parcelLayer;
 
+		var draLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/ows?',
+			{
+				layers: 'pub:WHSE_BASEMAPPING.DRA_DGTL_ROAD_ATLAS_MPAR_SP',
+				transparent: true,
+				format: 'image/png'
+			});
+		overlays['BC Digital Road Atlas'] = draLayer;
+
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
 		// tabs UI setup
-		//$( "#tabs" ).tabs();
 		$('#myTabs a').click(function (e) {
-			e.preventDefault()
-			$(this).tab('show')
+			e.preventDefault();
+			$(this).tab('show');
 		});
 
  		$('.input-clear').click( function() {
@@ -467,14 +496,17 @@
 		}
 
 		// reusable function for suggesting geocode autocompletion options
-		function geocodeSuggest(request, response) {
+		function geocodeSuggest(request, response, options) {
+			var params = {
+				minScore: 50,
+				maxResults: 5,
+				echo: 'false',
+				addressString: request.term
+			};
+			$.extend(params, options);
 			$.ajax({
 				url: gcApi + "addresses.json",
-				data: {
-					minScore: 50,
-					maxResults: 5,
-					addressString: request.term
-				},
+				data: params,
 				success: function(data) {
 					var list = [];
 					if(data.features && data.features.length > 0) {
@@ -493,10 +525,28 @@
 			});
 		}
 
+		// function to put geocode point on map
+		function placeGeocode(data) {
+			if(geocodeLayer) {
+				map.removeLayer(geocodeLayer);
+				geocodeLayer = null;
+			}
+			geocodeLayer = L.geoJson(data, {
+				onEachFeature: function(feature, layer) {
+					layer.bindPopup(makePopupText(feature.properties));
+					layer.options['title'] = feature.properties.fullAddress;
+				}
+			}).addTo(map);
+			centerMap(geocodeLayer.getBounds());
+		}
+
 		// Geocode Address autocomplete
 		$('#geocodeField').autocomplete({
 			minLength: 3,
-			source: geocodeSuggest
+			source: geocodeSuggest,
+			select: function(evt, ui) {
+				placeGeocode(ui.item.data);
+			}
 		});
 
 		var geocodeLayer = null;
@@ -506,21 +556,10 @@
 			$.ajax({
 				url: gcApi + "addresses.json",
 				data: {
+					echo: 'false',
 					addressString: $field.val()
 				},
-				success: function(data) {
-					if(geocodeLayer) {
-						map.removeLayer(geocodeLayer);
-						geocodeLayer = null;
-					}
-					geocodeLayer = L.geoJson(data, {
-						onEachFeature: function(feature, layer) {
-							layer.bindPopup(makePopupText(feature.properties));
-							layer.options['title'] = feature.properties.fullAddress;
-						}
-					}).addTo(map);
-					centerMap(geocodeLayer.getBounds());
-				},
+				success: placeGeocode,
 				error: function(stuff) {
 					alert("error loading geocode results.");
 					console.log(stuff);
@@ -597,12 +636,12 @@
 						}, {
 						onEachFeature: function(feature, layer) {
 							layer.options['title'] = "fastest";
-							layer.setStyle({color:"#FF0000", weight:4});
+							layer.setStyle({color:"#FF00FF", weight:7, opacity: 0.5});
 						}
 					}).addTo(map);
 					centerMap(fastestRouteLayer.getBounds());
 
-					$('#fastestTiming').append('Fastest route (in <span class="red">red</span>): '
+					$('#fastestTiming').append('Fastest route (in <span class="fastest">magenta</span>): '
 							+ data.distance + ' km in ' + data.timeText);
 					var dirs = data.directions;
 					for(i = 0; i < dirs.length; i++) {
@@ -636,11 +675,11 @@
 						}, {
 						onEachFeature: function(feature, layer) {
 							layer.options['title'] = "shortest";
-							layer.setStyle({color:"#888888", weight:7});
+							layer.setStyle({color:"#0000FF", weight:7, opacity: 0.5});
 						}
 					}).addTo(map);
 					centerMap(shortestRouteLayer.getBounds());
-					$('#shortestTiming').append('Shortest route (in <span class="grey">grey</span>): '
+					$('#shortestTiming').append('Shortest route (in <span class="shortest">blue</span>): '
 							+ data.distance + ' km in ' + data.timeText);
 					if(fastestRouteLayer) {
 						fastestRouteLayer.bringToFront();
@@ -669,13 +708,20 @@
 		// Routing - from Address autocomplete
 		$('#fromGeocodeField').autocomplete({
 			minLength: 3,
-			source: geocodeSuggest,
-			select: function(event,ui) {
+			source: function(request, response) {
+				geocodeSuggest(request, response, {
+					locationDescriptor: 'accessPoint'
+				});
+			},
+			select: function(evt,ui) {
 				if(fromLayer) {
 					map.removeLayer(fromLayer);
 				}
 				fromAddress = ui.item.data;
 				fromLayer = L.geoJson(ui.item.data, {
+					pointToLayer: function (feature, latlng) {
+						return L.marker(latlng, {icon: greenIcon});
+					},
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
 						layer.options['title'] = feature.properties.fullAddress;
@@ -688,13 +734,20 @@
 		// Routing - to Address autocomplete
 		$('#toGeocodeField').autocomplete({
 			minLength: 3,
-			source: geocodeSuggest,
-			select: function(event,ui) {
+			source: function(request, response) {
+				geocodeSuggest(request, response, {
+					locationDescriptor: 'accessPoint'
+				});
+			},
+			select: function(evt,ui) {
 				if(toLayer) {
 					map.removeLayer(toLayer);
 				}
 				toAddress = ui.item.data;
 				toLayer = L.geoJson(ui.item.data, {
+					pointToLayer: function (feature, latlng) {
+						return L.marker(latlng, {icon: redIcon});
+					},
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
 						layer.options['title'] = feature.properties.fullAddress;
@@ -758,6 +811,7 @@
 					data: {
 						minScore: 50,
 						maxResults: 5,
+						echo: false,
 						addressString: request.term + "--"
 					},
 					success: function(data) {
@@ -787,6 +841,7 @@
 			$.ajax({
 				url: gcApi + "occupants/addresses.json",
 				data: {
+					echo: 'false',
 					addressString: addr
 				},
 				success: function(data) {
