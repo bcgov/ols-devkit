@@ -227,14 +227,15 @@
 						<div class="input-group">
 							<ul id="tags"></ul>
 							<div class="input-group-btn tag-input-group">
-								<button id="findNearbyOccs" class="btn btn-default" type="button">
-									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
+								<button id="findOccsByTag" class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search" title="Search" aria-label="Search"></span>
 								</button>
 								<button id="clearTags" class="btn btn-default" type="button">
 									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
 								</button>
 							</div>
 						</div>
+						Example: Law Courts <span style="font-size: 1.2em;">&crarr;</span>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="tabs-4">
 						<div class="input-group">
@@ -529,7 +530,6 @@
 		function placeGeocode(data) {
 			if(geocodeLayer) {
 				map.removeLayer(geocodeLayer);
-				geocodeLayer = null;
 			}
 			geocodeLayer = L.geoJson(data, {
 				onEachFeature: function(feature, layer) {
@@ -757,6 +757,8 @@
 			}
 		});
 
+		var occsByTagLayer;
+
 		// Tag-it setup (including autocomplete) for Occupants by tag
 		$('#tags').tagit({
 			allowSpaces: true,
@@ -777,9 +779,13 @@
 		$('.tagit-new > input').attr('placeholder', 'Enter tags');
 
 		// Find nearby Occupants by Tag event handler
-		$('#findNearbyOccs').on("click", function() {
+		$('#findOccsByTag').on("click", function() {
+			if(occsByTagLayer) {
+				map.removeLayer(occsByTagLayer);
+				occsByTagLayer = null;
+			}
 			var tagList = $('#tags').tagit("assignedTags").join(";");
-			var newLayer = new L.layerJSON({
+			occsByTagLayer = new L.layerJSON({
 				url: gcApi + "occupants/within.json?tags=" + tagList + "&bbox={lon1},{lat1},{lon2},{lat2}",
 				caching: false,
 				propertyItems: "features",
@@ -794,12 +800,15 @@
 					layer.options['title'] = feature.properties.fullAddress;
 				}
 			});
-			newLayer.addTo(map);
-			layerControl.addOverlay(newLayer, "Occupants tagged with \"" + tagList + "\"");
+			occsByTagLayer.addTo(map);
 		});
 
 		$('#clearTags').on('click', function() {
 			$('#tags').tagit('removeAll');
+			if(occsByTagLayer) {
+				map.removeLayer(occsByTagLayer);
+				occsByTagLayer = null;
+			}
 		})
 
 		// Find Occupants By Name Autocomplete
@@ -818,7 +827,10 @@
 						var list = [];
 						if(data.features && data.features.length > 0) {
 							list = data.features.map( function(item) {
-								return item.properties.fullAddress;
+								return {
+									value: item.properties.fullAddress,
+									data: item
+								};
 							});
 						}
 						response(list);
@@ -827,6 +839,18 @@
 						response([]);
 					}
 				});
+			},
+			select: function(evt,ui) {
+				if(namedOccLayer) {
+					map.removeLayer(namedOccLayer);
+				}
+				namedOccLayer = L.geoJson(ui.item.data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(makePopupText(feature.properties));
+						layer.options['title'] = feature.properties.fullAddress;
+					}
+				}).addTo(map);
+				centerMap(namedOccLayer.getBounds());
 			}
 		});
 
