@@ -275,6 +275,9 @@
 		if( window.location.search.search(/(\?|&)test\=true/) != -1) {
 			gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
 			routeApi = "https://routerdlv.api.gov.bc.ca/";
+		} else if( window.location.search.search(/(\?|&)test\=local/) != -1) {
+			gcApi = "http://localhost:8080/pub/geocoder/";
+			routeApi = "https://localhost:8080/router/";
 		}
 
 		// Leaflet Map setup
@@ -390,7 +393,7 @@
 
 		var occLayer = new L.layerJSON({
 			url: gcApi + "occupants/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
-			minZoom: 14,
+			minZoom: 1,
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.fullAddress",
@@ -618,7 +621,7 @@
 			$.ajax({
 				url: routeApi + 'directions.json',
 				data: {
-					apikey: "a82472ff8f754968b4e70943adc63888",
+					apikey: "11dd756f680c47b5aef5093d95543738",
 					criteria: "fastest",
 					points: fromAddress.geometry.coordinates[0] + ","
 							+ fromAddress.geometry.coordinates[1] + ","
@@ -657,7 +660,7 @@
 			$.ajax({
 				url: routeApi + 'route.json',
 				data: {
-					apikey: "a82472ff8f754968b4e70943adc63888",
+					apikey: "11dd756f680c47b5aef5093d95543738",
 					criteria: "shortest",
 					points: fromAddress.geometry.coordinates[0] + ","
 							+ fromAddress.geometry.coordinates[1] + ","
