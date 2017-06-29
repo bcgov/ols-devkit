@@ -108,6 +108,10 @@
 			font-size: 1.2em;
 			font-weight: bold;
 		}
+		.btn {
+			padding-left: 6px;
+			padding-right: 6px;
+		}
 		table.popup-table tr td {
 			padding: 2px;
 			border: 1px solid lightgrey;
@@ -184,11 +188,17 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="geocodeField" placeholder="Enter civic or intersection address" />
 							<div class="input-group-btn">
-								<button id="geocodeBtn" class="btn btn-default" type="button">
+								<button id="geocodeBtn" class="btn btn-default" type="button" title="Search">
 									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
 								</button>
-								<button id="addressClear" class="btn btn-default input-clear" type="button">
-									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+								<button id="randomBtn" class="btn btn-default" type="button" title="Random">
+									<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
+								</button>
+								<button id="gmapsBtn" class="btn btn-default" type="button" title="View in Google Maps">
+									<span class="glyphicon glyphicon-globe" aria-label="View in Google Maps"></span>
+								</button>
+								<button id="addressClear" class="btn btn-default input-clear" type="button" title="Clear">
+									<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
 								</button>
 							</div>
 						</div>
@@ -200,8 +210,14 @@
 									<div class="input-group">
 										<input type="text" class="form-control" id="fromGeocodeField" placeholder="From Address" />
 										<div class="input-group-btn">
-											<button id="fromClear" class="btn btn-default input-clear" type="button">
-												<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+											<button id="fromRandomBtn" class="btn btn-default" type="button" title="Random">
+												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
+											</button>
+											<button id="fromGmapsBtn" class="btn btn-default" type="button" title="View in Google Maps">
+												<span class="glyphicon glyphicon-globe" aria-label="View in Google Maps"></span>
+											</button>
+											<button id="fromClear" class="btn btn-default input-clear" type="button" title="Clear">
+												<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
 											</button>
 										</div>
 									</div>
@@ -210,8 +226,14 @@
 									<div class="input-group">
 										<input type="text" class="form-control" id="toGeocodeField" placeholder="To Address" />
 										<div class="input-group-btn">
-											<button id="toClear" class="btn btn-default input-clear" type="button">
-												<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+											<button id="toRandomBtn" class="btn btn-default" type="button" title="Random">
+												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
+											</button>
+											<button id="toGmapsBtn" class="btn btn-default" type="button" title="View in Google Maps">
+												<span class="glyphicon glyphicon-globe" aria-label="View in Google Maps"></span>
+											</button>
+											<button id="toClear" class="btn btn-default input-clear" type="button" title="Clear">
+												<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
 											</button>
 										</div>
 									</div>
@@ -227,11 +249,11 @@
 						<div class="input-group">
 							<ul id="tags"></ul>
 							<div class="input-group-btn tag-input-group">
-								<button id="findOccsByTag" class="btn btn-default" type="button">
-									<span class="glyphicon glyphicon-search" title="Search" aria-label="Search"></span>
+								<button id="findOccsByTag" class="btn btn-default" type="button" title="Search">
+									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
 								</button>
-								<button id="clearTags" class="btn btn-default" type="button">
-									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+								<button id="clearTags" class="btn btn-default" type="button" title="Clear">
+									<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
 								</button>
 							</div>
 						</div>
@@ -241,11 +263,11 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="nameField" placeholder="Enter name of public place or business" />
 							<div class="input-group-btn">
-								<button id="findOccsByName" class="btn btn-default" type="button">
+								<button id="findOccsByName" class="btn btn-default" type="button" title="Search">
 									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
 								</button>
-								<button id="nameClear" class="btn btn-default input-clear" type="button">
-									<span class="glyphicon glyphicon-remove" title="Clear" aria-label="Clear"></span>
+								<button id="nameClear" class="btn btn-default input-clear" type="button" title="Clear">
+									<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
 								</button>
 							</div>
 						</div>
@@ -269,15 +291,22 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
 	<script>
+		// parse query params
+		var queryParams = {};
+		location.search.substr(1).split("&").forEach(function(item) {
+			var s = item.split("="), k = s[0], v = s[1] && decodeURIComponent(s[1]);
+			queryParams[k] = v;
+		});
+
 		// API URLs
 		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var routeApi = "https://router.api.gov.bc.ca/";
-		if( window.location.search.search(/(\?|&)test\=true/) != -1) {
+		if(queryParams['test'] == 'true') {
 			gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
 			routeApi = "https://routerdlv.api.gov.bc.ca/";
-		} else if( window.location.search.search(/(\?|&)test\=rri/) != -1) {
+		} else if(queryParams['test'] == 'rri') {
 			gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
-		} else if( window.location.search.search(/(\?|&)test\=local/) != -1) {
+		} else if(queryParams['test'] == 'local') {
 			gcApi = "http://localhost:8080/pub/geocoder/";
 			routeApi = "https://localhost:8080/router/";
 		}
@@ -301,31 +330,31 @@
 
 		// define icons to use for markers
 		var siteIcon = L.icon({
-				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png',
-				iconSize: [32,32],
-				iconAnchor: [16,16],
-				popupAnchor: [0,-10],
+			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png',
+			iconSize: [32,32],
+			iconAnchor: [16,16],
+			popupAnchor: [0,-10],
 		});
 
 		var apIcon = L.icon({
-				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png',
-				iconSize: [32,32],
-				iconAnchor: [16,32],
-				popupAnchor: [0,-32],
+			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png',
+			iconSize: [32,32],
+			iconAnchor: [16,32],
+			popupAnchor: [0,-32],
 		});
 
 		var intIcon = L.icon({
-				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png',
-				iconSize: [32,37],
-				iconAnchor: [16,37],
-				popupAnchor: [0,-32],
+			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png',
+			iconSize: [32,37],
+			iconAnchor: [16,37],
+			popupAnchor: [0,-32],
 		});
 
 		var occIcon = L.icon({
-				iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/gsr/black_border_32p/bcgsr.unclassified.png',
-				iconSize: [26,32],
-				iconAnchor: [13,16],
-				popupAnchor: [0,-16],
+			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/gsr/black_border_32p/bcgsr.unclassified.png',
+			iconSize: [26,32],
+			iconAnchor: [13,16],
+			popupAnchor: [0,-16],
 		});
 
 		var redIcon = new L.Icon({
@@ -376,7 +405,7 @@
 		baseLayers['BC Base'] = bcBaseLayer;
 
 		var siteLayer = new L.layerJSON({
-			url: gcApi + "sites/within.json?excludeUnits=true&bbox={lon1},{lat1},{lon2},{lat2}",
+			url: gcApi + "sites/within.json?excludeUnits=true&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 14,
 			caching: false,
 			propertyItems: "features",
@@ -394,7 +423,7 @@
 		overlays["Addresses"] = siteLayer;
 
 		var occLayer = new L.layerJSON({
-			url: gcApi + "occupants/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
+			url: gcApi + "occupants/within.json?brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 1,
 			caching: false,
 			propertyItems: "features",
@@ -412,7 +441,7 @@
 		overlays["Businesses"] = occLayer;
 
 		var intLayer = new L.layerJSON({
-			url: gcApi + "intersections/within.json?bbox={lon1},{lat1},{lon2},{lat2}",
+			url: gcApi + "intersections/within.json?brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 14,
 			caching: false,
 			propertyItems: "features",
@@ -431,7 +460,8 @@
 
 		var apLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json"
-				+ "?excludeUnits=true&locationDescriptor=accessPoint&bbox={lon1},{lat1},{lon2},{lat2}",
+				+ "?excludeUnits=true&brief=true&locationDescriptor=accessPoint"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 14,
 			caching: false,
 			propertyItems: "features",
@@ -465,6 +495,14 @@
 			});
 		overlays['BC Digital Road Atlas'] = draLayer;
 
+		var gnsLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/pub/WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP/ows?',
+			{
+				layers: 'pub:WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP',
+				transparent: true,
+				format: 'image/png'
+			});
+		overlays['BC GNS'] = gnsLayer;
+
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
 		// tabs UI setup
@@ -497,6 +535,24 @@
 				str += '<tr><td>Degree:</td><td>' + props.degree + '</td></tr>';
 			}
 
+			if(props.occupantName) {
+				str += '<tr><td>Image URL</td><td>';
+				if(props.imageUrl) {
+					str += '<img url="' + props.imageUrl + '"/>';
+				} else {
+					str += 'No Image';
+				}
+				str	+= '</td></tr>';
+				str += '<tr><td>Occupant Description</td><td>' + props.occupantDescription + '</td></tr>';
+				str += '<tr><td>Website Url</td><td>' + props.websiteUrl + '</td></tr>';
+				str += '<tr><td>Contact E-mail</td><td>' + props.contactEmail + '</td></tr>';
+				str += '<tr><td>Contact Phone</td><td>' + props.contactPhone + '</td></tr>';
+				str += '<tr><td>Contact Fax</td><td>' + props.contactFax + '</td></tr>';
+				str += '<tr><td>Keywords</td><td>' + props.keywords + '</td></tr>';
+				str += '<tr><td>Business Category Class</td><td>' + props.businessCategoryClass + '</td></tr>';
+				str += '<tr><td>NAICS Code</td><td>' + props.naicsCode + '</td></tr>';
+			}
+
 			str += '</table>';
 			return str;
 		}
@@ -507,6 +563,7 @@
 				minScore: 50,
 				maxResults: 5,
 				echo: 'false',
+				brief: true,
 				autoComplete: true,
 				addressString: request.term
 			};
@@ -532,17 +589,24 @@
 			});
 		}
 
-		// function to put geocode point on map
-		function placeGeocode(data) {
+		// function to convert json or a latlng into a layer and put it on the map
+		function receiveGeocode(data) {
+			var layer;
+			if(data instanceof L.LatLng) {
+				layer = latLngToLayer(data);
+			} else {
+				layer = L.geoJson(data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(makePopupText(feature.properties));
+						layer.options['title'] = feature.properties.fullAddress;
+					}
+				});
+			}
 			if(geocodeLayer) {
 				map.removeLayer(geocodeLayer);
 			}
-			geocodeLayer = L.geoJson(data, {
-				onEachFeature: function(feature, layer) {
-					layer.bindPopup(makePopupText(feature.properties));
-					layer.options['title'] = feature.properties.fullAddress;
-				}
-			}).addTo(map);
+			geocodeLayer = layer;
+			layer.addTo(map);
 			centerMap(geocodeLayer.getBounds());
 		}
 
@@ -551,37 +615,51 @@
 			minLength: 3,
 			source: geocodeSuggest,
 			select: function(evt, ui) {
-				placeGeocode(ui.item.data);
+				receiveGeocode(ui.item.data);
 			}
 		});
 
 		var geocodeLayer = null;
 
 		// Geocode Address event handler
-		function geocode($field) {
-			$.ajax({
-				url: gcApi + "addresses.json",
-				data: {
-					echo: 'false',
-					addressString: $field.val()
-				},
-				success: placeGeocode,
-				error: function(stuff) {
-					alert("error loading geocode results.");
-					console.log(stuff);
-				}
-			});
+		function geocode($field, callback) {
+			var latLng = isCoords($field.val());
+			if(latLng) {
+				callback(latLng);
+			} else {
+				$.ajax({
+					url: gcApi + "addresses.json",
+					data: {
+						echo: 'false',
+						brief: true,
+						addressString: $field.val()
+					},
+					success: callback,
+					error: function(stuff) {
+						alert("error loading geocode results.");
+						console.log(stuff);
+					}
+				});
+			}
 		}
 
 		$('#geocodeField').keypress(function(e) {
  			if(e.which == 13) {
-    			geocode($('#geocodeField'));
+    			geocode($('#geocodeField'), receiveGeocode);
     			return false;
   			}
 		});
 
 		$('#geocodeBtn').on("click", function() {
-			geocode($('#geocodeField'));
+			geocode($('#geocodeField'), receiveGeocode);
+		});
+
+		$('#randomBtn').on("click", function() {
+			randomAddress($('#geocodeField'), receiveGeocode);
+		});
+
+		$('#gmapsBtn').on("click", function() {
+			window.open('http://maps.google.com/?q=' + $('#geocodeField').val());
 		});
 
 		$('#addressClear').on("click", function() {
@@ -592,8 +670,10 @@
 		});
 
 		// Routing
-		var fromAddress, toAddress;
-		var fromLayer, toLayer, fastestRouteLayer, shortestRouteLayer;
+		var routeLatLng = {'from': null, 'to': null};
+		var routeLayers = {'from': null, 'to': null};
+		var routeIcon = {'from': greenIcon, 'to': redIcon};
+		var fastestRouteLayer, shortestRouteLayer;
 
 		function clearRoute() {
 			$('#fastestTiming').empty();
@@ -609,13 +689,13 @@
 			}
 		}
 
-		function route(fromAddress, toAddress) {
-			if(!fromAddress || !toAddress) {
-				if(fromAddress) {
-					map.panTo(L.latLng(fromAddress.geometry.coordinates[1], fromAddress.geometry.coordinates[0]));
+		function route() {
+			if(!routeLatLng['from'] || !routeLatLng['to']) {
+				if(routeLatLng['from']) {
+					map.panTo(routeLatLng['from']);
 				}
-				if(toAddress) {
-					map.panTo(L.latLng(toAddress.geometry.coordinates[1], toAddress.geometry.coordinates[0]));
+				if(routeLatLng['to']) {
+					map.panTo(routeLatLng['to']);
 				}
 				return;
 			}
@@ -626,10 +706,10 @@
 				data: {
 					apikey: "11dd756f680c47b5aef5093d95543738",
 					criteria: "fastest",
-					points: fromAddress.geometry.coordinates[0] + ","
-							+ fromAddress.geometry.coordinates[1] + ","
-							+ toAddress.geometry.coordinates[0] + ","
-							+ toAddress.geometry.coordinates[1]
+					points: routeLatLng['from'].lng + ","
+							+ routeLatLng['from'].lat + ","
+							+ routeLatLng['to'].lng + ","
+							+ routeLatLng['to'].lat
 				},
 				success: function(data) {
 					fastestRouteLayer = L.geoJson({
@@ -665,10 +745,10 @@
 				data: {
 					apikey: "11dd756f680c47b5aef5093d95543738",
 					criteria: "shortest",
-					points: fromAddress.geometry.coordinates[0] + ","
-							+ fromAddress.geometry.coordinates[1] + ","
-							+ toAddress.geometry.coordinates[0] + ","
-							+ toAddress.geometry.coordinates[1]
+					points: routeLatLng['from'].lng + ","
+							+ routeLatLng['from'].lat + ","
+							+ routeLatLng['to'].lng + ","
+							+ routeLatLng['to'].lat
 				},
 				success: function(data) {
 					shortestRouteLayer = L.geoJson({
@@ -698,18 +778,91 @@
 			});
 		}
 
+		$('#fromGeocodeField').keypress(function(e) {
+ 			if(e.which == 13) {
+				var latLng = isCoords($('#fromGeocodeField').val());
+				if(latLng) {
+    				receiveRouteGeocode(latLng, 'from');
+				}
+    			return false;
+  			}
+		});
+
+		$('#toGeocodeField').keypress(function(e) {
+ 			if(e.which == 13) {
+				var latLng = isCoords($('#toGeocodeField').val());
+				if(latLng) {
+    				receiveRouteGeocode(latLng, 'to');
+				}
+    			return false;
+  			}
+		});
+
+		$('#fromRandomBtn').on("click", function() {
+			randomAddress($('#fromGeocodeField'), function(data) {
+				receiveRouteGeocode(data, 'from');
+			});
+		});
+
+		$('#toRandomBtn').on("click", function() {
+			randomAddress($('#toGeocodeField'), function(data) {
+				receiveRouteGeocode(data, 'to');
+			});
+		});
+
+		$('#toGmapsBtn').on("click", function() {
+			window.open('http://maps.google.com/?q=' + $('#toGeocodeField').val());
+		});
+
+		$('#fromGmapsBtn').on("click", function() {
+			window.open('http://maps.google.com/?q=' + $('#fromGeocodeField').val());
+		});
+
 		$('#fromClear').on('click', function() {
 				clearRoute();
-				if(fromLayer) {
-					map.removeLayer(fromLayer);
+				if(routeLayers['from']) {
+					map.removeLayer(routeLayers['from']);
 				}
 		});
+
 		$('#toClear').on('click', function() {
 				clearRoute();
-				if(toLayer) {
-					map.removeLayer(toLayer);
+				if(routeLayers['to']) {
+					map.removeLayer(routeLayers['to']);
 				}
 		});
+
+		function receiveRouteGeocode(data, fromTo) {
+			var layer, latLng;
+			if(data instanceof L.LatLng) {
+				latLng = data;
+				layer = latLngToLayer(data, {icon: routeIcon[fromTo]});
+			} else {
+				// sort out whether we have a single feature or a featureCollection
+				var feature = data;
+				if(data.features) {
+					feature = data.features[0];
+				}
+				$('#' + fromTo + 'GeocodeField').val(feature.properties.fullAddress);
+				latLng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
+				layer = L.geoJson(data, {
+					pointToLayer: function (feature, latlng) {
+						return L.marker(latlng, {icon: routeIcon[fromTo]});
+					},
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(makePopupText({'fullAddress': feature.properties['fullAddress']}));
+						layer.options['title'] = feature.properties.fullAddress;
+					}
+				});
+			}
+			if(routeLayers[fromTo]) {
+				map.removeLayer(routeLayers[fromTo]);
+			}
+			routeLayers[fromTo] = layer;
+			layer.addTo(map);
+			routeLatLng[fromTo] = latLng;
+			route();
+		}
 
 		// Routing - from Address autocomplete
 		$('#fromGeocodeField').autocomplete({
@@ -719,21 +872,8 @@
 					locationDescriptor: 'accessPoint'
 				});
 			},
-			select: function(evt,ui) {
-				if(fromLayer) {
-					map.removeLayer(fromLayer);
-				}
-				fromAddress = ui.item.data;
-				fromLayer = L.geoJson(ui.item.data, {
-					pointToLayer: function (feature, latlng) {
-						return L.marker(latlng, {icon: greenIcon});
-					},
-					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText(feature.properties));
-						layer.options['title'] = feature.properties.fullAddress;
-					}
-				}).addTo(map);
-				route(fromAddress,toAddress);
+			select: function(evt, ui) {
+				receiveRouteGeocode(ui.item.data, 'from');
 			}
 		});
 
@@ -745,21 +885,8 @@
 					locationDescriptor: 'accessPoint'
 				});
 			},
-			select: function(evt,ui) {
-				if(toLayer) {
-					map.removeLayer(toLayer);
-				}
-				toAddress = ui.item.data;
-				toLayer = L.geoJson(ui.item.data, {
-					pointToLayer: function (feature, latlng) {
-						return L.marker(latlng, {icon: redIcon});
-					},
-					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText(feature.properties));
-						layer.options['title'] = feature.properties.fullAddress;
-					}
-				}).addTo(map);
-				route(fromAddress,toAddress);
+			select: function(evt, ui) {
+				receiveRouteGeocode(ui.item.data, 'to');
 			}
 		});
 
@@ -828,6 +955,7 @@
 						maxResults: 5,
 						echo: false,
 						autoComplete: true,
+						brief: true,
 						addressString: request.term + "--"
 					},
 					success: function(data) {
@@ -873,6 +1001,7 @@
 				url: gcApi + "occupants/addresses.json",
 				data: {
 					echo: 'false',
+					brief: true,
 					addressString: addr
 				},
 				success: function(data) {
@@ -938,6 +1067,47 @@
 			}
 		});
 
+		function isCoords(input) {
+			var matches = input.match(/^\s*(-?\d{1,3}(?:\.\d*)?)\s*,\s*(-?[0-9]{1,3}(?:\.\d*)?)\s*$/);
+			if(matches != null) {
+				var lat = matches[1];
+				var lng = matches[2];
+				if(lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+					return new L.latLng(lat,lng);
+				}
+			}
+			return false;
+		}
+
+		// Random Address event handler
+		function randomAddress($field, callback) {
+			var bounds = map.getBounds();
+			var lat = (Math.random() * (bounds.getNorth() - bounds.getSouth())) + bounds.getSouth();
+			var lng = (Math.random() * (bounds.getEast() - bounds.getWest())) + bounds.getWest();
+			$.ajax({
+				url: gcApi + "sites/nearest.json",
+				data: {
+					brief: true,
+					point: lng + "," + lat
+				},
+				success: function(data) {
+					$field.val(data.properties.fullAddress);
+					return callback(data);
+				},
+				error: function(stuff) {
+					alert("error finding nearest site to random point.");
+					console.log(stuff);
+				}
+			});
+		}
+
+		function latLngToLayer(latLng, markerOptions) {
+			var marker = L.marker(latLng, markerOptions);
+			marker.bindPopup('<span class="popup-title">' + latLng.lat + "," + latLng.lng + '</span>');
+			var layer = L.featureGroup([marker]);
+			return layer;
+		}
+
 		function centerMap(bounds) {
 			var options = {
 				maxZoom: 16
@@ -946,6 +1116,11 @@
 				options.paddingTopLeft = [400,0];
 			}
 			map.fitBounds(bounds.pad(0.25), options);
+		}
+
+		if(queryParams['q']) {
+			$('#geocodeField').val(queryParams['q']);
+			geocode($('#geocodeField'), receiveGeocode);
 		}
 	</script>
 </body>
