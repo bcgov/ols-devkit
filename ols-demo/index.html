@@ -117,6 +117,18 @@
 			border: 1px solid lightgrey;
 			border-collapse: collapse;
 		}
+		.gnsLabel {
+			white-space: nowrap;
+			/*-webkit-text-stroke: 0.25px white;*/
+			font-face: verdana;
+			font-weight: bolder;
+			font-size: 16px;
+			text-shadow:
+   				-1px -1px 0 #FFF,
+    			1px -1px 0 #FFF,
+    			-1px 1px 0 #FFF,
+     			1px 1px 0 #FFF;
+		}
 		#title {
 			position: absolute;
 			z-index: 999;
@@ -478,9 +490,9 @@
 		});
 		overlays["Addresses – access point "] = apLayer;
 
-		var parcelLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/mapserver/land-ownership-and-status?',
+		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW/ows?SERVICE=WMS&',
 			{
-				layers: 'CBM_CADASTRAL_FABRIC_PUB_O',
+				layers: 'pub:WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW',
 				transparent: true,
 				format: 'image/png'
 			});
@@ -495,13 +507,33 @@
 			});
 		overlays['BC Digital Road Atlas'] = draLayer;
 
-		var gnsLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/pub/WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP/ows?',
-			{
-				layers: 'pub:WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP',
-				transparent: true,
-				format: 'image/png'
-			});
-		overlays['BC GNS'] = gnsLayer;
+		// var gnsLayer = L.tileLayer.wms('http://test.openmaps.gov.bc.ca/geo/pub/WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP/ows?',
+		// 	{
+		// 		layers: 'pub:WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP',
+		// 		transparent: true,
+		// 		format: 'image/png'
+		// 	});
+		var gnsLayer = new L.layerJSON({
+			url: "http://apps.gov.bc.ca/pub/bcgnws/names/official/inside"
+				+ "?itemsPerPage=50&sortBy=name&outputFormat=json&outputSRS=4326"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 12,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.uri",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return apIcon;
+			},
+			buildIcon: function(data, title) {	// make icon from data
+				return L.divIcon({html: data.properties.name, className: "gnsLabel"});
+			},
+			onEachMarker: function(feature, layer) {
+				//layer.bindPopup(makePopupText(feature.properties));
+			}
+		});
+		overlays['BC Geographical Names'] = gnsLayer;
 
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -590,7 +622,7 @@
 		}
 
 		// function to convert json or a latlng into a layer and put it on the map
-		function receiveGeocode(data) {
+		function receiveGeocode(data, center=true) {
 			var layer;
 			if(data instanceof L.LatLng) {
 				layer = latLngToLayer(data);
@@ -598,7 +630,9 @@
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
-						layer.options['title'] = feature.properties.fullAddress;
+						layer.bindTooltip(feature.properties.fullAddress, {
+								permanent: true
+							}).openTooltip();
 					}
 				});
 			}
@@ -607,7 +641,8 @@
 			}
 			geocodeLayer = layer;
 			layer.addTo(map);
-			centerMap(geocodeLayer.getBounds());
+			centerMap(geocodeLayer.getBounds(), center);
+
 		}
 
 		// Geocode Address autocomplete
@@ -655,7 +690,9 @@
 		});
 
 		$('#randomBtn').on("click", function() {
-			randomAddress($('#geocodeField'), receiveGeocode);
+			randomAddress($('#geocodeField'),function(data) {
+				receiveGeocode(data, false);
+			});
 		});
 
 		$('#gmapsBtn').on("click", function() {
@@ -689,7 +726,7 @@
 			}
 		}
 
-		function route() {
+		function route(center = true) {
 			if(!routeLatLng['from'] || !routeLatLng['to']) {
 				if(routeLatLng['from']) {
 					map.panTo(routeLatLng['from']);
@@ -725,7 +762,7 @@
 							layer.setStyle({color:"#FF00FF", weight:7, opacity: 0.5});
 						}
 					}).addTo(map);
-					centerMap(fastestRouteLayer.getBounds());
+					centerMap(fastestRouteLayer.getBounds(), center);
 
 					$('#fastestTiming').append('Fastest route (in <span class="fastest">magenta</span>): '
 							+ data.distance + ' km in ' + data.timeText);
@@ -764,7 +801,7 @@
 							layer.setStyle({color:"#0000FF", weight:7, opacity: 0.5});
 						}
 					}).addTo(map);
-					centerMap(shortestRouteLayer.getBounds());
+					centerMap(shortestRouteLayer.getBounds(), center);
 					$('#shortestTiming').append('Shortest route (in <span class="shortest">blue</span>): '
 							+ data.distance + ' km in ' + data.timeText);
 					if(fastestRouteLayer) {
@@ -800,13 +837,13 @@
 
 		$('#fromRandomBtn').on("click", function() {
 			randomAddress($('#fromGeocodeField'), function(data) {
-				receiveRouteGeocode(data, 'from');
+				receiveRouteGeocode(data, 'from', false);
 			});
 		});
 
 		$('#toRandomBtn').on("click", function() {
 			randomAddress($('#toGeocodeField'), function(data) {
-				receiveRouteGeocode(data, 'to');
+				receiveRouteGeocode(data, 'to', false);
 			});
 		});
 
@@ -832,7 +869,7 @@
 				}
 		});
 
-		function receiveRouteGeocode(data, fromTo) {
+		function receiveRouteGeocode(data, fromTo, center = true) {
 			var layer, latLng;
 			if(data instanceof L.LatLng) {
 				latLng = data;
@@ -851,7 +888,9 @@
 					},
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText({'fullAddress': feature.properties['fullAddress']}));
-						layer.options['title'] = feature.properties.fullAddress;
+						layer.bindTooltip(feature.properties.fullAddress, {
+								permanent: true
+							}).openTooltip();
 					}
 				});
 			}
@@ -861,7 +900,7 @@
 			routeLayers[fromTo] = layer;
 			layer.addTo(map);
 			routeLatLng[fromTo] = latLng;
-			route();
+			route(center);
 		}
 
 		// Routing - from Address autocomplete
@@ -1082,11 +1121,19 @@
 		// Random Address event handler
 		function randomAddress($field, callback) {
 			var bounds = map.getBounds();
-			var lat = (Math.random() * (bounds.getNorth() - bounds.getSouth())) + bounds.getSouth();
-			var lng = (Math.random() * (bounds.getEast() - bounds.getWest())) + bounds.getWest();
+			var height = bounds.getNorth() - bounds.getSouth()
+			var lat = (Math.random() * height * 0.8) + bounds.getSouth() + (height * 0.1);
+			var west = bounds.getWest();
+			if(tabs) {
+				var west = map.containerPointToLatLng([400,0]).lng;
+			}
+			var width = bounds.getEast() - west;
+			var lng = (Math.random() * width * 0.8) + west + (width * 0.1);
 			$.ajax({
 				url: gcApi + "sites/nearest.json",
 				data: {
+					excludeUnits: true,
+					onlyCivic: true,
 					brief: true,
 					point: lng + "," + lat
 				},
@@ -1108,14 +1155,20 @@
 			return layer;
 		}
 
-		function centerMap(bounds) {
-			var options = {
-				maxZoom: 16
-			};
-			if(tabs) {
-				options.paddingTopLeft = [400,0];
+		function centerMap(bounds, center = true) {
+			if(center) {
+				var options = {
+					maxZoom: 16
+				};
+				if(tabs) {
+					options.paddingTopLeft = [400,0];
+				}
+				map.fitBounds(bounds.pad(0.25), options);
+			} else if(!map.getBounds().contains(bounds.pad(0.25))) {
+				// if the bounds aren't within the current map bounds
+				// zoom out to include the bounds
+				map.fitBounds(bounds.extend(map.getBounds()).pad(0.25));
 			}
-			map.fitBounds(bounds.pad(0.25), options);
 		}
 
 		if(queryParams['q']) {
@@ -1126,3 +1179,4 @@
 </body>
 
 </html>
+1
