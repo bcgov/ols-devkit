@@ -198,6 +198,22 @@
 			margin-top: 8px;
 			margin-bottom: 8px;
 		}
+		.leaflet-marker-icon .number{
+			position: relative;
+			top: -36px;
+			font-size: 11px;
+			font-family: "Arial Narrow", Arial, sans-serif;
+			font-weight: bold;
+			width: 25px;
+			text-align: center;
+		}
+
+		/* For leaflet-history.js */
+		.history-control.leaflet-bar.hidden{display:none}
+		.history-control.leaflet-bar.horizontal a{display:inline-block;border-bottom:0;border-radius:0;border-right:1px solid #ccc}
+		.history-control.leaflet-bar.horizontal a:first-child{border-top-left-radius:4px;border-bottom-left-radius:4px}
+		.history-control.leaflet-bar.horizontal a:last-child{border-top-right-radius:4px;border-bottom-right-radius:4px;border-right:0}
+		.history-control.leaflet-bar a{width:auto;font-size:1.1em;min-width:26px}
 	</style>
 </head>
 
@@ -255,8 +271,11 @@
 											<button class="btn btn-default random" type="button" title="Random">
 												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
 											</button>
-											<button class="btn btn-default gmaps" type="button" title="View in Google Maps">
+											<!-- button class="btn btn-default gmaps" type="button" title="View in Google Maps">
 												<span class="glyphicon glyphicon-globe" aria-label="View in Google Maps"></span>
+											</button -->
+											<button class="btn btn-default zoom-to" type="button" title="Zoom To Location">
+												<span class="glyphicon glyphicon-map-marker" aria-label="Zoom To Location"></span>
 											</button>
 											<button class="btn btn-default input-clear" type="button" title="Clear">
 												<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
@@ -276,8 +295,11 @@
 											<button class="btn btn-default random" type="button" title="Random">
 												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
 											</button>
-											<button class="btn btn-default gmaps" type="button" title="View in Google Maps">
+											<!--button class="btn btn-default gmaps" type="button" title="View in Google Maps">
 												<span class="glyphicon glyphicon-globe" aria-label="View in Google Maps"></span>
+											</button -->
+											<button class="btn btn-default zoom-to" type="button" title="Zoom To Location">
+												<span class="glyphicon glyphicon-map-marker" aria-label="Zoom To Location"></span>
 											</button>
 											<button class="btn btn-default input-clear" type="button" title="Clear">
 												<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
@@ -343,6 +365,7 @@
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
 	<script src="leaflet-layerjson.js"></script>
+	<script src="leaflet-history.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 	<script src="https://rubaxa.github.io/Sortable/Sortable.js"></script>
@@ -350,6 +373,31 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
 	<script>
+		L.NumberedIcon = L.Icon.extend({
+			options: {
+    			number: '',
+				iconUrl: 'img/marker-icon-hole.png',
+    			iconSize: new L.Point(25, 41),
+				iconAnchor: new L.Point(13, 41),
+				popupAnchor: new L.Point(0, -33),
+				shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+				shadowSize: [41, 41]
+			},
+
+			createIcon: function () {
+				var div = document.createElement('div');
+				var img = this._createImg(this.options['iconUrl']);
+				var numdiv = document.createElement('div');
+				numdiv.setAttribute ( "class", "number" );
+				numdiv.innerHTML = this.options['number'] || '';
+				div.appendChild ( img );
+				div.appendChild ( numdiv );
+				this._setIconStyles(div, 'icon');
+				return div;
+			},
+
+		});
+
 		// parse query params
 		var queryParams = {};
 		location.search.substr(1).split("&").forEach(function(item) {
@@ -377,6 +425,11 @@
 		var map = L.map('map', {
 			minZoom: 5
 		}).setView([48.44, -123.43], 12);
+		new L.HistoryControl({
+			position: 'bottomright',
+    		backImage: 'glyphicon glyphicon-triangle-left',
+    		forwardImage: 'glyphicon glyphicon-triangle-right'
+		}).addTo(map);
 		map.zoomControl.setPosition('bottomright');
 		L.control.locate({
 			position: 'bottomright',
@@ -680,9 +733,10 @@
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
-						layer.bindTooltip(feature.properties.fullAddress, {
-								permanent: true
-							}).openTooltip();
+						layer.options['title'] = feature.properties.fullAddress;
+						//layer.bindTooltip(feature.properties.fullAddress, {
+						//		permanent: true
+						//	}).openTooltip();
 					}
 				});
 			}
@@ -763,8 +817,11 @@
 		function getRouteIcon(index) {
 			if(index == 0) {
 				return greenIcon;
+			} else if(index == -1) {
+				return redIcon;
+			} else {
+				return new L.NumberedIcon({number: index});
 			}
-			return redIcon;
 		}
 
 		function clearRoute() {
@@ -838,6 +895,32 @@
 					}).addTo(map);
 					centerMap(routeLayer.getBounds(), center);
 
+					// update icon numbering
+					$('#routerList input.input-field').each( function(index, element) {
+						var layer = $(element).data('marker');
+						if(data.visitOrder) {
+							index = data.visitOrder[index];
+							if(index == data.visitOrder.length - 1) {
+								index = -1;
+							}
+						} else if($(element).parents('div.form-group').next().length == 0) {
+							index = -1;
+						}
+						if(layer) {
+							layer.getLayers()[0].setIcon(getRouteIcon(index));
+						}
+					});
+
+					// var $last;
+					// if(data.visitOrder) {
+					// 	$last = $('#routerList input.input-field:nth-child(' + (data.visitOrder[data.visitOrder.length-1] + 1) +')');
+					// } else {
+					// 	$last = $('#routerList input.input-field').filter(':last');
+					// }
+					// if($last.data('marker')) {
+					// 	$last.data('marker').getLayers()[0].setIcon(getRouteIcon(-1));
+					// }
+
 					$('#timing').html('Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
 					var dirs = data.directions;
 					for(i = 0; i < dirs.length; i++) {
@@ -889,6 +972,15 @@
 		$('#routerList').on('click', 'button.gmaps', function() {
 			window.open('http://maps.google.com/?q='
 					+ $(this).parents('div.form-group').find('input.input-field').val());
+		});
+
+		// zoom to Location button
+		$('#routerList').on('click', 'button.zoom-to', function() {
+			var $inputField = $(this).parents('div.input-group').find('input.input-field');
+			var marker = $inputField.data('marker');
+			if(marker) {
+				centerMap(marker.getBounds(), true);
+			}
 		});
 
 		// clear router input field button
@@ -981,9 +1073,10 @@
 					},
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText({'fullAddress': feature.properties['fullAddress']}));
-						layer.bindTooltip(feature.properties.fullAddress, {
-								permanent: true
-							}).openTooltip();
+						layer.options['title'] = feature.properties.fullAddress;
+						//layer.bindTooltip(feature.properties.fullAddress, {
+						//		permanent: true
+						//	}).openTooltip();
 					}
 				});
 			}
