@@ -317,7 +317,7 @@
 									<input name="criteria" type="radio" value="shortest" aria-label="Shortest"> Shortest
 								</div>
 								<div class="routerControl not-in-prod"><input id="roundTripChk" type="checkbox" aria-label="Round trip" title="Round trip"> Round Trip</div>
-								<div class="routerControl not-in-prod"><input id="optimizeChk" type="checkbox" aria-label="Optimize" title="Optimize"> Optimize</div>
+								<div class="routerControl not-in-prod"><input id="optimizeChk" type="checkbox" aria-label="Optimize Order" title="Optimize Order"> Optimize Order</div>
 							</div>
 							<div id="routerInfo">
 								<div id="timing" class="timing"></div>
@@ -889,8 +889,11 @@
 							}
 						}, {
 						onEachFeature: function(feature, layer) {
-							layer.options['title'] = "fastest";
-							layer.setStyle({color:"#FF00FF", weight:7, opacity: 0.5});
+							var color = "#0000FF";
+							if(criteria == "fastest") {
+								color = "#FF00FF";
+							}
+							layer.setStyle({color:color, weight:7, opacity: 0.5});
 						}
 					}).addTo(map);
 					centerMap(routeLayer.getBounds(), center);
@@ -1292,7 +1295,7 @@
 		}
 
 		// Random Address event handler
-		function randomAddress($field, locationDescriptor, callback) {
+		function randomAddress($field, locationDescriptor, callback, retries = 0) {
 			var bounds = map.getBounds();
 			var height = bounds.getNorth() - bounds.getSouth()
 			var lat = (Math.random() * height * 0.8) + bounds.getSouth() + (height * 0.1);
@@ -1316,8 +1319,12 @@
 					return callback(data, $field);
 				},
 				error: function(request) {
-					alert("error finding nearest site to random point.");
-					console.log(request);
+					if(retries < 5) {
+						randomAddress($field, locationDescriptor, callback, retries);
+					} else {
+						alert("error finding nearest site to random point.");
+						console.log(request);
+					}
 				}
 			});
 		}
