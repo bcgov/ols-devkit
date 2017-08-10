@@ -194,9 +194,19 @@
 			border: 1px solid #99ff99;
 			background-color: #ddffdd;
 		}
+		.selectedDirection {
+			background-color: #88bbff;
+			border-color: #3388ff
+		}
 		.timing {
 			margin-top: 8px;
 			margin-bottom: 8px;
+		}
+		span.fastest {
+			color: #FF00FF;
+		}
+		span.shortest {
+			color: #0000FF;
 		}
 		.leaflet-marker-icon .number{
 			position: relative;
@@ -313,11 +323,14 @@
 									<span class="glyphicon glyphicon-plus" aria-label="Add Destination"></span>
 								</button>
 								<div class="routerControl">
-									<input name="criteria" type="radio" value="fastest" aria-label="Fastest"  checked="checked"> Fastest<br>
-									<input name="criteria" type="radio" value="shortest" aria-label="Shortest"> Shortest
+									<input name="criteria" type="radio" value="fastest" aria-label="Fastest"  checked="checked"> <span class="fastest">Fastest</span><br>
+									<input name="criteria" type="radio" value="shortest" aria-label="Shortest"> <span class="shortest">Shortest</span>
 								</div>
-								<div class="routerControl not-in-prod"><input id="roundTripChk" type="checkbox" aria-label="Round trip" title="Round trip"> Round Trip</div>
-								<div class="routerControl not-in-prod"><input id="optimizeChk" type="checkbox" aria-label="Optimize Order" title="Optimize Order"> Optimize Order</div>
+								<div class="routerControl not-in-prod">
+									<input id="roundTripChk" type="checkbox" aria-label="Round trip" title="Round trip"> Round Trip<br/>
+									<input id="optimizeChk" type="checkbox" aria-label="Optimize Order" title="Optimize Order"> Optimize Order<br/>
+									<input id="nearestStopChk" type="checkbox" aria-label="Nearest Stop" title="Nearest Stop"> Nearest Stop
+								</div>
 							</div>
 							<div id="routerInfo">
 								<div id="timing" class="timing"></div>
@@ -413,8 +426,9 @@
 			routeApi = "https://routerdlv.api.gov.bc.ca/";
 		} else if(queryParams['test'] == 'rri') {
 			gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
-		} else if(queryParams['test'] == 'local') {
-			//gcApi = "http://localhost:8080/pub/geocoder/";
+		} else if(queryParams['test'] == 'lg') {
+			gcApi = "http://localhost:8080/pub/geocoder/";
+		} else if(queryParams['test'] == 'lr') {
 			routeApi = "http://localhost:8080/pub/router/";
 		} else {
 			// hide functions not available from production APIs
@@ -490,6 +504,8 @@
 			shadowSize: [41, 41]
 		});
 
+		var baseErrorMsg = "An unexpected server error occurred; No response from server.\n";
+
 		var mapboxStreetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
 			maxZoom: 18,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -535,7 +551,27 @@
 				layer.options['title'] = feature.properties.fullAddress;
 			}
 		});
-		overlays["Addresses"] = siteLayer;
+		overlays["Addresses - parcel point"] = siteLayer;
+
+		var apLayer = new L.layerJSON({
+			url: gcApi + "sites/within.json"
+				+ "?excludeUnits=true&brief=true&locationDescriptor=accessPoint"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return apIcon;
+			},
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(makePopupText(feature.properties));
+				layer.options['title'] = feature.properties.fullAddress;
+			}
+		});
+		overlays["Addresses – access point "] = apLayer;
 
 		var occLayer = new L.layerJSON({
 			url: gcApi + "occupants/within.json?brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -573,26 +609,6 @@
 		});
 		overlays["Intersections"] = intLayer;
 
-		var apLayer = new L.layerJSON({
-			url: gcApi + "sites/within.json"
-				+ "?excludeUnits=true&brief=true&locationDescriptor=accessPoint"
-				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
-			minZoom: 14,
-			caching: false,
-			propertyItems: "features",
-			propertyId: "properties.fullAddress",
-			locAsGeoJSON: true,
-			propertyLoc: "geometry.coordinates",
-			buildIcon: function() {
-				return apIcon;
-			},
-			onEachMarker: function(feature, layer) {
-				layer.bindPopup(makePopupText(feature.properties));
-				layer.options['title'] = feature.properties.fullAddress;
-			}
-		});
-		overlays["Addresses – access point "] = apLayer;
-
 		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW/ows?SERVICE=WMS&',
 			{
 				layers: 'pub:WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW',
@@ -617,7 +633,7 @@
 		// 		format: 'image/png'
 		// 	});
 		var gnsLayer = new L.layerJSON({
-			url: "http://apps.gov.bc.ca/pub/bcgnws/names/official/inside"
+			url: "https://apps.gov.bc.ca/pub/bcgnws/names/official/inside"
 				+ "?itemsPerPage=50&sortBy=name&outputFormat=json&outputSRS=4326"
 				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 12,
@@ -661,7 +677,7 @@
 				str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
 				for(var i = 0, len = props.faults.length; i < len; i++) {
 					var f = props.faults[i];
-					str += '<tr><td class="rowName">' + f.element + '.' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+					str += '<tr><td class="rowName">' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
 				}
 				str += '</table></td></tr>';
 			}
@@ -775,7 +791,7 @@
 					},
 					success: callback,
 					error: function(request) {
-						alert("error loading geocode results.");
+						alert(baseErrorMsg + "Error retrieving geocode results, please try your search again.");
 						console.log(request);
 					}
 				});
@@ -784,16 +800,28 @@
 
 		$('#geocodeField').keypress(function(e) {
  			if(e.which == 13) {
+				if(geocodeLayer) {
+					map.removelayer(geocodeLayer);
+					geocodeLayer = null;
+				}
     			geocode($('#geocodeField'), receiveGeocode);
     			return false;
   			}
 		});
 
 		$('#geocodeBtn').on("click", function() {
+			if(geocodeLayer) {
+				map.removeLayer(geocodeLayer);
+				geocodeLayer = null;
+			}
 			geocode($('#geocodeField'), receiveGeocode);
 		});
 
 		$('#randomBtn').on("click", function() {
+			if(geocodeLayer) {
+				map.removelayer(geocodeLayer);
+				geocodeLayer = null;
+			}
 			randomAddress($('#geocodeField'), 'parcelPoint', function(data) {
 				receiveGeocode(data, false);
 			});
@@ -813,6 +841,7 @@
 		// Routing
 		var routeLayer;
 		var routeRequest;
+		var betweenPairsRequest;
 
 		function getRouteIcon(index) {
 			if(index == 0) {
@@ -857,62 +886,105 @@
 
 			var criteria = $('input[name=criteria]:checked').val();
 
+			var params = {
+				apikey: "11dd756f680c47b5aef5093d95543738",
+				criteria: criteria,
+				points: points
+			}
+
 			var query = 'directions.json';
+
 			if($('#optimizeChk').is(':checked')) {
 				query = 'optimalDirections.json';
 			}
 
-			var roundTrip = 'false';
 			if($('#roundTripChk').is(':checked')) {
-				roundTrip = 'true';
+				params['roundTrip'] = 'true';
+			} else {
+				params['roundTrip'] = 'false';
 			}
 
+			if($('#nearestStopChk').is(':checked')) {
+				doBetweenPairsRequest(params, center);
+			} else {
+				doRouteRequest(query, params, center);
+			}
+		}
+
+		function doBetweenPairsRequest(params, center) {
+			params['topRouteCount'] = 1;
+			var match = params['points'].match(/([^,]*,[^,]*),(.*)/);
+			params['fromPoints'] = match[1];
+			params['toPoints'] = match[2];
+			params['points'] = undefined;
+			if(betweenPairsRequest != null) {
+				betweenPairsRequest.abort();
+			}
+			betweenPairsRequest = $.ajax({
+				url: routeApi + 'distance/betweenPairs.json',
+				data: params,
+				success: function(data) {
+					var fromPoint = data.fromPoints[data.pairs[0].from];
+					var toPoint = data.toPoints[data.pairs[0].to];
+					params['points'] = fromPoint[0] + ',' + fromPoint[1] + ',' + toPoint[0] + ',' + toPoint[1];
+					doRouteRequest('directions.json', params, center);
+				},
+				error: function(request) {
+					if(request.statusText != "abort") {
+						alert(baseErrorMsg + "Error retrieving betweenPairs results, please try your route again.");
+						$('#timing').html("Error retrieving route results, please try your route again.");
+						console.log(request);
+					}
+				}
+			});
+		}
+
+
+		function doRouteRequest(query, params, center) {
 			if(routeRequest != null) {
 				routeRequest.abort();
 			}
 			routeRequest = $.ajax({
 				url: routeApi + query,
-				data: {
-					apikey: "11dd756f680c47b5aef5093d95543738",
-					criteria: criteria,
-					roundTrip: roundTrip,
-					points: points
-				},
+				data: params,
 				success: function(data) {
 					clearRoute();
-					routeLayer = L.geoJson({
-							type: "Feature",
-							properties: {},
-							geometry: {
-								type: "LineString",
-								coordinates: data.route
+					// if a valid route was returned
+					if(data.route && data.route.length > 1) {
+						routeLayer = L.geoJson({
+								type: "Feature",
+								properties: {},
+								geometry: {
+									type: "LineString",
+									coordinates: data.route
+								}
+							}, {
+							onEachFeature: function(feature, layer) {
+								var color = "#0000FF";
+								if(params['criteria'] == "fastest") {
+									color = "#FF00FF";
+								}
+								layer.setStyle({color:color, weight:7, opacity: 0.5});
 							}
-						}, {
-						onEachFeature: function(feature, layer) {
-							var color = "#0000FF";
-							if(criteria == "fastest") {
-								color = "#FF00FF";
-							}
-							layer.setStyle({color:color, weight:7, opacity: 0.5});
-						}
-					}).addTo(map);
-					centerMap(routeLayer.getBounds(), center);
+						}).addTo(map);
+						centerMap(routeLayer.getBounds(), center);
 
-					// update icon numbering
-					$('#routerList input.input-field').each( function(index, element) {
-						var layer = $(element).data('marker');
-						if(data.visitOrder) {
-							index = data.visitOrder[index];
-							if(index == data.visitOrder.length - 1) {
+						// update icon numbering
+						$('#routerList input.input-field').each( function(index, element) {
+							var layer = $(element).data('marker');
+							if(data.visitOrder) {
+								index = data.visitOrder[index];
+								if(index == data.visitOrder.length - 1) {
+									index = -1;
+								}
+							} else if($(element).parents('div.form-group').next().length == 0) {
 								index = -1;
 							}
-						} else if($(element).parents('div.form-group').next().length == 0) {
-							index = -1;
-						}
-						if(layer) {
-							layer.getLayers()[0].setIcon(getRouteIcon(index));
-						}
-					});
+							if(layer) {
+								layer.getLayers()[0].setIcon(getRouteIcon(index));
+							}
+						});
+					}
 
 					// var $last;
 					// if(data.visitOrder) {
@@ -938,7 +1010,8 @@
 				},
 				error: function(request) {
 					if(request.statusText != "abort") {
-						alert("error loading route results.");
+						alert(baseErrorMsg + "Error retrieving route results, please try your route again.");
+						$('#timing').html("Error retrieving route results, please try your route again.");
 						console.log(request);
 					}
 				}
@@ -1030,14 +1103,23 @@
 		});
 
 		$('#roundTripChk').on('change', function(evt) {
+			$('#nearestStopChk').prop('checked', false);
 			route(null, false);
 		});
 
 		$('#optimizeChk').on('change', function(evt) {
+			$('#nearestStopChk').prop('checked', false);
+			route(null, false);
+		});
+
+		$('#nearestStopChk').on('change', function(evt) {
+			$('#optimizeChk').prop('checked', false);
+			$('#roundTripChk').prop('checked', false);
 			route(null, false);
 		});
 
 		var directionMarker = null;
+		var directionSelectMarker = null;
 
 		$('#directions').on('mouseenter', 'div.direction', function(evt) {
 			if(directionMarker != null) {
@@ -1052,6 +1134,25 @@
 		$('#directions').on('mouseleave', 'div.direction', function(evt) {
 			if(directionMarker != null) {
 				map.removeLayer(directionMarker);
+			}
+		});
+
+		$('#directions').on('click', 'div.direction', function(evt) {
+			var $dirDiv = $(evt.target);
+			if(directionSelectMarker != null) {
+				map.removeLayer(directionSelectMarker);
+			}
+			if($dirDiv.hasClass('selectedDirection')) {
+				$dirDiv.removeClass('selectedDirection');
+				centerMap(routeLayer.getBounds());
+			} else {
+				$('#directions div.selectedDirection').removeClass('selectedDirection');
+				$dirDiv.addClass('selectedDirection');
+				var latlng = $dirDiv.data('latlng');
+				if(latlng) {
+					directionSelectMarker = L.circleMarker(latlng).addTo(map);
+					centerMap(L.latLngBounds(latlng, latlng));
+				}
 			}
 		});
 
@@ -1233,7 +1334,7 @@
 					centerMap(namedOccLayer.getBounds());
 				},
 				error: function(request) {
-					alert("Error loading occupants by name.");
+					alert(baseErrorMsg + "Error retrieving occupants by name, please try your search again.");
 					console.log(request);
 				}
 			});
@@ -1322,7 +1423,7 @@
 					if(retries < 5) {
 						randomAddress($field, locationDescriptor, callback, retries);
 					} else {
-						alert("error finding nearest site to random point.");
+						alert(baseErrorMsg + "Error retrieving nearest site to random point, please try your request again.");
 						console.log(request);
 					}
 				}
@@ -1337,18 +1438,18 @@
 		}
 
 		function centerMap(bounds, center = true) {
+			var options = {
+				maxZoom: 16
+			};
+			if(tabs) {
+				options.paddingTopLeft = [400,0];
+			}
 			if(center) {
-				var options = {
-					maxZoom: 16
-				};
-				if(tabs) {
-					options.paddingTopLeft = [400,0];
-				}
 				map.fitBounds(bounds.pad(0.25), options);
 			} else if(!map.getBounds().contains(bounds.pad(0.25))) {
 				// if the bounds aren't within the current map bounds
 				// zoom out to include the bounds
-				map.fitBounds(bounds.extend(map.getBounds()).pad(0.25));
+				map.fitBounds(bounds.extend(map.getBounds()).pad(0.25), options);
 			}
 		}
 
