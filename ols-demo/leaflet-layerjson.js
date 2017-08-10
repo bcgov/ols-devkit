@@ -34,7 +34,8 @@ L.LayerJSON = L.FeatureGroup.extend({
 		minShift: 1000,				//min shift for update data(in meters)
 		updateOutBounds: true,		//request new data only if current bounds higher than last bounds
 		precision: 6,				//number of digit send to server for lat,lng precision
-		attribution: ''				//attribution text
+		attribution: '',				//attribution text
+		omsManager: null					// OverlappingMarkerSpiderfier
 		//TODO option: enabled, if false
 		//TODO methods: enable()/disable()
 		//TODO send map bounds decremented of certain margin
@@ -119,6 +120,8 @@ L.LayerJSON = L.FeatureGroup.extend({
 	clearLayers: function () {
 
 		this._markersCache = {};	//cached gen markers
+		if(this.options.omsManager)
+			this.options.omsManager.clearLayer(this);
 
 		if(this.options.layerTarget)
 			this.options.layerTarget.clearLayers.call(this.options.layerTarget);
@@ -201,6 +204,9 @@ L.LayerJSON = L.FeatureGroup.extend({
 
 		if(this._markersCache[hash])
 			this.addLayer( this._markersCache[hash] );
+
+		if(this.options.omsManager)
+			this.options.omsManager.addMarker(this._markersCache[hash]);
 	},
 
 	_contains: function(bounds, el) {

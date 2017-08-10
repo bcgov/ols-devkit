@@ -377,6 +377,7 @@
 	</div> <!-- container -->
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
 	<script src="leaflet-layerjson.js"></script>
 	<script src="leaflet-history.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -453,6 +454,40 @@
 				maxZoom: 16
 			}
 		}).addTo(map);
+
+		var oms = new OverlappingMarkerSpiderfier(map, {nearbyDistance: 30});
+		var popup = new L.Popup();
+		oms.addListener('click', function(marker) {
+			popup.setContent(marker.desc);
+			popup.setLatLng(marker.getLatLng());
+			map.openPopup(popup);
+		});
+		oms.addListener('spiderfy', function(markers) {
+			map.closePopup();
+		});
+
+		var omsManager = {
+			layers: [],
+			oms: oms,
+			addLayer: function(layer) {
+				this.layers.push(layer);
+			},
+			clearLayer: function(layer) {
+				// clear all the markers
+				this.oms.clearMarkers();
+				// re-add the markers from the other layers
+				for(var i = 0; i < this.layers.length; i++) {
+					if(this.layers[i] != layer) {
+						this.layers[i].eachLayer(function(lyr) {
+							this.oms.addMarker(lyr);
+						});
+					}
+				}
+			},
+			addMarker: function(marker) {
+				this.oms.addMarker(marker);
+			}
+		};
 
 		var baseLayers = {};
 		var overlays = {};
@@ -541,16 +576,23 @@
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
+			omsManager: omsManager,
 			buildIcon: function() {
 				return siteIcon;
 			},
-			onEachMarker: function(feature, layer) {
-				layer.bindPopup(makePopupText(feature.properties));
-				layer.options['title'] = feature.properties.fullAddress;
+			//onEachMarker: function(feature, layer) {
+			//	layer.bindPopup(makePopupText(feature.properties));
+			//	layer.options['title'] = feature.properties.fullAddress;
+			//}
+			onEachMarker: function(feature, marker) {
+				marker.desc = makePopupText(feature.properties);
 			}
+
 		});
+		omsManager.addLayer(siteLayer);
 		overlays["Addresses - parcel point"] = siteLayer;
 
 		var apLayer = new L.layerJSON({
@@ -561,16 +603,18 @@
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
+			omsManager: omsManager,
 			buildIcon: function() {
 				return apIcon;
 			},
-			onEachMarker: function(feature, layer) {
-				layer.bindPopup(makePopupText(feature.properties));
-				layer.options['title'] = feature.properties.fullAddress;
+			onEachMarker: function(feature, marker) {
+				marker.desc = makePopupText(feature.properties);
 			}
 		});
+		omsManager.addLayer(apLayer);
 		overlays["Addresses – access point "] = apLayer;
 
 		var occLayer = new L.layerJSON({
@@ -995,17 +1039,20 @@
 					// if($last.data('marker')) {
 					// 	$last.data('marker').getLayers()[0].setIcon(getRouteIcon(-1));
 					// }
-
-					$('#timing').html('Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
-					var dirs = data.directions;
-					for(i = 0; i < dirs.length; i++) {
-						if(dirs[i].text) {
-							var $dir = $("<div class=\"direction\">" + dirs[i].text + "</div>");
-							$('#directions').append($dir);
-							$dir.data('latlng', {'lat': dirs[i].point[1], 'lng': dirs[i].point[0]}) ;
-						} else {
-							$('#directions').append("<div class=\"direction\">" + dirs[i] + "</div>");
+					if(data.routeFound) {
+						$('#timing').html('Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						var dirs = data.directions;
+						for(i = 0; i < dirs.length; i++) {
+							if(dirs[i].text) {
+								var $dir = $("<div class=\"direction\">" + dirs[i].text + "</div>");
+								$('#directions').append($dir);
+								$dir.data('latlng', {'lat': dirs[i].point[1], 'lng': dirs[i].point[0]}) ;
+							} else {
+								$('#directions').append("<div class=\"direction\">" + dirs[i] + "</div>");
+							}
 						}
+					} else {
+						$('#timing').html('No route exists in the BC Digital Road Atlas<br\>');
 					}
 				},
 				error: function(request) {
@@ -1021,6 +1068,7 @@
 		Sortable.create(document.getElementById('routerList'),{
 			handle: ".reorder",
 			draggable: ".form-group",
+			forceFallback: true,
 			onUpdate: function(evt) {
 				route(null);
 			}
@@ -1421,7 +1469,7 @@
 				},
 				error: function(request) {
 					if(retries < 5) {
-						randomAddress($field, locationDescriptor, callback, retries);
+						randomAddress($field, locationDescriptor, callback, retries+1);
 					} else {
 						alert(baseErrorMsg + "Error retrieving nearest site to random point, please try your request again.");
 						console.log(request);
