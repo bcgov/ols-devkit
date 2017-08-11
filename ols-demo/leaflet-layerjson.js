@@ -68,7 +68,10 @@ L.LayerJSON = L.FeatureGroup.extend({
 	},
 
 	onAdd: function(map) {
-
+		if(this.options.layerTarget)
+		{
+			this.options.layerTarget.onAdd.call(this.options.layerTarget, map);
+		}
 		L.FeatureGroup.prototype.onAdd.call(this, map);		//set this._map
 		this._center = map.getCenter();
 		this._maxBounds = map.getBounds();
@@ -79,6 +82,10 @@ L.LayerJSON = L.FeatureGroup.extend({
 	},
 
 	onRemove: function(map) {
+		if(this.options.layerTarget)
+		{
+			this.options.layerTarget.onRemove.call(this.options.layerTarget, map);
+		}
 
 		map.off('moveend zoomend', this._onMove, this);
 
@@ -353,7 +360,7 @@ L.LayerJSON = L.FeatureGroup.extend({
 		L.LayerJSON.callJsonp = function(data) {
 			cb(data);
 			body.removeChild(script);
-		}
+		};
 		script.type = 'text/javascript';
 		script.src = url+'L.LayerJSON.callJsonp';
 		return {

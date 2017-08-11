@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.css" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.Default.css" />
 	<link href="https://aehlke.github.io/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
 	<style>
 		/* make the map fullscreen */
@@ -166,7 +168,7 @@
 			border: 1px solid LightSteelBlue;
 			border-radius: 4px 0px 0px 4px;
 			padding: 2px;
-			max-height: 40%;
+			max-height: 35%;
 		}
 		button.reorder {
 			cursor: n-resize;
@@ -278,7 +280,7 @@
 										</div>
 										<input type="text" class="form-control input-field" placeholder="Address" />
 										<div class="input-group-btn">
-											<button class="btn btn-default random" type="button" title="Random">
+											<button class="btn btn-default random" type="button" title="Jump at Random">
 												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
 											</button>
 											<!-- button class="btn btn-default gmaps" type="button" title="View in Google Maps">
@@ -302,7 +304,7 @@
 										</div>
 										<input type="text" class="form-control input-field" placeholder="Address" />
 										<div class="input-group-btn">
-											<button class="btn btn-default random" type="button" title="Random">
+											<button class="btn btn-default random" type="button" title="Jump at Random">
 												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
 											</button>
 											<!--button class="btn btn-default gmaps" type="button" title="View in Google Maps">
@@ -377,7 +379,10 @@
 	</div> <!-- container -->
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script-->
+	<script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script>
+	<script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster.js"></script>
+	<script src="https://unpkg.com/leaflet.markercluster.freezable@0.1.1/dist/leaflet.markercluster.freezable.js"></script>
 	<script src="leaflet-layerjson.js"></script>
 	<script src="leaflet-history.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -438,7 +443,8 @@
 
 		// Leaflet Map setup
 		var map = L.map('map', {
-			minZoom: 5
+			minZoom: 5,
+			maxZoom: 18
 		}).setView([48.44, -123.43], 12);
 		new L.HistoryControl({
 			position: 'bottomright',
@@ -455,39 +461,49 @@
 			}
 		}).addTo(map);
 
-		var oms = new OverlappingMarkerSpiderfier(map, {nearbyDistance: 30});
-		var popup = new L.Popup();
-		oms.addListener('click', function(marker) {
-			popup.setContent(marker.desc);
-			popup.setLatLng(marker.getLatLng());
-			map.openPopup(popup);
+		var mcg = L.markerClusterGroup({
+			showCoverageOnHover: false,
+			zoomToBoundsOnClick: false,
+			removeOutsideVisibleBouncds: false,
+			maxClusterRadius: 10
 		});
-		oms.addListener('spiderfy', function(markers) {
-			map.closePopup();
-		});
+		var subGroup = L.featureGroup.subGroup(mcg);
+		mcg.addTo(map);
+		mcg.freezeAtZoom("maxKeepSpiderfy");
 
-		var omsManager = {
-			layers: [],
-			oms: oms,
-			addLayer: function(layer) {
-				this.layers.push(layer);
-			},
-			clearLayer: function(layer) {
-				// clear all the markers
-				this.oms.clearMarkers();
-				// re-add the markers from the other layers
-				for(var i = 0; i < this.layers.length; i++) {
-					if(this.layers[i] != layer) {
-						this.layers[i].eachLayer(function(lyr) {
-							this.oms.addMarker(lyr);
-						});
-					}
-				}
-			},
-			addMarker: function(marker) {
-				this.oms.addMarker(marker);
-			}
-		};
+		// var oms = new OverlappingMarkerSpiderfier(map, {nearbyDistance: 30});
+		// var popup = new L.Popup();
+		// oms.addListener('click', function(marker) {
+		// 	popup.setContent(marker.desc);
+		// 	popup.setLatLng(marker.getLatLng());
+		// 	map.openPopup(popup);
+		// });
+		// oms.addListener('spiderfy', function(markers) {
+		// 	map.closePopup();
+		// });
+		//
+		// var omsManager = {
+		// 	layers: [],
+		// 	oms: oms,
+		// 	addLayer: function(layer) {
+		// 		this.layers.push(layer);
+		// 	},
+		// 	clearLayer: function(layer) {
+		// 		// clear all the markers
+		// 		this.oms.clearMarkers();
+		// 		// re-add the markers from the other layers
+		// 		for(var i = 0; i < this.layers.length; i++) {
+		// 			if(this.layers[i] != layer) {
+		// 				this.layers[i].eachLayer(function(lyr) {
+		// 					this.oms.addMarker(lyr);
+		// 				});
+		// 			}
+		// 		}
+		// 	},
+		// 	addMarker: function(marker) {
+		// 		this.oms.addMarker(marker);
+		// 	}
+		// };
 
 		var baseLayers = {};
 		var overlays = {};
@@ -573,13 +589,14 @@
 		var siteLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json?excludeUnits=true&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 14,
+			layerTarget: subGroup,
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.fullAddress",
 			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
-			omsManager: omsManager,
+			//omsManager: omsManager,
 			buildIcon: function() {
 				return siteIcon;
 			},
@@ -588,11 +605,12 @@
 			//	layer.options['title'] = feature.properties.fullAddress;
 			//}
 			onEachMarker: function(feature, marker) {
-				marker.desc = makePopupText(feature.properties);
+				marker.bindPopup(makePopupText(feature.properties));
+				//marker.desc = makePopupText(feature.properties);
 			}
 
 		});
-		omsManager.addLayer(siteLayer);
+		//omsManager.addLayer(siteLayer);
 		overlays["Addresses - parcel point"] = siteLayer;
 
 		var apLayer = new L.layerJSON({
@@ -606,15 +624,16 @@
 			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
-			omsManager: omsManager,
+			//omsManager: omsManager,
 			buildIcon: function() {
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.desc = makePopupText(feature.properties);
+				marker.bindPopup(makePopupText(feature.properties));
+				//marker.desc = makePopupText(feature.properties);
 			}
 		});
-		omsManager.addLayer(apLayer);
+		//omsManager.addLayer(apLayer);
 		overlays["Addresses – access point "] = apLayer;
 
 		var occLayer = new L.layerJSON({
@@ -623,14 +642,14 @@
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
 			buildIcon: function() {
 				return occIcon;
 			},
-			onEachMarker: function(feature, layer) {
-				layer.bindPopup(makePopupText(feature.properties));
-				layer.options['title'] = feature.properties.fullAddress;
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
 		overlays["Businesses"] = occLayer;
@@ -641,14 +660,14 @@
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
 			buildIcon: function() {
 				return intIcon;
 			},
-			onEachMarker: function(feature, layer) {
-				layer.bindPopup(makePopupText(feature.properties));
-				layer.options['title'] = feature.properties.fullAddress;
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
 		overlays["Intersections"] = intLayer;
@@ -845,7 +864,7 @@
 		$('#geocodeField').keypress(function(e) {
  			if(e.which == 13) {
 				if(geocodeLayer) {
-					map.removelayer(geocodeLayer);
+					map.removeLayer(geocodeLayer);
 					geocodeLayer = null;
 				}
     			geocode($('#geocodeField'), receiveGeocode);
@@ -863,7 +882,7 @@
 
 		$('#randomBtn').on("click", function() {
 			if(geocodeLayer) {
-				map.removelayer(geocodeLayer);
+				map.removeLayer(geocodeLayer);
 				geocodeLayer = null;
 			}
 			randomAddress($('#geocodeField'), 'parcelPoint', function(data) {
@@ -903,6 +922,9 @@
 			if(routeLayer) {
 				map.removeLayer(routeLayer);
 				routeLayer = null;
+			}
+			if(directionSelectMarker != null) {
+				map.removeLayer(directionSelectMarker);
 			}
 		}
 
@@ -1040,7 +1062,7 @@
 					// 	$last.data('marker').getLayers()[0].setIcon(getRouteIcon(-1));
 					// }
 					if(data.routeFound) {
-						$('#timing').html('Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
 						var dirs = data.directions;
 						for(i = 0; i < dirs.length; i++) {
 							if(dirs[i].text) {
