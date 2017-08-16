@@ -377,12 +377,12 @@
 		</div> <!-- tabWrapper -->
 		<div id="map"></div>
 	</div> <!-- container -->
-	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
 	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script-->
-	<script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script>
-	<script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster.js"></script>
-	<script src="https://unpkg.com/leaflet.markercluster.freezable@0.1.1/dist/leaflet.markercluster.freezable.js"></script>
+	<!--script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script-->
+	<!--script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster.js"></script-->
+	<!--script src="https://unpkg.com/leaflet.markercluster.freezable@0.1.1/dist/leaflet.markercluster.freezable.js"></script-->
 	<script src="leaflet-layerjson.js"></script>
 	<script src="leaflet-history.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -461,15 +461,35 @@
 			}
 		}).addTo(map);
 
-		var mcg = L.markerClusterGroup({
-			showCoverageOnHover: false,
-			zoomToBoundsOnClick: false,
-			removeOutsideVisibleBouncds: false,
-			maxClusterRadius: 10
-		});
-		var subGroup = L.featureGroup.subGroup(mcg);
-		mcg.addTo(map);
-		mcg.freezeAtZoom("maxKeepSpiderfy");
+		// var mcg = L.markerClusterGroup({
+		// 	showCoverageOnHover: false,
+		// 	zoomToBoundsOnClick: false,
+		// 	removeOutsideVisibleBouncds: false,
+		// 	maxClusterRadius: 10
+		// });
+		// mcg.addTo(map);
+		// mcg.freezeAtZoom("maxKeepSpiderfy");
+
+		// var clusterManager = {
+		// 	layers: [],
+		// 	mcg: mcg,
+		// 	addLayer: function(layer) {
+		// 		this.layers.push(layer);
+		// 	},
+		// 	clearLayer: function(layer) {
+		// 		// clear all the markers
+		// 		this.mcg.clearLayers();
+		// 		// re-add the markers from the other layers
+		// 		for(var i = 0; i < this.layers.length; i++) {
+		// 			if(this.layers[i] != layer) {
+		// 				this.mcg.addLayers(lyr);
+		// 			}
+		// 		}
+		// 	},
+		// 	addMarker: function(marker) {
+		// 		this.mcg.addLayer(marker);
+		// 	}
+		// };
 
 		// var oms = new OverlappingMarkerSpiderfier(map, {nearbyDistance: 30});
 		// var popup = new L.Popup();
@@ -589,28 +609,20 @@
 		var siteLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json?excludeUnits=true&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 14,
-			layerTarget: subGroup,
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.fullAddress",
 			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
-			//omsManager: omsManager,
 			buildIcon: function() {
 				return siteIcon;
 			},
-			//onEachMarker: function(feature, layer) {
-			//	layer.bindPopup(makePopupText(feature.properties));
-			//	layer.options['title'] = feature.properties.fullAddress;
-			//}
 			onEachMarker: function(feature, marker) {
 				marker.bindPopup(makePopupText(feature.properties));
-				//marker.desc = makePopupText(feature.properties);
 			}
 
 		});
-		//omsManager.addLayer(siteLayer);
 		overlays["Addresses - parcel point"] = siteLayer;
 
 		var apLayer = new L.layerJSON({
@@ -624,16 +636,13 @@
 			propertyTitle: "properties.fullAddress",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
-			//omsManager: omsManager,
 			buildIcon: function() {
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
 				marker.bindPopup(makePopupText(feature.properties));
-				//marker.desc = makePopupText(feature.properties);
 			}
 		});
-		//omsManager.addLayer(apLayer);
 		overlays["Addresses – access point "] = apLayer;
 
 		var occLayer = new L.layerJSON({
@@ -699,7 +708,7 @@
 			url: "https://apps.gov.bc.ca/pub/bcgnws/names/official/inside"
 				+ "?itemsPerPage=50&sortBy=name&outputFormat=json&outputSRS=4326"
 				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
-			minZoom: 12,
+			minZoom: 9,
 			caching: false,
 			propertyItems: "features",
 			propertyId: "properties.uri",
@@ -1109,9 +1118,10 @@
 
 		// pick random location button
 		$('#routerList').on('click', 'button.random', function() {
+			clearRoute();
 			randomAddress($(this).parents('div.form-group').find('input.input-field'), 'accessPoint', function(data, $field) {
 				receiveRouteGeocode(data, $field, false);
-			});
+			}, $('#timing'));
 		});
 
 		// open in gmaps button
@@ -1466,7 +1476,10 @@
 		}
 
 		// Random Address event handler
-		function randomAddress($field, locationDescriptor, callback, retries = 0) {
+		function randomAddress($field, locationDescriptor, callback, $statusDiv = null, retries = 0) {
+			if($statusDiv) {
+				$statusDiv.html('Jumping to random civic address...');
+			}
 			var bounds = map.getBounds();
 			var height = bounds.getNorth() - bounds.getSouth()
 			var lat = (Math.random() * height * 0.8) + bounds.getSouth() + (height * 0.1);
@@ -1486,13 +1499,19 @@
 					point: lng + "," + lat
 				},
 				success: function(data) {
+					if($statusDiv) {
+						$statusDiv.empty();
+					}
 					$field.val(data.properties.fullAddress);
 					return callback(data, $field);
 				},
 				error: function(request) {
 					if(retries < 5) {
-						randomAddress($field, locationDescriptor, callback, retries+1);
+						randomAddress($field, locationDescriptor, callback, $statusDiv, retries+1);
 					} else {
+						if($statusDiv) {
+							$statusDiv.empty();
+						}
 						alert(baseErrorMsg + "Error retrieving nearest site to random point, please try your request again.");
 						console.log(request);
 					}
