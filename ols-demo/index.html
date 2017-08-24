@@ -9,7 +9,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.css" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.css" />
@@ -427,14 +427,17 @@
 		// API URLs
 		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var routeApi = "https://router.api.gov.bc.ca/";
-		if(queryParams['test'] == 'true') {
+		if(queryParams['env'] == 'tst') {
+			gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
+			routeApi = "https://routertst.api.gov.bc.ca/";
+		} else if(queryParams['env'] == 'dlv') {
 			gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
 			routeApi = "https://routerdlv.api.gov.bc.ca/";
-		} else if(queryParams['test'] == 'rri') {
+		} else if(queryParams['env'] == 'rri') {
 			gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
-		} else if(queryParams['test'] == 'lg') {
+		} else if(queryParams['env'] == 'lg') {
 			gcApi = "http://localhost:8080/pub/geocoder/";
-		} else if(queryParams['test'] == 'lr') {
+		} else if(queryParams['env'] == 'lr') {
 			routeApi = "http://localhost:8080/pub/router/";
 		} else {
 			// hide functions not available from production APIs
