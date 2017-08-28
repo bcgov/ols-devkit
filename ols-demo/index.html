@@ -1002,10 +1002,14 @@
 				url: routeApi + 'distance/betweenPairs.json',
 				data: params,
 				success: function(data) {
-					var fromPoint = data.fromPoints[data.pairs[0].from];
-					var toPoint = data.toPoints[data.pairs[0].to];
-					params['points'] = fromPoint[0] + ',' + fromPoint[1] + ',' + toPoint[0] + ',' + toPoint[1];
-					doRouteRequest('directions.json', params, center);
+					if(data.pairs[0] && data.pairs[0].routeFound) {
+						var fromPoint = data.fromPoints[data.pairs[0].from];
+						var toPoint = data.toPoints[data.pairs[0].to];
+						params['points'] = fromPoint[0] + ',' + fromPoint[1] + ',' + toPoint[0] + ',' + toPoint[1];
+						doRouteRequest('directions.json', params, center);
+					} else {
+						$('#timing').html("No route exists in the BC Digital Road Atlas between the first and any of the other points.");
+					}
 				},
 				error: function(request) {
 					if(request.statusText != "abort") {
