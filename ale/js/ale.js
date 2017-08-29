@@ -10,9 +10,9 @@ var env = queryDict["env"];
 if(env == "devel") {
 	geocoder_url = "http://localhost:8080/pub/geocoder";
 } else if(env == "deliv") {
-	geocoder_url = "http://delivery.apps.gov.bc.ca/pub/geocoder";
+	geocoder_url = "https://delivery.apps.gov.bc.ca/pub/geocoder";
 } else if(env == "test") {
-	geocoder_url = "http://test.apps.gov.bc.ca/pub/geocoder";
+	geocoder_url = "https://test.apps.gov.bc.ca/pub/geocoder";
 } else {
 	geocoder_url = "https://apps.gov.bc.ca/pub/geocoder";
 }
@@ -42,18 +42,18 @@ var SCORE_CUTOFF = 85;
 $(document).ready(function() {
 	// hide the stage-2 parts
 	$('.stage2').hide();
-	
+
 	// hide pop-up divs
 	$('#moreInfo').hide();
 	$('#copyToClipboard').hide();
-	
+
 	// setup button events
 	$('#restartButton').click(restart);
-	
+
 	$('#moreInfoButton').click(function() {
 		$('#moreInfo').show();
 	});
-	
+
 	$('#closeMoreInfoButton').click(function() {
 		$('#moreInfo').hide();
 	});
@@ -67,14 +67,14 @@ $(document).ready(function() {
 		csv = table2string(',');
 		export2csv(csv);
 	});
-	
+
 	$('#copyResultsButton').click(function(){
 		results = table2string();
 		$('#copyArea').val(results);
 		$('#copyToClipboard').show();
 		$('#copyArea').select();
 	});
-	
+
 	$('#geocodeButton').click(function() {
 		var inputText = $('#inputArea').val();
 		matches = inputText.match(/^\s*$/);
@@ -85,7 +85,7 @@ $(document).ready(function() {
 		matches = inputText.match(/\n/g);
 		if(matches == null) {
 			alert('You must provide a header row with column names in addition to the actual data to be geocoded.');
-			return;			
+			return;
 		}
 		if(matches.length > MAX_REQUESTS+1) {
 			alert('No more than 1000 requests are allowed. Please reduce the number of requests.');
@@ -94,7 +94,7 @@ $(document).ready(function() {
 		completed = 0;
 		toComplete = -1;
 		updateStatus();
-	    Papa.parse($('#inputArea').val(), {header: true, worker: false, 
+	    Papa.parse($('#inputArea').val(), {header: true, worker: false,
 	    	step: function(results, parser) {
 	    		// if this is the first row, identify the input fields and add any additional column headings
 	    		if(rowCount == 0) {
@@ -103,8 +103,8 @@ $(document).ready(function() {
 	    					addressStringField = results.meta.fields[i];
 	    				} else {
 	    					var f = results.meta.fields[i];
-	    					
-	    					if(f != "fullAddress" && f != "score" && f != "precision" 
+
+	    					if(f != "fullAddress" && f != "score" && f != "precision"
 	    							&& f != "faults" && f != "X" && f != "Y" && f != "Notes" ) {
 	    						otherFields.push(results.meta.fields[i]);
 	    						$('#resultsTable thead tr:first').append($('<th class="extraCol"/>').text(results.meta.fields[i]));
@@ -129,7 +129,7 @@ $(document).ready(function() {
 	    		}
 	    		$('#resultsTable').append('<tr id="row' + rowCount + '">'
 	    				+ '<td style="border-bottom: none;">' + rowCount + '</td>'
-	    				+ '<td style="border-bottom: none;"><textarea class="addressString" cols="35" rows="2" id="addressString' + rowCount 
+	    				+ '<td style="border-bottom: none;"><textarea class="addressString" cols="35" rows="2" id="addressString' + rowCount
 	    					+ '">' + rowData['addressString'] + '</textarea></td>'
 	    				+ '<td style="border-bottom: none;"><img src="img/ajax-loader.gif" title="processing..."/></td>' // FULL_ADDRESS_COL
 	    				+ '<td rowspan="2"></td>' // SCORE_COL
@@ -200,7 +200,7 @@ function updateStatus() {
 		if(toComplete > 0) {
 			 text += '/' + toComplete;
 		}
-		text += ' geocodes are completed and editable.';			
+		text += ' geocodes are completed and editable.';
 		$('#status').text(text);
 	}
 }
@@ -220,7 +220,7 @@ function restart() {
 	$('#inputArea').val('');
 	rowCount = 0;
 	otherFields = [];
-	
+
 	$('.stage1').show();
 	$('.stage2').hide();
 }
@@ -236,7 +236,7 @@ function geocodeRow(rowNum, retries) {
 		retries = 0;
 	}
 	$('#row' + rowNum + ' td:nth-child(' + FULL_ADDRESS_COL + ')').html('<img src="img/ajax-loader.gif" title="processing..."/>');
-	
+
 	req = new GeocodeRequest(geocoder_url);
 	req.setOutputFormat("jsonp");
 	req.setMaxResults(1);
@@ -253,7 +253,7 @@ function geocodeRow(rowNum, retries) {
     			var feature = response.features[0];
     			$('td:nth-child(' + FULL_ADDRESS_COL + ')', row).text(feature.properties.fullAddress);
     			$('td:nth-child(' + SCORE_COL + ')', row).text(feature.properties.score);
-    			$('td:nth-child(' + MATCH_PRECISION_COL + ')', row).text(feature.properties.matchPrecision 
+    			$('td:nth-child(' + MATCH_PRECISION_COL + ')', row).text(feature.properties.matchPrecision
     					+ '(' + feature.properties.precisionPoints + ')');
     			$('td:nth-child(' + FAULTS_COL + ')', row).text(faultsToString(feature.properties.faults));
     			$('td:nth-child(' + X_COL + ')', row).text(feature.geometry.coordinates[0]);
@@ -267,7 +267,7 @@ function geocodeRow(rowNum, retries) {
     				$('td:nth-child(' + FAULTS_COL + ')', row).removeClass('red');
     			}
     			insertFunction();
-    			$('#showMap'+rowNum).click(function() {showMap(rowNum);});	    		
+    			$('#showMap'+rowNum).click(function() {showMap(rowNum);});
 				completed++;
 				updateStatus();
     		},
@@ -329,7 +329,7 @@ function faultsToString(faults) {
 			result += faults[i].element + '.' + faults[i].fault + ':' + faults[i].penalty + ', ';
 		}
 		return result.substring(0,result.length-2) + "]";
-	} 
+	}
 	return "[]";
 }
 
