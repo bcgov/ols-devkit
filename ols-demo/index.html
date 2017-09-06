@@ -425,6 +425,7 @@
 		});
 
 		// API URLs
+		var apiKey = "11dd756f680c47b5aef5093d95543738";
 		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
@@ -967,15 +968,14 @@
 			var criteria = $('input[name=criteria]:checked').val();
 
 			var params = {
-				apikey: "11dd756f680c47b5aef5093d95543738",
 				criteria: criteria,
 				points: points
 			}
 
-			var query = 'directions.json';
+			var query = 'directions.json?apikey=' + apiKey;
 
 			if($('#optimizeChk').is(':checked')) {
-				query = 'optimalDirections.json';
+				query = 'optimalDirections.json?apikey=' + apiKey;
 			}
 
 			if($('#roundTripChk').is(':checked')) {
@@ -1001,7 +1001,7 @@
 				betweenPairsRequest.abort();
 			}
 			betweenPairsRequest = $.ajax({
-				url: routeApi + 'distance/betweenPairs.json',
+				url: routeApi + 'distance/betweenPairs.json?apikey=' + apiKey,
 				method: routeMethod,
 				data: params,
 				success: function(data) {
