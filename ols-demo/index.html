@@ -1009,7 +1009,7 @@
 						var fromPoint = data.fromPoints[data.pairs[0].from];
 						var toPoint = data.toPoints[data.pairs[0].to];
 						params['points'] = fromPoint[0] + ',' + fromPoint[1] + ',' + toPoint[0] + ',' + toPoint[1];
-						doRouteRequest('directions.json', params, center);
+						doRouteRequest('directions.json?apikey=' + apiKey, params, center);
 					} else {
 						$('#timing').html("No route exists in the BC Digital Road Atlas between the first and any of the other points.");
 					}
