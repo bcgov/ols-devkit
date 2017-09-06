@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>DataBC Location Services in Action</title>
+	<title>Router BetweenPairs Demo - DataBC Location Services</title>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -137,7 +137,7 @@
 		.numAdd {
 			width: 40px;
 		}
-		#topRouteCount {
+		#maxPairs {
 			width: 40px;
 		}
 		.timing {
@@ -229,9 +229,9 @@
 					<div class="control">
 						<form class="form-inline">
   							<div class="form-group">
-								<input id="topRouteCountChk" type="checkbox" title="Enable TopRouteCount">
-								TopRouteCount
-								<input id="topRouteCount" type="text" class="form-control" value="1" />
+								<input id="maxPairsChk" type="checkbox" title="Enable MaxPairs">
+								MaxPairs
+								<input id="maxPairs" type="text" class="form-control" value="1" />
 							</div>
 						</form>
 					</div>
@@ -292,6 +292,7 @@
 		// API URLs
 		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var routeApi = "https://router.api.gov.bc.ca/";
+		var routeMethod = 'POST';
 		if(queryParams['env'] == 'tst') {
 			gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
 			routeApi = "https://routertst.api.gov.bc.ca/";
@@ -305,6 +306,7 @@
 		} else if(queryParams['env'] == 'lr') {
 			routeApi = "http://localhost:8080/pub/router/";
 		} else {
+			routeMethod = 'GET';
 			// hide functions not available from production APIs
 			$('.not-in-prod').hide();
 		}
@@ -625,8 +627,8 @@
 
 			params['criteria'] = $('input[name=criteria]:checked').val();
 
-			if($('#topRouteCountChk').is(':checked')) {
-				params['topRouteCount'] = $('#topRouteCount').val();
+			if($('#maxPairsChk').is(':checked')) {
+				params['maxPairs'] = $('#maxPairs').val();
 			}
 
 			if(betweenPairsRequest != null) {
@@ -634,6 +636,7 @@
 			}
 			betweenPairsRequest = $.ajax({
 				url: routeApi + 'distance/betweenPairs.json',
+				method: routeMethod,
 				data: params,
 				success: function(data) {
 					//var fromPoint = data.fromPoints[data.pairs[0].from];
@@ -657,8 +660,8 @@
 				},
 				error: function(request) {
 					if(request.statusText != "abort") {
-						alert(baseErrorMsg + "Error retrieving betweenPairs results, please try your request again.");
 						$('#timing').html("Error retrieving betweenPairs results, please try your request again.");
+						$('#results').html(request.responseText);
 						console.log(request);
 					}
 				}
@@ -872,9 +875,6 @@
 			var options = {
 				maxZoom: 16
 			};
-			if(tabs) {
-				options.paddingTopLeft = [400,0];
-			}
 			if(center) {
 				map.fitBounds(bounds.pad(0.25), options);
 			} else if(!map.getBounds().contains(bounds.pad(0.25))) {

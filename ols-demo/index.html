@@ -427,6 +427,7 @@
 		// API URLs
 		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var routeApi = "https://router.api.gov.bc.ca/";
+		var routeMethod = 'POST';
 		if(queryParams['env'] == 'tst') {
 			gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
 			routeApi = "https://routertst.api.gov.bc.ca/";
@@ -440,6 +441,7 @@
 		} else if(queryParams['env'] == 'lr') {
 			routeApi = "http://localhost:8080/pub/router/";
 		} else {
+			routeMethod = 'GET';
 			// hide functions not available from production APIs
 			$('.not-in-prod').hide();
 		}
@@ -990,7 +992,7 @@
 		}
 
 		function doBetweenPairsRequest(params, center) {
-			params['topRouteCount'] = 1;
+			params['maxPairs'] = 1;
 			var match = params['points'].match(/([^,]*,[^,]*),(.*)/);
 			params['fromPoints'] = match[1];
 			params['toPoints'] = match[2];
@@ -1000,6 +1002,7 @@
 			}
 			betweenPairsRequest = $.ajax({
 				url: routeApi + 'distance/betweenPairs.json',
+				method: routeMethod,
 				data: params,
 				success: function(data) {
 					if(data.pairs[0] && data.pairs[0].routeFound) {
@@ -1028,6 +1031,7 @@
 			}
 			routeRequest = $.ajax({
 				url: routeApi + query,
+				method: routeMethod,
 				data: params,
 				success: function(data) {
 					clearRoute();
