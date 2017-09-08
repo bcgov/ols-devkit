@@ -446,6 +446,10 @@
 			// hide functions not available from production APIs
 			$('.not-in-prod').hide();
 		}
+		var ak = false;
+		if(queryParams['ak'] == 'true') {
+			ak = true;
+		}
 
 		// Leaflet Map setup
 		var map = L.map('map', {
@@ -972,10 +976,10 @@
 				points: points
 			}
 
-			var query = 'directions.json';//?apikey=' + apiKey;
+			var query = 'directions.json';
 
 			if($('#optimizeChk').is(':checked')) {
-				query = 'optimalDirections.json';//?apikey=' + apiKey;
+				query = 'optimalDirections.json';
 			}
 
 			if($('#roundTripChk').is(':checked')) {
@@ -1001,7 +1005,7 @@
 				betweenPairsRequest.abort();
 			}
 			betweenPairsRequest = $.ajax({
-				url: routeApi + 'distance/betweenPairs.json',//?apikey=' + apiKey,
+				url: routeApi + 'distance/betweenPairs.json' + (ak ? '?apikey=' + apiKey : ''),
 				method: routeMethod,
 				headers: {apikey: apiKey},
 				data: params,
@@ -1010,7 +1014,7 @@
 						var fromPoint = data.fromPoints[data.pairs[0].from];
 						var toPoint = data.toPoints[data.pairs[0].to];
 						params['points'] = fromPoint[0] + ',' + fromPoint[1] + ',' + toPoint[0] + ',' + toPoint[1];
-						doRouteRequest('directions.json',/*?apikey=' + apiKey,*/ params, center);
+						doRouteRequest('directions.json', params, center);
 					} else {
 						$('#timing').html("No route exists in the BC Digital Road Atlas between the first and any of the other points.");
 					}
@@ -1032,7 +1036,7 @@
 			}
 			routeRequest = $.ajax({
 				url: routeApi + query,
-				method: routeMethod,
+				method: routeMethod + '?apikey=' + apiKey,
 				headers: {apikey: apiKey},
 				data: params,
 				success: function(data) {
