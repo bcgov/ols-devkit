@@ -1035,8 +1035,8 @@
 				routeRequest.abort();
 			}
 			routeRequest = $.ajax({
-				url: routeApi + query,
-				method: routeMethod + '?apikey=' + apiKey,
+				url: routeApi + query + (ak ? '?apikey=' + apiKey : ''),
+				method: routeMethod,
 				headers: {apikey: apiKey},
 				data: params,
 				success: function(data) {
