@@ -640,7 +640,7 @@
 			betweenPairsRequest = $.ajax({
 				url: routeApi + 'distance/betweenPairs.json' + (ak ? '?apikey=' + apiKey : ''),
 				method: routeMethod,
-				headers: {apikey: apiKey},
+				//headers: {apikey: apiKey},
 				data: params,
 				success: function(data) {
 					//var fromPoint = data.fromPoints[data.pairs[0].from];

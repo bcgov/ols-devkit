@@ -1007,7 +1007,7 @@
 			betweenPairsRequest = $.ajax({
 				url: routeApi + 'distance/betweenPairs.json' + (ak ? '?apikey=' + apiKey : ''),
 				method: routeMethod,
-				headers: {apikey: apiKey},
+				//headers: {apikey: apiKey},
 				data: params,
 				success: function(data) {
 					if(data.pairs[0] && data.pairs[0].routeFound) {
@@ -1037,7 +1037,7 @@
 			routeRequest = $.ajax({
 				url: routeApi + query + (ak ? '?apikey=' + apiKey : ''),
 				method: routeMethod,
-				headers: {apikey: apiKey},
+				//headers: {apikey: apiKey},
 				data: params,
 				success: function(data) {
 					clearRoute();
