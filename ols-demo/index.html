@@ -428,7 +428,7 @@
 		var apiKey = "11dd756f680c47b5aef5093d95543738";
 		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var routeApi = "https://router.api.gov.bc.ca/";
-		var routeMethod = 'POST';
+		var routeMethod = 'GET';
 		if(queryParams['env'] == 'tst') {
 			gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
 			routeApi = "https://routertst.api.gov.bc.ca/";
@@ -446,7 +446,7 @@
 			// hide functions not available from production APIs
 			$('.not-in-prod').hide();
 		}
-		var ak = false;
+		var ak = true;
 		if(queryParams['ak'] == 'true') {
 			ak = true;
 		}
