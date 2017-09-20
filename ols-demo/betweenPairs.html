@@ -176,7 +176,7 @@
 				<h1>BetweenPairs Demo</h1>
 				<div id="addressLists">
 					<div class="listWrapper">
-						<div class="listLabel">From Points:</div>
+						<div class="listLabel">From Points: (<span class="listCount">1</span>)</div>
 						<div id="fromList" class="addressList">
 							<div class="form-group">
 								<div class="input-group">
@@ -209,7 +209,7 @@
 						</div>
 					</div>
 					<div class="listWrapper">
-						<div class="listLabel">To Points:</div>
+						<div class="listLabel">To Points: (<span class="listCount">0</span>)</div>
 						<div id="toList" class="addressList"></div>
 						<div class="controls">
 							<button class="btn btn-default addAddrBtn" type="button" title="Add To Point">
@@ -646,7 +646,7 @@
 				success: function(data) {
 					//var fromPoint = data.fromPoints[data.pairs[0].from];
 					//var toPoint = data.toPoints[data.pairs[0].to];
-					$('#timing').html("BetweenPairs calculated in " + data.executionTime/1000 + " seconds.");
+					$('#timing').html("BetweenPairs took " + data.fromPoints.length + " fromPoints and " + data.toPoints.length + " toPoints and calculated " + data.pairs.length + " pairs in " + data.executionTime/1000 + " seconds.");
 					$('#results').html("<pre>" + JSON.stringify(data, null, '\t') + "</pre>");
 					if(betweenPairsLayer != null) {
 						map.removeLayer(betweenPairsLayer);
@@ -679,14 +679,16 @@
 			group: "addresses",
 			handle: ".reorder",
 			draggable: ".form-group",
-			forceFallback: true
+			forceFallback: true,
+			onEnd: recount
 		});
 
 		Sortable.create(document.getElementById('toList'),{
 			group: "addresses",
 			handle: ".reorder",
 			draggable: ".form-group",
-			forceFallback: true
+			forceFallback: true,
+			onEnd: recount
 		});
 
 		// press enter on router field
@@ -732,6 +734,7 @@
 				$inputField.val('');
 				$inputField.data('marker', null);
 			}
+			recount();
 		});
 
 		// add destination button
@@ -762,6 +765,7 @@
 					receiveGeocode(data, $field, false);
 				});
 			}
+			recount();
 		});
 
 		function receiveGeocode(data, $field, center = true) {
@@ -866,6 +870,12 @@
 						console.log(request);
 					}
 				}
+			});
+		}
+
+		function recount() {
+			$('.listWrapper').each( function() {
+				$(this).find('.listCount').html($(this).find('.addressList').children().length);
 			});
 		}
 
