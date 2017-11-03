@@ -377,7 +377,9 @@
 		</div> <!-- tabWrapper -->
 		<div id="map"></div>
 	</div> <!-- container -->
+	<script src="https://maps.googleapis.com/maps/api/js" async defer></script>
 	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+	<script src='https://unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js'></script>
 	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
 	<script src="https://unpkg.com/esri-leaflet@2.1.1/dist/esri-leaflet.js"
 		integrity="sha512-ECQqaYZke9cSdqlFG08zSkudgrdF6I1d8ViSa7I3VIszJyVqw4ng1G8sehEXlumdMnFYfzY0tMgdQa4WCs9IUw=="
@@ -603,6 +605,11 @@
 		var esriStreetsLayer = L.esri.basemapLayer('Streets');
 		baseLayers['ESRI Streets'] = esriStreetsLayer;
 
+		var googleRoads = L.gridLayer.googleMutant({
+			type: 'roadmap' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+		});
+		baseLayers['Google Roads'] = googleRoads;
+
 		var bcRoadsBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcgis/services/province/roads_wm/MapServer/WmsServer?',
 			{
 				layers: '0'
@@ -618,6 +625,11 @@
 
 		var esriStreetsLayer = L.esri.basemapLayer('Imagery');
 		baseLayers['ESRI Imagery'] = esriStreetsLayer;
+
+		var googleSatellite = L.gridLayer.googleMutant({
+			type: 'satellite' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+		});
+		baseLayers['Google Satellite'] = googleSatellite;
 
 		var esriStreetsLayer = L.esri.basemapLayer('Topographic');
 		baseLayers['ESRI Topographic'] = esriStreetsLayer;
