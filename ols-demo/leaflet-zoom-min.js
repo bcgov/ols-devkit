@@ -33,7 +33,7 @@ L.Control.ZoomMin = L.Control.Zoom.extend({
 
   _zoomMin: function () {
     if (this.options.minBounds) {
-      this._map.fitBounds(this.options.minBounds);
+      return this._map.fitBounds(this.options.minBounds);
     }
 
     this._map.setZoom(this._map.getMinZoom())
@@ -55,8 +55,8 @@ L.Control.ZoomMin = L.Control.Zoom.extend({
       L.DomUtil.addClass(this._zoomInButton, className)
     }
 
-    if (map._zoom === map.getMinZoom()) {
-      L.DomUtil.addClass(this._zoomMinButton, className)
-    }
+    //if (map._zoom === map.getMinZoom()) {
+    //  L.DomUtil.addClass(this._zoomMinButton, className)
+    //}
   }
 })
