@@ -232,7 +232,7 @@
 		.leaflet-control-zoom-min.leaflet-disabled {
 			background-image: url(data:image/gif;base64,R0lGODlhGAAYAOZGAHp6eoWFhX9/f3t7e4KCgtvb2319faSkpJSUlMTExOzs7JiYmO/v79DQ0KWlpdXV1ZeXl8LCwq2trZWVldTU1KysrJOTk8HBwbS0tLW1tZ2dnaOjo5ubm9nZ2aurq+bm5oCAgMPDw+vr6+np6ZKSkomJicXFxYuLi9zc3Lm5ub+/v+Dg4J6enszMzMDAwN3d3djY2Pr6+oODg46OjqCgoHx8fJGRkaqqqr29vaampqenp7a2to+Pj7Ozs7u7u9HR0aKioqmpqX5+fs7OzsfHx66urv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAEYALAAAAAAYABgAQAf/gEaCg0YMERskBAQkGxeEhCoAkhOPlR8GkpmOApmdICwUBSednQKDDwMALo89nBwTnQMPggSkKYQvFC2knQSDJqm8ACWCIwsAAyaVRh0ByAs1HBYGzpkBHY8VABDLRigQP4MemRVGCJk83UYwIMIWB7xCDUYQAJjCkgeF1fgW84IpMAVgsKwIJ2ECJKgTpMDDQV4CKojoFiKVBhQrVhSIkUADqQERCClw5qNSNSJGMuSwNtEIJwNDuiko9mBHJlPwJN1Y+KEErwO1MmHohgEfgXOdZuAQBERSEHwAEEQQNkFBgws0oAIIYUSCVh0HZKhwMCqTQkEFguGjMCgDsgKVFwrw62QjwTEAAeAuNJLAAQJFCBwk6BYIADs=);
 		}
-		
+
 		/* For leaflet-history.js */
 		.history-control.leaflet-bar.hidden{display:none}
 		.history-control.leaflet-bar.horizontal a{display:inline-block;border-bottom:0;border-radius:0;border-right:1px solid #ccc}
@@ -470,6 +470,14 @@
 			routeHeaders = {};
 		}
 
+		var xmdx = 100000;
+		if(queryParams['xmdx']) {
+			var num = parseInt(queryParams['xmdx']);
+			if(!isNan(num)) {
+				xmdx = num;
+			}
+		}
+
 		// Leaflet Map setup
 		var map = L.map('map', {
 			minZoom: 4,
@@ -482,7 +490,7 @@
     		forwardImage: 'glyphicon glyphicon-triangle-right'
 		}).addTo(map);
 		map.addControl(new L.Control.ZoomMin({
-			position: 'bottomright', 
+			position: 'bottomright',
 			minBounds: [
 				[48.3, -139.06],
 				[60.0, -114.03]
@@ -661,7 +669,7 @@
 			});
 		baseLayers['BC Topographic Base'] = bcTopoBaseLayer;
 
-		
+
 		var siteLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json?excludeUnits=true&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 14,
@@ -1543,19 +1551,29 @@
 			if($statusDiv) {
 				$statusDiv.html('Jumping to random civic address...');
 			}
+
+			// random lat
 			var bounds = map.getBounds();
-			var height = bounds.getNorth() - bounds.getSouth()
-			var lat = (Math.random() * height * 0.8) + bounds.getSouth() + (height * 0.1);
+			var north = Math.min(bounds.getNorth(), 60)
+			var south = Math.max(bounds.getSouth(), 48.3)
+			var height = north - south;
+			var lat = (Math.random() * height * 0.8) + south + (height * 0.1);
+
+			// random lng
 			var west = bounds.getWest();
 			if(tabs) {
 				var west = map.containerPointToLatLng([400,0]).lng;
 			}
-			var width = bounds.getEast() - west;
+			west = Math.max(west, -139.06);
+			var east = Math.min(bounds.getEast(), -114.03);
+			var width = east - west;
 			var lng = (Math.random() * width * 0.8) + west + (width * 0.1);
+
 			$.ajax({
 				url: gcApi + "sites/nearest.json",
 				data: {
 					locationDescriptor: locationDescriptor,
+					maxDistance: xmdx,
 					excludeUnits: true,
 					onlyCivic: true,
 					brief: true,
@@ -1569,7 +1587,7 @@
 					return callback(data, $field);
 				},
 				error: function(request) {
-					if(retries < 5) {
+					if(retries < 100) {
 						randomAddress($field, locationDescriptor, callback, $statusDiv, retries+1);
 					} else {
 						if($statusDiv) {
