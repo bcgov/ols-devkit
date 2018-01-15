@@ -34,7 +34,8 @@ L.LayerJSON = L.FeatureGroup.extend({
 		minShift: 1000,				//min shift for update data(in meters)
 		updateOutBounds: true,		//request new data only if current bounds higher than last bounds
 		precision: 6,				//number of digit send to server for lat,lng precision
-		attribution: ''				//attribution text
+		attribution: '',				//attribution text
+		clusterManager: null			// for handling multi-layer clustering
 		//TODO option: enabled, if false
 		//TODO methods: enable()/disable()
 		//TODO send map bounds decremented of certain margin
@@ -67,7 +68,10 @@ L.LayerJSON = L.FeatureGroup.extend({
 	},
 
 	onAdd: function(map) {
-
+		// if(this.options.layerTarget)
+		// {
+		// 	this.options.layerTarget.onAdd.call(this.options.layerTarget, map);
+		// }
 		L.FeatureGroup.prototype.onAdd.call(this, map);		//set this._map
 		this._center = map.getCenter();
 		this._maxBounds = map.getBounds();
@@ -78,6 +82,10 @@ L.LayerJSON = L.FeatureGroup.extend({
 	},
 
 	onRemove: function(map) {
+		// if(this.options.layerTarget)
+		// {
+		// 	this.options.layerTarget.onRemove.call(this.options.layerTarget, map);
+		// }
 
 		map.off('moveend zoomend', this._onMove, this);
 
@@ -119,6 +127,8 @@ L.LayerJSON = L.FeatureGroup.extend({
 	clearLayers: function () {
 
 		this._markersCache = {};	//cached gen markers
+		if(this.options.clusterManager)
+			this.options.clusterManager.clearLayer(this);
 
 		if(this.options.layerTarget)
 			this.options.layerTarget.clearLayers.call(this.options.layerTarget);
@@ -201,6 +211,9 @@ L.LayerJSON = L.FeatureGroup.extend({
 
 		if(this._markersCache[hash])
 			this.addLayer( this._markersCache[hash] );
+
+		if(this.options.clusterManager)
+			this.options.clusterManager.addMarker(this._markersCache[hash]);
 	},
 
 	_contains: function(bounds, el) {
@@ -232,9 +245,6 @@ L.LayerJSON = L.FeatureGroup.extend({
 			newCenter = this._map.getCenter(),
 			newBounds = this._map.getBounds();
 
-		if(newZoom < this.options.minZoom)
-			return false;
-
 		if(this.options.caching) {
 
 			if( this.options.minShift && this._center.distanceTo(newCenter) < this.options.minShift )
@@ -253,6 +263,9 @@ L.LayerJSON = L.FeatureGroup.extend({
 		}
 		else
 		 	this.clearLayers();
+
+		if(newZoom < this.options.minZoom)
+			return false;
 
 		this.update();
 	},
@@ -347,7 +360,7 @@ L.LayerJSON = L.FeatureGroup.extend({
 		L.LayerJSON.callJsonp = function(data) {
 			cb(data);
 			body.removeChild(script);
-		}
+		};
 		script.type = 'text/javascript';
 		script.src = url+'L.LayerJSON.callJsonp';
 		return {
