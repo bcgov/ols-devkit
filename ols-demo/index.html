@@ -445,14 +445,17 @@
 
 		// API URLs
 		var apiKey = "11dd756f680c47b5aef5093d95543738";
-		var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
+		//var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
+		var gcApi = "https://geocoder.api.gov.bc.ca/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
 		if(queryParams['env'] == 'tst') {
-			gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
+			//gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
+			gcApi = "https://geocodertst.api.gov.bc.ca";
 			routeApi = "https://routertst.api.gov.bc.ca/";
 		} else if(queryParams['env'] == 'dlv') {
-			gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
+			//gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
+			gcApi = "https://geocoderdlv.api.gov.bc.ca/";
 			routeApi = "https://routerdlv.api.gov.bc.ca/";
 		} else if(queryParams['env'] == 'rri') {
 			gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
@@ -1508,6 +1511,7 @@
 				namedOccLayer = null;
 			}
 		});
+
 
 		var tabs = true;
 		$('#hideButton').on('click', function() {
