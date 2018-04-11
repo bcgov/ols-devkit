@@ -11,7 +11,7 @@ WORKDIR /app
 ADD . /app
 
 RUN adduser -S app
-RUN chown -R appr:0 /app && chmod -R 770 /app
+RUN chown -R app:0 /app && chmod -R 770 /app
 USER app
 
 EXPOSE 5000
