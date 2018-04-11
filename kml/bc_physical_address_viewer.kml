@@ -21,20 +21,20 @@
 			<visibility>0</visibility>
        <Snippet maxLines="0"></Snippet>
 			<description><![CDATA[
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height="36" width="36"> intersection point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/localityPoint_coarse.png" height="36" width="36"> locality point - coarse accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/provincePoint_coarse.png" height="36" width="36"> province point - coarse accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height="36" width="36"> routing point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/streetPoint_coarse.png" height="36" width="36"> street point - coarse accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height="36" width="36"> intersection point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/localityPoint_coarse.png" height="36" width="36"> locality point - coarse accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/provincePoint_coarse.png" height="36" width="36"> province point - coarse accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_high.png" height="36" width="36"> routing point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/streetPoint_coarse.png" height="36" width="36"> street point - coarse accuracy<br>
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
 <i><b>medium - </i></b>derived from parcel boundaries or from a point known to be inside a parcel<br>
@@ -351,16 +351,16 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#frontDoorPoint"> front door point</a>
       <br><br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height="36" width="36"> routing point - high accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
-            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_high.png" height="36" width="36"> routing point - high accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+            <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
@@ -400,13 +400,13 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a>
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
@@ -452,13 +452,13 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a>
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/frontDoorPoint_high.png" height="36" width="36"> front door point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_high.png" height="36" width="36"> parcel point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/parcelPoint_medium.png" height="36" width="36"> parcel point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/rooftopPoint_high.png" height="36" width="36"> rooftop point - high accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
@@ -492,9 +492,9 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a> of site addresses
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
@@ -527,9 +527,9 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#accessPoint">access points</a> of site addresses
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_high.png" height=36 width=36> access point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_medium.png" height="36" width="36"> access point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/accessPoint_low.png" height="36" width="36"> access point - low accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
@@ -562,9 +562,9 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#routingPoint">routing points</a> of site addresses
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
@@ -598,9 +598,9 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#routingPoint">routing points</a> of site addresses
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
-        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_high.png" height=36 width=36> routing point - high accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_medium.png" height="36" width="36"> routing point - medium accuracy<br>
+        <img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/routingPoint_low.png" height="36" width="36"> routing point - low accuracy<br>
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
 <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
@@ -635,7 +635,7 @@
  
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> in BC (e.g., Douglas St and Yates St, Victoria, BC)
-        <br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+        <br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
         <br> <i><b>Positional Accuracy Terms </i></b><br>
         <i><b>high - </i></b>observed or measured using GPS or survey instruments, or digitized off imagery with a resolution of 1m or better<br>
         <br> credit for intersection icon:<br> <b> Maps Icons Collection </b> http://mapicons.nicolasmollet.com
@@ -657,7 +657,7 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to more than one road segment
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
 
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
@@ -689,7 +689,7 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to one road segment
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
 
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
@@ -721,7 +721,7 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to two road segments
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
 
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
@@ -753,7 +753,7 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to three road segments
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
 
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
@@ -785,7 +785,7 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to four road segments
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
 
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
@@ -817,7 +817,7 @@
 
  <A HREF="http://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md#intersection">intersections</a> connected to five or more road segments
             
-<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
+<br><br><img src="https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/geocoder/intersectionPoint_high.png" height=36 width=36> intersection point - high accuracy<br>
 
             
 <br> <i><b>Positional Accuracy Terms </i></b><br>
@@ -1347,7 +1347,7 @@
             <Snippet maxLines="0"></Snippet>
 			<drawOrder>97</drawOrder>
 			<Icon>
-				<href>https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/DataBC_logo.png</href>
+				<href>https://cdn.rawgit.com/bcgov/ols-devkit/bcc044ce/kml/icons/DataBC_logo.png</href>
 			</Icon>
 			<overlayXY x="0.0800000" y="0.300000001" xunits="fraction" yunits="fraction"/>
 			<screenXY x="0" y="0.04000000000000001" xunits="fraction" yunits="fraction"/>
