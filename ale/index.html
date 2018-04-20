@@ -14,6 +14,7 @@
         "footerContainer": "#cfs"
     });
 </script>
+<script type="text/javascript" src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
 <script type="text/javascript" src="js/papaparse.min.js"></script>
 <script type="text/javascript" src="../js-api/geocode.js"></script>
 <script type="text/javascript" src="js/ale.js"></script>
@@ -79,8 +80,8 @@
 						type="button" id="geocodeAllButton" class="stage2"
 						value="Geocode All" /> <input type="button"
 						id="exportResultsButton" class="stage2" value="Export Results" />
-					<input type="button" id="copyResultsButton" class="stage2"
-						value="Copy Results to Clipboard" />
+						<input type="button" id="copyResultsButton" class="stage2"
+							value="Copy Results to Clipboard" />
 				</p>
 				<div class="stage1">
 					<textarea id="inputArea">
@@ -110,43 +111,32 @@
 		<tbody>
 		</tbody>
 	</table>
-		<div>
-			<div style="height: 20px" />
-			<div id="moreInfo">
-				<h3>Application Information</h3>
-				<ul>
-					<li>This site is best viewed in Firefox 18+, Chrome 15+ or IE
-						8+.</li>
-					<li>The site requires Javascript to be enabled.</li>
-				</ul>
-				<h3>Glossary</h3>
-				<ul>
-					<li><a target="_blank"
-						href="https://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md">Geocoder
-							Glossary of Terms</a></li>
-					<li>SRS - Spatial Reference System, EPSG, projection code.
-						Indicates which geographic projection that the coordinates are
-						listed in, see <a target="_blank"
-						href="http://spatialreference.org/ref/epsg/">http://spatialreference.org/ref/epsg/</a>
-					</li>
-				</ul>
-				<div class="centered">
-					<input type="button" id="closeMoreInfoButton" value="Close Window" />
-				</div>
-			</div>
-			<div id="copyToClipboard">
-				<div class="centered">
-					<h3>Copy to Clipboard</h3>
-					<p>Press Ctrl-C on your keyboard to copy your results, then you
-						can press Ctrl-V to paste it into an existing spreadsheet</p>
-					<textarea id="copyArea"></textarea>
-					<p>
-						<input type="button" id="closeCopyToClipboardButton"
-							value="Close Window" />
-					</p>
-				</div>
+	<div>
+		<div style="height: 20px" />
+		<div id="moreInfo">
+			<h3>Application Information</h3>
+			<ul>
+				<li>This site is best viewed in Firefox 18+, Chrome 15+ or IE
+					8+.</li>
+				<li>The site requires Javascript to be enabled.</li>
+			</ul>
+			<h3>Glossary</h3>
+			<ul>
+				<li><a target="_blank"
+					href="https://github.com/bcgov/api-specs/blob/master/geocoder/glossary.md">Geocoder
+						Glossary of Terms</a></li>
+				<li>SRS - Spatial Reference System, EPSG, projection code.
+					Indicates which geographic projection that the coordinates are
+					listed in, see <a target="_blank"
+					href="http://spatialreference.org/ref/epsg/">http://spatialreference.org/ref/epsg/</a>
+				</li>
+			</ul>
+			<div class="centered">
+				<input type="button" id="closeMoreInfoButton" value="Close Window" />
 			</div>
 		</div>
+	</div>
+	<div id="copied">Copied!</div>
 	<div id="cfs"></div>
 </body>
 </html>
