@@ -45,7 +45,6 @@ $(document).ready(function() {
 
 	// hide pop-up divs
 	$('#moreInfo').hide();
-	$('#copyToClipboard').hide();
 
 	// setup button events
 	$('#restartButton').click(restart);
@@ -58,21 +57,25 @@ $(document).ready(function() {
 		$('#moreInfo').hide();
 	});
 
-	$('#closeCopyToClipboardButton').click(function() {
-		$('#copyArea').val("");
-		$('#copyToClipboard').hide();
-	});
-
 	$('#exportResultsButton').click(function(){
 		csv = table2string(',');
 		export2csv(csv);
 	});
 
-	$('#copyResultsButton').click(function(){
-		results = table2string();
-		$('#copyArea').val(results);
-		$('#copyToClipboard').show();
-		$('#copyArea').select();
+	var clipboard = new ClipboardJS('#copyResultsButton', {
+    	text: function() {
+        	return table2string(',');
+    	}
+	});
+	clipboard.on('success', function(e) {
+		var c = $('#copied');
+		var b = $('#copyResultsButton')[0];
+		c.css({
+			top: b.offsetTop + b.offsetHeight + 2,
+			left: b.offsetLeft + b.offsetWidth/3
+		});
+		c.slideDown();
+		c.fadeOut(2000);
 	});
 
 	$('#geocodeButton').click(function() {
@@ -285,11 +288,24 @@ function geocodeRow(rowNum, retries) {
     });	// end ajax call
 } // end geocodeRow function
 
-function export2csv(csv){
-	if($('.csv-data').length) $('.csv-data').remove();
-	$('body').append('<div class="csv-data"><form id="the_csv_form" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8" method="POST" action="' + geocoder_url + '/geo/editor/export.csv"><textarea id="csv" class="form" name="csv">'+csv+'</textarea> </input><input type="submit" class="submit" value="Download as file" /></form></div>');
-	$('.csv-data').hide();
-	$('#the_csv_form').submit();
+function export2csv(csvString){
+	var filename = "addresses.csv";
+	var blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, filename);
+    } else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
 }
 
 function table2string(delim) {
@@ -315,7 +331,7 @@ function table2string(delim) {
 		});
 		data.push(rowData);
 	});
-	console.log(data);
+	//console.log(data);
 	if(delim === undefined) {
 		delim = delimiter;
 	}
@@ -334,7 +350,7 @@ function faultsToString(faults) {
 }
 
 function showMap(rowNum) {
-	window.open('https://maps.google.com/maps?z=11&t=k&q=' 
+	window.open('https://maps.google.com/maps?z=11&t=k&q='
 			+ $('#row' + rowNum + ' td:nth-child(' + Y_COL + ')').text()
 			+ "," + $('#row' + rowNum + ' td:nth-child(' + X_COL + ')').text());
 }
