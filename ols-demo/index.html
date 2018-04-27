@@ -63,6 +63,8 @@
 		.nav-tabs {
 			flex: 0 0 auto;
 			border-bottom-color: lightSlateGrey;
+			display: flex;
+			flex-wrap: wrap-reverse;
 		}
 		.nav-tabs > li > a {
 			padding: 6px 8px 5px 8px;
@@ -210,6 +212,17 @@
 		span.shortest {
 			color: #0000FF;
 		}
+		.form-row {
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+		}
+		.short-field {
+			width: 60px;
+		}
+		.miniBtn {
+			padding: 1px 2px;
+		}
 		.leaflet-marker-icon .number{
 			position: relative;
 			top: -36px;
@@ -259,6 +272,9 @@
 					</li>
 					<li role="presentation">
 						<a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Businesses by Name</a>
+					</li>
+					<li role="presentation">
+						<a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Isochrones</a>
 					</li>
 				</ul>
 				<div class="tab-content">
@@ -380,6 +396,44 @@
 							</div>
 						</div>
 					</div>
+					<div role="tabpanel" class="tab-pane" id="tabs-5">
+						<div class="form-group input-group">
+							<input type="text" class="form-control input-field" id="isoGeocodeField" placeholder="Enter civic or intersection address" />
+							<div class="input-group-btn">
+								<button id="isoRandom" class="btn btn-default" type="button" title="Jump at Random">
+									<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
+								</button>
+								<button id="isoClear" class="btn btn-default input-clear" type="button" title="Clear">
+									<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
+								</button>
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="zoneSize" class="col-sm-5 col-form-label">Zone Size (minutes):</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="zoneSize" value="10" />
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="zoneSize" class="col-sm-5 col-form-label">Zone Count:</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="zoneCount" value="1" />
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="inboundChk" class="col-sm-5 col-form-label">Inbound?</label>
+							<div class="col-sm-3">
+								<input id="inboundChk" type="checkbox" aria-label="Inbound" title="Inbound">
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="testChk" class="col-sm-5 col-form-label">Test</label>
+							<div class="col-sm-3">
+								<input id="testChk" type="checkbox" aria-label="Test" title="Test">
+							</div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 			<div id="hideHandle">
@@ -410,6 +464,7 @@
 	<script src="https://aehlke.github.io/tag-it/js/tag-it.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
+	<script type="text/javascript" src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
 	<script>
 		L.NumberedIcon = L.Icon.extend({
 			options: {
@@ -451,7 +506,7 @@
 		var routeMethod = 'POST';
 		if(queryParams['env'] == 'tst') {
 			//gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
-			gcApi = "https://geocodertst.api.gov.bc.ca/";
+			gcApi = "https://geocodertst.api.gov.bc.ca";
 			routeApi = "https://routertst.api.gov.bc.ca/";
 		} else if(queryParams['env'] == 'dlv') {
 			//gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
@@ -474,7 +529,7 @@
 			routeHeaders = {};
 		}
 
-		var xmdx = 100000;
+		var xmdx = 5000;
 		if(queryParams['xmdx']) {
 			var num = parseInt(queryParams['xmdx']);
 			if(!isNaN(num)) {
@@ -673,6 +728,14 @@
 			});
 		baseLayers['BC Topographic Base'] = bcTopoBaseLayer;
 
+		var trimLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/pub/wms',
+			{
+				layers: 'pub:WHSE_BASEMAPPING.TRIM_WATER_LINES,pub:WHSE_BASEMAPPING.TRIM_TRANSPORTATION_LINES,pub:WHSE_BASEMAPPING.DRA_DGTL_ROAD_ATLAS_MPAR_SP,pub:WHSE_BASEMAPPING.TRIM_WATER_POINTS,pub:WHSE_BASEMAPPING.TRIM_TRANSPORTATION_POINTS,pub:WHSE_BASEMAPPING.TRIM_CONTOUR_POINTS',
+				styles: '3345,3334,,3344,3333,3332',
+				format: 'image/png',
+				transparent: true
+			});
+		overlays['TRIM'] = trimLayer;
 
 		var siteLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json?excludeUnits=true&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -806,8 +869,30 @@
 			$(this).parents('div.input-group').find('input.input-field').val('');
 		});
 
+		function disambiguateLocality(props) {
+			var fullAddr = props.fullAddress;
+			var loc = fullAddr.lastIndexOf("Langley, BC");
+			if(loc > -1) {
+				if(props.localityType == "District Municipality") {
+					fullAddr = fullAddr.substring(0, loc) + "Township of Langley, BC";
+				} else {
+					fullAddr = fullAddr.substring(0, loc) + "City of Langley, BC";
+				}
+			} else {
+				loc = fullAddr.lastIndexOf("North Vancouver, BC");
+				if(loc > -1) {
+					if(props.localityType == "District Municipality") {
+						fullAddr = fullAddr.substring(0, loc) + "District of North Vancouver, BC";
+					} else {
+						fullAddr = fullAddr.substring(0, loc) + "City of North Vancouver, BC";
+					}
+				}
+			}
+			return fullAddr;
+		}
+
 		function makePopupText(props) {
-			var str = '<span class="popup-title">' + props.fullAddress
+			var str = '<span class="popup-title">' + disambiguateLocality(props)
 					+ '</span><table class="popup-table">';
 
 			if(props.score) {
@@ -848,6 +933,28 @@
 			return str;
 		}
 
+		// reverse geocode on map Click
+		map.on('click', function(e) {
+			var popupHtml = "<span id=\"latLng\">" + e.latlng.lat + ", " + e.latlng.lng + "</span> "
+				+ "<button id=\"copyLatLngBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Copy Lat/Lon to clipboard\" data-clipboard-target=\"#latLng\">"
+				+ "<span class=\"glyphicon glyphicon-copy\" aria-label=\"Copy Lat/Lon\"></span>"
+				+ "</button>";
+			if($('#tabs-2').hasClass('active')) {
+				popupHtml += " <button id=\"addRoutePointBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
+				+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
+				+ "</button>";
+			}
+			var popup = map.openPopup(popupHtml, e.latlng);
+		});
+
+		// event handlers for buttons inside reverse geocode popup
+		new ClipboardJS('#copyLatLngBtn');
+		$('#map').on('click', '#addRoutePointBtn', addRoutePoint);
+
+		function addRoutePoint(e) {
+			addDest($('#latLng').text());
+		}
+
 		// reusable function for suggesting geocode autocompletion options
 		function geocodeSuggest(request, response, options) {
 			var params = {
@@ -867,7 +974,7 @@
 					if(data.features && data.features.length > 0) {
 						list = data.features.map( function(item) {
 							return {
-								value: item.properties.fullAddress,
+								value: disambiguateLocality(item.properties),
 								data: item
 							}
 						});
@@ -889,7 +996,7 @@
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
-						layer.options['title'] = feature.properties.fullAddress;
+						layer.options['title'] = disambiguateLocality(feature.properties);
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
 						//	}).openTooltip();
@@ -1146,11 +1253,18 @@
 					// 	$last.data('marker').getLayers()[0].setIcon(getRouteIcon(-1));
 					// }
 					if(data.routeFound) {
-						$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						if(data.optimizationExecutionTime) {
+							$('#timing').html('Distances between stops calculated in ' + data.routingExecutionTime/1000 + ' seconds<br\>'
+								+ 'Optimization performed in ' + data.optimizationExecutionTime/1000 + ' seconds<br\>'
+								+ 'Final route calculated in ' + (data.executionTime - data.routingExecutionTime - data.optimizationExecutionTime)/1000 + ' seconds<br\>'
+								+ 'Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						} else {
+							$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						}
 						var dirs = data.directions;
 						for(i = 0; i < dirs.length; i++) {
 							if(dirs[i].text) {
-								var $dir = $("<div class=\"direction\">" + dirs[i].text + "</div>");
+								var $dir = $("<div class=\"direction\" title=\"Click to zoom in to start of route leg.\">" + dirs[i].text + "</div>");
 								$('#directions').append($dir);
 								$dir.data('latlng', {'lat': dirs[i].point[1], 'lng': dirs[i].point[0]}) ;
 							} else {
@@ -1234,8 +1348,7 @@
 			}
 		});
 
-		// add destination button
-		$('#addDestBtn').on('click', function() {
+		function addDest(address = null) {
 			$formGroup = $('#routerList > .form-group:first-child').clone().appendTo('#routerList');
 			$input = $formGroup.find('input.input-field');
 			$input.val('');
@@ -1252,7 +1365,20 @@
 				}
 			});
 			$formGroup[0].scrollIntoView(false);
+			if(address != null) {
+				$input.val(address);
+				var latLng = isCoords(address);
+				if(latLng) {
+    				receiveRouteGeocode(latLng, $input);
+				}
+			}
+		}
+
+		// add destination button
+		$('#addDestBtn').on('click', function() {
+			addDest();
 		});
+
 		$('input[name=criteria]').on('change', function(evt) {
 			route(null, false);
 		});
@@ -1298,11 +1424,14 @@
 				map.removeLayer(directionSelectMarker);
 			}
 			if($dirDiv.hasClass('selectedDirection')) {
-				$dirDiv.removeClass('selectedDirection');
+				$dirDiv.removeClass('selectedDirection')
+					.attr('title', 'Click to zoom in to start of route leg.');
 				centerMap(routeLayer.getBounds());
 			} else {
-				$('#directions div.selectedDirection').removeClass('selectedDirection');
-				$dirDiv.addClass('selectedDirection');
+				$('#directions div.selectedDirection').removeClass('selectedDirection')
+					.attr('title', 'Click to zoom in to start of route leg.');
+				$dirDiv.addClass('selectedDirection')
+					.attr('title', 'Click to zoom out to route extent.');
 				var latlng = $dirDiv.data('latlng');
 				if(latlng) {
 					directionSelectMarker = L.circleMarker(latlng).addTo(map);
@@ -1331,8 +1460,8 @@
 						return L.marker(latlng, {icon: icon});
 					},
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText({'fullAddress': feature.properties['fullAddress']}));
-						layer.options['title'] = feature.properties.fullAddress;
+						layer.bindPopup(makePopupText({'fullAddress': disambiguateLocality(feature.properties)}));
+						layer.options['title'] = disambiguateLocality(feature.properties);
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
 						//	}).openTooltip();
@@ -1401,7 +1530,7 @@
 				},
 				onEachMarker: function(feature, layer) {
 					layer.bindPopup(makePopupText(feature.properties));
-					layer.options['title'] = feature.properties.fullAddress;
+					layer.options['title'] = disambiguateLocality(feature.properties);
 				}
 			});
 			occsByTagLayer.addTo(map);
@@ -1453,7 +1582,7 @@
 				namedOccLayer = L.geoJson(ui.item.data, {
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
-						layer.options['title'] = feature.properties.fullAddress;
+						layer.options['title'] = disambiguateLocality(feature.properties);
 					}
 				}).addTo(map);
 				centerMap(namedOccLayer.getBounds());
@@ -1483,7 +1612,7 @@
 					namedOccLayer = L.geoJson(data, {
 						onEachFeature: function(feature, layer) {
 							layer.bindPopup(makePopupText(feature.properties));
-							layer.options['title'] = feature.properties.fullAddress;
+							layer.options['title'] = disambiguateLocality(feature.properties);
 						}
 					}).addTo(map);
 					centerMap(namedOccLayer.getBounds());
@@ -1513,6 +1642,127 @@
 			}
 		});
 
+
+		// isochrons
+		var isoLayer = null;
+		var isoRequest = null;
+
+		function clearIsochrone() {
+			if(isoLayer) {
+				map.removeLayer(isoLayer);
+				isoLayer = null;
+			}
+		}
+
+		$('#isoClear').on('click', function() {
+			var oldMarker = $('#isoGeocodeField').data('marker');
+			if(oldMarker) {
+				map.removeLayer(oldMarker);
+			}
+			$('#isoGeocodeField').data('marker', layer);
+			clearIsochrone();
+		});
+
+		function receiveIsoGeocode(data) {
+			var layer, latLng;
+			if(data instanceof L.LatLng) {
+				latLng = data;
+				layer = latLngToLayer(data, {icon: icon});
+			} else {
+				// sort out whether we have a single feature or a featureCollection
+				var feature = data;
+				if(data.features) {
+					feature = data.features[0];
+				}
+				$('#isoGeocodeField').val(feature.properties.fullAddress);
+				latLng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
+				layer = L.geoJson(data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(makePopupText({'fullAddress': disambiguateLocality(feature.properties)}));
+						layer.options['title'] = disambiguateLocality(feature.properties.fullAddress);
+					}
+				});
+			}
+			var oldMarker = $('#isoGeocodeField').data('marker');
+			if(oldMarker) {
+				map.removeLayer(oldMarker);
+			}
+			$('#isoGeocodeField').data('marker', layer);
+			layer.addTo(map);
+			doIsochrone();
+		}
+
+		$('#isoGeocodeField').autocomplete({
+			minLength: 3,
+			source: function(request, response) {
+				geocodeSuggest(request, response, {
+					locationDescriptor: 'accessPoint'
+				});
+			},
+			select: function(evt, ui) {
+				receiveIsoGeocoder(ui.item.data);
+			}
+		});
+
+		// pick random location button
+		$('#isoRandom').on('click', function() {
+			clearIsochrone();
+			randomAddress($('#isoGeocodeField'), 'accessPoint', function(data) {
+				receiveIsoGeocode(data);
+			});
+		});
+
+		$('#zoneSize').on('change', doIsochrone);
+		$('#zoneCount').on('change', doIsochrone);
+		$('#inboundChk').on('change', doIsochrone);
+
+		function doIsochrone() {
+			var latLng = $('#isoGeocodeField').data('marker').getLayers()[0].getLatLng();
+			var params = {
+				point : latLng.lng + "," + latLng.lat,
+				zoneSize : $('#zoneSize').val(),
+				zoneCount : $('#zoneCount').val()
+			}
+			if($('#inboundChk').is(':checked')) {
+				params['inbound'] = 'true';
+			} else {
+				params['inbound'] = 'false';
+			}
+
+			if(isoRequest != null) {
+				isoRequest.abort();
+			}
+
+			var service = "isochrones";
+			if($('#testChk').is(':checked')) {
+				service = "loop";
+			}
+			isoRequest = $.ajax({
+				url: routeApi + service + ".json" + (routeMethod == 'GET' ? '?apikey=' + apiKey : ''),
+				method: "GET", //routeMethod,
+				//headers: routeHeaders,
+				data: params,
+				success: function(data) {
+					clearIsochrone();
+					// if valid isochrones were returned
+					if(data) {
+						isoLayer = L.geoJson(data, {
+							// onEachFeature: function(feature, layer) {
+							// 	var color = "#0000FF";
+							// 	layer.setStyle({color:color, weight:7, opacity: 0.5});
+							//}
+						}).addTo(map);
+						centerMap(isoLayer.getBounds());
+					}
+				},
+				error: function(request) {
+					if(request.statusText != "abort") {
+						alert(baseErrorMsg + "Error retrieving isochrone results, please try your request again.");
+						console.log(request);
+					}
+				}
+			});
+		};
 
 		var tabs = true;
 		$('#hideButton').on('click', function() {
