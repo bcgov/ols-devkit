@@ -764,7 +764,12 @@
 				return siteIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				var popupHtml = makePopupText(feature.properties);
+				// HTML for add to route
+				popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
+						+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
+						+ "</button>";
+				marker.bindPopup(popupHtml);
 			}
 
 		});
@@ -785,7 +790,12 @@
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				var popupHtml = makePopupText(feature.properties);
+				// HTML for add to route
+				popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
+						+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
+						+ "</button>";
+				marker.bindPopup(popupHtml);
 			}
 		});
 		overlays["Addresses – access point "] = apLayer;
@@ -906,44 +916,47 @@
 		}
 
 		function makePopupText(props) {
-			var str = '<span class="popup-title">' + disambiguateLocality(props)
-					+ '</span><table class="popup-table">';
+			var str = '<span class="popup-title">' + disambiguateLocality(props) + '</span>';
 
-			if(props.score) {
-				str += '<tr><td class="rowName">Score:</td><td>' + props.score + '</td></tr>';
-				str += '<tr><td class="rowName">Match Precision:</td><td>' + props.matchPrecision + '</td></tr>';
-				str += '<tr><td class="rowName">Precision Points:</td><td>' + props.precisionPoints + '</td></tr>';
-				str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
-				for(var i = 0, len = props.faults.length; i < len; i++) {
-					var f = props.faults[i];
-					str += '<tr><td class="rowName">' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+			if(props.score || props.degree || props.occupantName) {
+				str +='<table class="popup-table">';
+
+				if(props.score) {
+					str += '<tr><td class="rowName">Score:</td><td>' + props.score + '</td></tr>';
+					str += '<tr><td class="rowName">Match Precision:</td><td>' + props.matchPrecision + '</td></tr>';
+					str += '<tr><td class="rowName">Precision Points:</td><td>' + props.precisionPoints + '</td></tr>';
+					str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
+					for(var i = 0, len = props.faults.length; i < len; i++) {
+						var f = props.faults[i];
+						str += '<tr><td class="rowName">' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+					}
+					str += '</table></td></tr>';
 				}
-				str += '</table></td></tr>';
-			}
 
-			if(props.degree) {
-				str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
-			}
-
-			if(props.occupantName) {
-				str += '<tr><td class="rowName">Image URL</td><td>';
-				if(props.imageUrl) {
-					str += '<img url="' + props.imageUrl + '"/>';
-				} else {
-					str += 'No Image';
+				if(props.degree) {
+					str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
 				}
-				str	+= '</td></tr>';
-				str += '<tr><td class="rowName">Occupant Description</td><td>' + props.occupantDescription + '</td></tr>';
-				str += '<tr><td class="rowName">Website Url</td><td>' + props.websiteUrl.replace(/\//g, '/<wbr>') + '</td></tr>';
-				str += '<tr><td class="rowName">Contact E-mail</td><td>' + props.contactEmail + '</td></tr>';
-				str += '<tr><td class="rowName">Contact Phone</td><td>' + props.contactPhone + '</td></tr>';
-				str += '<tr><td class="rowName">Contact Fax</td><td>' + props.contactFax + '</td></tr>';
-				str += '<tr><td class="rowName">Keywords</td><td>' + props.keywords.replace(/;/g, ';<wbr>') + '</td></tr>';
-				str += '<tr><td class="rowName">Business Category Class</td><td>' + props.businessCategoryClass + '</td></tr>';
-				str += '<tr><td class="rowName">NAICS Code</td><td>' + props.naicsCode + '</td></tr>';
-			}
 
-			str += '</table>';
+				if(props.occupantName) {
+					str += '<tr><td class="rowName">Image URL</td><td>';
+					if(props.imageUrl) {
+						str += '<img url="' + props.imageUrl + '"/>';
+					} else {
+						str += 'No Image';
+					}
+					str	+= '</td></tr>';
+					str += '<tr><td class="rowName">Occupant Description</td><td>' + props.occupantDescription + '</td></tr>';
+					str += '<tr><td class="rowName">Website Url</td><td>' + props.websiteUrl.replace(/\//g, '/<wbr>') + '</td></tr>';
+					str += '<tr><td class="rowName">Contact E-mail</td><td>' + props.contactEmail + '</td></tr>';
+					str += '<tr><td class="rowName">Contact Phone</td><td>' + props.contactPhone + '</td></tr>';
+					str += '<tr><td class="rowName">Contact Fax</td><td>' + props.contactFax + '</td></tr>';
+					str += '<tr><td class="rowName">Keywords</td><td>' + props.keywords.replace(/;/g, ';<wbr>') + '</td></tr>';
+					str += '<tr><td class="rowName">Business Category Class</td><td>' + props.businessCategoryClass + '</td></tr>';
+					str += '<tr><td class="rowName">NAICS Code</td><td>' + props.naicsCode + '</td></tr>';
+				}
+
+				str += '</table>';
+			}
 			return str;
 		}
 
@@ -955,16 +968,9 @@
 		});
 
 		// event handler for add to route button inside site address popup
-		$('#map').on('click', '#addRoutePointBtn', addRoutePoint);
-
-		function addRoutePoint(e) {
-			addDest($('#latLng').text());
-		}
-		// HTML for add to route
-		//popupHtml += " <button id=\"addRoutePointBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
-		//+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
-		//+ "</button>";
-
+		$('#map').on('click', '#addSiteToRouteBtn', function(e) {
+			addDest($(this).parent().find('.popup-title').text());
+		});
 
 		// reusable function for suggesting geocode autocompletion options
 		function geocodeSuggest(request, response, options) {
@@ -1386,10 +1392,13 @@
 			}
 			if(address != null) {
 				$input.val(address);
-				var latLng = isCoords(address);
-				if(latLng) {
-    				receiveRouteGeocode(latLng, $input);
-				}
+				//var latLng = isCoords(address);
+				//if(latLng) {
+    			//	receiveRouteGeocode(latLng, $input);
+				//}
+				geocode($input, function(data) {
+					receiveRouteGeocode(data, $input);
+				});
 			}
 		}
 
