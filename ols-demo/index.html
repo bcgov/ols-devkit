@@ -171,6 +171,7 @@
 			border-radius: 4px 0px 0px 4px;
 			padding: 2px;
 			max-height: 35%;
+			margin-bottom: 4px;
 		}
 		button.reorder {
 			cursor: n-resize;
@@ -180,7 +181,7 @@
 			display: flex;
 			flex-direction: row;
 			margin-top: 4px;
-			justify-content: flex-start;
+			justify-content: center;
 			align-items: flex-start;
 		}
 		.routerControl {
@@ -273,9 +274,9 @@
 					<li role="presentation">
 						<a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Businesses by Name</a>
 					</li>
-					<li role="presentation">
+					<!-- li role="presentation">
 						<a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Isochrones</a>
-					</li>
+					</li -->
 				</ul>
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="tabs-1">
@@ -349,10 +350,23 @@
 									</div>
 								</div>
 							</div>
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button id="addDestBtn" class="btn btn-default" type="button" title="Add Destination">
+										<span class="glyphicon glyphicon-plus" aria-label="Add Destination"></span>
+									</button>
+								</div>
+								<input id="addAddrField" type="text" class="form-control input-field" placeholder="Address" />
+								<div class="input-group-btn">
+									<button id="copyToClipboardBtn" class="btn btn-default" type="button" title="Copy to clipboard" data-clipboard-target="#addAddrField">
+										<span class="glyphicon glyphicon-copy" aria-label="Copy to clipboard"></span>
+									</button>
+									<button class="btn btn-default input-clear" type="button" title="Clear">
+										<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
+									</button>
+								</div>
+							</div>
 							<div id="routerControls">
-								<button id="addDestBtn" class="btn btn-default" type="button" title="Add Destination">
-									<span class="glyphicon glyphicon-plus" aria-label="Add Destination"></span>
-								</button>
 								<div class="routerControl">
 									<input name="criteria" type="radio" value="fastest" aria-label="Fastest"  checked="checked"> <span class="fastest">Fastest</span><br>
 									<input name="criteria" type="radio" value="shortest" aria-label="Shortest"> <span class="shortest">Shortest</span>
@@ -935,25 +949,22 @@
 
 		// reverse geocode on map Click
 		map.on('click', function(e) {
-			var popupHtml = "<span id=\"latLng\">" + e.latlng.lat + ", " + e.latlng.lng + "</span> "
-				+ "<button id=\"copyLatLngBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Copy Lat/Lon to clipboard\" data-clipboard-target=\"#latLng\">"
-				+ "<span class=\"glyphicon glyphicon-copy\" aria-label=\"Copy Lat/Lon\"></span>"
-				+ "</button>";
 			if($('#tabs-2').hasClass('active')) {
-				popupHtml += " <button id=\"addRoutePointBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
-				+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
-				+ "</button>";
+				$('#addAddrField').val(e.latlng.lat.toFixed(5) + "," + e.latlng.lng.toFixed(5));
 			}
-			var popup = map.openPopup(popupHtml, e.latlng);
 		});
 
-		// event handlers for buttons inside reverse geocode popup
-		new ClipboardJS('#copyLatLngBtn');
+		// event handler for add to route button inside site address popup
 		$('#map').on('click', '#addRoutePointBtn', addRoutePoint);
 
 		function addRoutePoint(e) {
 			addDest($('#latLng').text());
 		}
+		// HTML for add to route
+		//popupHtml += " <button id=\"addRoutePointBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
+		//+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
+		//+ "</button>";
+
 
 		// reusable function for suggesting geocode autocompletion options
 		function geocodeSuggest(request, response, options) {
@@ -1328,6 +1339,9 @@
 			}
 		});
 
+		// copy to clipboard from addAddrField
+		new ClipboardJS('#copyToClipboardBtn');
+
 		// clear router input field button
 		$('#routerList').on('click', 'button.input-clear', function() {
 			clearRoute();
@@ -1349,22 +1363,27 @@
 		});
 
 		function addDest(address = null) {
-			$formGroup = $('#routerList > .form-group:first-child').clone().appendTo('#routerList');
-			$input = $formGroup.find('input.input-field');
-			$input.val('');
-			$input.data('marker', null);
-			$input.autocomplete({
-				minLength: 3,
-				source: function(request, response) {
-					geocodeSuggest(request, response, {
-						locationDescriptor: 'accessPoint'
-					});
-				},
-				select: function(evt, ui) {
-					receiveRouteGeocode(ui.item.data, $(evt.target));
-				}
-			});
-			$formGroup[0].scrollIntoView(false);
+			var $input = $('#routerList input.input-field').filter(function(index) {
+				return $(this).val() == '';
+			}).first();
+			if(address == null || $input.size() != 1) {
+				var $formGroup = $('#routerList > div.form-group:first-child').clone().appendTo('#routerList');
+				$input = $formGroup.find('input.input-field');
+				$input.val('');
+				$input.data('marker', null);
+				$input.autocomplete({
+					minLength: 3,
+					source: function(request, response) {
+						geocodeSuggest(request, response, {
+							locationDescriptor: 'accessPoint'
+						});
+					},
+					select: function(evt, ui) {
+						receiveRouteGeocode(ui.item.data, $(evt.target));
+					}
+				});
+				$formGroup[0].scrollIntoView(false);
+			}
 			if(address != null) {
 				$input.val(address);
 				var latLng = isCoords(address);
@@ -1376,7 +1395,8 @@
 
 		// add destination button
 		$('#addDestBtn').on('click', function() {
-			addDest();
+			addDest($('#addAddrField').val());
+			$('#addAddrField').val('');
 		});
 
 		$('input[name=criteria]').on('change', function(evt) {
