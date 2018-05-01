@@ -356,7 +356,7 @@
 										<span class="glyphicon glyphicon-plus" aria-label="Add Destination"></span>
 									</button>
 								</div>
-								<input id="addAddrField" type="text" class="form-control input-field" placeholder="Address" />
+								<input id="addAddrField" type="text" class="form-control input-field" placeholder="Click on Map For Coordinates" readonly/>
 								<div class="input-group-btn">
 									<button id="copyToClipboardBtn" class="btn btn-default" type="button" title="Copy to clipboard" data-clipboard-target="#addAddrField">
 										<span class="glyphicon glyphicon-copy" aria-label="Copy to clipboard"></span>
@@ -1368,11 +1368,11 @@
 			}
 		});
 
-		function addDest(address = null) {
+		function addDest(address = '') {
 			var $input = $('#routerList input.input-field').filter(function(index) {
 				return $(this).val() == '';
 			}).first();
-			if(address == null || $input.size() != 1) {
+			if(address == '' || $input.size() != 1) {
 				var $formGroup = $('#routerList > div.form-group:first-child').clone().appendTo('#routerList');
 				$input = $formGroup.find('input.input-field');
 				$input.val('');
@@ -1390,7 +1390,7 @@
 				});
 				$formGroup[0].scrollIntoView(false);
 			}
-			if(address != null) {
+			if(address != '') {
 				$input.val(address);
 				//var latLng = isCoords(address);
 				//if(latLng) {
