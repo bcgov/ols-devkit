@@ -1592,7 +1592,7 @@
 						echo: false,
 						autoComplete: true,
 						brief: true,
-						addressString: request.term + "--"
+						addressString: request.term
 					},
 					success: function(data) {
 						var list = [];
@@ -1630,9 +1630,6 @@
 		// Find Occupants By Name event handler
 		function findOccs($field) {
 			var addr = $field.val();
-			if(addr.indexOf("--") == -1) {
-				addr += " --";
-			}
 			$.ajax({
 				url: gcApi + "occupants/addresses.json",
 				data: {
