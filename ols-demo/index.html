@@ -901,34 +901,13 @@
 			$(this).parents('div.input-group').find('input.input-field').val('');
 		});
 
-		function disambiguateLocality(props) {
-			var fullAddr = props.fullAddress;
-			var loc = fullAddr.lastIndexOf("Langley, BC");
-			if(loc > -1) {
-				if(props.localityType == "District Municipality") {
-					fullAddr = fullAddr.substring(0, loc) + "Township of Langley, BC";
-				} else {
-					fullAddr = fullAddr.substring(0, loc) + "City of Langley, BC";
-				}
-			} else {
-				loc = fullAddr.lastIndexOf("North Vancouver, BC");
-				if(loc > -1) {
-					if(props.localityType == "District Municipality") {
-						fullAddr = fullAddr.substring(0, loc) + "District of North Vancouver, BC";
-					} else {
-						fullAddr = fullAddr.substring(0, loc) + "City of North Vancouver, BC";
-					}
-				}
-			}
-			return fullAddr;
-		}
-
 		function makePopupText(props) {
-			var str = '<span class="popup-title">' + disambiguateLocality(props) + '</span> '
-					+ "<button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
+			var str = '<span class="popup-title">' + props.fullAddress + '</span> ';
+			if(!props.occupantName) {
+				str += "<button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
 					+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
 					+ "</button>";
-
+			}
 			if(props.score || props.degree || props.occupantName) {
 				str +='<table class="popup-table">';
 
@@ -1002,7 +981,7 @@
 					if(data.features && data.features.length > 0) {
 						list = data.features.map( function(item) {
 							return {
-								value: disambiguateLocality(item.properties),
+								value: item.properties.fullAddress,
 								data: item
 							}
 						});
@@ -1024,7 +1003,7 @@
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
-						layer.options['title'] = disambiguateLocality(feature.properties);
+						layer.options['title'] = feature.properties.fullAddress;
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
 						//	}).openTooltip();
@@ -1496,8 +1475,8 @@
 						return L.marker(latlng, {icon: icon});
 					},
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText({'fullAddress': disambiguateLocality(feature.properties)}));
-						layer.options['title'] = disambiguateLocality(feature.properties);
+						layer.bindPopup(makePopupText({'fullAddress': feature.properties.fullAddress}));
+						layer.options['title'] = feature.properties.fullAddress;
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
 						//	}).openTooltip();
@@ -1566,7 +1545,7 @@
 				},
 				onEachMarker: function(feature, layer) {
 					layer.bindPopup(makePopupText(feature.properties));
-					layer.options['title'] = disambiguateLocality(feature.properties);
+					layer.options['title'] = feature.properties.fullAddress;
 				}
 			});
 			occsByTagLayer.addTo(map);
@@ -1618,7 +1597,7 @@
 				namedOccLayer = L.geoJson(ui.item.data, {
 					onEachFeature: function(feature, layer) {
 						layer.bindPopup(makePopupText(feature.properties));
-						layer.options['title'] = disambiguateLocality(feature.properties);
+						layer.options['title'] = feature.properties.fullAddress;
 					}
 				}).addTo(map);
 				centerMap(namedOccLayer.getBounds());
@@ -1645,7 +1624,7 @@
 					namedOccLayer = L.geoJson(data, {
 						onEachFeature: function(feature, layer) {
 							layer.bindPopup(makePopupText(feature.properties));
-							layer.options['title'] = disambiguateLocality(feature.properties);
+							layer.options['title'] = feature.properties.fullAddress;
 						}
 					}).addTo(map);
 					centerMap(namedOccLayer.getBounds());
@@ -1711,8 +1690,8 @@
 				latLng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText({'fullAddress': disambiguateLocality(feature.properties)}));
-						layer.options['title'] = disambiguateLocality(feature.properties.fullAddress);
+						layer.bindPopup(makePopupText({'fullAddress': feature.properties.fullAddress}));
+						layer.options['title'] = feature.properties.fullAddress;
 					}
 				});
 			}

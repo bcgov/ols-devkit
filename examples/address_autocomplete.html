@@ -153,13 +153,10 @@ function geocodeSuggest(request, response, options) {
 					<h4>brief</h4>
 					<p>when brief='true', significantly fewer result attributes are returned for each match, reducing the data
 						transfer overhead of the autocomplete process.</p>
-					<h4>outputSRS</h4>
-					<p>
-						This specifies the Spatial Reference System to use for the output
-						coordinates, using standard EPSG codes. The list of acceptable
-						code is specified <a
-							href="https://github.com/bcgov/api-specs/wiki/Geocoder-Glossary">here</a>.
-					</p>
+					<h4>echo</h4>
+					<p>If echo is set to true, site name and unit number details
+						will be echoed back as part of the results even if they are not
+						actually matched.</p>
 					<h4>maxResults</h4>
 					<p>This specifies the maximum number of results to show in
 						the drop-down list while the user is typing.</p>
@@ -167,14 +164,17 @@ function geocodeSuggest(request, response, options) {
 					<p>This specifies the minimum score of results to return. Any
 						results with a score less than the specified minimum will not be
 						returned.</p>
+					<h4>outputSRS</h4>
+					<p>
+						This specifies the Spatial Reference System to use for the output
+						coordinates, using standard EPSG codes. The list of acceptable
+						code is specified <a
+							href="https://github.com/bcgov/api-specs/wiki/Geocoder-Glossary">here</a>.
+					</p>
 					<h4>setBack</h4>
 					<p>This specifies the distance from the street curb to set
 						back the returned point, in meters. By default the returned point
 						is intended to be located on the curb.</p>
-					<h4>echo</h4>
-					<p>If echo is set to true, site name and unit number details
-						will be echoed back as part of the results even if they are not
-						actually matched.</p>
 					<h4>interpolation</h4>
 					<p>This specifies the allowable method of interpolation. By
 						default, "adaptive" interpolation is used. Alternatively, "linear"
@@ -218,7 +218,7 @@ function geocodeSuggest(request, response, options) {
 						"civic_number", "intersection", "block", "street", "locality",
 						"province"</p>
 				<p>For more information on these geocoder parameters, see page 7 of
-					the <a href="http://www.data.gov.bc.ca/local/dbc/docs/geo/services/standards-procedures/online_geocoder_rest_api.pdf">REST
+					the <a href="https://www2.gov.bc.ca/assets/gov/data/geographic/location-services/geocoder/online_geocoder_rest_api.pdf">REST
 						API documentation</a>
       </div>
     </div>
