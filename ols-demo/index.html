@@ -967,7 +967,7 @@
 			var params = {
 				minScore: 50,
 				maxResults: 5,
-				echo: 'false',
+				echo: true,
 				brief: true,
 				autoComplete: true,
 				addressString: request.term
@@ -1039,7 +1039,7 @@
 				$.ajax({
 					url: gcApi + "addresses.json",
 					data: {
-						echo: 'false',
+						echo: true,
 						brief: true,
 						addressString: $field.val()
 					},
