@@ -514,16 +514,13 @@
 
 		// API URLs
 		var apiKey = "11dd756f680c47b5aef5093d95543738";
-		//var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var gcApi = "https://geocoder.api.gov.bc.ca/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
 		if(queryParams['env'] == 'tst') {
-			//gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
 			gcApi = "https://geocodertst.api.gov.bc.ca/";
 			routeApi = "https://routertst.api.gov.bc.ca/";
 		} else if(queryParams['env'] == 'dlv') {
-			//gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
 			gcApi = "https://geocoderdlv.api.gov.bc.ca/";
 			routeApi = "https://routerdlv.api.gov.bc.ca/";
 		} else if(queryParams['env'] == 'rri') {
@@ -853,15 +850,15 @@
 		});
 		overlays["Intersections"] = intLayer;
 
-		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW/ows?SERVICE=WMS&',
+		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW/ows?SERVICE=WMS&',
 			{
 				maxZoom: 20,
-				layers: 'pub:WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW',
+				layers: 'pub:WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW',
 				transparent: true,
 				format: 'image/png'
 			});
 		parcelLayer.addTo(map);
-		overlays['Parcels'] = parcelLayer;
+		overlays['ParcelMap BC'] = parcelLayer;
 
 		var draLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/ows?',
 			{
@@ -1047,7 +1044,7 @@
 		var geocodeLayer = null;
 
 		// Geocode Address event handler
-		function geocode($field, callback) {
+		function geocode($field, callback, locationDescriptor = 'parcelPoint') {
 			var latLng = isCoords($field.val());
 			if(latLng) {
 				callback(latLng);
@@ -1055,6 +1052,7 @@
 				$.ajax({
 					url: gcApi + "addresses.json",
 					data: {
+						locationDescriptor: locationDescriptor,
 						echo: true,
 						brief: true,
 						addressString: $field.val()
@@ -1074,9 +1072,9 @@
 					map.removeLayer(geocodeLayer);
 					geocodeLayer = null;
 				}
-    			geocode($('#geocodeField'), receiveGeocode);
-    			return false;
-  			}
+    		geocode($('#geocodeField'), receiveGeocode);
+    		return false;
+  		}
 		});
 
 		$('#geocodeBtn').on("click", function() {
@@ -1400,7 +1398,7 @@
 				$input.val(address);
 				geocode($input, function(data) {
 					receiveRouteGeocode(data, $input);
-				});
+				}, 'accessPoint');
 			}
 		}
 
