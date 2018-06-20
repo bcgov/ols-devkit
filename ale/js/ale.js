@@ -358,6 +358,8 @@ function faultsToString(faults) {
 }
 
 function showMap(rowNum) {
-	window.open(OLS_DEMO_URL + 'q=' + $('#addressString' + rowNum).val());
+	var row = $('#row' + rowNum);
+	var addr = $('td:nth-child(' + FULL_ADDRESS_COL + ')', row).text();
+	window.open(OLS_DEMO_URL + 'q=' + addr);
 
 }
