@@ -3,18 +3,26 @@
  * All rights reserved.
  */
 
-var geocoder_url;
-var queryDict = {};
-location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
-var env = queryDict["env"];
-if(env == "devel") {
-	geocoder_url = "http://localhost:8080/pub/geocoder";
-} else if(env == "deliv") {
-	geocoder_url = "https://delivery.apps.gov.bc.ca/pub/geocoder";
-} else if(env == "test") {
-	geocoder_url = "https://test.apps.gov.bc.ca/pub/geocoder";
-} else {
-	geocoder_url = "https://apps.gov.bc.ca/pub/geocoder";
+ // parse query params
+var queryParams = {};
+location.search.substr(1).split("&").forEach(function(item) {
+	var s = item.split("="), k = s[0], v = s[1] && decodeURIComponent(s[1]);
+	queryParams[k] = v;
+});
+
+var gcApi = "https://geocoder.api.gov.bc.ca";
+var OLS_DEMO_URL = "https://ols-demo.apps.gov.bc.ca/index.html?";
+if(queryParams.env) {
+	OLS_DEMO_URL += "env=" + queryParams.env + "&";
+}
+if(queryParams.env == 'tst') {
+	gcApi = "https://geocodertst.api.gov.bc.ca";
+} else if(queryParams.env == 'dlv') {
+	gcApi = "https://geocoderdlv.api.gov.bc.ca";
+} else if(queryParams.env == 'rri') {
+	gcApi = "https://ssl.refractions.net/ols/pub/geocoder";
+} else if(queryParams.env == 'lg') {
+	gcApi = "http://localhost:8080/pub/geocoder";
 }
 
 var MAX_REQUESTS = 1000;
@@ -240,7 +248,7 @@ function geocodeRow(rowNum, retries) {
 	}
 	$('#row' + rowNum + ' td:nth-child(' + FULL_ADDRESS_COL + ')').html('<img src="img/ajax-loader.gif" title="processing..."/>');
 
-	req = new GeocodeRequest(geocoder_url);
+	req = new GeocodeRequest(gcApi);
 	req.setOutputFormat("jsonp");
 	req.setMaxResults(1);
 	req.setAddress($('#addressString' + rowNum).val());
@@ -350,7 +358,8 @@ function faultsToString(faults) {
 }
 
 function showMap(rowNum) {
-	window.open('https://maps.google.com/maps?z=11&t=k&q='
-			+ $('#row' + rowNum + ' td:nth-child(' + Y_COL + ')').text()
-			+ "," + $('#row' + rowNum + ' td:nth-child(' + X_COL + ')').text());
+	var row = $('#row' + rowNum);
+	var addr = $('td:nth-child(' + FULL_ADDRESS_COL + ')', row).text();
+	window.open(OLS_DEMO_URL + 'q=' + addr);
+
 }

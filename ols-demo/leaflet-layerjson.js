@@ -170,8 +170,9 @@ L.LayerJSON = L.FeatureGroup.extend({
 
 	_defaultDataToMarker: function(data, latlng) {	//make marker from data
 
-		var title = this._getPath(data, this.options.propertyTitle),
-			markerOpts = L.Util.extend({icon: this._buildIcon(data,title), title: title }, data),
+		var title = this._getPath(data, this.options.propertyTitle);
+		
+		var markerOpts = L.Util.extend({icon: this._buildIcon(data,title), title: title }, data),
 			marker = new L.Marker(latlng, markerOpts ),
 			htmlPopup = null;
 

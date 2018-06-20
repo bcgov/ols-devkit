@@ -63,6 +63,8 @@
 		.nav-tabs {
 			flex: 0 0 auto;
 			border-bottom-color: lightSlateGrey;
+			display: flex;
+			flex-wrap: wrap-reverse;
 		}
 		.nav-tabs > li > a {
 			padding: 6px 8px 5px 8px;
@@ -169,6 +171,7 @@
 			border-radius: 4px 0px 0px 4px;
 			padding: 2px;
 			max-height: 35%;
+			margin-bottom: 4px;
 		}
 		button.reorder {
 			cursor: n-resize;
@@ -178,7 +181,7 @@
 			display: flex;
 			flex-direction: row;
 			margin-top: 4px;
-			justify-content: flex-start;
+			justify-content: center;
 			align-items: flex-start;
 		}
 		.routerControl {
@@ -209,6 +212,17 @@
 		}
 		span.shortest {
 			color: #0000FF;
+		}
+		.form-row {
+			display: flex;
+			flex-direction: row;
+			align-items: baseline;
+		}
+		.short-field {
+			width: 60px;
+		}
+		.miniBtn {
+			padding: 1px 2px;
 		}
 		.leaflet-marker-icon .number{
 			position: relative;
@@ -260,6 +274,9 @@
 					<li role="presentation">
 						<a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Businesses by Name</a>
 					</li>
+					<!-- li role="presentation">
+						<a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Isochrones</a>
+					</li -->
 				</ul>
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="tabs-1">
@@ -333,10 +350,23 @@
 									</div>
 								</div>
 							</div>
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button id="addDestBtn" class="btn btn-default" type="button" title="Add Destination">
+										<span class="glyphicon glyphicon-plus" aria-label="Add Destination"></span>
+									</button>
+								</div>
+								<input id="addAddrField" type="text" class="form-control input-field" placeholder="Click on Map For Coordinates" readonly/>
+								<div class="input-group-btn">
+									<button id="copyToClipboardBtn" class="btn btn-default" type="button" title="Copy to clipboard" data-clipboard-target="#addAddrField">
+										<span class="glyphicon glyphicon-copy" aria-label="Copy to clipboard"></span>
+									</button>
+									<button class="btn btn-default input-clear" type="button" title="Clear">
+										<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
+									</button>
+								</div>
+							</div>
 							<div id="routerControls">
-								<button id="addDestBtn" class="btn btn-default" type="button" title="Add Destination">
-									<span class="glyphicon glyphicon-plus" aria-label="Add Destination"></span>
-								</button>
 								<div class="routerControl">
 									<input name="criteria" type="radio" value="fastest" aria-label="Fastest"  checked="checked"> <span class="fastest">Fastest</span><br>
 									<input name="criteria" type="radio" value="shortest" aria-label="Shortest"> <span class="shortest">Shortest</span>
@@ -380,6 +410,44 @@
 							</div>
 						</div>
 					</div>
+					<div role="tabpanel" class="tab-pane" id="tabs-5">
+						<div class="form-group input-group">
+							<input type="text" class="form-control input-field" id="isoGeocodeField" placeholder="Enter civic or intersection address" />
+							<div class="input-group-btn">
+								<button id="isoRandom" class="btn btn-default" type="button" title="Jump at Random">
+									<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
+								</button>
+								<button id="isoClear" class="btn btn-default input-clear" type="button" title="Clear">
+									<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
+								</button>
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="zoneSize" class="col-sm-5 col-form-label">Zone Size (minutes):</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="zoneSize" value="10" />
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="zoneSize" class="col-sm-5 col-form-label">Zone Count:</label>
+							<div class="col-sm-3">
+								<input type="text" class="form-control" id="zoneCount" value="1" />
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="inboundChk" class="col-sm-5 col-form-label">Inbound?</label>
+							<div class="col-sm-3">
+								<input id="inboundChk" type="checkbox" aria-label="Inbound" title="Inbound">
+							</div>
+						</div>
+						<div class="form-group form-row">
+							<label for="testChk" class="col-sm-5 col-form-label">Test</label>
+							<div class="col-sm-3">
+								<input id="testChk" type="checkbox" aria-label="Test" title="Test">
+							</div>
+						</div>
+
+					</div>
 				</div>
 			</div>
 			<div id="hideHandle">
@@ -394,8 +462,8 @@
 	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 	<script src='https://unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js'></script>
 	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
-	<script src="https://unpkg.com/esri-leaflet@2.1.1/dist/esri-leaflet.js"
-		integrity="sha512-ECQqaYZke9cSdqlFG08zSkudgrdF6I1d8ViSa7I3VIszJyVqw4ng1G8sehEXlumdMnFYfzY0tMgdQa4WCs9IUw=="
+	<script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js"
+		integrity="sha512-m+BZ3OSlzGdYLqUBZt3u6eA0sH+Txdmq7cqA1u8/B2aTXviGMMLOfrKyiIW7181jbzZAY0u+3jWoiL61iLcTKQ=="
 		crossorigin=""></script>
 	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script-->
 	<!--script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script-->
@@ -410,6 +478,7 @@
 	<script src="https://aehlke.github.io/tag-it/js/tag-it.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
+	<script type="text/javascript" src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
 	<script>
 		L.NumberedIcon = L.Icon.extend({
 			options: {
@@ -445,20 +514,18 @@
 
 		// API URLs
 		var apiKey = "11dd756f680c47b5aef5093d95543738";
-		//var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
 		var gcApi = "https://geocoder.api.gov.bc.ca/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
 		if(queryParams['env'] == 'tst') {
-			//gcApi = "https://test.apps.gov.bc.ca/pub/geocoder/";
 			gcApi = "https://geocodertst.api.gov.bc.ca/";
 			routeApi = "https://routertst.api.gov.bc.ca/";
 		} else if(queryParams['env'] == 'dlv') {
-			//gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
 			gcApi = "https://geocoderdlv.api.gov.bc.ca/";
 			routeApi = "https://routerdlv.api.gov.bc.ca/";
 		} else if(queryParams['env'] == 'rri') {
 			gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
+			routeApi = "https://ssl.refractions.net/ols/router/";
 		} else if(queryParams['env'] == 'lg') {
 			gcApi = "http://localhost:8080/pub/geocoder/";
 		} else if(queryParams['env'] == 'lr') {
@@ -473,7 +540,7 @@
 			routeHeaders = {};
 		}
 
-		var xmdx = 100000;
+		var xmdx = 5000;
 		if(queryParams['xmdx']) {
 			var num = parseInt(queryParams['xmdx']);
 			if(!isNaN(num)) {
@@ -484,7 +551,7 @@
 		// Leaflet Map setup
 		var map = L.map('map', {
 			minZoom: 4,
-			maxZoom: 18,
+			maxZoom: 20,
 			zoomControl: false
 		}).setView([48.44, -123.43], 12);
 		new L.HistoryControl({
@@ -625,7 +692,7 @@
 		var baseErrorMsg = "An unexpected server error occurred; No response from server.\n";
 
 		var mapboxStreetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
-			maxZoom: 18,
+			maxZoom: 20,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -634,7 +701,9 @@
 		baseLayers['MapBox Streets'] = mapboxStreetsLayer;
 		mapboxStreetsLayer.addTo(map);
 
-		var esriStreetsLayer = L.esri.basemapLayer('Streets');
+		var esriStreetsLayer = L.esri.basemapLayer('Streets', {
+			maxZoom: 20
+		});
 		baseLayers['ESRI Streets'] = esriStreetsLayer;
 
 		var googleRoads = L.gridLayer.googleMutant({
@@ -644,34 +713,49 @@
 
 		var bcRoadsBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcgis/services/province/roads_wm/MapServer/WmsServer?',
 			{
+				maxZoom: 20,
 				layers: '0'
 			});
 		baseLayers['BC Transportation Base'] = bcRoadsBaseLayer;
 
 		var mapboxSatlayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
-			maxZoom: 18,
+			maxZoom: 20,
 			attribution: 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
 			id: 'mapbox.satellite'
 		});
 		baseLayers['MapBox Satellite'] = mapboxSatlayer;
 
-		var esriStreetsLayer = L.esri.basemapLayer('Imagery');
-		baseLayers['ESRI Imagery'] = esriStreetsLayer;
+		var esriImageryLayer = L.esri.basemapLayer('Imagery', {
+			maxZoom: 20
+		});
+		baseLayers['ESRI Imagery'] = esriImageryLayer;
 
 		var googleSatellite = L.gridLayer.googleMutant({
 			type: 'satellite' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
 		});
 		baseLayers['Google Satellite'] = googleSatellite;
 
-		var esriStreetsLayer = L.esri.basemapLayer('Topographic');
+		var esriStreetsLayer = L.esri.basemapLayer('Topographic', {
+			maxZoom: 20
+		});
 		baseLayers['ESRI Topographic'] = esriStreetsLayer;
 
 		var bcTopoBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcserver/services/province/web_mercator_cache/MapServer/WMSServer?',
 			{
+				maxZoom: 20,
 				layers: '0'
 			});
 		baseLayers['BC Topographic Base'] = bcTopoBaseLayer;
 
+		var trimLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/pub/wms',
+			{
+				maxZoom: 20,
+				layers: 'pub:WHSE_BASEMAPPING.TRIM_WATER_LINES,pub:WHSE_BASEMAPPING.TRIM_TRANSPORTATION_LINES,pub:WHSE_BASEMAPPING.TRIM_WATER_POINTS,pub:WHSE_BASEMAPPING.TRIM_TRANSPORTATION_POINTS,pub:WHSE_BASEMAPPING.TRIM_CONTOUR_POINTS',
+				styles: '3345,3334,,3344,3333,3332',
+				format: 'image/png',
+				transparent: true
+			});
+		overlays['TRIM'] = trimLayer;
 
 		var siteLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json?excludeUnits=true&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -686,6 +770,12 @@
 				return siteIcon;
 			},
 			onEachMarker: function(feature, marker) {
+				// var popupHtml = makePopupText(feature.properties);
+				// // HTML for add to route
+				// popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
+				// 		+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
+				// 		+ "</button>";
+				// marker.bindPopup(popupHtml);
 				marker.bindPopup(makePopupText(feature.properties));
 			}
 
@@ -707,6 +797,12 @@
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
+				// var popupHtml = makePopupText(feature.properties);
+				// // HTML for add to route
+				// popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
+				// 		+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
+				// 		+ "</button>";
+				// marker.bindPopup(popupHtml);
 				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
@@ -743,22 +839,30 @@
 				return intIcon;
 			},
 			onEachMarker: function(feature, marker) {
+				var popupHtml = makePopupText(feature.properties);
+				// HTML for add to route
+				// popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
+				// 		+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
+				// 		+ "</button>";
+				// marker.bindPopup(popupHtml);
 				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
 		overlays["Intersections"] = intLayer;
 
-		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW/ows?SERVICE=WMS&',
+		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW/ows?SERVICE=WMS&',
 			{
-				layers: 'pub:WHSE_CADASTRE.CBM_CADASTRAL_FABRIC_PUB_SVW',
+				maxZoom: 20,
+				layers: 'pub:WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW',
 				transparent: true,
 				format: 'image/png'
 			});
 		parcelLayer.addTo(map);
-		overlays['Parcels'] = parcelLayer;
+		overlays['ParcelMap BC'] = parcelLayer;
 
 		var draLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/ows?',
 			{
+				maxZoom: 20,
 				layers: 'pub:WHSE_BASEMAPPING.DRA_DGTL_ROAD_ATLAS_MPAR_SP',
 				transparent: true,
 				format: 'image/png'
@@ -806,53 +910,77 @@
 		});
 
 		function makePopupText(props) {
-			var str = '<span class="popup-title">' + props.fullAddress
-					+ '</span><table class="popup-table">';
+			var str = '<span class="popup-title">' + props.fullAddress + '</span> ';
+			if(!props.occupantName) {
+				str += "<button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
+					+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
+					+ "</button>";
+			}
+			if(props.localityType || props.score || props.degree || props.occupantName) {
+				str +='<table class="popup-table">';
 
-			if(props.score) {
-				str += '<tr><td class="rowName">Score:</td><td>' + props.score + '</td></tr>';
-				str += '<tr><td class="rowName">Match Precision:</td><td>' + props.matchPrecision + '</td></tr>';
-				str += '<tr><td class="rowName">Precision Points:</td><td>' + props.precisionPoints + '</td></tr>';
-				str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
-				for(var i = 0, len = props.faults.length; i < len; i++) {
-					var f = props.faults[i];
-					str += '<tr><td class="rowName">' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+				if(props.localityType) {
+					str += '<tr><td class="rowName">Locality Type:</td><td>' + props.localityType + '</td></tr>';
+					str += '<tr><td class="rowName">Electoral Area:</td><td>' + props.electoralArea + '</td></tr>';
 				}
-				str += '</table></td></tr>';
-			}
 
-			if(props.degree) {
-				str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
-			}
-
-			if(props.occupantName) {
-				str += '<tr><td class="rowName">Image URL</td><td>';
-				if(props.imageUrl) {
-					str += '<img url="' + props.imageUrl + '"/>';
-				} else {
-					str += 'No Image';
+				if(props.score) {
+					str += '<tr><td class="rowName">Score:</td><td>' + props.score + '</td></tr>';
+					str += '<tr><td class="rowName">Match Precision:</td><td>' + props.matchPrecision + '</td></tr>';
+					str += '<tr><td class="rowName">Precision Points:</td><td>' + props.precisionPoints + '</td></tr>';
+					str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
+					for(var i = 0, len = props.faults.length; i < len; i++) {
+						var f = props.faults[i];
+						str += '<tr><td class="rowName">' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+					}
+					str += '</table></td></tr>';
 				}
-				str	+= '</td></tr>';
-				str += '<tr><td class="rowName">Occupant Description</td><td>' + props.occupantDescription + '</td></tr>';
-				str += '<tr><td class="rowName">Website Url</td><td>' + props.websiteUrl.replace(/\//g, '/<wbr>') + '</td></tr>';
-				str += '<tr><td class="rowName">Contact E-mail</td><td>' + props.contactEmail + '</td></tr>';
-				str += '<tr><td class="rowName">Contact Phone</td><td>' + props.contactPhone + '</td></tr>';
-				str += '<tr><td class="rowName">Contact Fax</td><td>' + props.contactFax + '</td></tr>';
-				str += '<tr><td class="rowName">Keywords</td><td>' + props.keywords.replace(/;/g, ';<wbr>') + '</td></tr>';
-				str += '<tr><td class="rowName">Business Category Class</td><td>' + props.businessCategoryClass + '</td></tr>';
-				str += '<tr><td class="rowName">NAICS Code</td><td>' + props.naicsCode + '</td></tr>';
-			}
 
-			str += '</table>';
+				if(props.degree) {
+					str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
+				}
+
+				if(props.occupantName) {
+					str += '<tr><td class="rowName">Image URL</td><td>';
+					if(props.imageUrl) {
+						str += '<img url="' + props.imageUrl + '"/>';
+					} else {
+						str += 'No Image';
+					}
+					str	+= '</td></tr>';
+					str += '<tr><td class="rowName">Occupant Description</td><td>' + props.occupantDescription + '</td></tr>';
+					str += '<tr><td class="rowName">Website Url</td><td>' + props.websiteUrl.replace(/\//g, '/<wbr>') + '</td></tr>';
+					str += '<tr><td class="rowName">Contact E-mail</td><td>' + props.contactEmail + '</td></tr>';
+					str += '<tr><td class="rowName">Contact Phone</td><td>' + props.contactPhone + '</td></tr>';
+					str += '<tr><td class="rowName">Contact Fax</td><td>' + props.contactFax + '</td></tr>';
+					str += '<tr><td class="rowName">Keywords</td><td>' + props.keywords.replace(/;/g, ';<wbr>') + '</td></tr>';
+					str += '<tr><td class="rowName">Business Category Class</td><td>' + props.businessCategoryClass + '</td></tr>';
+					str += '<tr><td class="rowName">NAICS Code</td><td>' + props.naicsCode + '</td></tr>';
+				}
+
+				str += '</table>';
+			}
 			return str;
 		}
+
+		// reverse geocode on map Click
+		map.on('click', function(e) {
+			if($('#tabs-2').hasClass('active')) {
+				$('#addAddrField').val(e.latlng.lat.toFixed(5) + "," + e.latlng.lng.toFixed(5));
+			}
+		});
+
+		// event handler for add to route button inside site address popup
+		$('#map').on('click', '#addSiteToRouteBtn', function(e) {
+			addDest($(this).parent().find('.popup-title').text());
+		});
 
 		// reusable function for suggesting geocode autocompletion options
 		function geocodeSuggest(request, response, options) {
 			var params = {
 				minScore: 50,
 				maxResults: 5,
-				echo: 'false',
+				echo: true,
 				brief: true,
 				autoComplete: true,
 				addressString: request.term
@@ -916,7 +1044,7 @@
 		var geocodeLayer = null;
 
 		// Geocode Address event handler
-		function geocode($field, callback) {
+		function geocode($field, callback, locationDescriptor = 'parcelPoint') {
 			var latLng = isCoords($field.val());
 			if(latLng) {
 				callback(latLng);
@@ -924,7 +1052,8 @@
 				$.ajax({
 					url: gcApi + "addresses.json",
 					data: {
-						echo: 'false',
+						locationDescriptor: locationDescriptor,
+						echo: true,
 						brief: true,
 						addressString: $field.val()
 					},
@@ -943,9 +1072,9 @@
 					map.removeLayer(geocodeLayer);
 					geocodeLayer = null;
 				}
-    			geocode($('#geocodeField'), receiveGeocode);
-    			return false;
-  			}
+    		geocode($('#geocodeField'), receiveGeocode);
+    		return false;
+  		}
 		});
 
 		$('#geocodeBtn').on("click", function() {
@@ -1145,11 +1274,18 @@
 					// 	$last.data('marker').getLayers()[0].setIcon(getRouteIcon(-1));
 					// }
 					if(data.routeFound) {
-						$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						if(data.optimizationExecutionTime) {
+							$('#timing').html('Distances between stops calculated in ' + data.routingExecutionTime/1000 + ' seconds<br\>'
+								+ 'Optimization performed in ' + data.optimizationExecutionTime/1000 + ' seconds<br\>'
+								+ 'Final route calculated in ' + (data.executionTime - data.routingExecutionTime - data.optimizationExecutionTime)/1000 + ' seconds<br\>'
+								+ 'Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						} else {
+							$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+						}
 						var dirs = data.directions;
 						for(i = 0; i < dirs.length; i++) {
 							if(dirs[i].text) {
-								var $dir = $("<div class=\"direction\">" + dirs[i].text + "</div>");
+								var $dir = $("<div class=\"direction\" title=\"Click to zoom in to start of route leg.\">" + dirs[i].text + "</div>");
 								$('#directions').append($dir);
 								$dir.data('latlng', {'lat': dirs[i].point[1], 'lng': dirs[i].point[0]}) ;
 							} else {
@@ -1213,6 +1349,9 @@
 			}
 		});
 
+		// copy to clipboard from addAddrField
+		new ClipboardJS('#copyToClipboardBtn');
+
 		// clear router input field button
 		$('#routerList').on('click', 'button.input-clear', function() {
 			clearRoute();
@@ -1233,25 +1372,42 @@
 			}
 		});
 
+		function addDest(address = '') {
+			var $input = $('#routerList input.input-field').filter(function(index) {
+				return $(this).val() == '';
+			}).first();
+			if(address == '' || $input.size() != 1) {
+				var $formGroup = $('#routerList > div.form-group:first-child').clone().appendTo('#routerList');
+				$input = $formGroup.find('input.input-field');
+				$input.val('');
+				$input.data('marker', null);
+				$input.autocomplete({
+					minLength: 3,
+					source: function(request, response) {
+						geocodeSuggest(request, response, {
+							locationDescriptor: 'accessPoint'
+						});
+					},
+					select: function(evt, ui) {
+						receiveRouteGeocode(ui.item.data, $(evt.target));
+					}
+				});
+				$formGroup[0].scrollIntoView(false);
+			}
+			if(address != '') {
+				$input.val(address);
+				geocode($input, function(data) {
+					receiveRouteGeocode(data, $input);
+				}, 'accessPoint');
+			}
+		}
+
 		// add destination button
 		$('#addDestBtn').on('click', function() {
-			$formGroup = $('#routerList > .form-group:first-child').clone().appendTo('#routerList');
-			$input = $formGroup.find('input.input-field');
-			$input.val('');
-			$input.data('marker', null);
-			$input.autocomplete({
-				minLength: 3,
-				source: function(request, response) {
-					geocodeSuggest(request, response, {
-						locationDescriptor: 'accessPoint'
-					});
-				},
-				select: function(evt, ui) {
-					receiveRouteGeocode(ui.item.data, $(evt.target));
-				}
-			});
-			$formGroup[0].scrollIntoView(false);
+			addDest($('#addAddrField').val());
+			$('#addAddrField').val('');
 		});
+
 		$('input[name=criteria]').on('change', function(evt) {
 			route(null, false);
 		});
@@ -1297,11 +1453,14 @@
 				map.removeLayer(directionSelectMarker);
 			}
 			if($dirDiv.hasClass('selectedDirection')) {
-				$dirDiv.removeClass('selectedDirection');
+				$dirDiv.removeClass('selectedDirection')
+					.attr('title', 'Click to zoom in to start of route leg.');
 				centerMap(routeLayer.getBounds());
 			} else {
-				$('#directions div.selectedDirection').removeClass('selectedDirection');
-				$dirDiv.addClass('selectedDirection');
+				$('#directions div.selectedDirection').removeClass('selectedDirection')
+					.attr('title', 'Click to zoom in to start of route leg.');
+				$dirDiv.addClass('selectedDirection')
+					.attr('title', 'Click to zoom out to route extent.');
 				var latlng = $dirDiv.data('latlng');
 				if(latlng) {
 					directionSelectMarker = L.circleMarker(latlng).addTo(map);
@@ -1330,7 +1489,7 @@
 						return L.marker(latlng, {icon: icon});
 					},
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText({'fullAddress': feature.properties['fullAddress']}));
+						layer.bindPopup(makePopupText({'fullAddress': feature.properties.fullAddress}));
 						layer.options['title'] = feature.properties.fullAddress;
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
@@ -1426,7 +1585,7 @@
 						echo: false,
 						autoComplete: true,
 						brief: true,
-						addressString: request.term + "--"
+						addressString: request.term
 					},
 					success: function(data) {
 						var list = [];
@@ -1464,9 +1623,6 @@
 		// Find Occupants By Name event handler
 		function findOccs($field) {
 			var addr = $field.val();
-			if(addr.indexOf("--") == -1) {
-				addr += " --";
-			}
 			$.ajax({
 				url: gcApi + "occupants/addresses.json",
 				data: {
@@ -1512,6 +1668,127 @@
 			}
 		});
 
+
+		// isochrons
+		var isoLayer = null;
+		var isoRequest = null;
+
+		function clearIsochrone() {
+			if(isoLayer) {
+				map.removeLayer(isoLayer);
+				isoLayer = null;
+			}
+		}
+
+		$('#isoClear').on('click', function() {
+			var oldMarker = $('#isoGeocodeField').data('marker');
+			if(oldMarker) {
+				map.removeLayer(oldMarker);
+			}
+			$('#isoGeocodeField').data('marker', layer);
+			clearIsochrone();
+		});
+
+		function receiveIsoGeocode(data) {
+			var layer, latLng;
+			if(data instanceof L.LatLng) {
+				latLng = data;
+				layer = latLngToLayer(data, {icon: icon});
+			} else {
+				// sort out whether we have a single feature or a featureCollection
+				var feature = data;
+				if(data.features) {
+					feature = data.features[0];
+				}
+				$('#isoGeocodeField').val(feature.properties.fullAddress);
+				latLng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
+				layer = L.geoJson(data, {
+					onEachFeature: function(feature, layer) {
+						layer.bindPopup(makePopupText({'fullAddress': feature.properties.fullAddress}));
+						layer.options['title'] = feature.properties.fullAddress;
+					}
+				});
+			}
+			var oldMarker = $('#isoGeocodeField').data('marker');
+			if(oldMarker) {
+				map.removeLayer(oldMarker);
+			}
+			$('#isoGeocodeField').data('marker', layer);
+			layer.addTo(map);
+			doIsochrone();
+		}
+
+		$('#isoGeocodeField').autocomplete({
+			minLength: 3,
+			source: function(request, response) {
+				geocodeSuggest(request, response, {
+					locationDescriptor: 'accessPoint'
+				});
+			},
+			select: function(evt, ui) {
+				receiveIsoGeocoder(ui.item.data);
+			}
+		});
+
+		// pick random location button
+		$('#isoRandom').on('click', function() {
+			clearIsochrone();
+			randomAddress($('#isoGeocodeField'), 'accessPoint', function(data) {
+				receiveIsoGeocode(data);
+			});
+		});
+
+		$('#zoneSize').on('change', doIsochrone);
+		$('#zoneCount').on('change', doIsochrone);
+		$('#inboundChk').on('change', doIsochrone);
+
+		function doIsochrone() {
+			var latLng = $('#isoGeocodeField').data('marker').getLayers()[0].getLatLng();
+			var params = {
+				point : latLng.lng + "," + latLng.lat,
+				zoneSize : $('#zoneSize').val(),
+				zoneCount : $('#zoneCount').val()
+			}
+			if($('#inboundChk').is(':checked')) {
+				params['inbound'] = 'true';
+			} else {
+				params['inbound'] = 'false';
+			}
+
+			if(isoRequest != null) {
+				isoRequest.abort();
+			}
+
+			var service = "isochrones";
+			if($('#testChk').is(':checked')) {
+				service = "loop";
+			}
+			isoRequest = $.ajax({
+				url: routeApi + service + ".json" + (routeMethod == 'GET' ? '?apikey=' + apiKey : ''),
+				method: "GET", //routeMethod,
+				//headers: routeHeaders,
+				data: params,
+				success: function(data) {
+					clearIsochrone();
+					// if valid isochrones were returned
+					if(data) {
+						isoLayer = L.geoJson(data, {
+							// onEachFeature: function(feature, layer) {
+							// 	var color = "#0000FF";
+							// 	layer.setStyle({color:color, weight:7, opacity: 0.5});
+							//}
+						}).addTo(map);
+						centerMap(isoLayer.getBounds());
+					}
+				},
+				error: function(request) {
+					if(request.statusText != "abort") {
+						alert(baseErrorMsg + "Error retrieving isochrone results, please try your request again.");
+						console.log(request);
+					}
+				}
+			});
+		};
 
 		var tabs = true;
 		$('#hideButton').on('click', function() {
