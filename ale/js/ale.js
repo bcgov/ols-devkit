@@ -10,19 +10,19 @@ location.search.substr(1).split("&").forEach(function(item) {
 	queryParams[k] = v;
 });
 
-var gcApi = "https://geocoder.api.gov.bc.ca";
+var gcApi = "https://geocoder.api.gov.bc.ca/";
 var OLS_DEMO_URL = "https://ols-demo.apps.gov.bc.ca/index.html?";
 if(queryParams.env) {
 	OLS_DEMO_URL += "env=" + queryParams.env + "&";
 }
 if(queryParams.env == 'tst') {
-	gcApi = "https://geocodertst.api.gov.bc.ca";
+	gcApi = "https://geocodertst.api.gov.bc.ca/";
 } else if(queryParams.env == 'dlv') {
-	gcApi = "https://geocoderdlv.api.gov.bc.ca";
+	gcApi = "https://geocoderdlv.api.gov.bc.ca/";
 } else if(queryParams.env == 'rri') {
-	gcApi = "https://ssl.refractions.net/ols/pub/geocoder";
+	gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
 } else if(queryParams.env == 'lg') {
-	gcApi = "http://localhost:8080/pub/geocoder";
+	gcApi = "http://localhost:8080/pub/geocoder/";
 }
 
 var MAX_REQUESTS = 1000;
@@ -248,15 +248,16 @@ function geocodeRow(rowNum, retries) {
 	}
 	$('#row' + rowNum + ' td:nth-child(' + FULL_ADDRESS_COL + ')').html('<img src="img/ajax-loader.gif" title="processing..."/>');
 
-	req = new GeocodeRequest(gcApi);
-	req.setOutputFormat("jsonp");
-	req.setMaxResults(1);
-	req.setAddress($('#addressString' + rowNum).val());
+	var params = {
+		maxResults: 1,
+		addressString: $('#addressString' + rowNum).val()
+	};
 
 	$.ajax({
-    	url: req.getURL(),
-    	type: "GET",
-    	dataType: "jsonp",
+    	url: gcApi + "addresses.json",
+			data: params,
+    	//type: "GET",
+    	//dataType: "jsonp",
     	success: function (response, textStatus, jqXHR) {
     			var row = $('#row' + rowNum);
     			var insertFunction = removeToInsertLater(row);

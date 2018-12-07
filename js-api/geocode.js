@@ -4,16 +4,21 @@
  */
 /* --------- GEOCODER -------- */
 
+/* DEPRECATION NOTICE: This API has been deprecated as the REST API
+ * is already very easy to use and this javascript wrapper does not
+ * seem to provide any utility beyond using the REST API directly.
+ */
+
 /**
  * Construct a new GeocodeRequest with the base URL for the
  * Geocoder Web Service (eg. http://apps.gov.bc.ca/pub/Geocoder).
- * 
+ *
  * This GeocodeRequest object provides setter functions for all of the
  * various geocode parameters, as well as a way to load the parameters
  * from a form, and a method to get the URL of the request defined by
  * the parameters set. This URL can then be used to navigate the browser
- * to, or in an AJAX request. 
- *  
+ * to, or in an AJAX request.
+ *
  * @param baseUrl The url to the Geocoder Web Service
  */
 function GeocodeRequest(baseUrl) {
@@ -436,7 +441,7 @@ siteIdRequest.prototype.setLocationDescriptor = function(locationDescriptor) {
 };
 
 siteIdRequest.prototype.getURL = function() {
-	
+
 	if (this.siteId){
 		url = this.baseUrl + "/sites/" + this.siteId;
 	}else{
@@ -502,7 +507,7 @@ subSitesIdRequest.prototype.getURL = function() {
 	}else{
 		url = this.baseUrl + "/sites/empty/subsites";
 	}
-	
+
 	if (this.outputFormat) {
 		url += "." + this.outputFormat;
 	}
@@ -563,7 +568,7 @@ nearestSiteRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?point=" + this.point + "&";
-	
+
 	if (this.minScore) {
 		url += "minScore=" + this.minScore + "&";
 	}
@@ -627,7 +632,7 @@ sitesNearRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?point=" + this.point + "&";
-	
+
 	if (this.minScore) {
 		url += "minScore=" + this.minScore + "&";
 	}
@@ -694,7 +699,7 @@ sitesWithinRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?bbox=" + this.bbox + "&";
-	
+
 	if (this.minScore) {
 		url += "minScore=" + this.minScore + "&";
 	}
@@ -754,7 +759,7 @@ occupantIdRequest.prototype.setLocationDescriptor = function(locationDescriptor)
 };
 
 occupantIdRequest.prototype.getURL = function() {
-	
+
 	if (this.occupantId){
 		url = this.baseUrl + "/occupants/" + this.occupantId;
 	}else{
@@ -824,7 +829,7 @@ nearestOccupantRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?point=" + this.point + "&";
-	
+
 	if (this.tags) {
 		url += "tags=" + this.tags + "&";
 	}
@@ -898,7 +903,7 @@ occupantsNearRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?point=" + this.point + "&";
-	
+
 	if (this.tags) {
 		url += "tags=" + this.tags + "&";
 	}
@@ -975,7 +980,7 @@ occupantsWithinRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?bbox=" + this.bbox + "&";
-	
+
 	if (this.tags) {
 		url += "tags=" + this.tags + "&";
 	}
@@ -1100,7 +1105,7 @@ nearestIntersectionRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?point=" + this.point + "&";
-	
+
 	if (this.minScore) {
 		url += "minScore=" + this.minScore + "&";
 	}
@@ -1171,7 +1176,7 @@ intersectionsNearRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?point=" + this.point + "&";
-	
+
 	if (this.minScore) {
 		url += "minScore=" + this.minScore + "&";
 	}
@@ -1249,7 +1254,7 @@ intersectionsWithinRequest.prototype.getURL = function() {
 		url += "." + this.outputFormat;
 	}
 	url += "?bbox=" + this.bbox + "&";
-	
+
 	if (this.minScore) {
 		url += "minScore=" + this.minScore + "&";
 	}
