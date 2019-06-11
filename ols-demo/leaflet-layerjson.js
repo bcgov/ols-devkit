@@ -30,6 +30,7 @@ L.LayerJSON = L.FeatureGroup.extend({
 		buildIcon: null,			//function icon builder
 		//
 		minZoom: 10,				//min zoom for call data
+		maxZoom: 100,				//max zoom for call data
 		caching: true,				//enable requests caching
 		minShift: 1000,				//min shift for update data(in meters)
 		updateOutBounds: true,		//request new data only if current bounds higher than last bounds
@@ -78,7 +79,7 @@ L.LayerJSON = L.FeatureGroup.extend({
 
         map.on('moveend zoomend', this._onMove, this);
 
-		this.update();
+		this.refresh();
 	},
 
 	onRemove: function(map) {
@@ -137,6 +138,14 @@ L.LayerJSON = L.FeatureGroup.extend({
 		return this;
 	},
 
+	refresh: function() {
+		if(this._map && this._map.getZoom() >= this.options.minZoom
+			&& this._map.getZoom() <= this.options.maxZoom) {
+			this.clearLayers();
+			this.update();
+		}
+	},
+
 	_debouncer: function(func, timeout) {
 		var timeoutID;
 		timeout = timeout || 300;
@@ -171,7 +180,7 @@ L.LayerJSON = L.FeatureGroup.extend({
 	_defaultDataToMarker: function(data, latlng) {	//make marker from data
 
 		var title = this._getPath(data, this.options.propertyTitle);
-		
+
 		var markerOpts = L.Util.extend({icon: this._buildIcon(data,title), title: title }, data),
 			marker = new L.Marker(latlng, markerOpts ),
 			htmlPopup = null;
@@ -265,7 +274,8 @@ L.LayerJSON = L.FeatureGroup.extend({
 		else
 		 	this.clearLayers();
 
-		if(newZoom < this.options.minZoom)
+		if(newZoom < this.options.minZoom ||
+		    newZoom > this.options.maxZoom)
 			return false;
 
 		this.update();
@@ -309,6 +319,7 @@ L.LayerJSON = L.FeatureGroup.extend({
 			    if (!isNaN(parseFloat(k)) && isFinite(k))
 			        that.addMarker.call(that, json[k]);
 			}
+
 		});
 	},
 
