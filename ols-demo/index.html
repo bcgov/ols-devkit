@@ -8,13 +8,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.css" />
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.css" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.Default.css" />
-	<link href="https://aehlke.github.io/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" type="text/css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" type="text/css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.css" type="text/css" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" type="text/css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.css" type="text/css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.Default.css" type="text/css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.css" type="text/css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tag-it@2.0.0/css/jquery.tagit.css" type="text/css" />
 	<style>
 		/* make the map fullscreen */
 		html, body {
@@ -142,12 +143,28 @@
     			-1px 1px 0 #FFF,
      			1px 1px 0 #FFF;
 		}
+		.segIdOuter {
+			text-align: center;
+		}
+		.segId {
+			padding: 1px;
+			border: 1px solid black;
+			border-radius: 3px;
+			background-color: white;
+			font-family: sans-serif;
+			margin: auto;
+		}
+		img.navImg {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
 		#title {
 			position: absolute;
 			z-index: 999;
 			top: 0px;
 			left: 50%;
-    		transform: translate(-50%,0);
+      transform: translate(-50%,0);
 			border: 1px solid lightSlateGrey;
 			border-top: none;
 			background-color: white;
@@ -180,15 +197,27 @@
 			flex: 0 0 auto;
 			display: flex;
 			flex-direction: row;
-			margin-top: 4px;
-			justify-content: center;
+			flex-wrap: wrap;
+			justify-content: space-between;
 			align-items: flex-start;
 		}
 		.routerControl {
-			margin-left: 10px;
+			margin-top: 4px;
 			padding: 6px;
 			border: 1px solid #CCCCCC;
 			border-radius: 4px;
+		}
+		#time {
+			width: 60px;
+		}
+		#date {
+			width: 80px;
+		}
+		.notification {
+			padding: 5px;
+			margin: 2px;
+			border: 1px solid #ffff99;
+			background-color: #ffffdd;
 		}
 		#directions {
 			overflow-y: scroll;
@@ -196,12 +225,28 @@
 		.direction {
 			padding: 5px;
 			margin: 2px;
-			border: 1px solid #99ff99;
-			background-color: #ddffdd;
+			border: 1px solid #aaffaa;
+			background-color: #eeffee;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			align-items: flex-start;
 		}
 		.selectedDirection {
-			background-color: #88bbff;
+			background-color: #aaccff;
 			border-color: #3388ff
+		}
+		.direction .dirBody {
+			flex: 1 1 auto;
+		}
+		.direction .FERRY {
+			flex: 0 0 auto;
+			background: url('img/ferry.png');
+			background-repeat: no-repeat;
+			width: 22px;
+			height: 22px;
+			margin: 2px;
 		}
 		.timing {
 			margin-top: 8px;
@@ -223,6 +268,14 @@
 		}
 		.miniBtn {
 			padding: 1px 2px;
+		}
+		table.schedule {
+			margin: auto;
+		}
+		table.schedule tr td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 4px;
 		}
 		.leaflet-marker-icon .number{
 			position: relative;
@@ -376,10 +429,43 @@
 									<input id="optimizeChk" type="checkbox" aria-label="Optimize Order" title="Optimize Order"> Optimize Order<br/>
 									<input id="nearestStopChk" type="checkbox" aria-label="Nearest Stop" title="Nearest Stop"> Nearest Stop
 								</div>
+								<div class="routerControl">
+									<input id="ferrySchedulesChk" class="routeOnChange" type="checkbox" aria-label="Ferry Schedules" title="Ferry Schedules" checked="checked"> Ferry Schedules<br/>
+									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic" checked="checked"> Traffic<br/>
+									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events" checked="checked"> Events<br/>
+									<input id="timeDependentChk" class="routeOnChange" type="checkbox" aria-label="Time Dependent" title="Time Dependent" checked="checked"> Time Dependent<br/>
+									<input id="turnRestrictionsChk" class="routeOnChange" type="checkbox" aria-label="Turn Restrictions" title="Turn Restrictions" checked="checked"> Turn Restrictions<br/>
+									<input id="turnCostsChk" class="routeOnChange" type="checkbox" aria-label="Turn Costs" title="Turn Costs" checked="checked"> Turn Costs<br/>
+								</div>
+								<div class="routerControl">
+									Start Date/Time:
+									<input id="date" class="routeOnChange" aria-label="Date" title="Date">
+									<input id="time" class="routeOnChange" aria-label="Time" title="Time">
+								</div>
+								<div class="routerControl">
+									<input id="correctSideChk" class="routeOnChange" type="checkbox" aria-label="Correct Side" title="Correct Side"> Correct Side<br/>
+								</div>
+							</div>
+							<div class="routerControl">
+								<input id="truckControlsChk" type="checkbox" aria-label="Truck Options" title="Truck Options"> Truck Options</br>
+								<div id="truckControls">
+									<input id="followTruckRouteChk" class="routeOnChange" type="checkbox" aria-label="Follow Truck Route" title="Follow Truck Route"> Follow Truck Route</br>
+									<table>
+										<tbody>
+											<tr><td>Truck Route Multiplier:</td><td><input id="truckRouteMultiplier" class="routeOnChange" type="text" aria-label="Truck Route Multiplier" title="Truck Route Multiplier"></td></tr>
+											<tr><td>Height OAH (m):</td><td><input id="height" class="routeOnChange" type="text" aria-label="Height" title="Height"></td></tr>
+											<tr><td>Width OAW (m):</td><td><input id="width" class="routeOnChange" type="text" aria-label="Width" title="Width"></td></tr>
+											<tr><td>Length OAL (m):</td><td><input id="length" class="routeOnChange" type="text" aria-label="Length" title="Length"></td></tr>
+											<tr><td>Weight GVW (kg):</td><td><input id="weight" class="routeOnChange" type="text" aria-label="Weight" title="Weight"></td></tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 							<div id="routerInfo">
 								<div id="timing" class="timing"></div>
 							</div>
+							<div id="notifications"></div>
+							<div id="directionsHeader"></div>
 							<div id="directions"></div>
 						</div>
 					</div>
@@ -469,13 +555,15 @@
 	<!--script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script-->
 	<!--script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster.js"></script-->
 	<!--script src="https://unpkg.com/leaflet.markercluster.freezable@0.1.1/dist/leaflet.markercluster.freezable.js"></script-->
+	<script src="leaflet.rotatedMarker.js"></script>
 	<script src="leaflet-layerjson.js"></script>
 	<script src="leaflet-history.js"></script>
 	<script src="leaflet-zoom-min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 	<script src="https://sortablejs.github.io/Sortable/Sortable.js"></script>
-	<script src="https://aehlke.github.io/tag-it/js/tag-it.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/tag-it@2.0.0/js/tag-it.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
 	<script type="text/javascript" src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
@@ -517,24 +605,41 @@
 		var gcApi = "https://geocoder.api.gov.bc.ca/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
-		if(queryParams['env'] == 'tst') {
-			gcApi = "https://geocodertst.api.gov.bc.ca/";
-			routeApi = "https://routertst.api.gov.bc.ca/";
-		} else if(queryParams['env'] == 'dlv') {
-			gcApi = "https://geocoderdlv.api.gov.bc.ca/";
-			routeApi = "https://routerdlv.api.gov.bc.ca/";
-		} else if(queryParams['env'] == 'rri') {
-			gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
-			routeApi = "https://ssl.refractions.net/ols/router/";
-		} else if(queryParams['env'] == 'lg') {
-			gcApi = "http://localhost:8080/pub/geocoder/";
-		} else if(queryParams['env'] == 'lr') {
-			routeApi = "http://localhost:8080/pub/router/";
-		} else {
-			routeMethod = 'GET';
-			// hide functions not available from production APIs
-			$('.not-in-prod').hide();
+		switch(queryParams['gc']) {
+			case 'tst':
+				gcApi = "https://geocodertst.api.gov.bc.ca/";
+				break;
+		  case 'dlv':
+			  gcApi = "https://geocoderdlv.api.gov.bc.ca/";
+				break;
+			case 'rri':
+				gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
+				break
+			case 'local':
+				gcApi = "http://localhost:8080/pub/geocoder/";
 		}
+
+		switch(queryParams['rt']) {
+			case 'tst':
+				routeApi = "https://routertst.api.gov.bc.ca/";
+				break;
+			case 'dlv':
+				//routeApi = "https://routerdlv.api.gov.bc.ca/";
+				routeApi = "https://router-dev.api.gov.bc.ca/";
+				break;
+		 	case 'rri':
+				routeApi = "https://ssl.refractions.net/ols/router/";
+				break;
+			case 'dev':
+				routeApi = "http:///192.168.50.126:8080/pub/router/";
+				break
+			case 'local':
+				routeApi = "http://localhost:8080/pub/router/";
+				break;
+			default:
+				routeMethod = 'GET';
+		}
+
 		var routeHeaders = {apikey: apiKey};
 		if(routeMethod == 'GET') {
 			routeHeaders = {};
@@ -574,6 +679,9 @@
 				maxZoom: 16
 			}
 		}).addTo(map);
+
+		map.createPane('routePane');
+		map.getPane('routePane').style.zIndex = 499;
 
 		// var mcg = L.markerClusterGroup({
 		// 	showCoverageOnHover: false,
@@ -689,6 +797,99 @@
 			shadowSize: [41, 41]
 		});
 
+		var navInfoIcons = {};
+		navInfoIcons['IMP'] = {};
+		navInfoIcons['IMP']['YIELD'] = new L.Icon({
+			iconUrl: 'img/yield.png',
+			iconSize: [16, 16],
+			iconAnchor: [8, 8]
+		});
+		navInfoIcons['IMP']['STOPSIGN'] = new L.Icon({
+			iconUrl: 'img/stopsign.png',
+			iconSize: [16, 16],
+			iconAnchor: [8, 8]
+		});
+		navInfoIcons['IMP']['LIGHT'] = new L.Icon({
+			iconUrl: 'img/light.png',
+			iconSize: [16, 16],
+			iconAnchor: [8, 8]
+		});
+		navInfoIcons['IMP']['BARRICADE'] = new L.Icon({
+			iconUrl: 'img/barricade.png',
+			iconSize: [16, 16],
+			iconAnchor: [8, 8]
+		});
+		navInfoIcons['DIR'] = new L.Icon({
+			iconUrl: 'img/straight.png',
+			iconSize: [16, 16],
+			iconAnchor: [8, 8]
+		});
+		navInfoIcons['HR'] = new L.Icon({
+			iconUrl: 'img/restriction.png',
+			iconSize: [16, 16],
+			iconAnchor: [8, 8]
+		});
+		navInfoIcons['EV'] = new L.Icon({
+			iconUrl: 'img/cone.png',
+			iconSize: [32, 32],
+			iconAnchor: [12, 26]
+		});
+		navInfoIcons['SC'] = new L.Icon({
+			iconUrl: 'img/ferry.png',
+			iconSize: [22, 22],
+			iconAnchor: [11, 11]
+		});
+
+		function getNavInfoIcon(props) {
+			var icon;
+			if(props.type == 'IMP') {
+				icon = navInfoIcons[props.type][props.subType];
+			} else if(props.type == 'ID') {
+				icon = L.divIcon({
+					className:'segIdOuter',
+					html: '<span class="segId">' + props.detail + '</span>',
+					iconSize: null,
+					iconSize: [56, 20],
+					iconAnchor: [28, 10]
+				});
+			} else if(props.type != 'TR') {
+				icon = navInfoIcons[props.type];
+			} else {
+				var html = '';
+				if(props.detail.indexOf('U: ALWAYS') >= 0) {
+					html += '<img class="navImg" src="img/no_uturn.png">';
+				} else if(props.detail.indexOf('U:') >= 0) {
+					html += '<img class="navImg" src="img/no_uturn_td.png">';
+				}
+				if(props.detail.indexOf('L: ALWAYS') >= 0) {
+					html += '<img class="navImg" src="img/no_left.png">';
+				} else if(props.detail.indexOf('L:') >= 0) {
+					html += '<img class="navImg" src="img/no_left_td.png">';
+				}
+				if(props.detail.indexOf('C: ALWAYS') >= 0) {
+					html += '<img class="navImg" src="img/no_straight.png">';
+				} else if(props.detail.indexOf('C:') >= 0) {
+					html += '<img class="navImg" src="img/no_straight_td.png">';
+				}
+				if(props.detail.indexOf('R: ALWAYS') >= 0) {
+					html += '<img class="navImg" src="img/no_right.png">';
+				} else if(props.detail.indexOf('R:') >= 0) {
+					html += '<img class="navImg" src="img/no_right_td.png">';
+				}
+
+				icon = L.divIcon({
+					className:'',
+					html: html,
+					iconSize: [24, 20],
+					iconAnchor: [12, 10]
+				});
+			}
+			if(icon === undefined) {
+				icon = L.Icon.Default;
+			}
+			return icon;
+		}
+
 		var baseErrorMsg = "An unexpected server error occurred; No response from server.\n";
 
 		var mapboxStreetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
@@ -770,12 +971,6 @@
 				return siteIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				// var popupHtml = makePopupText(feature.properties);
-				// // HTML for add to route
-				// popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
-				// 		+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
-				// 		+ "</button>";
-				// marker.bindPopup(popupHtml);
 				marker.bindPopup(makePopupText(feature.properties));
 			}
 
@@ -797,12 +992,6 @@
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				// var popupHtml = makePopupText(feature.properties);
-				// // HTML for add to route
-				// popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
-				// 		+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
-				// 		+ "</button>";
-				// marker.bindPopup(popupHtml);
 				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
@@ -839,12 +1028,6 @@
 				return intIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				var popupHtml = makePopupText(feature.properties);
-				// HTML for add to route
-				// popupHtml += " <button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Site to Route\">"
-				// 		+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Site to Route\"></span>"
-				// 		+ "</button>";
-				// marker.bindPopup(popupHtml);
 				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
@@ -857,7 +1040,7 @@
 				transparent: true,
 				format: 'image/png'
 			});
-		parcelLayer.addTo(map);
+		//parcelLayer.addTo(map);
 		overlays['ParcelMap BC'] = parcelLayer;
 
 		var draLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/ows?',
@@ -885,9 +1068,6 @@
 			propertyId: "properties.uri",
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
-			buildIcon: function() {
-				return apIcon;
-			},
 			buildIcon: function(data, title) {	// make icon from data
 				return L.divIcon({html: data.properties.name, className: "gnsLabel"});
 			},
@@ -897,7 +1077,306 @@
 		});
 		overlays['BC Geographical Names'] = gnsLayer;
 
+		var impactorLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=IMP&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'IMP',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 16,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function(data) {
+				return getNavInfoIcon(data.properties);
+			},
+			onEachMarker: function(feature, layer) {
+				layer.options.rotationAngle = 90 - feature.properties.angle;
+			}
+		});
+		overlays["Stop Signs/Lights/Yields/Barricades"] = impactorLayer;
+
+		var navInfoLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=DIR,TR&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'DIR,TR',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 16,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function(data) {
+				return getNavInfoIcon(data.properties);
+			},
+			onEachMarker: function(feature, layer) {
+				layer.options.rotationAngle = 90 - feature.properties.angle;
+				if(feature.properties.fromFragment) {
+					layer.on('mouseover', function(ev) {
+						clearTurnMarkers();
+						turnMarkers.push(L.polyline(L.GeoJSON.coordsToLatLngs(feature.properties.fromFragment.coordinates), {color: 'blue'}));
+						for(var i= 0, len = feature.properties.toFragments.length; i< len; i++) {
+							turnMarkers.push(L.polyline(L.GeoJSON.coordsToLatLngs(feature.properties.toFragments[i].coordinates), {color: 'red'}));
+						}
+						for(var i = 0; i< turnMarkers.length; i++) {
+							map.addLayer(turnMarkers[i]);
+						}
+					});
+					layer.on('mouseout', clearTurnMarkers);
+				}
+			}
+		});
+		overlays["Navigation Info"] = navInfoLayer;
+
+		var hardRestrictionLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=HR&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'HR',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 10,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function(data) {
+				return getNavInfoIcon(data.properties);
+			}
+		});
+		overlays["Hard Restrictions"] = hardRestrictionLayer;
+
+		var eventLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=EV&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'EV',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 4,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function(data) {
+				return getNavInfoIcon(data.properties);
+			}
+		});
+		overlays["Open511 Events"] = eventLayer;
+
+		var truckRouteLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=TRK&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'TRK',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			dataToMarker: function(data) {
+				return L.GeoJSON.geometryToLayer(data,  {
+						color: 'red',
+						lineCap: 'butt',
+						weight: 2,
+						dashArray: '3 3'
+				});
+			}
+		});
+		overlays["Truck Routes"] = truckRouteLayer;
+
+		var deadEndLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=DE&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'DE',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 10,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			dataToMarker: function(data) {
+				return L.GeoJSON.geometryToLayer(data,  {
+						color: 'purple',
+						lineCap: 'butt',
+						weight: 2,
+						dashArray: '3 3'
+				});
+			}
+		});
+		overlays["Dead Ends"] = deadEndLayer;
+
+		var trafficLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=TF&departure={departure}&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'TF',
+						departure: date2String($('#time').timepicker('getTime', $('#date').datepicker('getDate'))),
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 13,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			dataToMarker: function(data) {
+				return L.GeoJSON.geometryToLayer(data);
+			},
+			onEachMarker: function(feature, layer) {
+				if(feature.properties.subType == "SLOWEST") {
+					color = '#FF0000';
+				} else if(feature.properties.subType == "SLOWER") {
+					color = '#FF6600';
+				} else if(feature.properties.subType == "SLOW") {
+					color = '#FFAA00';
+				}
+				layer.setStyle({color:color, weight:4, opacity: 0.75});
+			}
+		});
+		overlays["Traffic"] = trafficLayer;
+
+		var ferryTerminalLayer = new L.layerJSON({
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'SC',
+						departure: date2String($('#time').timepicker('getTime', $('#date').datepicker('getDate'))),
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 4,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.subType",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			dataToMarker: function(data, loc) {
+				if(data.geometry.type == 'Point') {
+					return this._defaultDataToMarker(data, loc)
+				} else {
+					return L.GeoJSON.geometryToLayer(data);
+				}
+			},
+			buildIcon: function(data) {
+				return getNavInfoIcon(data.properties);
+			},
+			onEachMarker: function(feature, layer) {
+				layer.bindPopup(feature.properties.detail);
+			}
+		});
+		overlays["Ferry Terminals"] = ferryTerminalLayer;
+
+		var segIdLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=ID&bbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json",
+					headers: routeHeaders,
+					data: {
+						types: 'ID',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 12,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function(data) {
+				return getNavInfoIcon(data.properties);
+			}
+		});
+		overlays["Internal Segment Ids"] = segIdLayer;
+
+		if(queryParams['test_results']) {
+			addTestResults(queryParams['test_results']);
+		}
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+
+		// turn restriction visualition markers
+		var turnMarkers = [];
+
+		function clearTurnMarkers() {
+			if(turnMarkers && turnMarkers.length > 0) {
+				for(var i = 0; i< turnMarkers.length; i++) {
+					map.removeLayer(turnMarkers[i]);
+				}
+				turnMarkers = [];
+			}
+		}
 
 		// tabs UI setup
 		$('#myTabs a').click(function (e) {
@@ -905,9 +1384,25 @@
 			$(this).tab('show');
 		});
 
+		// datepicker/timepicker UI setup
+		$('#date').datepicker();
+		$('#date').datepicker('option', 'dateFormat', "yy-mm-dd");
+		$('#date').datepicker('setDate', new Date());
+		$('#time').timepicker();
+		$('#time').timepicker('setTime', new Date());
+
  		$('div.input-group').on('click', 'button.input-clear', function(evt) {
 			$(this).parents('div.input-group').find('input.input-field').val('');
 		});
+
+		function makeTestResultPopupText(props) {
+			let str ='<table class="popup-table">';
+			Object.keys(props).forEach(function(key) {
+				str += '<tr><td class="rowName">' + key + ':</td><td>' + props[key] + '</td></tr>';
+			});
+			str += '</table>';
+			return str;
+		}
 
 		function makePopupText(props) {
 			var str = '<span class="popup-title">' + props.fullAddress + '</span> ';
@@ -1123,6 +1618,8 @@
 
 		function clearRoute() {
 			$('#timing').empty();
+			$('#notifications').empty();
+			$('#directionsHeader').empty();
 			$('#directions').empty();
 			if(routeLayer) {
 				map.removeLayer(routeLayer);
@@ -1143,23 +1640,67 @@
 			}).get().join("");
 			if(test != "") {
 				if($field && center) {
-					map.panTo($field.data('marker').getLayers()[0].getLatLng());
+					map.panTo($field.data('marker').getLatLng());
 				}
 				return;
 			}
 			clearRoute();
 			$('#timing').html('Calculating Route...');
 
-			var points = $('#routerList input.input-field').map( function(index, element) {
-				var latLng = $(element).data('marker').getLayers()[0].getLatLng();
+			var params = {};
+			params['points'] = $('#routerList input.input-field').map( function(index, element) {
+				var latLng = $(element).data('marker').getLatLng();
 				return latLng.lng + "," + latLng.lat;
 			}).get().join(',');
 
-			var criteria = $('input[name=criteria]:checked').val();
+			params['criteria'] = $('input[name=criteria]:checked').val();
+			params['disable'] = "";
 
-			var params = {
-				criteria: criteria,
-				points: points
+			if(!$('#ferrySchedulesChk').is(':checked')) {
+				params['disable'] += "sc,";
+			}
+			if(!$('#trafficChk').is(':checked')) {
+				params['disable'] += "tf,";
+			}
+			if(!$('#eventsChk').is(':checked')) {
+				params['disable'] += "ev,";
+			}
+			if(!$('#timeDependentChk').is(':checked')) {
+				params['disable'] += "td,";
+			}
+			if(!$('#turnRestrictionsChk').is(':checked')) {
+				params['disable'] += "tr,";
+			}
+			if(!$('#turnCostsChk').is(':checked')) {
+				params['disable'] += "tc,";
+			}
+			var date = $('#time').timepicker('getTime', $('#date').datepicker('getDate'));
+			params['departure'] = date2String(date);
+			if($('#truckControlsChk').is(':checked')) {
+				if($('#followTruckRouteChk').is(':checked')) {
+					params['followTruckRoute'] = "true";
+				}
+				if($('#truckRouteMultiplier').val()) {
+					params['truckRouteMultiplier'] = $('#truckRouteMultiplier').val();
+				}
+				if($('#height').val()) {
+					params['height'] = $('#height').val();
+				}
+				if($('#width').val()) {
+					params['width'] = $('#width').val();
+				}
+				if($('#length').val()) {
+					params['length'] = $('#length').val();
+				}
+				if($('#weight').val()) {
+					params['weight'] = $('#weight').val();
+				}
+			}
+
+			if($('#correctSideChk').is(':checked')) {
+				params['correctSide'] = 'true';
+			} else {
+				params['correctSide'] = 'false';
 			}
 
 			var query = 'directions.json';
@@ -1215,6 +1756,37 @@
 			});
 		}
 
+		function addTestResults(ids) {
+			$.ajax({
+				url: "http://office.refractions.net/~chodgson/gc/test/result_geojson.php?ids=" + ids,
+				dataType: "json",
+				success: function(data) {
+					var testResultsLayer = L.geoJSON(data.features, {
+						style: getTestStyle,
+						pane: map.getPane('routePane')
+					});
+					testResultsLayer.bindPopup(function(layer) {
+						return makeTestResultPopupText(layer.feature.properties);
+					});
+					// add start and end markers
+					for(var i = 0; i < data.features.length; i++) {
+						var coords = data.features[i].geometry.coordinates
+						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(coords[0]), {icon: getRouteIcon(0)}));
+						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(coords[coords.length-1]), {icon: getRouteIcon(-1)}));
+					}
+					testResultsLayer.addTo(map);
+					centerMap(testResultsLayer.getBounds());
+				}
+			});
+		}
+
+		var testColors = ['green','yellow'];
+		var testColorIdx = 0;
+		function getTestStyle(feature) {
+			var style = {color: testColors[testColorIdx], opacity: '0.6', weight: 4};
+			testColorIdx = (testColorIdx + 1) % testColors.length;
+			return style;
+		}
 
 		function doRouteRequest(query, params, center) {
 			if(routeRequest != null) {
@@ -1237,15 +1809,18 @@
 									coordinates: data.route
 								}
 							}, {
-							onEachFeature: function(feature, layer) {
-								var color = "#0000FF";
-								if(params['criteria'] == "fastest") {
-									color = "#FF00FF";
-								}
-								layer.setStyle({color:color, weight:7, opacity: 0.5});
+								pane: map.getPane('routePane'),
+								onEachFeature: function(feature, layer) {
+									var color = "#0000FF";
+									if(params['criteria'] == "fastest") {
+										color = "#FF00FF";
+									}
+									layer.setStyle({color:color, weight:7, opacity: 0.75});
 							}
 						}).addTo(map);
-						centerMap(routeLayer.getBounds(), center);
+						if(center) {
+							centerMap(routeLayer.getBounds(), center);
+						}
 
 						// update icon numbering
 						$('#routerList input.input-field').each( function(index, element) {
@@ -1259,7 +1834,7 @@
 								index = -1;
 							}
 							if(layer) {
-								layer.getLayers()[0].setIcon(getRouteIcon(index));
+								layer.setIcon(getRouteIcon(index));
 							}
 						});
 					}
@@ -1271,26 +1846,40 @@
 					// 	$last = $('#routerList input.input-field').filter(':last');
 					// }
 					// if($last.data('marker')) {
-					// 	$last.data('marker').getLayers()[0].setIcon(getRouteIcon(-1));
+					// 	$last.data('marker').setIcon(getRouteIcon(-1));
 					// }
 					if(data.routeFound) {
 						if(data.optimizationExecutionTime) {
 							$('#timing').html('Distances between stops calculated in ' + data.routingExecutionTime/1000 + ' seconds<br\>'
 								+ 'Optimization performed in ' + data.optimizationExecutionTime/1000 + ' seconds<br\>'
 								+ 'Final route calculated in ' + (data.executionTime - data.routingExecutionTime - data.optimizationExecutionTime)/1000 + ' seconds<br\>'
-								+ 'Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+								+ 'Route travels ' + data.distance + ' km in ' + data.timeText);
 						} else {
-							$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText + '<br\>Directions:');
+							$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText);
 						}
+						var notes = data.notifications;
+						if(notes) {
+							for(i = 0; i < notes.length; i++) {
+								var $note = $("<div class=\"notification\">" + notes[i].message + "</div>");
+								$('#notifications').append($note);
+							}
+						}
+						$('#directionsHeader').html('Directions:');
 						var dirs = data.directions;
 						for(i = 0; i < dirs.length; i++) {
-							if(dirs[i].text) {
-								var $dir = $("<div class=\"direction\" title=\"Click to zoom in to start of route leg.\">" + dirs[i].text + "</div>");
-								$('#directions').append($dir);
-								$dir.data('latlng', {'lat': dirs[i].point[1], 'lng': dirs[i].point[0]}) ;
-							} else {
-								$('#directions').append("<div class=\"direction\">" + dirs[i] + "</div>");
+							var $dir = $("<div class=\"direction\" title=\"Click to zoom in to start of route leg.\"></div>");
+							$dir.append("<div class=\"" + dirs[i].type + "\"></div>");
+							$dirBody = $("<div class=\"dirBody\"></div>");
+							if(dirs[i].notifications) {
+								var notes = dirs[i].notifications;
+								for(n = 0; n < notes.length; n++) {
+									$dirBody.append("<div class=\"notification " + notes[n].type + "\">" + notes[n].message + "</div>");
+								}
 							}
+							$dirBody.append(dirs[i].text);
+							$dir.append($dirBody);
+							$('#directions').append($dir);
+							$dir.data('latlng', {'lat': dirs[i].point[1], 'lng': dirs[i].point[0]});
 						}
 					} else {
 						$('#timing').html('No route exists in the BC Digital Road Atlas<br\>');
@@ -1345,7 +1934,7 @@
 			var $inputField = $(this).parents('div.input-group').find('input.input-field');
 			var marker = $inputField.data('marker');
 			if(marker) {
-				centerMap(marker.getBounds(), true);
+				centerMap(marker.getLatLng().toBounds(10), true);
 			}
 		});
 
@@ -1412,6 +2001,18 @@
 			route(null, false);
 		});
 
+		$('.routeOnChange').on('change', function(evt) {
+			route(null, false);
+		});
+		$('#date').on('change', function(evt) {
+			trafficLayer.refresh();
+			ferryScheduleLayer.refresh();
+		});
+		$('#time').on('change', function(evt) {
+			trafficLayer.refresh();
+			ferryScheduleLayer.refresh();
+		});
+
 		$('#roundTripChk').on('change', function(evt) {
 			$('#nearestStopChk').prop('checked', false);
 			route(null, false);
@@ -1428,6 +2029,33 @@
 			route(null, false);
 		});
 
+		$('#timeDependentChk').on('change', function(evt) {
+			$('#ferrySchedulesChk').prop('checked', false);
+			$('#trafficChk').prop('checked', false);
+			$('#eventsChk').prop('checked', false);
+			route(null, false);
+		});
+
+		$('#eventsChk').on('change', function(evt) {
+			$('#timeDependentChk').prop('checked', true);
+			route(null, false);
+		});
+
+		$('#ferrySchedulesChk').on('change', function(evt) {
+			$('#timeDependentChk').prop('checked', true);
+			route(null, false);
+		});
+
+		$('#trafficChk').on('change', function(evt) {
+			$('#timeDependentChk').prop('checked', true);
+			route(null, false);
+		});
+
+		$('#truckControls').hide();
+		$('#truckControlsChk').on('change', function(evt) {
+			$('#truckControls').toggle();
+		});
+
 		var directionMarker = null;
 		var directionSelectMarker = null;
 
@@ -1437,7 +2065,7 @@
 			}
 			var latlng = $(evt.target).data('latlng');
 			if(latlng) {
-				directionMarker = L.circleMarker(latlng).addTo(map);
+				directionMarker = L.circleMarker(latlng, {pane:'popupPane'}).addTo(map);
 			}
 		});
 
@@ -1448,7 +2076,7 @@
 		});
 
 		$('#directions').on('click', 'div.direction', function(evt) {
-			var $dirDiv = $(evt.target);
+			var $dirDiv = $(evt.currentTarget);
 			if(directionSelectMarker != null) {
 				map.removeLayer(directionSelectMarker);
 			}
@@ -1475,7 +2103,6 @@
 			var icon = getRouteIcon(pos);
 			if(data instanceof L.LatLng) {
 				latLng = data;
-				layer = latLngToLayer(data, {icon: icon});
 			} else {
 				// sort out whether we have a single feature or a featureCollection
 				var feature = data;
@@ -1484,19 +2111,30 @@
 				}
 				$field.val(feature.properties.fullAddress);
 				latLng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
-				layer = L.geoJson(data, {
-					pointToLayer: function (feature, latlng) {
-						return L.marker(latlng, {icon: icon});
-					},
-					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText({'fullAddress': feature.properties.fullAddress}));
-						layer.options['title'] = feature.properties.fullAddress;
-						//layer.bindTooltip(feature.properties.fullAddress, {
-						//		permanent: true
-						//	}).openTooltip();
-					}
-				});
 			}
+			layer = L.marker(latLng, {icon: icon, draggable: true, autoPan: true});
+			layer.on('moveend', function(ev) {
+				$('#routerList input.input-field').each( function(index, element) {
+					if($(element).data('marker') == ev.target) {
+						var ll = ev.target.getLatLng();
+						$(element).val(ll.lat.toFixed(5) + "," + ll.lng.toFixed(5));
+						return false;
+					}
+					return true;
+				});
+				route(null, false);
+			});
+			if(feature) {
+				layer.bindPopup(makePopupText({'fullAddress': feature.properties.fullAddress}));
+				layer.options['title'] = feature.properties.fullAddress;
+				//layer.bindTooltip(feature.properties.fullAddress, {
+				//		permanent: true
+				//	}).openTooltip();
+			} else {
+				layer.bindPopup('<span class="popup-title">' + latLng.lat + "," + latLng.lng + '</span>');
+				layer.options['title'] = "" + latLng.lat + "," + latLng.lng;
+			}
+
 			var oldMarker = $field.data('marker');
 			if(oldMarker) {
 				map.removeLayer(oldMarker);
@@ -1516,6 +2154,40 @@
 			},
 			select: function(evt, ui) {
 				receiveRouteGeocode(ui.item.data, $(evt.target));
+			}
+		});
+
+		// setup default chekboxes based on server defaults
+		$.ajax({
+			url: routeApi + "defaults.json",
+			headers: routeHeaders,
+			success: function(data) {
+				for(var i = 0; i < data.disableOptions.length; i++) {
+					switch(data.disableOptions[i]) {
+						case 'td' :
+							$('#timeDependentChk').prop('checked', false);
+							break;
+						case 'tr' :
+							$('#turnRestrictionsChk').prop('checked', false);
+							break;
+						case 'tc' :
+							$('#turnCostsChk').prop('checked', false);
+							break;
+						case 'ev' :
+							$('#eventsChk').prop('checked', false);
+							break;
+						case 'tf' :
+							$('#trafficChk').prop('checked', false);
+							break;
+						case 'sc' :
+							$('#ferrySchedulesChk').prop('checked', false);
+							break;
+					}
+				}
+			},
+			error: function(request) {
+				// alert(baseErrorMsg + "Error retrieving default config from server.");
+				console.log(request);
 			}
 		});
 
@@ -1669,7 +2341,7 @@
 		});
 
 
-		// isochrons
+		// isochrones
 		var isoLayer = null;
 		var isoRequest = null;
 
@@ -1743,7 +2415,7 @@
 		$('#inboundChk').on('change', doIsochrone);
 
 		function doIsochrone() {
-			var latLng = $('#isoGeocodeField').data('marker').getLayers()[0].getLatLng();
+			var latLng = $('#isoGeocodeField').data('marker').getLatLng();
 			var params = {
 				point : latLng.lng + "," + latLng.lat,
 				zoneSize : $('#zoneSize').val(),
@@ -1902,6 +2574,17 @@
 				// zoom out to include the bounds
 				map.fitBounds(bounds.extend(map.getBounds()).pad(0.25), options);
 			}
+		}
+		function date2String(date) {
+			var tzOffset = -(date.getTimezoneOffset());
+			return date.getFullYear() + '-'
+				+ (date.getMonth()+1).toString().padStart(2, '0') + '-'
+				+ (date.getDate()).toString().padStart(2, '0') + 'T'
+				+ (date.getHours()).toString().padStart(2, '0') + ':'
+				+ (date.getMinutes()).toString().padStart(2, '0') + ':'
+				+ '00' + (tzOffset < 0 ? '-' : '+')
+				+ Math.abs(tzOffset / 60).toString().padStart(2, '0') + ':'
+				+ (tzOffset % 60).toString().padStart(2, '0');
 		}
 
 		if(queryParams['q']) {
