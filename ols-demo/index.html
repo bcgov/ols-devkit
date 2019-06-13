@@ -2178,7 +2178,7 @@
 
 		// setup default chekboxes based on server defaults
 		$.ajax({
-			url: routeApi + "defaults.json",
+			url: routeApi + "defaults.json?" + routeQuery,
 			headers: routeHeaders,
 			success: function(data) {
 				for(var i = 0; i < data.disableOptions.length; i++) {
