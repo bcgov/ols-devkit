@@ -551,6 +551,7 @@
 	<script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js"
 		integrity="sha512-m+BZ3OSlzGdYLqUBZt3u6eA0sH+Txdmq7cqA1u8/B2aTXviGMMLOfrKyiIW7181jbzZAY0u+3jWoiL61iLcTKQ=="
 		crossorigin=""></script>
+	<script src="leaflet-bing-layer.js"></script>
 	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script-->
 	<!--script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script-->
 	<!--script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster.js"></script-->
@@ -600,8 +601,10 @@
 			queryParams[k] = v;
 		});
 
+		var BING_KEY = 'ArFQcMQQdw-tWyNSzt5Mafl-kq4I6naIWvX7YZjq-P20-f-txYOcMzPnl0yoNvvn';
+
 		// API URLs
-		var apiKey = "11dd756f680c47b5aef5093d95543738";
+		var DATABC_APIKEY = "11dd756f680c47b5aef5093d95543738";
 		var gcApi = "https://geocoder.api.gov.bc.ca/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
@@ -640,9 +643,11 @@
 				routeMethod = 'GET';
 		}
 
-		var routeHeaders = {apikey: apiKey};
+		var routeHeaders = {apiKey: DATABC_APIKEY};
+		var routeQuery = '';
 		if(routeMethod == 'GET') {
 			routeHeaders = {};
+			routeQuery = 'apikey=' + DATABC_APIKEY
 		}
 
 		var xmdx = 5000;
@@ -912,6 +917,13 @@
 		});
 		baseLayers['Google Roads'] = googleRoads;
 
+		var bingRoads = L.tileLayer.bing({
+			bingMapsKey: BING_KEY,
+			imagerySet: 'Road',
+			maxZoom: 20
+		});
+		baseLayers['Bing Roads'] = bingRoads;
+
 		var bcRoadsBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcgis/services/province/roads_wm/MapServer/WmsServer?',
 			{
 				maxZoom: 20,
@@ -936,10 +948,17 @@
 		});
 		baseLayers['Google Satellite'] = googleSatellite;
 
-		var esriStreetsLayer = L.esri.basemapLayer('Topographic', {
+		var bingAerial = L.tileLayer.bing({
+			bingMapsKey: BING_KEY,
+			imagerySet: 'Aerial',
 			maxZoom: 20
 		});
-		baseLayers['ESRI Topographic'] = esriStreetsLayer;
+		baseLayers['Bing Aerial'] = bingAerial;
+
+		var esriTopoLayer = L.esri.basemapLayer('Topographic', {
+			maxZoom: 20
+		});
+		baseLayers['ESRI Topographic'] = esriTopoLayer;
 
 		var bcTopoBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcserver/services/province/web_mercator_cache/MapServer/WMSServer?',
 			{
@@ -1081,7 +1100,7 @@
 			//url: routeApi + "navInfo.json?types=IMP&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'IMP',
@@ -1110,7 +1129,7 @@
 			//url: routeApi + "navInfo.json?types=DIR,TR&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'DIR,TR',
@@ -1152,7 +1171,7 @@
 			//url: routeApi + "navInfo.json?types=HR&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'HR',
@@ -1178,7 +1197,7 @@
 			//url: routeApi + "navInfo.json?types=EV&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'EV',
@@ -1204,7 +1223,7 @@
 			//url: routeApi + "navInfo.json?types=TRK&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'TRK',
@@ -1235,7 +1254,7 @@
 			//url: routeApi + "navInfo.json?types=DE&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'DE',
@@ -1266,7 +1285,7 @@
 			//url: routeApi + "navInfo.json?types=TF&departure={departure}&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'TF',
@@ -1302,7 +1321,7 @@
 		var ferryTerminalLayer = new L.layerJSON({
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'SC',
@@ -1339,7 +1358,7 @@
 			//url: routeApi + "navInfo.json?types=ID&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
-					url: routeApi + "navInfo.json",
+					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'ID',
@@ -1732,7 +1751,7 @@
 				betweenPairsRequest.abort();
 			}
 			betweenPairsRequest = $.ajax({
-				url: routeApi + 'distance/betweenPairs.json' + (routeMethod == 'GET' ? '?apikey=' + apiKey : ''),
+				url: routeApi + 'distance/betweenPairs.json?' + routeQuery,
 				method: routeMethod,
 				headers: routeHeaders,
 				data: params,
@@ -1793,7 +1812,7 @@
 				routeRequest.abort();
 			}
 			routeRequest = $.ajax({
-				url: routeApi + query + (routeMethod == 'GET' ? '?apikey=' + apiKey : ''),
+				url: routeApi + query + '?' + routeQuery,
 				method: routeMethod,
 				headers: routeHeaders,
 				data: params,
@@ -2436,7 +2455,7 @@
 				service = "loop";
 			}
 			isoRequest = $.ajax({
-				url: routeApi + service + ".json" + (routeMethod == 'GET' ? '?apikey=' + apiKey : ''),
+				url: routeApi + service + ".json?" + routeQuery,
 				method: "GET", //routeMethod,
 				//headers: routeHeaders,
 				data: params,
