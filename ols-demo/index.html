@@ -277,6 +277,28 @@
 			border-collapse: collapse;
 			padding: 4px;
 		}
+		#configDialog div {
+			padding-bottom: 5px;
+		}
+		#configDialog td, #configDialog th {
+			border: 1px solid darkGrey;
+		}
+		#configDialog input {
+			width: 50px;
+			font-size: 1em;
+		}
+		#configDialog input:invalid {
+			border: 2px dashed red;
+			background-image: linear-gradient(to right, white, pink);
+		}
+		#configDialog td, #configDialog th {
+			padding: 1px 2px;
+			text-align: center;
+			font-size: 0.8em;
+		}
+		#configDialog table th:first-child {
+			width: 110px;
+		}
 		.leaflet-marker-icon .number{
 			position: relative;
 			top: -36px;
@@ -332,9 +354,9 @@
 					</li -->
 				</ul>
 				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="tabs-1">
+					<div role="tabpanel" class="tab-pane active" id="tabs-1"><form autocomplete="off">
 						<div class="input-group">
-							<input type="text" class="form-control input-field" id="geocodeField" placeholder="Enter civic or intersection address" />
+							<input type="text" class="form-control input-field" id="geocodeField" placeholder="Enter civic or intersection address"/>
 							<div class="input-group-btn">
 								<button id="geocodeBtn" class="btn btn-default" type="button" title="Search">
 									<span class="glyphicon glyphicon-search" aria-label="Search"></span>
@@ -350,8 +372,8 @@
 								</button>
 							</div>
 						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="tabs-2">
+					</form></div>
+					<div role="tabpanel" class="tab-pane" id="tabs-2"><form autocomplete="off">
 						<div id="routerWrapper">
 							<div id="routerList">
 								<div class="form-group">
@@ -411,7 +433,7 @@
 								</div>
 								<input id="addAddrField" type="text" class="form-control input-field" placeholder="Click on Map For Coordinates" readonly/>
 								<div class="input-group-btn">
-									<button id="copyToClipboardBtn" class="btn btn-default" type="button" title="Copy to clipboard" data-clipboard-target="#addAddrField">
+									<button class="copyToClipboardBtn btn btn-default" type="button" title="Copy to clipboard" data-clipboard-target="#addAddrField">
 										<span class="glyphicon glyphicon-copy" aria-label="Copy to clipboard"></span>
 									</button>
 									<button class="btn btn-default input-clear" type="button" title="Clear">
@@ -430,12 +452,15 @@
 									<input id="nearestStopChk" type="checkbox" aria-label="Nearest Stop" title="Nearest Stop"> Nearest Stop
 								</div>
 								<div class="routerControl">
-									<input id="ferrySchedulesChk" class="routeOnChange" type="checkbox" aria-label="Ferry Schedules" title="Ferry Schedules" checked="checked"> Ferry Schedules<br/>
-									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic" checked="checked"> Traffic<br/>
-									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events" checked="checked"> Events<br/>
-									<input id="timeDependentChk" class="routeOnChange" type="checkbox" aria-label="Time Dependent" title="Time Dependent" checked="checked"> Time Dependent<br/>
-									<input id="turnRestrictionsChk" class="routeOnChange" type="checkbox" aria-label="Turn Restrictions" title="Turn Restrictions" checked="checked"> Turn Restrictions<br/>
-									<input id="turnCostsChk" class="routeOnChange" type="checkbox" aria-label="Turn Costs" title="Turn Costs" checked="checked"> Turn Costs<br/>
+									<input id="ferrySchedulesChk" class="routeOnChange" type="checkbox" aria-label="Ferry Schedules" title="Ferry Schedules"> Ferry Schedules<br/>
+									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic"> Traffic<br/>
+									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events"> Events<br/>
+									<input id="gdfChk" class="routeOnChange" type="checkbox" aria-label="Global Distortion Field" title="Global Distortion Field"> <a class="configDialogLink">Global Distortion Field</a><br/>
+									<input id="ldfChk" class="routeOnChange" type="checkbox" aria-label="Local Distortion Field" title="Local Distortion Field"> Local Distortion Field<br/>
+									<input id="timeDependentChk" class="routeOnChange" type="checkbox" aria-label="Time Dependent" title="Time Dependent"> Time Dependent<br/>
+									<input id="turnRestrictionsChk" class="routeOnChange" type="checkbox" aria-label="Turn Restrictions" title="Turn Restrictions"> Turn Restrictions<br/>
+									<input id="xingCostsChk" class="routeOnChange" type="checkbox" aria-label="Crossing Costs" title="Crossing Costs"> <a class="configDialogLink">Crossing Costs</a><br/>
+									<input id="turnCostsChk" class="routeOnChange" type="checkbox" aria-label="Turn Costs" title="Turn Costs"> <a class="configDialogLink">Turn Costs</a><br/>
 								</div>
 								<div class="routerControl">
 									Start Date/Time:
@@ -447,7 +472,7 @@
 								</div>
 							</div>
 							<div class="routerControl">
-								<input id="truckControlsChk" type="checkbox" aria-label="Truck Options" title="Truck Options"> Truck Options</br>
+								<input id="truckControlsChk" class="routeOnChange" type="checkbox" aria-label="Truck Mode" title="Truck Mode"> Truck Mode</br>
 								<div id="truckControls">
 									<input id="followTruckRouteChk" class="routeOnChange" type="checkbox" aria-label="Follow Truck Route" title="Follow Truck Route"> Follow Truck Route</br>
 									<table>
@@ -468,7 +493,7 @@
 							<div id="directionsHeader"></div>
 							<div id="directions"></div>
 						</div>
-					</div>
+					</form></div>
 					<div role="tabpanel" class="tab-pane" id="tabs-3">
 						<div class="input-group">
 							<ul id="tags"></ul>
@@ -483,7 +508,7 @@
 						</div>
 						Example: First Nations <span style="font-size: 1.2em;">&crarr;</span>
 					</div>
-					<div role="tabpanel" class="tab-pane" id="tabs-4">
+					<div role="tabpanel" class="tab-pane" id="tabs-4"><form autocomplete="off">
 						<div class="input-group">
 							<input type="text" class="form-control input-field" id="nameField" placeholder="Enter name of public place or business" />
 							<div class="input-group-btn">
@@ -495,7 +520,7 @@
 								</button>
 							</div>
 						</div>
-					</div>
+					</form></div>
 					<div role="tabpanel" class="tab-pane" id="tabs-5">
 						<div class="form-group input-group">
 							<input type="text" class="form-control input-field" id="isoGeocodeField" placeholder="Enter civic or intersection address" />
@@ -544,6 +569,58 @@
 		</div> <!-- tabWrapper -->
 		<div id="map"></div>
 	</div> <!-- container -->
+	<div id="configDialog" title="Configuration">
+		<div>
+		<div>
+			<table>
+			  <thead>
+				  <tr><th></th><th>yield/<br/>roundabout</th><th>sign</th><th>light</th><th>multiplier</th></tr>
+			  </thead>
+			  <tbody>
+  				<tr>
+	  				<th>Crossing Cost</th>
+		  			<td><input id="yieldCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+			  		<td><input id="signCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+				  	<td><input id="lightCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+					  <td><input id="multiplier" class="routeOnChange" required type="number" min="1" max="10" step="any"></td>
+  				</tr>
+	  		</tbody>
+		  </table>
+		</div>
+		<div>
+			<table>
+			  <thead>
+				  <tr><th></th><th>left</th><th>right</th><th>leftTruck</th><th>rightTruck</th></tr>
+			  </thead>
+			  <tbody>
+  				<tr>
+	  				<th>Turn Cost</th>
+		  			<td><input id="leftTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+			  		<td><input id="rightTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+				  	<td><input id="leftTruckTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+					  <td><input id="rightTruckTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+  				</tr>
+	  		</tbody>
+		  </table>
+		</div>
+		<div>
+			Global Distortion Field
+			<table id="gdfTable">
+				<thead>
+					<tr><th rowspan="2">Road Class</th><th colspan="2">Friction Factor</th></tr>
+					<tr><th>Base</th><th>TruckRoute</th></tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			Tuning String:<input id="configString">
+			<button class="copyToClipboardBtn" type="button" title="Copy to clipboard" data-clipboard-target="#configString">
+				<span class="glyphicon glyphicon-copy" aria-label="Copy to clipboard"></span>
+			</button>
+		</div>
+	</div>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO2a43ItOYdAuRFcbCSLLn8AQwnMlf6sI"></script>
 	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 	<script src='https://unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js'></script>
@@ -608,6 +685,7 @@
 		var gcApi = "https://geocoder.api.gov.bc.ca/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
+		//var routeMethod = 'GET';
 		switch(queryParams['gc']) {
 			case 'tst':
 				gcApi = "https://geocodertst.api.gov.bc.ca/";
@@ -624,11 +702,13 @@
 
 		switch(queryParams['rt']) {
 			case 'tst':
-				routeApi = "https://routertst.api.gov.bc.ca/";
+				//routeApi = "https://routertst.api.gov.bc.ca/";
+				routeApi = "https://routertst.pathfinder.gov.bc.ca/";
 				break;
 			case 'dlv':
 				//routeApi = "https://routerdlv.api.gov.bc.ca/";
-				routeApi = "https://router-dev.api.gov.bc.ca/";
+				//routeApi = "https://router-dev.api.gov.bc.ca/";
+				routeApi = "https://router-dev.pathfinder.gov.bc.ca/";
 				break;
 		 	case 'rri':
 				routeApi = "https://ssl.refractions.net/ols/router/";
@@ -804,6 +884,11 @@
 
 		var navInfoIcons = {};
 		navInfoIcons['IMP'] = {};
+		navInfoIcons['IMP']['ROUNDABOUT'] = new L.Icon({
+			iconUrl: 'img/roundabout.png',
+			iconSize: [20, 21],
+			iconAnchor: [10, 10]
+		});
 		navInfoIcons['IMP']['YIELD'] = new L.Icon({
 			iconUrl: 'img/yield.png',
 			iconSize: [16, 16],
@@ -1232,7 +1317,7 @@
 					success: callback
 				});
 			},
-			minZoom: 14,
+			minZoom: 10,
 			caching: false,
 			propertyItems: "features",
 			propertyId: null,
@@ -1241,7 +1326,7 @@
 			propertyLoc: "geometry.coordinates",
 			dataToMarker: function(data) {
 				return L.GeoJSON.geometryToLayer(data,  {
-						color: 'red',
+						color: '#00AA00',
 						lineCap: 'butt',
 						weight: 2,
 						dashArray: '3 3'
@@ -1417,6 +1502,7 @@
 		function makeTestResultPopupText(props) {
 			let str ='<table class="popup-table">';
 			Object.keys(props).forEach(function(key) {
+				if(key == "partition_indices") return;
 				str += '<tr><td class="rowName">' + key + ':</td><td>' + props[key] + '</td></tr>';
 			});
 			str += '</table>';
@@ -1673,29 +1759,48 @@
 			}).get().join(',');
 
 			params['criteria'] = $('input[name=criteria]:checked').val();
-			params['disable'] = "";
+			params['enable'] = "";
 
-			if(!$('#ferrySchedulesChk').is(':checked')) {
-				params['disable'] += "sc,";
+			if($('#ferrySchedulesChk').is(':checked')) {
+				params['enable'] += "sc,";
 			}
-			if(!$('#trafficChk').is(':checked')) {
-				params['disable'] += "tf,";
+			if($('#trafficChk').is(':checked')) {
+				params['enable'] += "tf,";
 			}
-			if(!$('#eventsChk').is(':checked')) {
-				params['disable'] += "ev,";
+			if($('#eventsChk').is(':checked')) {
+				params['enable'] += "ev,";
 			}
-			if(!$('#timeDependentChk').is(':checked')) {
-				params['disable'] += "td,";
+			if($('#gdfChk').is(':checked')) {
+				params['enable'] += "gdf,";
+				params['gdf'] = buildGdfString();
 			}
-			if(!$('#turnRestrictionsChk').is(':checked')) {
-				params['disable'] += "tr,";
+			if($('#ldfChk').is(':checked')) {
+				params['enable'] += "ldf,";
 			}
-			if(!$('#turnCostsChk').is(':checked')) {
-				params['disable'] += "tc,";
+			if($('#timeDependentChk').is(':checked')) {
+				params['enable'] += "td,";
+			}
+			if($('#turnRestrictionsChk').is(':checked')) {
+				params['enable'] += "tr,";
+			}
+			if($('#xingCostsChk').is(':checked')) {
+				params['enable'] += "xc,";
+				params['xingCost'] = buildXingCostString();
+			}
+			if($('#turnCostsChk').is(':checked')) {
+				params['enable'] += "tc,";
+				if($('#truckControlsChk').is(':checked')) {
+					params['turnCost'] = $('#leftTruckTurnCost').val() + "," + $('#rightTruckTurnCost').val();
+				} else {
+					params['turnCost'] = $('#leftTurnCost').val() + "," + $('#rightTurnCost').val();
+				}
 			}
 			var date = $('#time').timepicker('getTime', $('#date').datepicker('getDate'));
 			params['departure'] = date2String(date);
+			var queryPrefix = ""
 			if($('#truckControlsChk').is(':checked')) {
+				queryPrefix = "truck/";
+				params['partition'] = "isTruckRoute";
 				if($('#followTruckRouteChk').is(':checked')) {
 					params['followTruckRoute'] = "true";
 				}
@@ -1737,7 +1842,7 @@
 			if($('#nearestStopChk').is(':checked')) {
 				doBetweenPairsRequest(params, center);
 			} else {
-				doRouteRequest(query, params, center);
+				doRouteRequest(queryPrefix + query, params, center);
 			}
 		}
 
@@ -1787,11 +1892,26 @@
 					testResultsLayer.bindPopup(function(layer) {
 						return makeTestResultPopupText(layer.feature.properties);
 					});
-					// add start and end markers
+					// add start and end markers, and partition markers
 					for(var i = 0; i < data.features.length; i++) {
 						var coords = data.features[i].geometry.coordinates
-						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(coords[0]), {icon: getRouteIcon(0)}));
-						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(coords[coords.length-1]), {icon: getRouteIcon(-1)}));
+						var startCoord = coords[0];
+						var endCoord = coords[coords.length-1];
+						if(Array.isArray(startCoord[0])) {
+							startCoord = startCoord[0];
+							endCoord = endCoord[endCoord.length-1];
+						}
+						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(startCoord), {icon: getRouteIcon(0)}));
+						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(endCoord), {icon: getRouteIcon(-1)}));
+						// add partition markers
+						var partition_indices = data.features[i].properties.partition_indices;
+						for(var j = 0; j < partition_indices.length; j++) {
+							var index = partition_indices[j];
+							if(index != '') {
+								var coord = data.features[i].geometry.coordinates[index];
+								testResultsLayer.addLayer(L.circleMarker(L.GeoJSON.coordsToLatLng(coord), {color: "red"}));
+							}
+						}
 					}
 					testResultsLayer.addTo(map);
 					centerMap(testResultsLayer.getBounds());
@@ -1820,23 +1940,67 @@
 					clearRoute();
 					// if a valid route was returned
 					if(data.route && data.route.length > 1) {
-						routeLayer = L.geoJson({
-								type: "Feature",
-								properties: {},
-								geometry: {
-									type: "LineString",
-									coordinates: data.route
+						if(data.partition) {
+							var features = [];
+							for(var p = 0; p < data.partitions.length; p++) {
+								var end = data.route.length;
+								if(p < data.partitions.length - 1) {
+									end = data.partitions[p+1].index + 1;
 								}
-							}, {
-								pane: map.getPane('routePane'),
-								onEachFeature: function(feature, layer) {
-									var color = "#0000FF";
-									if(params['criteria'] == "fastest") {
-										color = "#FF00FF";
+								features.push({
+									type: "Feature",
+									properties: {
+										isTruckRoute: data.partitions[p].isTruckRoute
+									},
+									geometry: {
+										type: "LineString",
+							      coordinates: data.route.slice(data.partitions[p].index, end)
 									}
-									layer.setStyle({color:color, weight:7, opacity: 0.75});
+								});
 							}
-						}).addTo(map);
+							var geoJson = {
+								type: "FeatureCollection",
+								features: features
+							};
+							routeLayer = L.geoJson(geoJson, {
+									pane: map.getPane('routePane'),
+									onEachFeature: function(feature, layer) {
+										if(feature.properties.isTruckRoute) {
+											layer.setStyle({
+												color:"#0000FF",
+												weight:7,
+												opacity: 0.75
+											});
+										} else {
+											layer.setStyle({
+												color:"#FF0000",
+												weight:7,
+												opacity: 0.75,
+											  lineCap: 'butt',
+											  dashArray: '7 4'
+										  });
+										}
+								}
+							}).addTo(map);
+						} else {
+							routeLayer = L.geoJson({
+									type: "Feature",
+									properties: {},
+									geometry: {
+										type: "LineString",
+										coordinates: data.route
+									}
+								}, {
+									pane: map.getPane('routePane'),
+									onEachFeature: function(feature, layer) {
+										var color = "#0000FF";
+										if(params['criteria'] == "fastest") {
+											color = "#FF00FF";
+										}
+										layer.setStyle({color:color, weight:7, opacity: 0.75});
+								}
+							}).addTo(map);
+						}
 						if(center) {
 							centerMap(routeLayer.getBounds(), center);
 						}
@@ -1958,7 +2122,7 @@
 		});
 
 		// copy to clipboard from addAddrField
-		new ClipboardJS('#copyToClipboardBtn');
+		new ClipboardJS('.copyToClipboardBtn');
 
 		// clear router input field button
 		$('#routerList').on('click', 'button.input-clear', function() {
@@ -2020,9 +2184,53 @@
 			route(null, false);
 		});
 
+		$('#configDialog').dialog({
+			autoOpen: false,
+			resizable: false,
+			height: 785,
+			width: 450
+		});
+		$('.configDialogLink').on('click', function(evt) {
+			$('#configDialog').dialog('open');
+		});
+
 		$('.routeOnChange').on('change', function(evt) {
 			route(null, false);
 		});
+		// need this to catch change events from dynamically added config inputs
+		$('#configDialog').on('change', '.routeOnChange', function(evt) {
+			updateConfigString();
+			route(null, false);
+		});
+
+		$('#configString').on('change', function(evt) {
+			var s = $('#configString').val();
+			s.split("&").forEach(function(item) {
+				var pair = item.split("="), key = pair[0], value = pair[1];
+				switch(key) {
+					case 'globalDistortionField' :
+						value.split(",").forEach(function(gdf) {
+							var pair = gdf.split(":"), key = pair[0], value = pair[1];
+							$('#' + key.replace(/\./g, "\\.")).val(value);
+						});
+						break;
+					case 'xingCost':
+						var xingCosts = value.split(",");
+						$('#yieldCost').val(xingCosts[0]);
+						$('#signCost').val(xingCosts[1]);
+						$('#lightCost').val(xingCosts[2]);
+						$('#multiplier').val(xingCosts[3]);
+					  break;
+					case 'turnCost':
+						var turnCosts = value.split(",");
+						$('#leftTurnCost').val(turnCosts[0]);
+						$('#rightTurnCost').val(turnCosts[1]);
+						$('#leftTruckTurnCost').val(turnCosts[2]);
+						$('#rightTruckTurnCost').val(turnCosts[3]);
+				}
+			});
+		});
+
 		$('#date').on('change', function(evt) {
 			trafficLayer.refresh();
 			ferryScheduleLayer.refresh();
@@ -2101,13 +2309,13 @@
 			}
 			if($dirDiv.hasClass('selectedDirection')) {
 				$dirDiv.removeClass('selectedDirection')
-					.attr('title', 'Click to zoom in to start of route leg.');
+					.prop('title', 'Click to zoom in to start of route leg.');
 				centerMap(routeLayer.getBounds());
 			} else {
 				$('#directions div.selectedDirection').removeClass('selectedDirection')
-					.attr('title', 'Click to zoom in to start of route leg.');
+					.prop('title', 'Click to zoom in to start of route leg.');
 				$dirDiv.addClass('selectedDirection')
-					.attr('title', 'Click to zoom out to route extent.');
+					.prop('title', 'Click to zoom out to route extent.');
 				var latlng = $dirDiv.data('latlng');
 				if(latlng) {
 					directionSelectMarker = L.circleMarker(latlng).addTo(map);
@@ -2181,28 +2389,71 @@
 			url: routeApi + "defaults.json?" + routeQuery,
 			headers: routeHeaders,
 			success: function(data) {
-				for(var i = 0; i < data.disableOptions.length; i++) {
-					switch(data.disableOptions[i]) {
+				for(var i = 0; i < data.enableOptions.length; i++) {
+					switch(data.enableOptions[i]) {
 						case 'td' :
-							$('#timeDependentChk').prop('checked', false);
+							$('#timeDependentChk').prop('checked', true);
 							break;
 						case 'tr' :
-							$('#turnRestrictionsChk').prop('checked', false);
+							$('#turnRestrictionsChk').prop('checked', true);
+							break;
+						case 'ldf' :
+							$('#ldfChk').prop('checked', true);
+							break;
+						case 'gdf' :
+							$('#gdfChk').prop('checked', true);
+							break;
+						case 'xc' :
+							$('#xingCostsChk').prop('checked', true);
 							break;
 						case 'tc' :
-							$('#turnCostsChk').prop('checked', false);
+							$('#turnCostsChk').prop('checked', true);
 							break;
 						case 'ev' :
-							$('#eventsChk').prop('checked', false);
+							$('#eventsChk').prop('checked', true);
 							break;
 						case 'tf' :
-							$('#trafficChk').prop('checked', false);
+							$('#trafficChk').prop('checked', true);
 							break;
 						case 'sc' :
-							$('#ferrySchedulesChk').prop('checked', false);
+							$('#ferrySchedulesChk').prop('checked', true);
 							break;
 					}
 				}
+				// build/populate config table with default values
+				if(data.defaultTruckRouteMultiplier) {
+					$('#truckRouteMultiplier').val(data.defaultTruckRouteMultiplier);
+				}
+				if(data.xingCost) {
+					var xingCosts = data.xingCost.split(",");
+					$('#yieldCost').val(xingCosts[0]);
+					$('#signCost').val(xingCosts[1]);
+					$('#lightCost').val(xingCosts[2]);
+					$('#multiplier').val(xingCosts[3]);
+				}
+				if(data.turnCost) {
+					var turnCosts = data.turnCost.split(",");
+					$('#leftTurnCost').val(turnCosts[0]);
+					$('#rightTurnCost').val(turnCosts[1]);
+					$('#leftTruckTurnCost').val(turnCosts[2]);
+					$('#rightTruckTurnCost').val(turnCosts[3]);
+				}
+				if(data.globalDistortionField) {
+					$tbody = $("#gdfTable > tbody");
+					$tbody.empty();
+					const keys = Object.keys(data.globalDistortionField);
+					for (const key of keys) {
+						if(key.endsWith(".truck")) continue;
+						var value = data.globalDistortionField[key];
+						var truckValue = data.globalDistortionField[key + ".truck"];
+						$tbody.append("<tr><td>" + key + "</td>"
+							  + "<td><input id=\"" + key + "\" class=\"routeOnChange gdf\" value=\"" + value
+										+ "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td>"
+								+ "<td><input id=\"" + key + ".truck\" class=\"routeOnChange gdf\" value=\"" + truckValue
+								    + "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td></tr>");
+					}
+				}
+				updateConfigString();
 			},
 			error: function(request) {
 				// alert(baseErrorMsg + "Error retrieving default config from server.");
@@ -2229,7 +2480,7 @@
 			}
 		});
 
-		$('.tagit-new > input').attr('placeholder', 'Enter tags');
+		$('.tagit-new > input').prop('placeholder', 'Enter tags');
 
 		// Find nearby Occupants by Tag event handler
 		$('#findOccsByTag').on("click", function() {
@@ -2487,7 +2738,7 @@
 				$('#tabWrapper').animate({
 					left: -425
 				}, 425, "swing", function() {
-					$('#hideButton').attr('title', 'Expand side panel');
+					$('#hideButton').prop('title', 'Expand side panel');
 					$('#hideButton span').removeClass('glyphicon-chevron-left');
 					$('#hideButton span').addClass('glyphicon-chevron-right');
 					tabs = false;
@@ -2497,7 +2748,7 @@
 				$('#tabWrapper').animate({
 					left: 0
 				}, 425, "swing", function() {
-					$('#hideButton').attr('title', 'Collapse side panel');
+					$('#hideButton').prop('title', 'Collapse side panel');
 					$('#hideButton span').removeClass('glyphicon-chevron-right');
 					$('#hideButton span').addClass('glyphicon-chevron-left');
 					tabs = true;
@@ -2604,6 +2855,29 @@
 				+ '00' + (tzOffset < 0 ? '-' : '+')
 				+ Math.abs(tzOffset / 60).toString().padStart(2, '0') + ':'
 				+ (tzOffset % 60).toString().padStart(2, '0');
+		}
+
+		function buildXingCostString() {
+			return $('#yieldCost').val() + ","
+					+ $('#signCost').val() + ","
+					+ $('#lightCost').val() + ","
+					+ $('#multiplier').val();
+		}
+
+		function buildGdfString() {
+			var s = "";
+			$('input.gdf').each( function() {
+				s += $(this).prop('id') + ":" + $(this).val() + ",";
+			});
+			return s;
+		}
+
+		function updateConfigString() {
+			var s = "globalDistortionField=" + buildGdfString()
+					+ "&xingCost=" + buildXingCostString()
+					+ "&turnCost=" + $('#leftTurnCost').val() + "," + $('#rightTurnCost').val() + ","
+					+ $('#leftTruckTurnCost').val() + "," + $('#rightTruckTurnCost').val();
+			$('#configString').val(s);
 		}
 
 		if(queryParams['q']) {
