@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>DataBC Location Services in Action</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+</head>
+<body>
+<div id="map" style="width: 600px; height: 400px;"></div>
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script>
+	// API URLs
+	var gcApi = "https://apps.gov.bc.ca/pub/geocoder/";
+	var routeApi = "https://router.api.gov.bc.ca/";
+	if( window.location.search.search(/(\?|&)test\=true/) != -1) {
+		gcApi = "https://delivery.apps.gov.bc.ca/pub/geocoder/";
+		routeApi = "https://routerdlv.api.gov.bc.ca/";
+	} else if( window.location.search.search(/(\?|&)test\=local/) != -1) {
+		gcApi = "http://localhost:8080/pub/geocoder/";
+		routeApi = "https://localhost:8080/router/";
+	}
+
+	// Leaflet Map setup
+	var map = L.map('map', {
+		minZoom: 5
+	}).setView([48.44, -123.43], 12);
+
+	var mapboxStreetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		id: 'mapbox.streets'
+	});
+	mapboxStreetsLayer.addTo(map);
+
+	var clickMarker = null;
+	var streetMarker = null;
+	map.on('click', function(e) {
+		if(clickMarker != null) {
+			map.removeLayer(clickMarker);
+		}
+		if(streetMarker != null) {
+			map.removeLayer(streetMarker);
+		}
+		clickMarker = L.marker(e.latlng);
+		clickMarker.addTo(map);
+		var params = {point: e.latlng.lng + "," + e.latlng.lat};
+		$.ajax({
+			url: gcApi + "blocks/nearestPoint.json",
+			data: params,
+			success: function(data) {
+				streetMarker = L.geoJson(data).addTo(map);
+			},
+			error: function(stuff) {
+				console.log(stuff);
+			}
+		});
+	});
+
+</script>
+
+</body>
+</html>
