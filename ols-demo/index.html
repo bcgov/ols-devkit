@@ -354,7 +354,7 @@
 					</li -->
 				</ul>
 				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="tabs-1"><form autocomplete="off">
+					<div role="tabpanel" class="tab-pane active" id="tabs-1" autocomplete="off">
 						<div class="input-group">
 							<input type="text" class="form-control input-field" id="geocodeField" placeholder="Enter civic or intersection address"/>
 							<div class="input-group-btn">
@@ -372,8 +372,8 @@
 								</button>
 							</div>
 						</div>
-					</form></div>
-					<div role="tabpanel" class="tab-pane" id="tabs-2"><form autocomplete="off">
+					</div>
+					<div role="tabpanel" class="tab-pane" id="tabs-2" autocomplete="off">
 						<div id="routerWrapper">
 							<div id="routerList">
 								<div class="form-group">
@@ -493,7 +493,7 @@
 							<div id="directionsHeader"></div>
 							<div id="directions"></div>
 						</div>
-					</form></div>
+					</div>
 					<div role="tabpanel" class="tab-pane" id="tabs-3">
 						<div class="input-group">
 							<ul id="tags"></ul>
@@ -508,7 +508,7 @@
 						</div>
 						Example: First Nations <span style="font-size: 1.2em;">&crarr;</span>
 					</div>
-					<div role="tabpanel" class="tab-pane" id="tabs-4"><form autocomplete="off">
+					<div role="tabpanel" class="tab-pane" id="tabs-4" autocomplete="off">
 						<div class="input-group">
 							<input type="text" class="form-control input-field" id="nameField" placeholder="Enter name of public place or business" />
 							<div class="input-group-btn">
@@ -520,7 +520,7 @@
 								</button>
 							</div>
 						</div>
-					</form></div>
+					</div>
 					<div role="tabpanel" class="tab-pane" id="tabs-5">
 						<div class="form-group input-group">
 							<input type="text" class="form-control input-field" id="isoGeocodeField" placeholder="Enter civic or intersection address" />
@@ -579,9 +579,9 @@
 			  <tbody>
   				<tr>
 	  				<th>Crossing Cost</th>
-		  			<td><input id="yieldCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
-			  		<td><input id="signCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
-				  	<td><input id="lightCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+		  			<td><input id="yieldCost" class="routeOnChange" required type="number" min="0" max="100" step="any"></td>
+			  		<td><input id="signCost" class="routeOnChange" required type="number" min="0" max="100" step="any"></td>
+				  	<td><input id="lightCost" class="routeOnChange" required type="number" min="0" max="100" step="any"></td>
 					  <td><input id="multiplier" class="routeOnChange" required type="number" min="1" max="10" step="any"></td>
   				</tr>
 	  		</tbody>
@@ -595,10 +595,10 @@
 			  <tbody>
   				<tr>
 	  				<th>Turn Cost</th>
-		  			<td><input id="leftTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
-			  		<td><input id="rightTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
-				  	<td><input id="leftTruckTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
-					  <td><input id="rightTruckTurnCost" class="routeOnChange" required type="number" min="0.1" max="100" step="any"></td>
+		  			<td><input id="leftTurnCost" class="routeOnChange" required type="number" min="0" max="100" step="any"></td>
+			  		<td><input id="rightTurnCost" class="routeOnChange" required type="number" min="0" max="100" step="any"></td>
+				  	<td><input id="leftTruckTurnCost" class="routeOnChange" required type="number" min="0" max="100" step="any"></td>
+					  <td><input id="rightTruckTurnCost" class="routeOnChange" required type="number" min="0" max="100" step="any"></td>
   				</tr>
 	  		</tbody>
 		  </table>
@@ -744,6 +744,7 @@
 			maxZoom: 20,
 			zoomControl: false
 		}).setView([48.44, -123.43], 12);
+		L.control.scale({position:'bottomright'}).addTo(map);
 		new L.HistoryControl({
 			position: 'bottomright',
     		backImage: 'glyphicon glyphicon-triangle-left',
@@ -2100,10 +2101,11 @@
 
 		// pick random location button
 		$('#routerList').on('click', 'button.random', function() {
-			clearRoute();
-			randomAddress($(this).parents('div.form-group').find('input.input-field'), 'accessPoint', function(data, $field) {
-				receiveRouteGeocode(data, $field, false);
-			}, $('#timing'));
+			alert('Random disabled temporarily');
+			// clearRoute();
+			// randomAddress($(this).parents('div.form-group').find('input.input-field'), 'accessPoint', function(data, $field) {
+			// 	receiveRouteGeocode(data, $field, false);
+			// }, $('#timing'));
 		});
 
 		// open in gmaps button
