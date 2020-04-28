@@ -19,8 +19,8 @@ Instructions:
                              ('matrix' not yet available)
 Assumptions:
 - The location names are stored in fields spelled 'Location1' and 'Location2'.
-- The coordinates are stored in separate fields spelled 'Latitude1','Longitude1',
-  'Latitude2','Longitude2'. All other fields are ignored.
+- The coordinates are stored in separate fields spelled 'Latitude1',
+  'Longitude1','Latitude2','Longitude2'. All other fields are ignored.
 '''
 # -------------------------------------------------------------------
 # -------------------------------------------------------------------
@@ -99,9 +99,10 @@ pairsDict = dict()
 
 # FUNCTIONS
 
+
 def parse_response(data_response):
     # Parse the response from the BC Route Planner (betweenPairs)
-    #print("parsing response from the BC Route Planner")
+    # print("parsing response from the BC Route Planner")
     try:
         FRM = data_response['fromPoints']
         FRM = str(FRM).replace("[[", "").replace("]]", "").\
@@ -134,7 +135,7 @@ def parse_pairs(allPairs, rows, CRT, idx):
     toTemp = ""
     distTemp = ""
     loopCount = 0
-    for  i in range(0, len(allPairs)):
+    for i in range(0, len(allPairs)):
         if i != idx:
             distTemp = allPairs[i]['distance']
             toTemp = allPairs[i]['to']
@@ -249,14 +250,13 @@ for fromKey in locationName_1:
     index = index + 1
 
     if mode == 'matrix':
-    # Create a distance matrix file
         with open(outputMatrixFile, 'a') as b:
             if loopCounter1 == 0:
                 # write the field headings
                 # b.write("" + "," + locationName)
                 wr = csv.writer(b)
                 wr.writerow(locationName_1)
-                #b.write("" + "," + str(nameDict.values()).strip("[]")
+                # b.write("" + "," + str(nameDict.values()).strip("[]")
                 #        .replace("'", "") + "\n")
             # write the row contents
             b.write(ctName + "," + str(pairsDict.values()).strip("[]").
