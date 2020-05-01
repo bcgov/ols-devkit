@@ -354,7 +354,7 @@
 					</li -->
 				</ul>
 				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="tabs-1" autocomplete="off">
+					<div role="tabpanel" class="tab-pane active" id="tabs-1"><form autocomplete="off">
 						<div class="input-group">
 							<input type="text" class="form-control input-field" id="geocodeField" placeholder="Enter civic or intersection address"/>
 							<div class="input-group-btn">
@@ -372,8 +372,8 @@
 								</button>
 							</div>
 						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane" id="tabs-2" autocomplete="off">
+					</form></div>
+					<div role="tabpanel" class="tab-pane" id="tabs-2">
 						<div id="routerWrapper">
 							<div id="routerList">
 								<div class="form-group">
@@ -383,7 +383,7 @@
 												<span class="glyphicon glyphicon-sort" aria-label="Drag to Re-order"></span>
 											</button>
 										</div>
-										<input type="text" class="form-control input-field" placeholder="Address" />
+										<form autocomplete="off"><input type="text" class="form-control input-field" placeholder="Address" autocomplete="off"/></form>
 										<div class="input-group-btn">
 											<button class="btn btn-default random" type="button" title="Jump at Random">
 												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
@@ -407,7 +407,7 @@
 												<span class="glyphicon glyphicon-sort" aria-label="Drag to Re-order"></span>
 											</button>
 										</div>
-										<input type="text" class="form-control input-field" placeholder="Address" />
+										<form autocomplete="off"><input type="text" class="form-control input-field" placeholder="Address" /></form>
 										<div class="input-group-btn">
 											<button class="btn btn-default random" type="button" title="Jump at Random">
 												<span class="glyphicon glyphicon-asterisk" aria-label="Random"></span>
@@ -493,7 +493,7 @@
 							<div id="directionsHeader"></div>
 							<div id="directions"></div>
 						</div>
-					</div>
+					<form autocomplete="off"></div>
 					<div role="tabpanel" class="tab-pane" id="tabs-3">
 						<div class="input-group">
 							<ul id="tags"></ul>
@@ -2101,11 +2101,10 @@
 
 		// pick random location button
 		$('#routerList').on('click', 'button.random', function() {
-			alert('Random disabled temporarily');
-			// clearRoute();
-			// randomAddress($(this).parents('div.form-group').find('input.input-field'), 'accessPoint', function(data, $field) {
-			// 	receiveRouteGeocode(data, $field, false);
-			// }, $('#timing'));
+			clearRoute();
+			randomAddress($(this).parents('div.form-group').find('input.input-field'), 'accessPoint', function(data, $field) {
+				receiveRouteGeocode(data, $field, false);
+			}, $('#timing'));
 		});
 
 		// open in gmaps button
