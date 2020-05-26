@@ -16,7 +16,6 @@ Instructions:
                     <filepath to the csv input file>
                     <criteria> - written as 'shortest' or 'fastest'
                     <mode> - written as 'table'
-                             ('matrix' not yet available)
 Assumptions:
 - The location names are stored in fields spelled 'Location1' and 'Location2'.
 - The coordinates are stored in separate fields spelled 'Latitude1',
@@ -60,9 +59,6 @@ inputFile = sys.argv[2]
 # or  inputFile = r"H:\....\CSV_input_filename.csv"
 
 # The location and filename for the output of this script.
-outputMatrixFile = r"H:\.....\matrixTable_"\
-             + datetime.datetime.now().strftime("%Y%m%d-%H%M%S") + ".csv"
-
 outputReportFile = r"H:\.....\reportTable_"\
              + datetime.datetime.now().strftime("%Y%m%d-%H%M%S") + ".csv"
 
@@ -72,7 +68,6 @@ criteria = sys.argv[3]
 # or criteria = "shortest"
 
 # Mode controls which type of report is output from the script.
-# Allowed values are 'table' ('matrix' not yet available)
 mode = sys.argv[4]
 # or mode = "table"
 
@@ -237,31 +232,13 @@ for fromKey in locationName_1:
     # Call function to parse the test RP response
     fromPT, toPTS, pairs = parse_response(data)
     toPoint = ""
-    if mode == 'matrix':
-        index = locationName_1.index(ctName)
-        pairsDict = parse_pairs(pairs, rows, ctName, index)
-    elif mode == 'table':
+    if mode == 'table':
         index = rows + 1000
         pairsDict = parse_pairs(pairs, rows, ctName, index)
     # Find the position number of the current location name in the
-    # list of all location names. Use this to insert a zero value
-    # to create a roadmap style distance matrix.
+    # list of all location names. 
     index = locationName_1.index(ctName)
     index = index + 1
-
-    if mode == 'matrix':
-        with open(outputMatrixFile, 'a') as b:
-            if loopCounter1 == 0:
-                # write the field headings
-                # b.write("" + "," + locationName)
-                wr = csv.writer(b)
-                wr.writerow(locationName_1)
-                # b.write("" + "," + str(nameDict.values()).strip("[]")
-                #        .replace("'", "") + "\n")
-            # write the row contents
-            b.write(ctName + "," + str(pairsDict.values()).strip("[]").
-                    replace("u", "").replace("'", "") + "\n")
-        loopCounter1 += 1
 
     if mode == 'table':
         # Create a tabular report file
