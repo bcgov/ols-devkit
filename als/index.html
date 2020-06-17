@@ -35,9 +35,9 @@ from requests.auth import HTTPDigestAuth
 
 # Uncomment the appropriate SERVICE_URL for the target environment
 # Delivery
-SERVICE_URL = 'http://delivery.apps.gov.bc.ca/pub/cpf/ws/'
+#SERVICE_URL = 'http://delivery.apps.gov.bc.ca/pub/cpf/ws/'
 # Test
-#SERVICE_URL = 'http://test.apps.gov.bc.ca/pub/cpf/ws/'
+SERVICE_URL = 'http://test.apps.gov.bc.ca/pub/cpf/ws/'
 # Production
 #SERVICE_URL = 'http://apps.gov.bc.ca/pub/cpf/ws/'
 
@@ -63,7 +63,7 @@ if len(sys.argv) == 6:
 # Setup parameters for job submission
 headers = {'Accept': 'application/json'}
 fields = {'inputDataContentType': 'csv',
-	'resultSrid':'3005',
+	'resultSrid':'4326',
 	'interpolation':'adaptive',
 	'locationDescriptor':'any',
 	'resultDataContentType':'csv', 
