@@ -5,7 +5,7 @@ This branch of the ols-devkit repo is the home of Location Services web applicat
 The entire contents of this branch are released under the Apache 2.0 License.
 
 |Name|Type|Description|Audience
-|----|----|----|----|
+|----|:----:|----|----|
 [Location Services In Action](https://ols-demo.apps.gov.bc.ca/index.html)|Web app|Demonstrates how to hook up the geocoder and route planner to a Javascript/Leaflet web app|Web app developers, Location Services engagement staff, end users|
 [Address List Editor](https://bcgov.github.io/ols-devkit/ale/)|Web app|Allows anyone to clean and geocode a list of up to 1,000 addresses|End users
 [Batch List Address Submitter](https://bcgov.github.io/ols-devkit/als/)|Web page containing Python script|Python Script submits an address list to the Batch Geocoder plugin running in the Concurrent Processing Framework and retrieves the results| Workflow automation developers|
