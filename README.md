@@ -4,7 +4,7 @@ This branch is the home of Location Services demo applications and Python script
 
 |Name|Type|Description|Audience|URL
 |----|----|----|----|----|
-Location Services In Action|Web app|Demonstrates how to hook up the geocoder and route planner to a Javascript/Leaflet web app|developers and Location Services engagement staff|
+Location Services In Action|Web app|Demonstrates how to hook up the geocoder and route planner to a Javascript/Leaflet web app|developers,Location Services engagement staff, end users|
 Address List Editor|Web app|Allows anyone (gov or public) to correct and clean a list of up to 1,000 addresses|end users|
 
 
