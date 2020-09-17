@@ -10,5 +10,5 @@ The entire contents of this branch are released under the Apache 2.0 License.
 [Address List Editor](https://bcgov.github.io/ols-devkit/ale/)|Web app|Allows anyone to clean and geocode a list of up to 1,000 addresses|End users
 [Batch List Address Submitter](https://bcgov.github.io/ols-devkit/als/)|Web page containing Python script|Python Script submits an address list to the Batch Geocoder plugin running in the Concurrent Processing Framework and retrieves the results| Workflow automation developers|
 [Address autocompletion demo app](https://bcgov.github.io/ols-devkit/examples/address_autocomplete.html)|Web app|Demonstrates how to integrate the geocoder's autocompletion capability into a web app; uses javascript and leaftlet|Web app developers
-[Distance Between Pairs](https://github.com/bcgov/ols-devkit/tree/gh-pages/bps)|Directory containing Python script and sample input files| Computes distances by road between a list of source points and a list of destination points|Workflow automation developers|
+[Distance Between Pairs](https://github.com/bcgov/ols-devkit/tree/gh-pages/bps)|Directory containing Python script and sample input files| Script computes distances by road between a list of source points and a list of destination points|Workflow automation developers|
 
