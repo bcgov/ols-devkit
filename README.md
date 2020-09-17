@@ -1,6 +1,6 @@
 ## Location Services Developer Toolkit
 
-This branch is the home of Location Services demo applications and Python scripts. The applications are aimed primarily at developers to see how our geocoder and route planner can be integrated into web applications. Applications can also be used by end users directly or in demos to end users to explain what our services actually do. The Python scripts are solely aimed at developers.
+This branch is the home of Location Services web applications and Python scripts. The applications are aimed primarily at developers to see how our geocoder and route planner can be integrated into web applications. Applications can also be used by end users directly or in demos to end users to explain what our services actually do. The Python scripts are solely aimed at developers.
 
 The entire contents of this branch are released under the Apache 2.0 License.
 
