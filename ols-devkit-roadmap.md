@@ -2,7 +2,7 @@
 |----|----|:----:|----|----|
 |2021|Address List Editor|Ally|Add support for autocompletion|Anyone that needs a list of up to one thousand addresses cleaned and geocoded
 ||Route List Editor|Arly|Takes multiple lists of waypoints and finds the best route for each list|Transportation, logistics, health service delivery, and emergency planners; gov't travellers, commercial vehicle drivers, and emergency responders
-||Occupant List Editor|Olly|Manage a list of site occupants and their addresses|Occupant authorities
+||Occupant List Editor|Olly|Manages a list of site occupants and their addresses|Occupant authorities
 ||Proximity List Editor|Polly|Takes a list of sources and a list of destinations and computes the nearest destination by road to each source|facility licensing and siting analysts; and policy analysts
 ||Site List Editor|Sally|Manage a list of non-civic addresses and complexes (e.g., hospitals, universities)|Site authorities
 |2022|Fleet Route Editor|Fary|Takes a list of vehicles and their starting locations, and a list of delivery locations and determines delivery routes for each vehicle that are globally optimal|Logistics, health service delivery, and emergency planners
