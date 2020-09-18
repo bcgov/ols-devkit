@@ -5,4 +5,4 @@
 ||Occupant List Editor|Olly|Manages a list of site occupants and their addresses|Occupant authorities
 ||Proximity List Editor|Polly|Takes a list of source addresses and a list of destination addresses and computes the nearest destination by road to each source|Service provider licensing analysts, facility siting analysts, and policy analysts
 ||Site List Editor|Sally|Manage a list of non-civic addresses and complexes (e.g., hospitals, universities)|Site authorities
-|2022|Fleet Route Editor|Fary|Takes a list of vehicles and their starting locations, and a list of delivery locations and determines delivery routes for each vehicle that are globally optimal|Logistics, health service delivery, and emergency planners
+|2022|Fleet Route Editor|Fary|Takes a list of vehicles and their starting locations, and a list of delivery locations and determines delivery routes for each vehicle that minimize total travel time|Logistics, health service delivery, and emergency planners
