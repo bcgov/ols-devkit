@@ -1,5 +1,5 @@
 |Date|Application|Nickname|Description|Audience|
-|----|----|:----:|----|----|
+|:----:|----|:----:|----|----|
 |2021|Address List Editor|Ally|Add support for autocompletion|Anyone that needs a list of up to one thousand addresses cleaned and geocoded
 |?|Route List Editor|Arly|Takes multiple lists of waypoints and finds the best route for each list|Transportation, logistics, health service delivery, and emergency planners; gov't travellers, commercial vehicle drivers, and emergency responders
 ||Address Exchange List Editor|Axly|Manage a list of addresses in [BC Address Exchange Schema](https://github.com/bcgov/ols-geocoder/blob/gh-pages/BCAddressExchangeSchema.md). Both civic and non-civic addresses are supported with an emphasis on making apartment buildings and complexes (e.g., hospitals, universities) easy to define.|Address authorities that want to provide their addresses to other agencies such as the CRTC for use in NextGen911 or the Province of BC for use in the BC Address Geocoder
