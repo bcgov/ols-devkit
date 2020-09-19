@@ -12,4 +12,4 @@ The [gh-pages branch](https://github.com/bcgov/ols-devkit/tree/gh-pages) of this
 [Address Autocompletion Demo](https://bcgov.github.io/ols-devkit/examples/address_autocomplete.html)|Web app|Demonstrates how to integrate the geocoder's autocompletion capability into a web app; uses javascript and leaftlet|Web app developers
 [Distance Between Pairs](https://github.com/bcgov/ols-devkit/tree/gh-pages/bps)|Directory containing Python script and sample input files| Script computes distances by road between a list of source points and a list of destination points|Workflow automation developers|
 
-Have a look at the OLS Developer Toolkit Roadmap
+Have a look at the [OLS Developer Toolkit Roadmap](https://github.com/bcgov/ols-devkit/blob/gh-pages/ols-devkit-roadmap.md)
