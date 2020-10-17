@@ -1,0 +1,70 @@
+addressString,roadGeometry,roadName
+"3242 Hwy 23, Nakusp, BC",usable (offset),great
+"621 Beech Rd, Nakusp, BC",great,great
+"391 Crescent Bay Rd, Nakusp, BC",great,great
+"595 Saddle Mountain Rd, Arrow Park, BC",good,poor (no label)
+"1385 E Hwy 6, Nakusp, BC",great,usable(missing E)
+"2745 Hwy 23, Nakusp, BC",good,great
+"862 Alexander Rd, Nakusp, BC",usable (offset),great
+"243 Island View Rd, Nakusp, BC",great,great
+"2203 Allshouse Rd, Nakusp, BC",great,great
+"4010 Spring Creek Ave, Terrace, BC",good,great
+"25049 Hwy 16 W, Smithers, BC",great,usable (missing W)
+"23891 Taman Creek Rd, Rose Lake, BC",great,great
+"760 Campbell Rd, Hazelton Rural, BC",usable (some offset),great
+"5414 Morris Rd, Telkwa, BC",great,great
+"50033 Owen Lake Rd, Noralee, BC",great,poor (Owen E Forset Service Rd)
+"17512 Hutter Rd, Palling, BC",great,great
+"79A Abbey Rd, Rosswood, BC",great,great
+"3128A Ziegler Rd, Thornhill, BC",great,great
+"8587 Sunset Lake Rd, Houston, BC",great,great
+"960 Chew Rd, Quesnel, BC",great,great
+"371 Thompson Rd, Quesnel, BC",usable (offset at corners),great
+"2495 Gook Rd, Quesnel, BC",great,great
+"2181 Golden Pond Rd, Quesnel, BC",great,great
+"401 Willow St, Quesnel, BC",great,great
+"955 Broughton Ave, Quesnel, BC",great,great
+"75 North Star Rd, Quesnel, BC",great,great
+"1251 Plywood Rd, Quesnel, BC",great,great
+"544 Maple Dr, Quesnel, BC",great,great
+"692 Westland Close, Quesnel, BC",usable (offset),great
+"1302 Maple Dr, Quesnel, BC",great,great
+"1311 Borregard Rd, Quesnel, BC",usable (offset),great
+"3593 Hwy 97 S, Chetwynd, BC",usable (offset),usable (missing S)
+"4701 Airport Rd SE, Chetwynd, BC",great,great
+"3441 Campbell Way, Chetwynd, BC",great,great
+"3598 West Fraser Rd, Chetwynd, BC",usable (offset),great
+"4701 Hwy 29 N, Chetwynd, BC",usable (offset),usable( missing N)
+"4503 46 Dr NE, Chetwynd, BC",great,great
+"4801 42A St NE, Chetwynd, BC",great,great
+"3458 Hwy 97 S, Chetwynd, BC",great,usable (missing S)
+"5000 50 Ave NW, Chetwynd, BC",great,usable (50th Ave instead of 50 Ave)
+"3593 Hwy 97 S, Chetwynd, BC",usable (offset),usable (missing S)
+"1106 Downie St, Revelstoke, BC",great,great
+"795 Cedar St, Revelstoke, BC",usable (short),great
+"800 Trans-Canada Hwy E, Revelstoke, BC",great,great
+"1916 Forest Dr, Revelstoke, BC",usable (offset),great
+"1082 Cashato Cres, Revelstoke, BC",usable (offset),great
+"354 Leoffler Rd, Canyon Hot Springs, BC",great,great
+"2457 KOA Rd, Revelstoke, BC",usable (offset),great
+"108 7th St W, Revelstoke, BC",usable (offset),great
+"1456 Hwy 23 S, Revelstoke, BC",usable (offset),usable (missing S)
+"306 Downie St, Revelstoke, BC",usable (offset),great
+"1750 Mill St, Revelstoke, BC",usable (offset),great
+"218 Dyke Rd, Surrey, BC",great,great
+"17897 Triggs Rd, Surrey, BC",usable (corner offset),great
+"2591 Pitt River Rd, Port Coquitlam, BC",usable (ITN missing divided road),great
+"415 Westview St, Coquitlam, BC",usable (offset),great
+"1647 Broadway St, Port Coquitlam, BC",usable (offset),great
+"9900 140 St, Surrey, BC",great (ITN road may need dividing),great
+"17960 Fraser Dyke Rd, Pitt Meadows, BC",great,great
+"531 Westside Rd, West Kelowna, BC",great,great
+"1098 Richter St, Kelowna, BC",great,great
+"487 Fitzpatrick Rd, Kelowna, BC",usable (offset),great
+"415 Casa Rio Dr, West Kelowna, BC",good (offset in one corner),great
+"271 Snowsell St, Kelowna, BC",usable (offset),great
+"2341 Campbell Rd, West Kelowna, BC",great (ITN has small offset),great
+"998 Manhattan Dr, Kelowna, BC",poor(major offset),great
+"1040 Sussex Rd, West Kelowna, BC",great(ITN is offset),great
+"1725 Rampone Rd, Kelowna, BC",great (ITN has small offset),great
+"1260 Raymer Ave, Kelowna, BC",great,great
