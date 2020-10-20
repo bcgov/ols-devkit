@@ -94,4 +94,8 @@ addressString,roadGeometry,roadName
 "2110 Rowland St, Port Coquitlam, BC",great,great
 "1912 Humber Cres, Port Coquitlam, BC",great,good (Cr instead of Cres)
 "859 Village Dr, Port Coquitlam, BC",usable (offset),great
-
+"1411 Grenfell Pl, Valemount, BC",great,great
+"857 Hillside Dr, Valemount Rural, BC",great,great
+"325 Hwy 5 N, Valemount Rural, BC",great,good (missing N)
+"101 Dogwood St, Valemount, BC",great,great
+"1250 17th Ave, Valemount, BC",great,great
