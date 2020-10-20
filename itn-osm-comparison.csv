@@ -86,6 +86,12 @@ addressString,roadGeometry,roadName
 "1309 Chatsworth Rd, Qualicum Beach, BC",great (ITN offset),great
 "1272 Pratt Rd, Qualicum Beach, BC",great (ITN offset),great
 "901 Epron Rd, Qualicum Beach, BC",usable (offset),great
-
-
+"2418 Avon Pl, Port Coquitlam, BC",great,poor (no label)
+"2310 Ranger Lane, Port Coquitlam, BC",good,great
+"1466 Mary Hill Lane, Port Coquitlam, BC",great,great
+"2965 Wagon Wheel Cir, Coquitlam, BC",great (ITN offset),great
+"2705 Davies Ave, Port Coquitlam, BC",great,great
+"2110 Rowland St, Port Coquitlam, BC",great,great
+"1912 Humber Cres, Port Coquitlam, BC",great,good (Cr instead of Cres)
+"859 Village Dr, Port Coquitlam, BC",usable (offset),great
 
