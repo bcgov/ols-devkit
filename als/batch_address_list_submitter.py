@@ -5,13 +5,13 @@
 # Notice: TLS 1.1 was enabled on October 12th, 2017. You may need to update
 # your python libraries (version 2.7.6) to run this script.
 
+import csv
+import json
+import re
+import requests
+from requests.auth import HTTPDigestAuth
 import sys
 import time
-import requests
-import re
-import json
-import csv
-from requests.auth import HTTPDigestAuth
 
 # Uncomment the appropriate SERVICE_URL for the target environment
 
