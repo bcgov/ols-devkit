@@ -387,7 +387,7 @@ outputFHS.close()
 
 output.write("\n")
 
-addressMatchAccuracy = "{:.0%}".format(float(bin10)/float(rowCount))
+addressMatchAccuracy = "{:.2%}".format(float(bin10)/float(rowCount))
 
 output.write("## Summary Stats\n")
 output.write("|Measure|Count\n")
