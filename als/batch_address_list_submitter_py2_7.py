@@ -3,7 +3,7 @@
 # The following Python code is an example of how to use the CPF's web API
 # to submit a batch of addresses to geocode.
 # Notice: TLS 1.1 was enabled on October 12th, 2017. You may need to update
-# your python libraries (version 2.7+) to run this script.
+# your python libraries (version 2.7) to run this script.
 
 import csv
 import json
