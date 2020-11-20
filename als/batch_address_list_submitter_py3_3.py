@@ -3,7 +3,7 @@
 # The following Python code is an example of how to use the CPF's web API
 # to submit a batch of addresses to geocode.
 # Notice: TLS 1.1 was enabled on October 12th, 2017. You may need to update
-# your python libraries (version 2.7) to run this script.
+# your python libraries (version 3.3) to run this script.
 
 import csv
 import json
@@ -28,7 +28,7 @@ def log(msg):
 # Get parameters from the command-line
 if len(sys.argv) < 5 or len(sys.argv) > 6:
 	print(('Usage: <python> address_list_submitter.py ' +
-		  '<url|file> <local file> <username> <password> [<e-mail>]'))
+		   '<url|file> <local file> <username> <password> [<e-mail>]'))
 	sys.exit(0)
 
 # Alternatively you can hard-code the parameters below
