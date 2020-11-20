@@ -3,7 +3,7 @@
 # The following Python code is an example of how to use the CPF's web API
 # to submit a batch of addresses to geocode.
 # Notice: TLS 1.1 was enabled on October 12th, 2017. You may need to update
-# your python libraries (version 3.3) to run this script.
+# your python libraries (version 2.7) to run this script.
 
 import csv
 import json
@@ -22,13 +22,13 @@ SERVICE_URL = 'http://apps.gov.bc.ca/pub/cpf/ws/'
 
 
 def log(msg):
-	print(time.strftime("%Y/%m/%d|%H:%M:%S|") + msg)
+	print((time.strftime("%Y/%m/%d|%H:%M:%S|") + msg))
 
 
 # Get parameters from the command-line
 if len(sys.argv) < 5 or len(sys.argv) > 6:
-	print('Usage: <python> address_list_submitter.py ' +
-		  '<url|file> <local file> <username> <password> [<e-mail>]')
+	print(('Usage: <python> address_list_submitter.py ' +
+		  '<url|file> <local file> <username> <password> [<e-mail>]'))
 	sys.exit(0)
 
 # Alternatively you can hard-code the parameters below
@@ -76,7 +76,7 @@ if m:
 	jobId = m.group(1)
 else:
 	jobStatus = json.loads(r1.text)
-	jobId = jobStatus[u'id']
+	jobId = jobStatus['id']
 	m = re.search('\/jobs\/(\d+)\/', jobId)
 	jobId = m.group(1)
 
@@ -92,14 +92,14 @@ while True:
 	r2 = requests.get(url, headers=headers,
 					  auth=HTTPDigestAuth(username, password))
 	jobStatus = json.loads(r2.text)
-	if jobStatus[u'jobStatus'] == 'resultsCreated':
+	if jobStatus['jobStatus'] == 'resultsCreated':
 		break
 	else:
 		if time.process_time() - startTime > MAX_WAIT_TIME:
 			log("Maximum wait time (" + str(MAX_WAIT_TIME) + "s) exceeded")
 			exit()
 
-		waitSecs = float(jobStatus[u'secondsToWaitForStatusCheck'])
+		waitSecs = float(jobStatus['secondsToWaitForStatusCheck'])
 		if waitSecs is None or waitSecs < 1:
 			waitSecs = 1
 		if time.process_time() - startTime + waitSecs > MAX_WAIT_TIME:
@@ -117,7 +117,7 @@ r3 = requests.get(url, headers=headers,
 resultStatus = json.loads(r3.text)
 
 try:
-	resultUrl = resultStatus[u'resources'][0][u'resourceUri']
+	resultUrl = resultStatus['resources'][0]['resourceUri']
 except KeyError:
 	print('Geocoding failed on input file.')
 	sys.exit(0)
