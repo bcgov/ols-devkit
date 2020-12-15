@@ -117,6 +117,9 @@
 			padding-left: 6px;
 			padding-right: 6px;
 		}
+		.glyphicon {
+			font-size: 16px;
+		}
 		.form-group {
     		margin-bottom: 5px;
 		}
@@ -367,12 +370,31 @@
 								<button id="gmapsBtn" class="btn btn-default" type="button" title="View in Google Maps">
 									<span class="glyphicon glyphicon-globe" aria-label="View in Google Maps"></span>
 								</button>
+								<button id="listBtn" class="btn btn-default" type="button" title="View As List">
+									<span class="glyphicon glyphicon-list" aria-label="View As List"></span>
+								</button>
 								<button id="addressClear" class="btn btn-default input-clear" type="button" title="Clear">
 									<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
 								</button>
 							</div>
 						</div>
-					</form></div>
+					  </form>
+						<div>
+							<h4>Examples:</h4>
+							<ul>
+     						<li>1175 Douglas St Victoria BC</li>
+     						<li>201A 1175 Douglas St Victoria BC</li>
+     						<li>Victoria BC</li>
+     						<li>Douglas St and Yates St Victoria BC</li>
+     						<li>Delta Port Entrance -- Roberts Bank Rd Delta BC</li>
+     						<li>Delta Creek Bridge --  Terrace BC</li>
+     						<li>Boston Bar 8 -- Boston Bar BC</li>
+     						<li>Brentwood Bay -- Central Saanich BC</li>
+     						<li>Fairfield -- Victoria BC</li>
+     						<li>Hwy 1 and Exit 366</li>
+							</ul>
+	 				</div>
+				  </div>
 					<div role="tabpanel" class="tab-pane" id="tabs-2">
 						<div id="routerWrapper">
 							<div id="routerList">
@@ -736,6 +758,11 @@
 			if(!isNaN(num)) {
 				xmdx = num;
 			}
+		}
+
+		var matchPrecisionNot = "";
+		if('noStreets' in queryParams) {
+			matchPrecisionNot = "street";
 		}
 
 		// Leaflet Map setup
@@ -1534,7 +1561,7 @@
 					str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
 					for(var i = 0, len = props.faults.length; i < len; i++) {
 						var f = props.faults[i];
-						str += '<tr><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+						str += '<tr><td>"' + f.value + '"</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
 					}
 					str += '</table></td></tr>';
 				}
@@ -1586,6 +1613,7 @@
 				echo: true,
 				brief: true,
 				autoComplete: true,
+				matchPrecisionNot: matchPrecisionNot,
 				addressString: request.term
 			};
 			$.extend(params, options);
@@ -1655,6 +1683,7 @@
 				$.ajax({
 					url: gcApi + "addresses.json",
 					data: {
+						matchPrecisionNot: matchPrecisionNot,
 						locationDescriptor: locationDescriptor,
 						echo: true,
 						brief: true,
@@ -1700,6 +1729,15 @@
 
 		$('#gmapsBtn').on("click", function() {
 			window.open('http://maps.google.com/?q=' + $('#geocodeField').val());
+		});
+
+		$('#listBtn').on("click", function() {
+			var url = gcApi + "addresses.html"
+					+	"?locationDescriptor=parcelPoint&echo=true&brief=true"
+					+ "&minScore=50&maxResults=5&autoComplete=true"
+					+ "&matchPrecisionNot=" + matchPrecisionNot
+					+ "&addressString=" + $('#geocodeField').val();
+			window.open(url);
 		});
 
 		$('#addressClear').on("click", function() {
