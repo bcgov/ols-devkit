@@ -1739,7 +1739,7 @@ $(".bc-geocoder").each( function() {
 
 	// Formulate the url to be sent to the geocoder
 	var url = (options.url) ? options.url : 
-		"https://apps.gov.bc.ca/pub/geocoder/addresses.geojsonp?ver=1.2&addressString=%QUERY";
+		"https://geocoder.api.gov.bc.ca/addresses.geojson?addressString=%QUERY";
 	$.each(options,function(key,value) { // Pass in the data bindings
 		if (key == "callback") {return true;}
 		if (key == "template") {return true;}

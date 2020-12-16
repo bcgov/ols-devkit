@@ -26,7 +26,7 @@
 
 				<div class="spacer">
 					<input type="text" class="bc-geocoder typeahead"
-						data-url="https://apps.gov.bc.ca/pub/geocoder/addresses.geojsonp?ver=1.2&addressString=%QUERY"
+						data-url="https://geocoder.api.gov.bc.ca/addresses.geojson?addressString=%QUERY"
 						data-output-S-R-S=4326 data-template="simple" data-max-Results="8"
 						data-min-Score="0" data-set-Back="0" data-echo="false"
 						data-interpolation="adaptive" data-location-Descriptor="any"
@@ -41,7 +41,7 @@
 
 				<div class="spacer">
 					<input type="text" class="bc-geocoder typeahead"
-						data-url="https://apps.gov.bc.ca/pub/geocoder/addresses.geojsonp?ver=1.2&addressString=%QUERY"
+						data-url="https://geocoder.api.gov.bc.ca/addresses.geojson?addressString=%QUERY"
 						data-output-S-R-S=3005 data-template="accuracy" data-max-Results=5
 						data-min-Score="0" data-set-Back="0" data-echo="false"
 						data-interpolation="adaptive" data-location-Descriptor="any"
@@ -61,7 +61,7 @@
 					first include the following javascript files:</p>
 				<pre>
 &lt;script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="https://apps.gov.bc.ca/pub/geocoder/js/geocoder-widget-1.0.0.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://raw.githubusercontent.com/bcgov/ols-devkit/gh-pages/widget/js/geocoder-widget-1.0.0.js"&gt;&lt;/script&gt;
 </pre>
 				<p>You may also use your own version of jquery. Note that jQuery
 					must be included first as the Geocoder-Widget extends jQuery.</p>
@@ -171,11 +171,9 @@
 					<h4>placeholder</h4>
 					<p>This specifies the "placeholder" text to display in the
 						field before a user has edited it.</p>
-				<p>
-					For more information on these geocoder parameters, see page 7 of
-					the <a
-						href="http://www.data.gov.bc.ca/local/dbc/docs/geo/services/standards-procedures/online_geocoder_rest_api.pdf">REST
-						API documentation</a>
+				<p>For more information on these geocoder parameters, see the
+					<a href="https://catalogue.data.gov.bc.ca/dataset/bc-address-geocoder-web-service/resource/40d6411e-ab98-4df9-a24e-67f81c45f6fa/view/1d3c42fc-53dc-4aab-ae3b-f4d056cb00e0">REST API
+						Console</a>
       </div>
     </div>
 <div id="cfs"></div>
