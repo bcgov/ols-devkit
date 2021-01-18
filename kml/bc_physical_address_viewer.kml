@@ -863,7 +863,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=hospitals&amp;maxResults=10&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Hospitals&amp;maxResults=10&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -1085,12 +1085,12 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Aboriginal%20Business%20Listings&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Indigenous%20Business%20Listings&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
 				</Link>
-			</NetworkLink>           
+			</NetworkLink>
  
  		</Folder>
 
@@ -1129,11 +1129,11 @@
 					</ListStyle>
 				 </Style>
 		     <Link>
-				    <href>http://apps.gov.bc.ca/pub/bcgnws/names/official/inside?itemsPerPage=100&amp;sortBy=name&amp;featureClass=1&amp;</href>
+				    <href>http://apps.gov.bc.ca/pub/bcgnws/names/official/inside?itemsPerPage=100&amp;sortBy=name&amp;featureClass=1</href>
 				    <viewRefreshMode>onStop</viewRefreshMode>
 				    <viewRefreshTime>1</viewRefreshTime>
 				    <viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;mapWidthPixels=[horizPixels]&amp;mapHeightPixels=[vertPixels]</viewFormat>
-				    <httpQuery>&amp;outputFormat=kml&amp;outputStyle=summary</httpQuery>
+				    <httpQuery>outputFormat=kml&amp;outputStyle=summary</httpQuery>
 			   </Link>
 		  </NetworkLink>
       
@@ -1162,7 +1162,7 @@
 				    <viewRefreshMode>onStop</viewRefreshMode>
 				    <viewRefreshTime>1</viewRefreshTime>
 				    <viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;mapWidthPixels=[horizPixels]&amp;mapHeightPixels=[vertPixels]</viewFormat>
-				    <httpQuery>&amp;outputFormat=kml&amp;outputStyle=summary</httpQuery>
+				    <httpQuery>outputFormat=kml&amp;outputStyle=summary</httpQuery>
 			   </Link>
 		  </NetworkLink>
       
