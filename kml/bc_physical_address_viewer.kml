@@ -66,7 +66,7 @@
       
         <body>
               
-             <form action="http://apps.gov.bc.ca/pub/geocoder/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
+             <form action="https://geocoder.api.gov.bc.ca/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
         
                  <table width="63%" border="0" cellpadding="4" cellspacing="0">
                     <input type="hidden" name="outputSRS" id="outputSRS" value="4326"></input>
@@ -165,7 +165,7 @@
       
         <body>
               
-             <form action="http://apps.gov.bc.ca/pub/geocoder/occupants/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
+             <form action="https://geocoder.api.gov.bc.ca/occupants/addresses.kml" target="geocode" method="get" id="geocode" autocomplete="on">
         
                  <table width="63%" border="0" cellpadding="4" cellspacing="0">
                     <input type="hidden" name="outputSRS" id="outputSRS" value="4326"></input>
