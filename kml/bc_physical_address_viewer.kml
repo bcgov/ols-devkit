@@ -424,7 +424,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?</href>
+					<href>https://geocoder.api.gov.bc.ca/sites/within.kml?</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]&amp;excludeUnits=true</viewFormat>
@@ -476,7 +476,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?</href>
+					<href>https://geocoder.api.gov.bc.ca/sites/within.kml?</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -511,7 +511,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=accessPoint&amp;excludeUnits=true&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/sites/within.kml?locationDescriptor=accessPoint&amp;excludeUnits=true&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -546,7 +546,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=accessPoint&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/sites/within.kml?locationDescriptor=accessPoint&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -582,7 +582,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=routingPoint&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/sites/within.kml?locationDescriptor=routingPoint&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]&amp;excludeUnits=true</viewFormat>
@@ -618,7 +618,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/sites/within.kml?locationDescriptor=routingPoint&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/sites/within.kml?locationDescriptor=routingPoint&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -674,7 +674,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=2</href>
+					<href>https://geocoder.api.gov.bc.ca/intersections/within.kml?minDegree=2</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>2</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -706,7 +706,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=1&amp;maxDegree=1</href>
+					<href>https://geocoder.api.gov.bc.ca/intersections/within.kml?minDegree=1&amp;maxDegree=1</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>2</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -738,7 +738,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=2&amp;maxDegree=2</href>
+					<href>https://geocoder.api.gov.bc.ca/intersections/within.kml?minDegree=2&amp;maxDegree=2</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>2</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -770,7 +770,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=3&amp;maxDegree=3</href>
+					<href>https://geocoder.api.gov.bc.ca/intersections/within.kml?minDegree=3&amp;maxDegree=3</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>2</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -802,7 +802,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=4&amp;maxDegree=4</href>
+					<href>https://geocoder.api.gov.bc.ca/intersections/within.kml?minDegree=4&amp;maxDegree=4</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>2</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -834,7 +834,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/intersections/within.kml?minDegree=5</href>
+					<href>https://geocoder.api.gov.bc.ca/intersections/within.kml?minDegree=5</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>2</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -867,7 +867,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=hospitals&amp;maxResults=10&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=hospitals&amp;maxResults=10&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -894,7 +894,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=schools&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=schools&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -921,7 +921,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Educational+Services&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Educational+Services&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -948,7 +948,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=employment&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=employment&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -975,7 +975,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=courts&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=courts&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -1004,7 +1004,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Protective%20Services&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Protective%20Services&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -1032,7 +1032,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Water%20Transportation&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Water%20Transportation&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -1060,7 +1060,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Air%20Transportation&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Air%20Transportation&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
@@ -1089,7 +1089,7 @@
 					</ListStyle>
 				</Style>
 				<Link>
-					<href>http://apps.gov.bc.ca/pub/geocoder/occupants/within.kml?tags=Aboriginal%20Business%20Listings&amp;maxResults=100&amp;</href>
+					<href>https://geocoder.api.gov.bc.ca/occupants/within.kml?tags=Aboriginal%20Business%20Listings&amp;maxResults=100&amp;</href>
 					<viewRefreshMode>onStop</viewRefreshMode>
 					<viewRefreshTime>1</viewRefreshTime>
 					<viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]&amp;WIDTH=[horizPixels]&amp;HEIGHT=[vertPixels]</viewFormat>
