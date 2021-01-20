@@ -19,7 +19,7 @@ Instructions:
                                 <input filename including file extension>
 
 Example:
-        python batch_addres_list_metrics.py
+        python batch_address_list_metrics.py
         H:\Metrics\ job-69005-result-1.csv
 
 Assumptions:
