@@ -381,25 +381,25 @@
 								</button>
 							</div>
 						</div>
-					  </form>
-						<div id="adminAreaInfo">
-						</div>
+						</form>
 						<div>
 							<h4>Examples:</h4>
 							<ul>
-     						<li>1175 Douglas St Victoria BC</li>
-     						<li>201A 1175 Douglas St Victoria BC</li>
-     						<li>Victoria BC</li>
-     						<li>Douglas St and Yates St Victoria BC</li>
-     						<li>Delta Port Entrance -- Roberts Bank Rd Delta BC</li>
-     						<li>Delta Creek Bridge --  Terrace BC</li>
-     						<li>Boston Bar 8 near Boston Bar BC</li>
-     						<li>Brentwood Bay in Central Saanich BC</li>
-     						<li>Fairfield in Victoria BC</li>
-     						<li>Hwy 1 and Exit 366</li>
+	   						<li>1175 Douglas St Victoria BC</li>
+	   						<li>201A 1175 Douglas St Victoria BC</li>
+	   						<li>Victoria BC</li>
+	   						<li>Douglas St and Yates St Victoria BC</li>
+	   						<li>Delta Port Entrance -- Roberts Bank Rd Delta BC</li>
+	   						<li>Delta Creek Bridge --  Terrace BC</li>
+	   						<li>Boston Bar 8 near Boston Bar BC</li>
+	   						<li>Brentwood Bay in Central Saanich BC</li>
+	   						<li>Fairfield in Victoria BC</li>
+	   						<li>Hwy 1 and Exit 366</li>
 							</ul>
-	 				</div>
-				  </div>
+		 				</div>
+						<div id="adminAreaInfo">
+						</div>
+					</div>
 					<div role="tabpanel" class="tab-pane" id="tabs-2">
 						<div id="routerWrapper">
 							<div id="routerList">
@@ -1675,7 +1675,6 @@
 		function lookupAdminAreas(address, coords) {
 			$('#adminAreaInfo').html("<b>" + address + "</b><br/>is in the following admin areas:<br/>");
 			lookupCHSAInfo(coords);
-			lookupHAInfo(coords);
 		}
 
 		function lookupCHSAInfo(coords) {
@@ -1686,7 +1685,7 @@
 				typeName: "pub:WHSE_ADMIN_BOUNDARIES.BCHA_CMNTY_HEALTH_SERV_AREA_SP",
 				srsname: "EPSG:4326",
 				cql_filter: "INTERSECTS(SHAPE,SRID=4326;POINT(" + coords[0] + " " + coords[1] + "))",
-				propertyName: "CMNTY_HLTH_SERV_AREA_CODE,CMNTY_HLTH_SERV_AREA_NAME",
+				propertyName: "CMNTY_HLTH_SERV_AREA_CODE,CMNTY_HLTH_SERV_AREA_NAME,LOCAL_HLTH_AREA_CODE,LOCAL_HLTH_AREA_NAME,HLTH_SERVICE_DLVR_AREA_CODE,HLTH_SERVICE_DLVR_AREA_NAME,HLTH_AUTHORITY_CODE,HLTH_AUTHORITY_NAME",
 				outputFormat: "application/json",
 			};
 
@@ -1698,37 +1697,14 @@
 				success: function (response, textStatus, jqXHR) {
 					var f = response.features[0];
 					$('#adminAreaInfo').append("CHSA: " + f.properties['CMNTY_HLTH_SERV_AREA_NAME'] + " (" + f.properties['CMNTY_HLTH_SERV_AREA_CODE'] + ")<br/>");
+					$('#adminAreaInfo').append("LHA: " + f.properties['LOCAL_HLTH_AREA_NAME'] + " (" + f.properties['LOCAL_HLTH_AREA_CODE'] + ")<br/>");
+					$('#adminAreaInfo').append("CSDA: " + f.properties['HLTH_SERVICE_DLVR_AREA_NAME'] + " (" + f.properties['HLTH_SERVICE_DLVR_AREA_CODE'] + ")<br/>");
+					$('#adminAreaInfo').append("HA: " + f.properties['HLTH_AUTHORITY_NAME'] + " (" + f.properties['HLTH_AUTHORITY_CODE'] + ")<br/>");
 				},
 		    error: function(xhr, err) {
 		  	}
 		  });	// end ajax call
 		} // end lookupCHSAInfo function
-
-		function lookupHAInfo(coords) {
-			var params = {
-				service: "WFS",
-				version: "1.0.0",
-				request: "GetFeature",
-				typeName: "pub:WHSE_ADMIN_BOUNDARIES.BCHA_HEALTH_AUTHORITY_BNDRY_SP",
-				srsname: "EPSG:4326",
-				cql_filter: "INTERSECTS(SHAPE,SRID=4326;POINT(" + coords[0] + " " + coords[1] + "))",
-				propertyName: "HLTH_AUTHORITY_CODE,HLTH_AUTHORITY_NAME",
-				outputFormat: "application/json",
-			};
-
-			$.ajax({
-				url: "https://openmaps.gov.bc.ca/geo/pub/ows",
-				data: params,
-				type: "GET",
-				dataType: "json",
-				success: function (response, textStatus, jqXHR) {
-					var f = response.features[0];
-					$('#adminAreaInfo').append("Health Authority: " + f.properties['HLTH_AUTHORITY_NAME'] + " (" + f.properties['HLTH_AUTHORITY_CODE'] + ")<br/>");
-				},
-		    error: function(xhr, err) {
-		  	}
-		  });	// end ajax call
-		} // end lookupHAInfo function
 
 		// Geocode Address autocomplete
 		$('#geocodeField').autocomplete({
