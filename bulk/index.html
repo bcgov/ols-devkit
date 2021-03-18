@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Geocoder Bulk Submitter</title>
+<style>
+body {
+	font-family: Verdana, Arial, sans;
+	font-size: 14px;
+}
+table {
+	border-collapse: collapse;
+}
+table, th, td {
+	border: none;
+}
+th, td {
+    padding: 2px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+<h1>Bulk Geocoder</h1>
+<form id="frm" method="POST" action="" enctype="multipart/form-data">
+<table style="width: 450px;">
+<tr>
+	<td><label for="file">file:</label></td>
+	<td><input type="file" id="file" name="file"></td>
+</tr>
+<tr>
+	<td><label for="maxResults">maxResults:</label></td>
+	<td><input id="maxResults" name="maxResults" value="1"></td>
+</tr>
+<tr>
+	<td><label for="setBack">setBack:</label></td>
+	<td><input id="setBack" name="setBack" value="1"></td>
+</tr>
+<tr>
+	<td><label for="minScore">minScore:</label></td>
+	<td><input id="minScore" name="minScore" value="1"></td>
+</tr>
+<tr>
+	<td><label for="echo">echo:</label></td>
+	<td>
+		<select id="echo" name="echo">
+			<option>true</option>
+			<option>false</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><label for="interpolation">interpolation:</label></td>
+	<td>
+		<select id="interpolation" name="interpolation">
+			<option>adaptive</option>
+			<option>linear</option>
+			<option>none</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><label for="locationDescriptor">locationDescriptor:</label></td>
+	<td>
+		<select id="locationDescriptor" name="locationDescriptor">
+			<option>any</option>
+			<option>accessPoint</option>
+			<option>routingPoint</option>
+			<option>parcelPoint</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><label for="outputSRS">outputSRS:</label></td>
+	<td><input id="outputSRS" name="outputSRS" value="4326"></td>
+</tr>
+<tr>
+	<td><label for="maxRequests">maxRequests:</label></td>
+	<td><input id="maxRequests" name="maxRequests" value="0"></td>
+</tr>
+<tr>
+	<td><label for="maxTime">maxTime (seconds):</label></td>
+	<td><input id="maxTime" name="maxTime" value="0"></td>
+</tr>
+<tr>
+	<td colspan="2">Note: Bulk processing will terminate after completing maxRequests or after maxTime has elapsed. Set either max to 0 to disable that limit.</td>
+<tr>
+	<td><input type="submit" value="Submit"></td>
+</tr>
+</table>
+</form>
+
+<script>
+// parse query params
+var queryParams = {};
+location.search.substr(1).split("&").forEach(function(item) {
+	var s = item.split("="), k = s[0], v = s[1] && decodeURIComponent(s[1]);
+	queryParams[k] = v;
+});
+
+// API URLs
+var gcApi = "https://geocoder.api.gov.bc.ca/";
+switch(queryParams['gc']) {
+	case 'tst':
+		gcApi = "https://geocodertst.api.gov.bc.ca/";
+		break;
+  case 'dlv':
+	  gcApi = "https://geocoderdlv.api.gov.bc.ca/";
+		break;
+	case 'rri':
+		gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
+		break
+	case 'local':
+		gcApi = "http://localhost:8080/pub/geocoder/";
+}
+document.getElementById("frm").action = gcApi + "addresses/bulk.csv";
+</script>
+</body>
+</html>
