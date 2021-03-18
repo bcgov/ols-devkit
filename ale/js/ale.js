@@ -35,6 +35,8 @@ var MATCH_PRECISION_COL = 5;
 var FAULTS_COL = 6;
 var X_COL = 7;
 var Y_COL = 8;
+var CHSA_CODE_COL = 9;
+var CHSA_NAME_COL = 10;
 
 var completed = 0;
 var toComplete = 0;
@@ -102,6 +104,24 @@ $(document).ready(function() {
 			alert('No more than 1000 requests are allowed. Please reduce the number of requests.');
 			return;
 		}
+
+		$row = $('<tr>');
+		$row.append('<th>Row</th>');
+		$row.append('<th>addressString</th>');
+		$row.append('<th class="fullAddress">fullAddress</th>');
+		$row.append('<th>precision</th>');
+		$row.append('<th>score</th>');
+		$row.append('<th>faults</th>');
+		$row.append('<th>X</th>');
+		$row.append('<th>Y</th>');
+		if($("#lookupAdminAreasChk").is(':checked')) {
+			$row.append('<th>chsaCode</th>');
+			$row.append('<th>chsaName</th>');
+		}
+		$row.append('<th>Notes</th>');
+		$('#resultsTable > thead').empty();
+		$('#resultsTable > thead').append($row);
+
 		completed = 0;
 		toComplete = -1;
 		updateStatus();
@@ -148,6 +168,10 @@ $(document).ready(function() {
 	    				+ '<td rowspan="2"></td>' // FAULTS_COL
 	    				+ '<td rowspan="2"></td>' // X_COL
 	    				+ '<td rowspan="2"></td>' // Y_COL
+							+ ($("#lookupAdminAreasChk").is(':checked') ?
+								'<td rowspan="2"></td>' // CHSA_CODE_COL
+								+ '<td rowspan="2"></td>' // CHSA_NAME_COL
+								: '')
 	    				+ '<td rowspan="2"><input type="text" size="25"' + noteVal + '/></td>' // NOTES_COL
 	    				+ '</tr><tr id="row' + rowCount + 'r2">'
 	    				+ '<td class="buttonCell"><input type="button" id="deleteRow' + rowCount + '" value="Delete"/></td>'
@@ -226,8 +250,8 @@ function deleteRow(rowNum) {
 }
 
 function restart() {
-	$('#resultsTable tbody tr').remove();
-	$('#resultsTable thead tr th.extraCol').remove();
+	$('#resultsTable > tbody').remove();
+	$('#resultsTable > thead').empty();
 	$('#inputArea').val('');
 	rowCount = 0;
 	otherFields = [];
@@ -279,6 +303,9 @@ function geocodeRow(rowNum, retries) {
     				$('td:nth-child(' + FAULTS_COL + ')', row).removeClass('red');
     			}
     			insertFunction();
+					if($("#lookupAdminAreasChk").is(':checked')) {
+						determineCHSARow(rowNum, feature.geometry.coordinates);
+					}
     			$('#showMap'+rowNum).click(function() {showMap(rowNum);});
 				completed++;
 				updateStatus();
@@ -296,6 +323,35 @@ function geocodeRow(rowNum, retries) {
     		}
     });	// end ajax call
 } // end geocodeRow function
+
+function determineCHSARow(rowNum, coords) {
+	var params = {
+		service: "WFS",
+		version: "1.0.0",
+		request: "GetFeature",
+		typeName: "pub:WHSE_ADMIN_BOUNDARIES.BCHA_CMNTY_HEALTH_SERV_AREA_SP",
+		srsname: "EPSG:4326",
+		cql_filter: "INTERSECTS(SHAPE,SRID=4326;POINT(" + coords[0] + " " + coords[1] + "))",
+		propertyName: "CMNTY_HLTH_SERV_AREA_CODE,CMNTY_HLTH_SERV_AREA_NAME",
+		outputFormat: "application/json",
+	};
+
+	$.ajax({
+		url: "https://openmaps.gov.bc.ca/geo/pub/ows",
+		data: params,
+		type: "GET",
+		dataType: "json",
+		success: function (response, textStatus, jqXHR) {
+    	var row = $('#row' + rowNum);
+    	//row.removeClass('failed');
+			var props = response.features[0].properties;
+    	$('td:nth-child(' + CHSA_CODE_COL + ')', row).html(props['CMNTY_HLTH_SERV_AREA_CODE']);
+			$('td:nth-child(' + CHSA_NAME_COL + ')', row).html(props['CMNTY_HLTH_SERV_AREA_NAME']);
+		},
+    error: function(xhr, err) {
+  	}
+  });	// end ajax call
+} // end determineCHSARow function
 
 function export2csv(csvString){
 	var filename = "addresses.csv";
