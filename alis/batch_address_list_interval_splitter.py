@@ -5,7 +5,7 @@
 """
 
 This script will take a CSV result file from the Batch Geocoder and
-produce a series of CSV files based on intervals of score.
+produce a series of CSV files based on score intervals of 10.
 
 
 Instructions:
