@@ -16,9 +16,9 @@ import time
 # Uncomment the appropriate SERVICE_URL for the target environment
 
 # Test
-# SERVICE_URL = 'http://test.apps.gov.bc.ca/pub/cpf/ws/'
+# SERVICE_URL = 'https://test.apps.gov.bc.ca/pub/cpf/ws/'
 # Production
-SERVICE_URL = 'http://apps.gov.bc.ca/pub/cpf/ws/'
+SERVICE_URL = 'https://apps.gov.bc.ca/pub/cpf/ws/'
 
 
 def log(msg):
@@ -57,7 +57,7 @@ if email:
 
 files = None
 
-m = re.search('^(http|ftp)s?://', filename)
+m = re.search('^(https|ftp)s?://', filename)
 
 if m:
 	fields['inputDataUrl'] = filename
