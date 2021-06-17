@@ -11,7 +11,7 @@ location.search.substr(1).split("&").forEach(function(item) {
 });
 
 var gcApi = "https://geocoder.api.gov.bc.ca/";
-var OLS_DEMO_URL = "https://ols-demo.apps.gov.bc.ca/index.html?";
+var OLS_DEMO_URL = "https://bcgov.github.io/ols-devkit/ols-demo/index.html?";
 if(queryParams.env) {
 	OLS_DEMO_URL += "env=" + queryParams.env + "&";
 }
