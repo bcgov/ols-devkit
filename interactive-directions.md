@@ -16,5 +16,8 @@ To understand a route, its often necessary to look at it from different zoom lev
 
 ![image](https://user-images.githubusercontent.com/11318574/134564158-a09cf761-b61a-4951-a7d6-9cab8d3fa041.png)
 
-Every line in Directions behaves the same way.
+6. Every line in Directions behaves the same way. Here's the second line:
+
+![image](https://user-images.githubusercontent.com/11318574/134565453-19887966-305e-4cac-8e58-d432311de90d.png)
+
 
