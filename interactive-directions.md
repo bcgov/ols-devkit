@@ -4,7 +4,7 @@ To understand a route, its often necessary to look at it from different zoom lev
 
 1. Start up [Location Services in Action](https://bcgov.github.io/ols-devkit/ols-demo/index.html)
 2. Select the Route tab
-3. Add two random addresses using the Jump at Random icon (\*) next to each waypoint
+3. Add two random addresses within the current map view by selecting the Jump at Random icon (\*) next to each waypoint
 
 ![image](https://user-images.githubusercontent.com/11318574/134563611-80f8b2ea-75e1-4946-b201-d18931619f56.png)
 
