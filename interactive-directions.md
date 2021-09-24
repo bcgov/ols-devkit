@@ -20,13 +20,14 @@ To understand a route, its often necessary to look at it from different zoom lev
 
 ![image](https://user-images.githubusercontent.com/11318574/134565453-19887966-305e-4cac-8e58-d432311de90d.png)
 
+To make interactive directions work, the demo app uses the point coordinates embedded in each line of Directions.
 
 Here is the route planner request that generated this route:
 
 https://router.api.gov.bc.ca/directions.json?apikey=someAPIkey&points=-123.2770486%2C48.4631703%2C-123.3831595%2C48.4858357&criteria=fastest&enable=gdf%2Cldf%2Ctr%2Cxc%2Ctc%2C&departure=2021-09-23T11%3A19%3A00-07%3A00&correctSide=false&roundTrip=false
 
 
-and here is the response:
+and here is the response showing the point coordinates in each line entry in the Directions list:
 
 ```
 {
