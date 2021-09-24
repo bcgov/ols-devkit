@@ -28,6 +28,7 @@ https://router.api.gov.bc.ca/directions.json?apikey=someAPIkey&points=-123.27704
 
 and here is the response:
 
+```
 {
  "enable": "gdf,ldf,tc,tr,xc",
  "executionTime": 8,
@@ -279,3 +280,4 @@ and here is the response:
    -123.38368,48.48533],[
    -123.38312,48.48582]]
 }
+```
