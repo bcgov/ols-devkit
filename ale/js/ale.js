@@ -109,8 +109,8 @@ $(document).ready(function() {
 		$row.append('<th>Row</th>');
 		$row.append('<th>addressString</th>');
 		$row.append('<th class="fullAddress">fullAddress</th>');
-		$row.append('<th>precision</th>');
 		$row.append('<th>score</th>');
+		$row.append('<th>precision</th>');
 		$row.append('<th>faults</th>');
 		$row.append('<th>X</th>');
 		$row.append('<th>Y</th>');
