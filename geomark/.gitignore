@@ -1,9 +1,0 @@
-.checkstyle
-.project
-.settings
-.classpath
-target
-*.log
-/config
-*.code-workspace
-/geomark-docker-dev/logs
