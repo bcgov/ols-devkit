@@ -1,0 +1,24 @@
+<div>
+  <h2><span>
+      <app-fa-icon name="info-circle"></app-fa-icon> Overview
+    </span></h2>
+  <p>The Geomark Web Service lets you share geographic areas of interest over the web in a variety of formats and
+    coordinate systems.</p>
+  <p>
+
+  </p>
+  <p>Click <a [href]="config.properties.businessHomeUrl">here</a> for complete
+    information on the service.</p>
+
+  <p>Here is an example of a geomark showing the entire province.</p>
+
+  <mat-chip-list>
+    <app-geomark-chip geomarkId="gm-abcdefghijklmnopqrstuvwxyz0000bc"></app-geomark-chip>
+  </mat-chip-list>
+
+  <p>Here is an example of a geomark of the entire province represented as a group of smaller areas.</p>
+
+  <mat-chip-list>
+    <app-geomark-chip geomarkId="gm-abcdefghijklmnopqrstuv0bcislands"></app-geomark-chip>
+  </mat-chip-list>
+</div>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>ca.bc.gov.geomark</groupId>
+    <artifactId>geomark-parent</artifactId>
+    <version>6.0.x-SNAPSHOT</version>
+  </parent>
+  <groupId>ca.bc.gov.geomark.jeometry</groupId>
+  <artifactId>jeometry-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>Jeometry.org</name>
+  <description>The parent module of the Jeometry.org Libraries.</description>
+  <url>http://revolsys.github.com/com.revolsys.open/</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:jeometry-org/jeometry.git</connection>
+    <developerConnection>scm:git:git@github.com:jeometry-org/jeometry.git</developerConnection>
+    <url>https://github.com/jeometry-org/jeometry</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>paustin</id>
+      <name>Paul Austin</name>
+      <email>445537+pauldaustin@users.noreply.github.com</email>
+    </developer>
+  </developers>
+
+  <organization>
+    <name>Revolution Systems Inc.</name>
+    <url>http://www.revolsys.com/</url>
+  </organization>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/jeometry-org/jeometry/issues</url>
+  </issueManagement>
+  <modules>
+    <module>jeometry-common</module>
+    <module>jeometry-coordinatesystem</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.5.4</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>11</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>11</release>
+          <debug>true</debug>
+          <debuglevel>lines,source,vars</debuglevel>
+          <parameters>true</parameters>
+          <compilerArgument>-parameters</compilerArgument>
+          <testCompilerArgument>-parameters</testCompilerArgument>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>4.0.1</version>
+        <executions>
+          <execution>
+            <id>get-the-git-infos</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+          <failOnNoGitDirectory>false</failOnNoGitDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Specification-Title>${project.name}</Specification-Title>
+              <Specification-Vendor>${project.organization.name}</Specification-Vendor>
+              <Specification-Version>${project.version}</Specification-Version>
+              <Implementation-Title>${project.name}</Implementation-Title>
+              <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+              <Implementation-Version>${project.version}</Implementation-Version>
+              <SCM-Commit>${git.branch}-${git.commit.id}-${git.dirty}</SCM-Commit>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <failOnError>false</failOnError>
+          <quiet>true</quiet>
+          <additionalparam>-Xdoclint:none</additionalparam>
+          <skip>${maven.javadoc.skip}</skip>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <configuration>
+              <skip>${maven.javadoc.skip}</skip>
+            </configuration>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <goals>deploy</goals>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <developmentVersion>${project.version}</developmentVersion>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+          <updateDependencies>false</updateDependencies>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>3.0.0-M1</version>
+        <configuration>
+          <createChecksum>true</createChecksum>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>3.0.0-M1</version>
+        <configuration>
+          <deployAtEnd>true</deployAtEnd>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>2.0.0</version>
+        <configuration>
+          <force>true</force>
+
+          <!-- <licenseUrlFileNames> <spdx /> </licenseUrlFileNames> -->
+          <licenseMerges>
+            <licenseMerge>apache_v2|apache_v2</licenseMerge>
+            <licenseMerge>apache_v2|The Apache Software License, Version 2.0</licenseMerge>
+            <licenseMerge>apache_v2|Apache License, Version 2.0</licenseMerge>
+            <licenseMerge>apache_v2|Apache License 2.0</licenseMerge>
+            <licenseMerge>apache_v2|Apache License</licenseMerge>
+            <licenseMerge>apache_v2|Apache 2.0 License</licenseMerge>
+            <licenseMerge>apache_v2|Apache 2</licenseMerge>
+            <licenseMerge>apache_v2|ASF 2.0</licenseMerge>
+            <licenseMerge>bsd_2|The BSD License</licenseMerge>
+            <licenseMerge>bsd_2|BSD License</licenseMerge>
+            <licenseMerge>bsd_3|BSD</licenseMerge>
+            <licenseMerge>cddl_v1|Common Development and Distribution License (CDDL) v1.0</licenseMerge>
+            <licenseMerge>cddl_v1|COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</licenseMerge>
+            <licenseMerge>epl_1|Eclipse Public License - v 1.0</licenseMerge>
+            <licenseMerge>lgpl_v2_1|LGPL 2.1</licenseMerge>
+            <licenseMerge>lgpl_v2_1|GNU Lesser General Public License</licenseMerge>
+            <licenseMerge>lgpl_v2_1|Lesser General Public License (LGPL)</licenseMerge>
+            <licenseMerge>mit|MIT License</licenseMerge>
+          </licenseMerges>
+          <licenseUrlFileNames>
+            <spdx />
+          </licenseUrlFileNames>
+          <!-- licensesOutputDirectory>src/license/licenses/</licensesOutputDirectory> -->
+          <outputDirectory>src/license/</outputDirectory>
+          <useMissingFile>true</useMissingFile>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M5</version>
+        <configuration>
+          <argLine>
+            --illegal-access=permit
+          </argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.9.1</version>
+        <executions>
+          <execution>
+            <id>attach-descriptor</id>
+            <goals>
+              <goal>attach-descriptor</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-module-markdown</artifactId>
+            <version>1.9.1</version>
+          </dependency>
+          <dependency>
+            <groupId>lt.velykis.maven.skins</groupId>
+            <artifactId>reflow-velocity-tools</artifactId>
+            <version>1.1.1</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+          </dependency>
+          <dependency>
+            <groupId>net.trajano.wagon</groupId>
+            <artifactId>wagon-git</artifactId>
+            <version>2.0.4</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+          <rulesUri>file:${session.executionRootDirectory}/version-rules.xml</rulesUri>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <detectLinks>true</detectLinks>
+          <detectJavaApiLink>true</detectJavaApiLink>
+          <quiet>true</quiet>
+          <additionalparam>-Xdoclint:none</additionalparam>
+          <sourceFileExcludes>module-info.java</sourceFileExcludes>
+          <failOnError>false</failOnError>
+          <failOnWarnings>false</failOnWarnings>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>javadoc</report>
+              <report>test-javadoc</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>aggregate</id>
+            <inherited>false</inherited>
+            <reports>
+              <report>aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${org.slf4j.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>commons-logging</artifactId>
+            <groupId>commons-logging</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${org.slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>github-maven-project</id>
+      <name>Github Releases</name>
+      <url>https://maven.pkg.github.com/jeometry-org/jeometry</url>
+    </repository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>github-maven-project</id>
+      <name>Github Releases</name>
+      <url>https://maven.pkg.github.com/jeometry-org/jeometry</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <org.gdal.version>2.4.0</org.gdal.version>
+    <org.slf4j.version>1.7.30</org.slf4j.version>
+    <gpg.skip>true</gpg.skip>
+    <github.global.server>github</github.global.server>
+    <skipTests>true</skipTests>
+  </properties>
+</project>

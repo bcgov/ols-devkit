@@ -1,0 +1,14 @@
+<ng-container *ngIf="geomark">
+  <nav mat-tab-nav-bar animationDuration="0ms" class="mat-tab-fill-height">
+    <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">
+      <span>
+        <app-fa-icon [name]="link.iconName"></app-fa-icon>
+        {{link.label}}
+      </span>
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
+</ng-container>
+
+<app-page-not-found *ngIf="!geomark"></app-page-not-found>

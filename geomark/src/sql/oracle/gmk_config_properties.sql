@@ -1,0 +1,37 @@
+PROMPT Creating Table 'GMK_CONFIG_PROPERTIES'
+CREATE TABLE GMK_CONFIG_PROPERTIES
+ (CONFIG_PROPERTY_ID NUMBER(5) NOT NULL
+ ,PROPERTY_NAME VARCHAR2(255) NOT NULL
+ ,VALUE VARCHAR2(4000)
+ )
+ TABLESPACE GEOMARK
+/
+
+COMMENT ON TABLE GMK_CONFIG_PROPERTIES IS 'The CONFIG PROPERTY contains editable configuration properties which can be used to configure the PL/SQL and java code without requiring a re-delivery of the application.'
+/
+
+COMMENT ON COLUMN GMK_CONFIG_PROPERTIES.CONFIG_PROPERTY_ID IS 'The CONFIG PROPERTY ID is a unique surrogate identifier for the object CONFIG PROPERTY.'
+/
+
+COMMENT ON COLUMN GMK_CONFIG_PROPERTIES.PROPERTY_NAME IS 'This is the unique key for the CONFIG PROPERTY. The value is the name of the configuration property (e.g. geomarkConfig.maxGeomarkAgeDays).'
+/
+
+COMMENT ON COLUMN GMK_CONFIG_PROPERTIES.VALUE IS 'This is the text value that the config property is to be set to.'
+/
+
+PROMPT Creating Primary Key on 'GMK_CONFIG_PROPERTIES'
+ALTER TABLE GMK_CONFIG_PROPERTIES
+ ADD (CONSTRAINT GMK_CP_PK PRIMARY KEY 
+  (CONFIG_PROPERTY_ID))
+/
+
+PROMPT Creating Sequence 'GMK_CP_SEQ'
+CREATE SEQUENCE GMK_CP_SEQ
+ NOMAXVALUE
+ NOMINVALUE
+ NOCYCLE
+/
+
+GRANT DELETE, INSERT, SELECT, UPDATE ON GMK_CONFIG_PROPERTIES TO GEOMARK_USER
+/
+

@@ -1,0 +1,67 @@
+<div class="page-template">
+  <header>
+    <nav>
+      <div class="titlebar">
+        <div class="container">
+          <div class="logo">
+            <a [href]="config.properties.homeUrl">
+              <img src="assets/images/logo.png" class="logo-large" />
+              <img src="assets/images/logo_mobile.png" class="logo-small" />
+            </a>
+          </div>
+
+          <div class="header-title">
+            <a routerLink="/">{{title}}</a>
+          </div>
+
+          <div class="menu-bar">
+            <ng-container *ngFor="let item of headerMenuItems">
+              <a [routerLink]="item.routerLink" mat-icon-button [matTooltip]="item.title" *ngIf="item.icon">
+                <app-fa-icon [name]="item.icon"></app-fa-icon>
+              </a>
+              <a [routerLink]="item.routerLink" [matTooltip]="item.title" *ngIf="!item.icon">
+                <span>{{item.title}}</span>
+              </a>
+            </ng-container>
+          </div>
+
+          <button mat-icon-button [matMenuTriggerFor]="headerMenu" class="menu-button">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <mat-menu #headerMenu="matMenu">
+            <ng-template matMenuContent>
+              <a [routerLink]="item.routerLink" mat-menu-item *ngFor="let item of headerMenuItems"><span>
+                  <app-fa-icon [name]="item.icon"></app-fa-icon> {{item.title}}
+                </span></a>
+            </ng-template>
+          </mat-menu>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-content ">
+    <div class="fullHeightScroll container">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <button mat-icon-button [matMenuTriggerFor]="footerMenu" class="menu-button" *ngIf="footerMenuItems.length > 0">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <nav class="menu-bar" *ngIf="footerMenuItems.length > 0">
+        <a [href]="item.routerLink" *ngFor="let item of footerMenuItems">{{item.title}}</a>
+      </nav>
+      <div class="version">{{version}}</div>
+    </div>
+    <mat-menu #footerMenu="matMenu">
+      <ng-template matMenuContent>
+        <a [href]="item.routerLink" mat-menu-item *ngFor="let item of footerMenuItems">{{item.title}}</a>
+      </ng-template>
+    </mat-menu>
+
+  </footer>
+</div>

@@ -1,0 +1,1865 @@
+// RCS: $Id: saif32.csn,v 1.7 1995/02/27 22:44:58 dal Exp $
+// SCCS: 1.3 95/02/13
+<AggregateType
+subclass: Collection
+>
+<AggregateType
+subclass: List 
+>
+<AggregateType
+subclass: Set 
+>
+<AggregateType
+subclass: Relation
+>
+<PrimitiveType
+subclass: String
+>
+<PrimitiveType
+subclass: OctetString
+>
+<PrimitiveType
+subclass: BitString 
+>
+<PrimitiveType
+subclass: Boolean 
+>
+<PrimitiveType
+subclass: Integer
+>
+<PrimitiveType
+subclass: Integer8
+>
+<PrimitiveType
+subclass: Integer8Unsigned 
+>
+<PrimitiveType
+subclass: Integer16 
+>
+<PrimitiveType
+subclass: Integer16Unsigned 
+>
+<PrimitiveType
+subclass: Integer32 
+>
+<PrimitiveType
+subclass: Integer32Unsigned 
+>
+<PrimitiveType
+subclass: Integer64 
+>
+<PrimitiveType
+subclass: Integer64Unsigned 
+>
+<PrimitiveType
+subclass: Real
+>
+<PrimitiveType
+subclass: Real32 
+>
+<PrimitiveType
+subclass: Real64 
+>
+<PrimitiveType
+subclass: Real80 
+>
+<PrimitiveType
+subclass: Numeric
+>
+<PrimitiveType
+subclass: Primitive
+>
+<PrimitiveType
+subclass: Type
+>
+<PrimitiveType
+subclass: AbstractObject
+>
+<AbstractObject
+subclass: GeographicObject
+attributes: position SpatialObject
+>
+<GeographicObject
+subclass: SpatialDataSet
+attributes: [geoComponents] Set(GeographicObject)
+>
+<SpatialDataSet
+subclass: AnnotatedSpatialDataSet
+attributes: [annotationComponents] Set(Annotation)
+>
+<GeographicObject
+subclass: Coverage
+>
+<SpatialDataSet,Coverage
+subclass: PartitionedCoverage
+>
+<Coverage
+subclass: Field
+restricted: position.geometry: VectorSurface | Grid
+>
+<Field
+subclass: IrregularDEM
+restricted: position.geometry: MeasuredSurface
+position.geometry.masspoints{}: ^Point | DEMpoint 
+>
+<Coverage
+subclass: Raster
+attributes: contentValues Type
+[indexScheme] IndexScheme
+defaults: indexScheme: sequentialArray
+restricted: position.geometry:Grid
+contentValues:ExternalReference | BitString | OctetString
+>
+<Raster
+subclass: GeneralRaster
+attributes: channels List(Channel)
+defaults: position.geometry: ImageGrid2D
+restricted: indexScheme: sequentialArray | interleavedArray
+>
+<Raster
+subclass: CategoricalRaster
+attributes: category List(Category)
+[instanceType] PrimitiveInstanceType
+[indexValueType] PrimitiveInstanceType
+defaults: position.geometry: CellGrid2D
+restricted: indexScheme: sequentialArray | runLengthEncoded |
+nTree
+instanceType: integer8 | integer8Unsigned | integer16 |
+integer16Unsigned |
+integer32 | integer32Unsigned | integer64 | integer64Unsigned
+indexValueType: integer8 | integer8Unsigned | integer16 |
+integer16Unsigned |
+integer32 | integer32Unsigned | integer64 | integer64Unsigned
+>
+<Raster
+subclass: RasterDEM
+attributes: [instanceType] NumericInstanceType
+restricted: contentValues: ExternalReference | OctetString
+>
+<GeographicObject
+subclass: Graph
+attributes: connections Set(ConnectedTo)
+>
+<Graph
+subclass: AcyclicNetwork
+>
+<Graph
+subclass: SingleLineNetwork
+restricted: connections{}.objectA.position.geometry:VectorLine
+connections{}.objectB.position.geometry:VectorLine
+>
+<AbstractObject
+subclass: SpatialObject
+attributes: [geometry] GeometricObject
+[spatialReferencing] SpatialReferencing
+>
+<AbstractObject
+subclass: TemporalObject
+attributes: [timeObject] TimeObject
+[temporalReferencing] TemporalReferencing
+>
+<SpatialObject, TemporalObject
+subclass: SpatiotemporalObject
+>
+<AbstractObject
+subclass: Annotation
+attributes: [textOrSymbol] TextOrSymbolObject
+[spatialReferencing] SpatialReferencing
+>
+<AbstractObject
+subclass: GeometricObject
+attributes: [qualifier] LocationalQualifier
+>
+<GeometricObject
+subclass: GeometricAggregate
+attributes: objects Set(GeometricObject)
+restricted: objects{}: Point |
+VectorLine |
+VectorArea |
+VectorVolume |
+CellularStructure
+>
+<GeometricObject
+subclass: Point
+attributes: [coords] Coordinate
+>
+<Point
+subclass: AlignedPoint
+attributes: alignment Numeric
+[north] North
+[directionIndicator] Boolean
+defaults: north:grid
+directionIndicator:false
+>
+<Point
+subclass: VectorAtPoint
+attributes: magnitude Numeric
+[azimuth] Numeric
+[declination] Numeric
+[north] North
+defaults: north:grid
+>
+<VectorAtPoint
+subclass: VelocityAtPoint
+attributes: [units] UnitMeaning
+defaults: units:kilometresPerHour
+>
+<Point
+subclass: DEMpoint
+attributes: [demPoint] DEMpointChoice
+>
+<Point
+subclass: CorrelationPoint
+attributes: gridCoordinates List(Integer)
+[locationInCell] OriginReference
+>
+<Point
+subclass: GeoidPoint
+attributes: chi Real
+eta Real
+n Real 
+restricted: coords:^Coord3DT 
+>
+<GeoidPoint
+subclass: GeoidPointWithError
+attributes: varC1 Real
+varC2 Real
+varC3 Real
+varChi Real
+varEta Real
+varN Real
+covC1C2 Real
+covC1C3 Real
+covC2C3 Real
+covChiEta Real
+>
+<Point
+subclass: PointWithAttitude
+attributes: omega Real
+phi Real
+kappa Real
+restricted: coords:^Coord3DT
+>
+<GeometricObject
+subclass: VectorLine
+>
+<VectorLine
+subclass: Arc
+attributes: pointList List(Point)
+[arcDescription] ArcDefinition
+defaults: arcDescription.type:line
+>
+<Arc
+subclass: ArcDirected
+attributes: [flowDirection] Direction
+defaults: flowDirection:forward
+>
+<ArcDirected
+subclass: Vector
+restricted: arcDescription.type: line
+>
+<Arc
+subclass: Segment
+>
+<VectorLine
+subclass: OrientedArc
+attributes: arc Arc
+[traversalDirection] DirectionThrough
+defaults: traversalDirection:forward
+>
+<VectorLine
+subclass: Breakline
+attributes: arc Arc
+[breaklineType] BreaklineChoice
+>
+<VectorLine
+subclass: Isoline
+attributes: value Numeric
+arc Arc
+[form] IsolineForm
+>
+<Isoline
+subclass: Contour
+>
+<VectorLine
+subclass: Path
+attributes: arcList List(OrientedArc)
+>
+<Path
+subclass: PathDirected
+attributes: [direction] Direction
+defaults: direction:forward
+>
+<Path
+subclass: Ring
+>
+<Ring
+subclass: ArcClosed
+>
+<Ring
+subclass: RingDirected
+>
+<VectorLine
+subclass: OrientedPath
+attributes: path Path
+[traversalDirection] DirectionThrough
+defaults: traversalDirection:forward
+>
+<GeometricObject
+subclass: VectorArea
+>
+<VectorArea
+subclass: BoundedArea
+attributes: [boundary] Set(VectorLine)
+[insidePoint] Point
+>
+<VectorArea
+subclass: Polygon
+attributes: boundary OrientedPath
+[insidePoint] Point
+restricted: boundary.path:Ring
+>
+<Polygon
+subclass: PolygonWithHoles
+attributes: innerBoundaries Set(OrientedPath)
+restricted: innerBoundaries{}.path:Ring
+>
+<VectorArea
+subclass: Triangle
+attributes: pointA Point
+pointB Point
+pointC Point
+[neighbours] List(Triangle)
+>
+<VectorArea
+subclass: VectorSurface
+attributes: [arealExtent] VectorArea
+>
+<VectorSurface
+subclass: SurfacePositions
+attributes: objects Set(Point)
+>
+<VectorSurface
+subclass: TIN
+attributes: triangles Set(Triangle)
+[surfaceDefining] String
+[method] String
+>
+<TIN
+subclass: TINEnvelope
+>
+<VectorSurface
+subclass: MeasuredSurface
+attributes: [masspoints] Set(Point)
+[breaklines] Set(Breakline)
+[areasOfExclusion] Set(Polygon)
+[areasIndefinite] Set(Polygon)
+>
+<VectorSurface
+subclass: Isolines
+attributes: lines List(Isoline)
+>
+<Isolines
+subclass: Contours
+attributes: [generationType] ContourGeneration
+restricted: lines{}:Contour
+>
+<VectorSurface
+subclass: Plane
+attributes: a Real
+b Real
+c Real
+w Real
+>
+<VectorSurface
+subclass: GeneralParametric
+attributes: equation String
+coefficients List(Real)
+side Point
+restricted: side:^Point
+>
+<GeometricObject
+subclass: VectorVolume
+>
+<VectorVolume
+subclass: TIN3D
+attributes: boundary TINEnvelope
+[insidePoint] Point
+>
+<TIN3D
+subclass: TIN3DComplex
+attributes: innerBoundaries Set(TINEnvelope)
+>
+<VectorVolume
+subclass: Tetrahedron
+attributes: pointA Point
+pointB Point
+pointC Point
+pointD Point
+[neighbours] List(Tetrahedron)
+>
+<VectorVolume
+subclass: TetrahedronComplex
+attributes: tetrahedra Set(Tetrahedron)
+>
+<GeometricObject
+subclass: CellularStructure
+>
+<CellularStructure
+subclass: Grid
+attributes: [positionOfOrigin] Point
+orderAndOrigin GridReference
+spacing GridFramework
+[cellGeometry] CellGeometry
+defaults: cellGeometry.cellShape:rectangle
+orderAndOrigin.ordering:rowOrder
+orderAndOrigin.originCorner:nw
+orderAndOrigin.cellPositionAtCorner:true
+orderAndOrigin.originCoordinates{}:1
+spacing.offsetStructure:none
+restricted: positionOfOrigin:^Point
+>
+<Grid
+subclass: PointGrid
+restricted: cellGeometry.cellShape:point
+cellGeometry.cellSize{}:0
+cellGeometry.units:nil
+>
+<PointGrid
+subclass: DEMGrid
+attributes: primitiveType PrimitiveInstanceType
+elevations List(Primitive)
+[elevationUnits] UnitMeaning
+defaults: elevationUnits:metres
+restricted: orderAndOrigin.originCorner:sw
+orderAndOrigin.ordering:rowOrder
+positionOfOrigin.coords:Coord2D
+>
+<Grid
+subclass: CellGrid2D
+restricted: orderAndOrigin.originCorner:sw
+positionOfOrigin.coords:Coord2D
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<CellGrid2D
+subclass: BoxGrid
+attributes: primitiveType PrimitiveInstanceType
+interleavedBounds List(Primitive)
+[elevationUnits] UnitMeaning
+defaults: elevationUnits:metres
+restricted: orderAndOrigin.ordering:rowOrder 
+>
+<Grid
+subclass: ImageGrid2D
+restricted: orderAndOrigin.originCorner:nw
+orderAndOrigin.ordering:rowOrder
+positionOfOrigin.coords:Coord2D
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<Grid
+subclass: CellGrid3D
+restricted: orderAndOrigin.originCorner:swBottom
+positionOfOrigin.coords:Coord3D
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<Grid
+subclass: ImageGrid3D
+restricted: orderAndOrigin.originCorner:nwTop
+positionOfOrigin.coords:Coord3D
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<Grid
+subclass: CellGrid2DT
+restricted: orderAndOrigin.originCorner:swFirst
+positionOfOrigin.coords:Coord2DT
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<Grid
+subclass: ImageGrid2DT
+restricted: orderAndOrigin.originCorner:nwLast
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<Grid
+subclass: CellGrid3DT
+restricted: orderAndOrigin.originCorner:swBottomFirst
+positionOfOrigin.coords:Coord3DT
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<Grid
+subclass: ImageGrid3DT
+restricted: orderAndOrigin.originCorner:nwTopLast
+positionOfOrigin.coords:Coord3DT
+cellGeometry.cellShape:rectangle
+spacing.offsetStructure:none
+>
+<Grid
+subclass: HexagonCellGrid
+restricted: orderAndOrigin.cellPositionAtCorner:false
+positionOfOrigin.coords:Coord2D
+cellGeometry.cellShape:hexagon
+spacing.offsetStructure:in | out
+>
+<Grid
+subclass: TriangleCellGrid
+restricted: orderAndOrigin.cellPositionAtCorner:true
+positionOfOrigin.coords:Coord2D
+cellGeometry.cellShape:triangle
+spacing.offsetStructure:in | out
+>
+< CellularStructure
+subclass: LocationsInGrid
+attributes: grid Grid
+locations Set(GridLocation)
+>
+<AbstractObject
+subclass: TimeObject
+>
+<TimeObject
+subclass: TimeAggregate
+attributes: objects Set(TimeObject)
+restricted: objects{}:DateTime|Interval|Duration
+>
+<TimeObject
+subclass: DateTime
+>
+<DateTime
+subclass: Date
+attributes: [year] Integer
+[month] Integer
+[day] Integer
+restricted: month: 1..12
+day: 1..31
+>
+<DateTime
+subclass: Time
+attributes: hour Integer
+minute Integer
+second Real
+restricted: hour: 0..24
+minute: 0..59
+>
+<Date, Time
+subclass: TimeStamp
+>
+<TimeObject
+subclass: Interval
+>
+<Interval
+subclass: YearMonthInterval
+attributes: [years] Integer
+[months] Integer
+defaults: years:0
+months:0
+>
+<Interval
+subclass: DayTimeInterval
+attributes: [days] Integer
+[hours] Integer
+[minutes] Integer
+[seconds] Real
+defaults: days:0
+hours:0
+minutes:0
+seconds:0.0
+>
+<TimeObject
+subclass: Duration
+attributes: startTime DateTime
+lengthOfTime Interval
+>
+<AbstractObject
+subclass: TextOrSymbolObject
+attributes: [qualifier] LocationalQualifier
+>
+<TextOrSymbolObject
+subclass: TextOrSymbolAggregate
+attributes: objects Set(TextOrSymbolObject)
+restricted: objects{}:TextLine | TextMultiLine | TextAndArrow |
+Symbol
+>
+<TextOrSymbolObject
+subclass: TextLine
+attributes: position Point
+text String
+[characterHeight] Real
+[stringWidth] Real
+[orientation] Numeric
+[alignment] TextAlignment
+[fontName] String
+[other] String
+defaults: orientation:0.0
+restricted: position:^Point
+>
+<TextOrSymbolObject
+subclass: TextOnCurve
+attributes: characters List(TextLine)
+>
+<TextOrSymbolObject
+subclass: TextMultiLine
+attributes: textLines List(TextLine)
+>
+<TextOrSymbolObject
+subclass: TextAndArrow
+attributes: textOrSymbol TextOrSymbolObject
+arrow Arc
+restricted: textOrSymbol:TextLine | TextOnCurve | TextMultiLine |
+Symbol |
+TextOrSymbolAggregate
+>
+<TextOrSymbolObject
+subclass: Symbol
+attributes: position Point
+symbol String
+[orientation] Numeric
+[symbolLibraryName] String
+[other] String
+restricted: position:^Point
+>
+<AbstractObject
+subclass: Relationship
+attributes: objectA AbstractObject
+objectB AbstractObject
+classAttributes: [cardinalityToTypeAInstances] String
+[cardinalityToTypeBInstances] String
+>
+<Relationship
+subclass: SpatialRelationship
+restricted: objectA: GeographicObject
+objectB: GeographicObject
+>
+<SpatialRelationship
+subclass: SpatialTopology
+attributes: [iAiB] Boolean
+[iAbB] Boolean
+[iAeB] Boolean
+[bAiB] Boolean
+[bAbB] Boolean
+[bAeB] Boolean
+[eAiB] Boolean
+[eAbB] Boolean
+[eAeB] Boolean
+>
+<SpatialTopology
+subclass: SpatialTopologyExtended
+attributes: [commonName] NamedSpatialTopology
+[dimensionalityOfIntersection] Integer
+restricted: dimensionalityOfIntersection: 0..3
+>
+<SpatialTopology
+subclass: OnSide
+attributes: side Side
+>
+<SpatialTopology
+subclass: BoundedBy
+attributes: [startOrEnd] StartOrEnd
+>
+<SpatialRelationship
+subclass: SpatialNeighbourhood
+attributes: distance Real
+[method] String
+[remarks] String
+>
+<SpatialRelationship
+subclass: Neighbour
+attributes: location NeighbourLocation
+[way] SpatialObject
+>
+<SpatialRelationship
+subclass: DistanceFrom
+attributes: distance Real
+[metric] String
+>
+<SpatialRelationship
+subclass: DistanceAndAngles
+attributes: location DistanceAndAzimuth
+[north] North
+defaults: north:grid
+>
+<SpatialRelationship
+subclass: RelativeLinearDistance
+attributes: location DistanceAlong
+>
+<SpatialRelationship
+subclass: Compass
+attributes: name CompassDirection
+>
+<SpatialRelationship
+subclass: SpatialClip
+attributes: [remarks] String
+>
+<Relationship
+subclass: TemporalRelationship
+restricted: objectA:GeographicObject
+objectB:GeographicObject
+>
+<TemporalRelationship
+subclass: TemporalTopology
+attributes: [temporalTopologicRelationship]
+TemporalTopologicRelationship
+>
+<TemporalRelationship
+subclass: Precedence
+attributes: sequence Succession
+>
+<TemporalRelationship
+subclass: TemporalProximity
+attributes: interval Interval
+>
+<TemporalRelationship
+subclass: TemporalNeighbourhood
+attributes: travelTime Interval
+[method] String
+[remarks] String
+>
+<TemporalRelationship
+subclass: TemporalOffset
+attributes: instanceA TemporalInstance 
+instanceB TemporalInstance 
+from BeforeOrAfter 
+offset Interval
+>
+<Relationship
+subclass: DerivedFrom
+attributes: [method] String
+>
+<Relationship
+subclass: ControlledBy
+attributes: [remarks] String
+>
+<Relationship
+subclass: ConnectedTo
+attributes: [connectionDirection] ConnectionDirection
+restricted: objectA:GeographicObject
+objectB:GeographicObject
+>
+<AbstractObject
+subclass: Metadata
+>
+<Metadata
+subclass: SpatialReferencing
+attributes: [coordSystem] CoordinateSystem 
+[hydrographic] HydrographicReference 
+[control] Control 
+[transform] Transform
+[positioningMethod] PositioningMethod
+>
+<Metadata
+subclass: TemporalReferencing
+attributes: type TimeType
+[offset] UTCOffset
+[likelyTimeError] Interval
+>
+<Metadata
+subclass: GeneralLocation
+attributes: [range] BoundingBox 
+[tiles] List(Tile) 
+[informal] String
+>
+<Metadata
+subclass: Quality
+attributes: [structuring] Structuring
+[positional] Set(PositionalAccuracy)
+[attribute] Set(AttributeAccuracy)
+[clipping] Boolean
+[integrity] Integrity
+[remarks] String
+>
+<Metadata
+subclass: Lineage
+attributes: [dataSource] OriginalDataSource 
+[compilationHistory] List(ActionHistory) 
+[processingHistory] List(ActionHistory) 
+[remarks] String
+>
+<Metadata
+subclass: Source
+attributes: [terminus] Set(Terminus)
+[database] DbInfo
+[project] Set(Project)
+[releasibility] String
+[legality] Legal
+[security] Security
+[remarks] String
+>
+<Metadata
+subclass: ProductDescription
+attributes: [description] String
+[products] Set(Product)
+[remarks] String
+>
+<Metadata
+subclass: UpdateOperation
+attributes: operation UpdateType 
+linkName String 
+[effective] DateTime 
+[remarks] String
+>
+<AbstractObject
+subclass: CoordinateSystem
+attributes: [coordinateUnits] List(UnitMeaning)
+>
+<CoordinateSystem
+subclass: ConventionalTerrestrialSystem
+attributes: cts CTSType
+[ctsOffset] OriginOffset
+[ctsRotation] Rotation
+>
+<CoordinateSystem
+subclass: GeodeticCoordinateSystem
+attributes: [cts] CTSType
+[horizontalReference] GeodeticHorizontalReference
+[verticalReference] GeodeticVerticalReference
+>
+<CoordinateSystem
+subclass: PlanarProjectionCS
+attributes: [projectionName] ProjectionName
+[projectionParameters] List(ProjectionParameter)
+[projectionHemisphere] Hemisphere
+[geodeticReference] GeodeticCoordinateSystem
+>
+<CoordinateSystem
+subclass: SegmentedProjectionCS
+attributes: projection PlanarProjectionCS
+>
+<SegmentedProjectionCS
+subclass: UTM
+attributes: zone Integer 
+restricted: zone: 1..60
+>
+<SegmentedProjectionCS
+subclass: SPCS
+attributes: stateCode String
+zone String
+spcsCode Integer
+>
+<SegmentedProjectionCS
+subclass: UPS
+attributes: zone String
+restricted: zone: "A" | "B" | "Y" | "Z"
+>
+<CoordinateSystem
+subclass: SimpleCoordinateSystem
+>
+<SimpleCoordinateSystem
+subclass: Rectangular
+attributes: [origin] OriginReference
+defaults: origin: sw
+restricted: origin: nw | sw
+>
+<SimpleCoordinateSystem
+subclass: Polar
+>
+<AbstractObject
+subclass: CTSType
+attributes: systemType CTSSystemType 
+systemYear Integer
+>
+<AbstractObject
+subclass: GeodeticHorizontalReference
+attributes: datumAdjustmentSystem GeodeticHorizontalDatumAS
+[datumASRelease] String
+[ellipsoid] GeodeticEllipsoid 
+[geodeticOffset] OriginOffset 
+[geodeticRotation] Rotation
+>
+<AbstractObject
+subclass: GeodeticEllipsoid
+attributes: ellipsoidType GeodeticEllipsoidType 
+[ellipsoidYear] Integer 
+[semimajorAxis] Real 
+[flattening] Real
+>
+<AbstractObject
+subclass: GeodeticVerticalReference
+attributes: [datumAdjustmentSystem] GeodeticVerticalDatumAS
+[surface] GeodeticSurfaceChoice
+>
+<AbstractObject
+subclass: ProjectionParameter
+attributes: parameterName ProjectionParmName
+value Numeric
+units UnitMeaning
+[hemisphere] Hemisphere
+>
+<AbstractObject
+subclass: Tile
+attributes: [mapSheetNumber] String
+[mapNumberingSystem] String
+[publicationDate] DateTime
+[mapSeriesName] String
+[mapSheetName] String
+[inverseScale] Integer
+>
+<AbstractObject
+subclass: HydrographicReference
+attributes: [tidal] TidalInfo 
+[sounding] SoundingDatum 
+[remarks] String
+>
+<AbstractObject
+subclass: TidalInfo
+attributes: [reference] String
+[tidalHeight] Real 
+[remarks] String 
+>
+<AbstractObject
+subclass: Control
+attributes: [horizontalControl] DataControl 
+[verticalControl] DataControl 
+[mapDerived] Tile
+>
+<AbstractObject
+subclass: DataControl
+attributes: [authority] Agency 
+[adjustmentOrder] String 
+[integrationStatus] String 
+[collectionAgency] Agency 
+[finalCollectionDate] DateTime 
+[adjustmentAgency] Agency 
+[finalAdjustmentDate] DateTime
+>
+<AbstractObject
+subclass: Agency
+attributes: [contactPerson] String
+[agencyName] String
+[address] String
+[telephoneNumber] String
+[faxNumber] String
+[email] String
+[country] String
+>
+<AbstractObject
+subclass: Transform
+attributes: [transformMatrix] Matrix 
+[spatialOffset] Coordinate 
+[remarks] String
+restricted: spatialOffset:Coord2D | Coord3D
+transformMatrix.rows:2 | 3
+transformMatrix.columns:2 | 3
+>
+<AbstractObject
+subclass: UTCOffset
+attributes: offsetHour Integer
+offsetMinute Integer
+restricted: offsetHour:-12..13
+offsetMinute:0..59
+>
+<AbstractObject
+subclass: BoundingBox
+attributes: [coordSystem] CoordinateSystem
+minPoint Point
+maxPoint Point
+>
+<AbstractObject
+subclass: Structuring
+attributes: [node] Noding
+[overlap] Boolean
+[share] Sharing
+[void] SpaceFilling
+[entity] Boolean
+[validGeometry] Boolean
+[validRelationships] Boolean
+[special] String
+>
+<AbstractObject
+subclass: PositionalAccuracy
+attributes: [classOrCategoryName] String
+[absolute] AbsoluteAccuracy 
+[relative] List(CoordinateAccuracy) 
+[remarks] String
+>
+<AbstractObject
+subclass: AbsoluteAccuracy
+attributes: coordinateAccuracy List(CoordinateAccuracy) 
+higherOrderSource String
+>
+<AbstractObject
+subclass: CoordinateAccuracy
+attributes: percentile Real 
+[horizontal] Real 
+[vertical] Real 
+[time] Real 
+[timeUnits] UnitMeaning
+>
+<AbstractObject
+subclass: AttributeAccuracy
+attributes: attributeOrCategoryName String 
+higherOrderSource String 
+[statistics] List(Parameter) 
+[error] ErrorMatrixData 
+[remarks] String
+>
+<AbstractObject
+subclass: ErrorMatrixData
+attributes: title String 
+verticalClasses List(String) 
+horizontalClasses List(String) 
+classificationMatrix Matrix
+>
+<AbstractObject
+subclass: Integrity
+attributes: [tests] List(IntegrityTestInfo)
+[remarks] String
+>
+<AbstractObject
+subclass: IntegrityTestInfo
+attributes: testName String
+[submissionDate] DateTime
+[completionDate] DateTime
+[submissionID] String
+[passed] Boolean
+[details] List(Result)
+[software] String
+[authority] String
+[remarks] String
+>
+<AbstractObject
+subclass: OriginalDataSource
+attributes: [fieldWork] List(FieldWork)
+[sourceMaps] List(Tile)
+[positioningSystem] List(Positioning)
+[aerialTriangulation] List(AerialTriangulation)
+[imageIdentification] List(ImageIdentification)
+[sourceAgency] List(Agency)
+[remarks] String
+>
+<AbstractObject
+subclass: FieldWork
+attributes: [project] Project
+[agency] Agency
+[sites] List(LocationID)
+[traverse] List(LocationID)
+[startDate] DateTime
+[endDate] DateTime
+[remarks] String
+>
+<AbstractObject
+subclass: LocationID
+attributes: [identification] String
+[type] String
+>
+<AbstractObject
+subclass: Positioning
+attributes: [project] Project
+[agency] Agency
+[systemType] String
+[instrumentType] String
+[operatingMethod] String
+[stations] List(LocationID)
+[networkClassification] String
+[remarks] String
+>
+<AbstractObject
+subclass: AerialTriangulation
+attributes: [project] Project
+[agency] Agency
+[adjustmentMethod] String
+[source] Agency
+[blockName] String
+[blockNumber] String
+[date] DateTime
+[remarks] String
+>
+<AbstractObject
+subclass: ImageIdentification
+attributes: [analogue] PhotoInfo
+[digital] ImageInfo
+[remarks] String
+>
+<AbstractObject
+subclass: PhotoInfo
+attributes: [agency] Agency
+[project] Project
+[camera] String
+[lens] String
+[calibratedFocalLength] Real
+filmSize String
+filmType String
+[correction] String
+inverseScale Integer
+[platformElevation] Real
+[photoID] List(SceneID)
+[beginningDate] DateTime
+[endDate] DateTime
+[bands] List(ImageBand)
+>
+<AbstractObject
+subclass: ImageInfo
+attributes: [agency] Agency
+[project] Project
+imagingSystem String
+[correction] String
+[platformElevation] Real
+[bands] List(ImageBand)
+imageID List(SceneID)
+[beginningDate] DateTime
+[endDate] DateTime
+>
+<AbstractObject
+subclass: SceneID
+attributes: identification String
+[acquisitionTime] DateTime
+[illumination] Illumination
+[view] ViewAngles
+>
+<AbstractObject
+subclass: ImageBand
+attributes: [bandID] String
+[wavelengthMin] Real
+[wavelengthMax] Real
+[quantization] Integer
+[pixelWidth] Real
+[pixelHeight] Real
+>
+<AbstractObject
+subclass: Illumination
+attributes: [sunAzimuthAngle] Real
+[sunElevation] Real
+[cloudCover] Real
+>
+<AbstractObject
+subclass: ViewAngles
+attributes: [centreAzimuthAngle] Real
+[centreElevationAngle] Real
+[leftRightFieldofView] Real
+[topBottomFieldofView] Real
+>
+<AbstractObject
+subclass: ActionHistory
+attributes: [beginningTime] DateTime
+[endTime] DateTime
+[stepOrCategory] String
+[operationPerformed] String
+[methodUsed] String
+[associatedObjects] List(Primitive)
+[operator] String
+[documentationReference] String
+[remarks] String
+>
+<AbstractObject
+subclass: Terminus
+attributes: [terminusType] TerminusType 
+[terminusInfo] Agency
+>
+<AbstractObject
+subclass: DbInfo
+attributes: [dbmsIdentifier] String
+[dbIdentifier] String 
+>
+<AbstractObject
+subclass: Project
+attributes: [projectIdentifier] String
+[remarks] String
+>
+<AbstractObject
+subclass: Legal
+attributes: [copyrightNotice] String
+[liabilityNotice] String
+[limitsOnUse] String
+[contractTitle] String
+[contractNumber] String
+>
+<AbstractObject
+subclass: Security
+attributes: classification SecurityClass 
+[downgrading] Boolean 
+[downgradingDate] DateTime
+>
+<AbstractObject
+subclass: Product
+attributes: [identity] ProductID
+[cycle] Interval
+[nextVersion] Date
+[price] ProductPrice
+[remarks] String
+>
+<AbstractObject
+subclass: ProductID
+attributes: [productName] String 
+[productNumber] String 
+[versionNumber] String 
+[releaseDate] Date 
+[remarks] String 
+>
+<AbstractObject
+subclass: ProductPrice
+attributes: [pricingStructure] Set(PriceComponent)
+[tax] List(Tax)
+[currencyUnits] String
+>
+<AbstractObject
+subclass: PriceComponent
+attributes: [componentName] String
+[description] String
+unitPrice Real
+volumeDependent Boolean
+>
+<AbstractObject
+subclass: Tax
+attributes: name String
+percent Real
+[remarks] String
+>
+<AbstractObject
+subclass: Coordinate
+>
+<Coordinate
+subclass: CoordT
+attributes: t TimeObject
+restricted: t: DateTime | Interval
+>
+<Coordinate
+subclass: Coord1D
+attributes: c1 Numeric
+>
+<Coord1D, CoordT
+subclass: Coord1DT
+>
+<Coordinate
+subclass: Coord2D
+attributes: c1 Numeric
+c2 Numeric
+>
+<Coord2D, CoordT
+subclass: Coord2DT
+>
+<Coordinate
+subclass: Coord3D
+attributes: c1 Numeric
+c2 Numeric
+c3 Numeric
+>
+<Coord3D, CoordT
+subclass: Coord3DT
+>
+<AbstractObject
+subclass: ExternalReference
+attributes: address String
+[application] String
+[comments] String
+>
+<AbstractObject
+subclass: Matrix
+attributes: rows Integer
+columns Integer
+matrixValues List(Numeric)
+>
+<AbstractObject
+subclass: MatrixSymmetric
+attributes: rows Integer
+columns Integer
+matrixValues List(Numeric)
+>
+<AbstractObject
+subclass: Result
+attributes: [name] String
+[remarks] String
+>
+<Result
+subclass: Parameter
+attributes: value Real
+[units] String
+>
+<Result
+subclass: Check
+attributes: value Boolean
+>
+<AbstractObject
+subclass: OriginOffset
+attributes: deltaX Real
+deltaY Real
+deltaZ Real
+>
+<AbstractObject
+subclass: Rotation
+attributes: omega Real
+phi Real
+kappa Real
+>
+<AbstractObject
+subclass: TextAlignment
+attributes: horizontal HorizontalText
+vertical VerticalText
+[horizontalOffset] Real
+[verticalOffset] Real
+>
+<AbstractObject
+subclass: ArcDefinition
+attributes: type CurveChoice
+[supportingPoints] List(Point)
+>
+<AbstractObject
+subclass: DistanceAndAzimuth
+attributes: distance Real
+azimuth Real
+>
+<DistanceAndAzimuth
+subclass: DistanceAzimuthAndDeclination
+attributes: declination Real
+>
+<AbstractObject
+subclass: DistanceAlong
+attributes: distance Real 
+from StartOrEnd
+>
+<DistanceAlong
+subclass: DistanceAndSide
+attributes: side Side
+>
+<DistanceAndSide
+subclass: Offset
+attributes: offset Real
+>
+<AbstractObject
+subclass: GridReference
+attributes: [ordering] GridOrder
+[originCorner] OriginReference
+[cellPositionAtCorner] Boolean
+[originCoordinates] List(Integer)
+defaults: ordering:rowOrder
+cellPositionAtCorner:true
+>
+<GridReference
+subclass: GridWithinGridReference
+attributes: reference GridReference
+>
+<AbstractObject
+subclass: GridFramework
+attributes: [gridDimensions] List(Integer)
+[gridSpacing] List(Numeric)
+[offsetStructure] OffsetStructure
+[units] List(UnitMeaning)
+defaults: offsetStructure:none
+>
+<AbstractObject
+subclass: CellGeometry
+attributes: [cellSize] List(Numeric)
+[units] List(UnitMeaning)
+[cellShape] CellShape
+defaults: cellShape:rectangle
+>
+<AbstractObject
+subclass: GridLocation
+>
+<GridLocation
+subclass: DirectGridReference
+attributes: gridCoordinate List(Integer)
+>
+<GridLocation
+subclass: MortonNumber
+attributes: locationalCode Integer
+>
+<GridLocation
+subclass: BitMaskValues
+attributes: presenceOrAbsence BitString
+>
+<AbstractObject
+subclass: Category
+attributes: categoryNumber Integer
+name String
+[description] String
+>
+<AbstractObject
+subclass: Channel
+attributes: [channelNumber] Integer
+[name] String
+[description] String
+[units] UnitMeaning
+[instanceType] PrimitiveInstanceType
+[bitsPerValue] Integer
+restricted: instanceType: integer8 | integer8Unsigned | integer16
+|
+integer16Unsigned | integer32 | integer32Unsigned | integer64 |
+integer64Unsigned 
+>
+<Enumeration
+subclass: PrimitiveInstanceType
+values: string octetString bitString boolean integer8
+integer8Unsigned
+integer16 integer16Unsigned integer32 integer32Unsigned integer64
+integer64Unsigned real32 real64 real80
+>
+<Enumeration
+subclass: NumericInstanceType
+values: integer8 integer8Unsigned integer16 integer16Unsigned
+integer32
+integer32Unsigned integer64 integer64Unsigned real32 real64
+real80
+>
+<Enumeration
+subclass: TagCategory
+values: universal application private
+>
+<Enumeration
+subclass: Optionality
+values: alwaysNil neverNil
+>
+<Enumeration
+subclass: LocationalQualifier
+values: definite indefinite positionApproximate virtual
+>
+<Enumeration
+subclass: DEMpointChoice
+values: precise spotHeight indefinite hybrid
+>
+<Enumeration
+subclass: BreaklineChoice
+values: sharp round hydrographic hypsographic anthropogenic
+>
+<Enumeration
+subclass: IsolineForm
+values: normal depression
+>
+<Enumeration
+subclass: ContourGeneration
+values: stereoDigitized fromGeneratedSurface fromOtherContours
+>
+<Enumeration
+subclass: GridOrder
+values: rowOrder columnOrder boustrophedonByRow
+boustrophedonByColumn
+>
+<Enumeration
+subclass: OriginReference
+values: centre nw sw ne se
+nwTop swTop neTop seTop
+nwBottom swBottom neBottom seBottom
+nwFirst swFirst neFirst seFirst
+nwLast swLast neLast seLast
+nwTopFirst swTopFirst neTopFirst seTopFirst
+nwBottomFirst swBottomFirst neBottomFirst seBottomFirst
+nwTopLast swTopLast neTopLast seTopLast
+nwBottomLast swBottomLast neBottomLast seBottomLast
+>
+<Enumeration
+subclass: Direction
+values: forward backward bothDirections alternating across
+acrossLeftToRight
+acrossRightToLeft noDirection unknown
+>
+<Enumeration
+subclass: ConnectionDirection
+values: forward backward bothDirections alternating
+forwardLeftSide
+forwardRightSide backwardLeftSide backwardRightSide unknown
+>
+<Enumeration
+subclass: DirectionThrough
+values: forward backward
+>
+<Enumeration
+subclass: Side
+values: left right leftAndRight 
+>
+<Enumeration
+subclass: NeighbourLocation
+values: sameLocation onLeft onRight across
+>
+<Enumeration
+subclass: CompassDirection
+values: northOf eastOf southOf westOf above below
+>
+<Enumeration
+subclass: North
+values: geodetic grid
+>
+<Enumeration
+subclass: CellShape
+values: point rectangle ellipse hexagon triangle
+>
+<Enumeration
+subclass: CurveChoice
+values: line nonLinear circularArc ellipticalArc uniformBspline
+piecewiseBezier
+>
+<Enumeration
+subclass: TemporalTopologicRelationship
+values: temporallyDisjoint temporallyIntersect atStart atEnd
+follows
+overlapsAtStart overlapsAtEnd during duringFromStart duringToEnd
+simultaneous
+>
+<Enumeration
+subclass: Succession
+values: before after coincident
+>
+<Enumeration
+subclass: StartOrEnd
+values: start end
+>
+<Enumeration
+subclass: BeforeOrAfter
+values: before after
+>
+<Enumeration
+subclass: TemporalInstance
+values: startTime endTime singleInstance
+>
+<Enumeration
+subclass: HorizontalText
+values: left centre right normalHorizontal continuousHorizontal
+>
+<Enumeration
+subclass: VerticalText
+values: top cap half base bottom normalVertical
+continuousVertical
+>
+<Enumeration
+subclass: NamedSpatialTopology
+values: intersects disjoint equals adjacent contains encloses
+overlaps
+encircles
+>
+<Enumeration
+subclass: Hemisphere
+values: north south east west
+>
+<Enumeration
+subclass: SoundingDatum
+values: mWL hHWLT hHWMT lLWMT lLWLT lNT
+>
+<Enumeration
+subclass: PositioningMethod
+values: differentialGPS singlePositionGPS photogrammetry
+radioPositioning
+terrestrial astronomicObservation approximate fromMap other
+>
+<Enumeration
+subclass: PositioningOrigin
+values: monument fromMapsheet other
+>
+<Enumeration
+subclass: GeodeticHorizontalDatumAS
+values: nad27 nad83 may76 ats77 adindan arc50 australianGeodetic
+bukitRimpah
+caa campoInchauspe chuaAstro corregoAlegre djakarta european50
+gSegara
+gSerindung geodetic1949 ghana guam1963 heratNorth hjorsey
+huTzuShan indian
+ireland1965 kertau liberia1964 localAstro luzon merchich
+montjongLowe migeria
+oldHawaiian osgb psa1956 qornoq sierraLeone1960
+tananariveObsv1925 timbalai
+tokyo voirol wgs60 wgs66 wgs72 wgs84 yacare hermannskogel
+european79 german
+italian other
+>
+<Enumeration
+subclass: GeodeticEllipsoidType
+values: grs clarke airy australianNational bessel everest fisher
+international
+modifiedAiry modifiedEverest walbeck wgs clark krasovsky other
+>
+<Enumeration
+subclass: GeodeticVerticalDatumAS
+values: cvd28 navd88 other
+>
+<Enumeration
+subclass: GeodeticSurfaceChoice
+values: meanSeaLevel geoid ellipsoid other
+>
+<Enumeration
+subclass: UnitMeaning
+values: kilometres metres centimetres millimetres micrometres
+nanometres
+nauticalMiles miles fathoms feet inches degrees radians years
+months weeks
+days hours minutes seconds nanoseconds metresPerSecond
+kilometresPerSecond
+metresPerHour kilometresPerHour centimetresPerYear knots
+milesPerHour
+feetPerSecond degreesKelvin degreesCelcius degreesFahrenheit
+kilopascals
+digitalNumber other
+>
+<Enumeration
+subclass: ProjectionName
+values: aerialPerspective albersEqualArea azimuthalEqualArea 
+azimuthalEquidistant bipolarObliqueConic boggs bonne cartParallel
+cassini 
+eckertIV eckertVI equidistantConic globular goodes gnomonic
+hammerAiitoff 
+hotineObliqueMercator lambertConformalConic lambertEqualArea
+mercator miller
+molleweide obliqueMercator obliqueSterographic orthographic
+parabolic 
+perspectiveCylindrical peters plateCaree polarStereographic
+polyconic 
+robinson sinusoidal stereographic transverseMercator
+vanDerGrinten other 
+>
+<Enumeration
+subclass: ProjectionParmName
+values: radius eccentricity latitudeOfOrigin longitudeOfOrigin
+firstStandardParallel secondStandardParallel
+standardParallelNearestEquator
+standardParallelFarthestFromEquator longitudeOfTangency
+latitudeOfTangency
+longitudeOfGreatCircle latitudeOfGreatCircle azimuthOfGreatCircle
+centralMeridian centralLongitude centralLatitude
+centralScaleFactor
+longitudeScaleFactor latitudeScaleFactor zoneWidth falseEasting
+falseNorthing
+falseLatitude falseLongitude other
+>
+<Enumeration
+subclass: UpdateType
+values: add replaceAll replacePart delete
+>
+<Enumeration
+subclass: TerminusType
+values: producer distributor receiver
+>
+<Enumeration
+subclass: SecurityClass
+values: topSecret secret confidential restricted unclassified
+>
+<Enumeration
+subclass: Noding
+values: noded nodedAtEnds notNoded
+>
+<Enumeration
+subclass: Sharing
+values: shared pointsNotShared notShared
+>
+<Enumeration
+subclass: SpaceFilling
+values: fillsSpace doesNotFillSpace
+>
+<Enumeration
+subclass: TimeType
+values: utc gps local
+>
+<Enumeration
+subclass: IndexScheme
+values: sequentialArray interleavedArray runLengthEncoded nTree
+>
+<Enumeration
+subclass: OffsetStructure
+values: none in out
+>
+<Enumeration
+subclass: CTSSystemType
+values: wgs iugg grs itrf
+>
+<AbstractObject
+subclass: TypeDefinition
+attributes: type TypeIdentifier
+[tag] Tag
+>
+<TypeDefinition
+subclass: AbstractObjectDefinition
+attributes: [superclass] List(TypeIdentifier)
+[subclassing] String
+[attributes] List(AttributeDefinition)
+[classAttributes] List(AttributeDefinition)
+[defaults] List(RestrictedValue)
+[restricted] List(Restricted)
+[constraints] String
+[classAttributeDefaults] List(RestrictedValue)
+[classAttributeValues] List(Restricted)
+[comments] String
+defaults: superclass.typeName:"AbstractObject"
+restricted: classAttributeValues{}:RestrictedValue |
+RestrictedValueSet |
+RestrictedValueRange
+>
+<TypeDefinition
+subclass: EnumerationDefinition
+attributes: enumerates List(EnumerationValueDef)
+[comments] String
+>
+<TypeDefinition
+subclass: DomainDefinition
+attributes: baseType PrimitiveInstanceType
+validValues List(Primitive)
+[comments] String
+restricted: baseType:string | integer8 | integer8Unsigned |
+integer16 |
+integer16Unsigned | integer32 | integer32Unsigned | integer64 |
+integer64Unsigned | real32 | real64 | real80
+>
+<AbstractObject
+subclass: TypeIdentifier
+attributes: typeName String
+[optionalStringLength] Integer
+[schema] SchemaIdentifier
+[direct] Boolean
+defaults: schema.schemaName:"SAIF"
+schema.version:"3.2"
+direct:true
+>
+<AbstractObject
+subclass: SchemaIdentifier
+attributes: schemaName String
+version String
+>
+<AbstractObject
+subclass: EnumerationValueDef
+attributes: description String
+[value] Integer
+>
+<AbstractObject
+subclass: AttributeDefinition
+attributes: attributeName String
+attributeDomain TypeIdentifier
+optional Boolean
+>
+<AttributeDefinition
+subclass: SimpleAttributeDef
+attributes: [default] Primitive
+>
+<AttributeDefinition
+subclass: ComplexAttributeDef
+>
+<AttributeDefinition
+subclass: CollectionAttributeDef
+attributes: membership TypeIdentifier
+restricted: attributeDomain.typeName: "List" | "Set" | "Relation"
+>
+<AbstractObject
+subclass: Tag
+attributes: tagCategory TagCategory
+tagNumber Integer
+>
+<AbstractObject
+subclass: Restricted
+attributes: attributePathName String
+>
+<Restricted
+subclass: RestrictedDomain
+attributes: attributeDomain TypeIdentifier
+>
+<Restricted
+subclass: RestrictedOptionality
+attributes: attributeOptionality Optionality
+>
+<Restricted
+subclass: RestrictedDomainSet
+attributes: attributeDomain Set(TypeIdentifier)
+>
+<Restricted
+subclass: RestrictedCollectionDomain
+attributes: attributeDomain TypeIdentifier
+membership TypeIdentifier
+restricted: attributeDomain.typeName: "List" | "Set" | "Relation"
+>
+<Restricted
+subclass: RestrictedCollectionDomainSet
+attributes: attributeDomain TypeIdentifier
+membership Set(TypeIdentifier)
+restricted: attributeDomain.typeName: "List" | "Set" | "Relation"
+>
+<Restricted
+subclass: RestrictedValue
+attributes: attributeValue Primitive
+>
+<Restricted
+subclass: RestrictedValueSet
+attributes: attributeValues Set(Primitive)
+>
+<Restricted
+subclass: RestrictedValueRange
+attributes: lowerAttributeValue Primitive
+upperAttributeValue Primitive
+>
+// ----------------- GlobalMetadata taken from SAIF Dataset Format Document 2.0
+<AbstractObject
+subclass: GlobalMetadata
+attributes: saifRelease String
+saifProfile Profile
+[userProfile] UserProfile
+[creationTime] TimeStamp
+[toolkitVersion] String
+[remarks] String
+> 
+<AbstractObject
+subclass: Profile
+attributes: authority String
+idName String
+version String
+[description] String
+> 
+<AbstractObject
+subclass: UserProfile
+attributes: [coordDefs] LocationalDefinitions 
+[characters] CharDef 
+organization Numeric 
+defaults: characters.standard:"ASCII"
+>
+<AbstractObject
+subclass: LocationalDefinitions
+attributes: c1 NumericInstanceType
+c2 NumericInstanceType
+c3 NumericInstanceType
+[chi] NumericInstanceType
+[eta] NumericInstanceType
+[n] NumericInstanceType
+[omega] NumericInstanceType
+[phi] NumericInstanceType
+[kappa] NumericInstanceType
+[varX] NumericInstanceType
+[varY] NumericInstanceType
+[varZ] NumericInstanceType
+[varT] NumericInstanceType
+[varChi] NumericInstanceType
+[varEta] NumericInstanceType
+[varN] NumericInstanceType
+[covXY] NumericInstanceType
+[covXZ] NumericInstanceType
+[covYZ] NumericInstanceType
+[covChiEta] NumericInstanceType
+[second] NumericInstanceType
+[minute] NumericInstanceType
+[hour] NumericInstanceType
+[day] NumericInstanceType
+[month] NumericInstanceType
+[year] NumericInstanceType
+[alignment] NumericInstanceType
+[magnitude] NumericInstanceType
+[azimuth] NumericInstanceType
+[declination] NumericInstanceType
+defaults: chi: real32
+eta: real32
+n: real32
+omega: real32
+phi: real32
+kappa: real32
+varX: real32
+varY: real32
+varZ: real32
+varChi: real32
+varEta: real32
+varN: real32
+covXY: real32
+covXZ: real32
+covYZ: real32
+covChiEta: real32
+second: integer8
+minute: integer8
+hour: integer8
+day: integer8
+month: integer8
+year: integer8
+alignment: real32
+magnitude: real32
+azimuth: real32
+declination: real32
+> 
+<AbstractObject
+subclass: CharDef
+attributes: standard String
+[version] String
+[private] Boolean
+[code] String
+defaults: private:false
+> 
+
+

@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ca.bc.gov.geomark.jeometry</groupId>
+    <artifactId>jeometry-parent</artifactId>
+    <version>6.0.x-SNAPSHOT</version>
+  </parent>
+  <artifactId>jeometry-coordinatesystem</artifactId>
+  <name>jeometry.org Coordinate Systems</name>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>This license applies to the Java code and all files included in the repository</comments>
+    </license>
+    <license>
+      <url>http://www.epsg.org/TermsOfUse.aspx</url>
+      <comments>This license applies to the EPSG Coordinate Systems</comments>
+    </license>
+  </licenses>
+
+  <dependencies>
+
+    <!-- Jeometry -->
+    <dependency>
+      <groupId>ca.bc.gov.geomark.jeometry</groupId>
+      <artifactId>jeometry-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <!-- Units of measure -->
+    <dependency>
+      <groupId>javax.measure</groupId>
+      <artifactId>unit-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>tech.units</groupId>
+      <artifactId>indriya</artifactId>
+      <version>2.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>tech.uom.lib</groupId>
+      <artifactId>uom-lib-common</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+
+  </dependencies>
+</project>

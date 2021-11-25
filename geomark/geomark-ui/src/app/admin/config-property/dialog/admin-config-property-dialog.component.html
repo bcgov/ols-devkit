@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>
+  <span>
+    <app-fa-icon name="cog"></app-fa-icon> {{title}}
+  </span>
+</h1>
+<div mat-dialog-content>
+  <form #form="ngForm" autocomplete="off">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput name="name" [(ngModel)]="configProperty.PROPERTY_NAME" required />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Value</mat-label>
+        <input matInput name="value" [(ngModel)]="configProperty.VALUE" required />
+      </mat-form-field>
+    </div>
+  </form>
+  <p></p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button matDialogClose>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="'ok'" cdkFocusInitial color="primary"
+    [disabled]="!form.form.valid">Ok</button>
+</div>

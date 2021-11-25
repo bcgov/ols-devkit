@@ -1,0 +1,85 @@
+name: Release Build
+
+on:
+  push:
+    branches:
+    - release/*
+
+jobs:
+  release_build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+#### JAVA VERSION ####
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11.0.x
+
+#### Checkout jeometry ####
+    - name: Checkout jeometry
+      uses: actions/checkout@v2
+      with:
+        ref: master
+        repository: jeometry-org/jeometry
+        path: jeometry
+
+#### Checkout revolsys ####
+    - name: Checkout revolsys
+      uses: actions/checkout@v2
+      with:
+        ref: master
+        repository: revolsys/com.revolsys.open
+        path: revolsys
+
+#### Checkout geomark ####
+    - name: Checkout geomark
+      uses: actions/checkout@v2
+      with:
+        ref: ${{github.ref}}
+        repository: ${{github.repository}}
+        path: geomark
+
+#### MAVEN REPOSITORY CACHE ####
+    - name: Maven Cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+#### Tag geomark ####
+    - name: Tag geomark
+      env:
+        GITHUB_REF: ${{github.ref}}
+      run: |
+        VERSION_BASE=${GITHUB_REF/refs\/heads\/release\//}-RELEASE
+        VERSION=${VERSION_BASE}
+        git config --global user.name "Paul Austin"
+        git config --global user.email "445537+pauldaustin@users.noreply.github.com"
+        git rm -rf .github
+        mvn -B versions:set -DnewVersion="${VERSION}" -DgroupId='*' -DgenerateBackupPoms=false
+        git commit -a -m "Version ${VERSION}"
+        git fetch --unshallow origin master
+        git tag -f "${VERSION}"
+        git push -f https://github.com/pauldaustin/geomark ${VERSION}
+      working-directory: ./geomark
+
+#### Build geomark ####
+    - name: Build geomark
+      run: mvn -B install -Dmaven.javadoc.skip=true
+      working-directory: ./geomark
+
+#### Maven settings ####
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v4
+      with:
+        repositories: '[{"id": "github", "url": "https://maven.pkg.github.com/pauldaustin/geomark"}]'
+        servers: '[{ "id": "github", "username": "pauldaustin", "password": "${{ secrets.GITHUB_TOKEN}}" }]'
+
+#### Deploy geomark ####
+    - name: Deploy geomark
+      run: mvn -B deploy -DaltDeploymentRepository=github::https://maven.pkg.github.com/pauldaustin/geomark
+      working-directory: ./geomark

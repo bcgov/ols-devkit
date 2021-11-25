@@ -1,0 +1,41 @@
+<div>
+  <h2><span>
+      <app-fa-icon name="clipboard"></app-fa-icon> Create from Clipboard
+    </span>
+  </h2>
+  <div>
+    <p><b>General business example</b> - only use this option if your Google Earth version is 4.9 or
+      less.</p>
+    <p>Use this form to Construct a new geomark from KML you have copied to the clipboard. Using the
+      clipboard is necessary only if you have Google Earth v4.3 or earlier installed on your machine
+      because Create Geomark from Google Earth doesn't work with these early versions.</p>
+    <p>Click <a [href]="config.properties.createFromClipboardTutorialUrl">here</a>
+      to access the tutorial.</p>
+  </div>
+  <form [formGroup]="form">
+
+    <input name="formName" type="hidden" value="clipboard">
+
+    <app-format-cs [formGroup]="form" [textOnly]="true"></app-format-cs>
+
+    <app-geometry-type [formGroup]="form"></app-geometry-type>
+
+    <div class="form-row">
+      <mat-form-field floatLabel="always" appearance="outline">
+        <mat-label>Paste text to
+          upload</mat-label>
+        <textarea formControlName="body" required matInput [matTextareaAutosize]="true"
+          [matAutosizeMaxRows]="20"></textarea>
+
+        <app-help-button [url]="glossaryUrl('body')" matSuffix></app-help-button>
+      </mat-form-field>
+    </div>
+
+    <app-buffer-settings [formGroup]="form"></app-buffer-settings>
+
+    <input name="failureRedirectUrl" type="hidden" value="/pub/geomark/geomarks#clipboard">
+
+    <button mat-raised-button color="primary" [disabled]="form.invalid || saving" (click)="createGeomark()">Create
+      Geomark</button>
+  </form>
+</div>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    https://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/util
+    https://www.springframework.org/schema/util/spring-util.xsd
+  "
+>
+  <bean
+    id="moepDirectoryReader"
+    class="com.revolsys.io.moep.MoepDirectoryReader"
+    p:directory="moepDirectory"
+
+    lazy-init="true"
+  />
+
+  <bean
+    id="moepDirectoryStatisticsReader"
+    class="com.revolsys.gis.io.LabelCountIterable"
+    p:iterable-ref="moepDirectoryReader"
+
+    lazy-init="true"
+  />
+  
+  <bean
+    id="moepReader"
+    class="com.revolsys.gis.parallel.IterableProcess"
+    p:iterable-ref="moepDirectoryStatisticsReader"
+
+    lazy-init="true"
+  />
+  
+  <bean
+    id="moepDirectoryReadStats"
+    factory-bean="moepDirectoryStatisticsReader"
+    factory-method="getStatistics"
+    
+    lazy-init="true"
+  />
+</beans>

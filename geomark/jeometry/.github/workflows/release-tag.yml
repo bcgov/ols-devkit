@@ -1,0 +1,60 @@
+name: Release Tag
+
+on:
+  push:
+    branches:
+    - release/*
+
+jobs:
+  release_build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+#### JAVA VERSION ####
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11.0.x
+
+#### Maven settings ####
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v4
+      with:
+        servers: '[{ "id": "github", "username": "${{github.actor}}", "password": "${{ secrets.GITHUB_TOKEN}}" }]'
+
+#### Checkout ####
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: main
+        repository: jeometry-org/jeometry
+
+#### MAVEN REPOSITORY CACHE ####
+    - name: Maven Cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-release-tag-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-release-tag-
+
+#### Tag ####
+    - name: Tag
+      env:
+        GITHUB_REF: ${{github.ref}}
+      run: |
+        VERSION_BASE=${GITHUB_REF/refs\/heads\/release\//}-RELEASE
+        VERSION=${VERSION_BASE}-GBA-JEOMETRY
+        git config --global user.name "Paul Austin"
+        git config --global user.email "445537+pauldaustin@users.noreply.github.com"
+        git rm -rf .github
+        mvn -B versions:set -DnewVersion="${VERSION}" -DgenerateBackupPoms=false
+        git commit -a -m "Version ${VERSION}"
+        git fetch --unshallow origin main
+        git tag -f "${VERSION}"
+        git push -f https://github.com/${{github.repository}} ${VERSION}
+
+#### Deploy ####
+    - name: Deploy
+      run: mvn -B deploy -DaltDeploymentRepository=github::https://maven.pkg.github.com/${{github.repository}}

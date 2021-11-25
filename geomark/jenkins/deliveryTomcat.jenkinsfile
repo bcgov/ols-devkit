@@ -1,0 +1,54 @@
+properties([
+  parameters([
+    string(
+      name: 'appServer',
+      defaultValue: 'phecda.dmz',
+      description: 'The application server to deploy to',
+      trim: true
+    ),
+    string(
+      name: 'version',
+      description: 'The full version to build (e.g. 6.0.0, 6.0.0-SNAPSHOT)',
+      trim: true
+    ),
+    choice(
+      choices: ['dlv', 'prod'],
+      description: 'The Artifactory Server used to deploy and resolve artifacts',
+      name: 'artifactSvr'
+      )
+  ])
+])
+
+def appServer='phecda.dmz'
+
+node ('master') {
+
+  stage ('Deploy Configuration') {
+    dir('config') {
+      checkout([
+        $class: 'GitSCM',
+        branches: [[name: 'master']],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [],
+        gitTool: 'Default',
+        submoduleCfg: [],
+        userRemoteConfigs: [[
+          credentialsId: '607141bd-ef34-4e80-8e7e-1134b7c77176',
+          url: 'https://gogs.data.gov.bc.ca/geomark/geomark-config-snapshot.git'
+        ]]
+      ])
+      sh """
+ssh -q app@${appServer} "rm -rf /apps/config/geomark/*"
+scp -q geomark.* app@${appServer}:/apps/config/geomark/ # old location
+scp -q geomark.* app@${appServer}:/apps/ocicat/conf/    # new location
+      """
+    }
+  }
+
+  stage ('Deploy War') {
+      sh """
+ssh -q app@${appServer} "/home/app/bin/wardl ${version} repo /apps/ocicat/temp pub#geomark.war geomark-war ca/bc/gov/geomark/"
+ssh -q app@${appServer} "mv /apps/ocicat/temp/pub#geomark* /apps/ocicat/webapps"
+    """
+  }
+}

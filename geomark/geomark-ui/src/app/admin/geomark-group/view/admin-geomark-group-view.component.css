@@ -1,0 +1,21 @@
+.gci {
+  margin-top: -5px;
+  margin-right: -16px;
+}
+
+table {
+  width: 100%;
+}
+
+.geomarkGroup {
+  margin-top: 1em;
+}
+
+.groupSearch {
+  min-width: 400px;
+}
+
+.idLink {
+  min-width: 300px;
+  display: inline-block;
+}

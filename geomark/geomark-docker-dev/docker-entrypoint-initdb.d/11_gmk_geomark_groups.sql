@@ -1,0 +1,32 @@
+
+CREATE TABLE "GEOMARK"."GMK_GEOMARK_GROUPS"
+ ("GEOMARK_GROUP_ID" VARCHAR(35) NOT NULL
+ ,"DESCRIPTION" VARCHAR(4000) NOT NULL
+ ,"WHEN_CREATED" TIMESTAMP NOT NULL
+ )
+ 
+;
+
+COMMENT ON TABLE "GEOMARK"."GMK_GEOMARK_GROUPS" IS 'GEOMARK GROUP is used by an external application to Construct a new group of GEOMARK POLY instances via GEOMARK GROUP XREF'
+;
+
+COMMENT ON COLUMN "GEOMARK"."GMK_GEOMARK_GROUPS"."GEOMARK_GROUP_ID" IS 'This is the unique key for the GEOMARK GROUP. The unique key contains the gg- prefix with a GUID generated id, for example gg-8e4f5974c5b5484ab4e50bc42d4c085b.'
+;
+
+COMMENT ON COLUMN "GEOMARK"."GMK_GEOMARK_GROUPS"."DESCRIPTION" IS 'DESCRIPTION contains values of what the group of geomarks represents, e.g., Tenure application #9999.'
+;
+
+COMMENT ON COLUMN "GEOMARK"."GMK_GEOMARK_GROUPS"."WHEN_CREATED" IS 'This is the timestamp when the record was created.'
+;
+
+
+ALTER TABLE "GEOMARK"."GMK_GEOMARK_GROUPS"
+ ADD CONSTRAINT GMK_GG_PK PRIMARY KEY 
+  ("GEOMARK_GROUP_ID")
+  
+ 
+ 
+;
+
+GRANT DELETE, INSERT, SELECT, UPDATE ON "GEOMARK"."GMK_GEOMARK_GROUPS" TO GEOMARK_USER
+;

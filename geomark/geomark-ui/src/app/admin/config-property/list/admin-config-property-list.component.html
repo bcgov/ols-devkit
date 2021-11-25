@@ -1,0 +1,52 @@
+<mat-tab-group>
+  <mat-tab label="Config Properties">
+    <div>
+      <mat-toolbar>
+        <mat-toolbar-row>
+          <button (click)="propertyDialog(null)" mat-icon-button matTooltip="Add config property">
+            <app-fa-icon name="plus-circle"></app-fa-icon>
+          </button>
+          <span class="toolbar-spacer"></span>
+          <button (click)="refresh()" mat-icon-button matTooltip="Refresh">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+      <table mat-table [dataSource]="records" matSort matSortActive="PROPERTY_NAME" matSortDisableClear
+        matSortDirection="asc">
+        <ng-container matColumnDef="CONFIG_PROPERTY_ID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let configProperty">{{configProperty.CONFIG_PROPERTY_ID}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="PROPERTY_NAME">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Property Name</th>
+          <td mat-cell *matCellDef="let configProperty">{{configProperty.PROPERTY_NAME}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="VALUE">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Property Value</th>
+          <td mat-cell *matCellDef="let configProperty">{{configProperty.VALUE}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+          <td mat-cell *matCellDef="let configProperty">
+            <button (click)="propertyDialog(configProperty)" mat-icon-button matTooltip="Edit">
+              <app-fa-icon name="edit"></app-fa-icon>
+            </button>
+            <button (click)="deleteConfigProperty(configProperty)" mat-icon-button>
+              <app-fa-icon name="trash" style="color:red"></app-fa-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [length]="resultCount" [pageSize]="pageSize"></mat-paginator>
+    </div>
+  </mat-tab>
+</mat-tab-group>

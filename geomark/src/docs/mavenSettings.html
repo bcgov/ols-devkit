@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xml:lang="en" ><!-- InstanceBegin template="/Templates/DocTemplate.dwt" codeOutsideHTMLIsLocked="false" --> 
+<head>  
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+   
+    <!-- InstanceBeginEditable name="doctitle" -->
+<title>Geomark Developer Guide</title>
+<!-- InstanceEndEditable -->
+    
+  <link href="https://code.jquery.com/ui/1.11.2/themes/cupertino/jquery-ui.css" rel="stylesheet" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.datatables.net/scroller/1.2.2/css/dataTables.scroller.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" rel="stylesheet" type="text/css" />
+  <link href="css/rs.css" rel="stylesheet" type="text/css" />
+  <link href="css/bcgov.css" rel="stylesheet" type="text/css" />
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.1.min.js">
+  </script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js">
+  </script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+  </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js">
+  </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/scroller/1.2.2/js/dataTables.scroller.min.js">
+  </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js">
+  </script>
+  <script type="text/javascript" src="../js/rs.js">
+  </script>
+
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+  </head>
+
+  <body class="nooverflow-100">
+    <header class="header">
+      <nav id="mainMenu" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <div class="navbar-brand">
+              <span class="navbar-brand-title">Geomark Web Service Developer Guide</span>
+            </div>
+          </div>
+        </div>   
+      </nav>
+    </header>
+
+<div class="page-content">
+  <div class="container-fluid">
+  
+    <ol class="breadcrumb">
+      <li><a href="/pub/geomark/">Geomarks</a></li>
+      <li class="active">Developer Guide</li>
+    </ol>
+<!-- InstanceBeginEditable name="body" -->
+
+ <h1>Maven Settings</h1>
+
+  <p>The Geomark client Java API is available from the CITZ BC Government Maven repository. We
+    recommend that all Java applications be developed using Maven with is the standard for CITZ
+    applications. Developers are responsible for ensuring they know how to develop Java applications
+    in maven. See
+    <a href="http://www.sonatype.com/books/mvnref-book/reference/">Maven: The Complete Reference</a>
+    for details on developing with Maven.</p>
+    
+    <p>The following code example shows how to include a dependency to the Geomark client API.<p>
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd"
+&gt;
+  
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+    &lt;groupId&gt;ca.bc.gov.geomark&lt;/groupId&gt;
+    &lt;artifactId&gt;geomark-client&lt;/artifactId&gt;
+    &lt;version&gt;${ca.bc.gov.geomark.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  
+  &lt;properties&gt;
+    &lt;ca.bc.gov.geomark.version&gt;__VERSION__&lt;/ca.bc.gov.geomark.version&gt;
+  &lt;/properties&gt;
+&lt;/project&gt;</pre>
+
+  <p>Note that a property is used to define the Geomark version. In delivery the -SNAPSHOT suffix
+  might be appended to the version to indicate that the most recent development snapshot is to 
+  be used. This is required if a new feature of the Geomark client API is required that has not yet been
+  deployed to production. In test a .RC* suffix might be used for a release candidate.</p>
+
+  <p>Before migration to the production environment the dependency to the Geomark client must be
+    updated to use the release version . This must be clearly documented in the
+    application readme file. It is the developer's responsibility to ensure that the -SNAPSHOT or
+    .RC* version is not used in production.</p>
+
+  <p>Include the following in the Perform Release of the README.txt for each version property.
+  Replace the text <b>VERSION</b> with the version without the -SNAPSHOT or .RC* suffix.</p>
+  
+  <pre class="code">Update property dependencies to latest RC or release version:
+  ca.bc.gov.geomark.version: <b>VERSION</b>+</pre>
+
+  <p>Include the following in the pom.xml for each version property. Replace the text<b>VERSION</b>
+  with the version without the -SNAPSHOT or .RC* suffix.</p>
+
+  <pre class="code">  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;versions-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;1.3.1&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;properties&gt;
+            &lt;property&gt;
+              &lt;name&gt;ca.bc.gov.geomark.version&lt;/name&gt;
+              &lt;version&gt;[<b>VERSION</b>,),[<b>VERSION</b>.RC,)&lt;/version&gt;
+            &lt;/property&gt;
+          &lt;/properties&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;</pre>
+
+  <p>The BC Government deploy process uses the
+  <a href="http://mojo.codehaus.org/versions-maven-plugin/update-properties-mojo.html">CodeHaus Versions Maven Plugin</a>
+  to update the -SNAPSHOT dependency to the production version.</p>
+  
+  <pre class="code">mvn org.codehaus.mojo:versions-maven-plugin:2.0:use-releases -DgenerateBackupPoms=false</pre>
+  
+  <p>As the Geomark client is not deployed to the public maven repository your development
+    environment must be configured to use the CITZ BC Govenment Maven repository. The following
+    example Maven settings.xml adds two new profiles that include references to the CITZ BC
+    Government Maven Repository. Copy the following file to ~/.m2/settings.xml (or merge if the file
+    already exists) to enable Maven to download the libraries from these locations.</p>
+
+  <p class="note">NOTE: To use the CITZ BC Government Maven Repository a VPN connection is
+    required.</p>
+  <pre class="code">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;settings
+  xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;
+    http://maven.apache.org/SETTINGS/1.0.0
+    http://maven.apache.org/xsd/settings-1.0.0.xsd
+  &quot;
+&gt;
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;citz-artifactory&lt;/id&gt;
+      &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+      &lt;/activation&gt;
+      &lt;repositories&gt;
+        &lt;repository&gt;
+          &lt;id&gt;delivery.bcgov&lt;/id&gt;
+          &lt;name&gt;BC Government Repository&lt;/name&gt;
+          &lt;url&gt;http://delivery.apps.bcgov/artifactory/repo&lt;/url&gt;
+          &lt;releases&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+            &lt;checksumPolicy&gt;warn&lt;/checksumPolicy&gt;
+          &lt;/releases&gt;
+          &lt;snapshots&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
+            &lt;checksumPolicy&gt;warn&lt;/checksumPolicy&gt;
+          &lt;/snapshots&gt;
+        &lt;/repository&gt;
+      &lt;/repositories&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+&lt;/settings&gt;</pre>
+<!-- InstanceEndEditable -->
+  </div>
+</div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js">
+	</script>
+  </body>
+<!-- InstanceEnd --></html>

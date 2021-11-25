@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean id="saifReader" class="com.revolsys.io.saif.SaifReader"
+    singleton="false">
+    <constructor-arg>
+      <value>${sourceFile}</value>
+    </constructor-arg>
+    <property name="convertGeometries" value="true"/>
+  </bean>
+  <bean id="saifWriter" class="com.revolsys.io.saif.SaifWriter"
+    singleton="false">
+    <constructor-arg>
+      <value>${targetFile}</value>
+    </constructor-arg>
+    <property name="compositeTypeNames">
+      <map>
+        <entry key="SpatialReferencing" value="SpatialReferencing"/>
+      </map>
+    </property>
+    <property name="indentEnabled" value="true"/>
+  </bean>
+</beans>

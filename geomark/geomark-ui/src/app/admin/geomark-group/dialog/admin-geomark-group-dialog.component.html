@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+  <form #form="ngForm" role="form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput name="description" [(ngModel)]="geomarkGroup.DESCRIPTION" required />
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button matDialogClose>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="'ok'" cdkFocusInitial color="primary"
+    [disabled]="!form.form.valid">Ok</button>
+</div>

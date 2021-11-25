@@ -1,0 +1,24 @@
+{
+  "homeUrl": "https://www.gov.bc.ca/",
+  "businessHomeUrl": "https://www2.gov.bc.ca/gov/content?id=F6BAF45131954020BCFD2EBCC456F084",
+  "maxGeomarkAgeDays": 90,
+  "maxVertices": 10000,
+  "mapLayerMaxZoom": 17,
+  "kmlLookAtMinRange": 1000,
+  "kmlLookAtMaxRange": 1826047,
+  "geomarkDataSourceUrl": "jdbc:postgresql://db:5432/postgres",
+  "geomarkDataSourcePassword": "g30m4rk",
+  "useXForwardFilter":false,
+  "footerLinks": {
+    "About gov.bc.ca": "http://www2.gov.bc.ca/gov/content/about-gov-bc-ca",
+    "Disclaimer":"http://www2.gov.bc.ca/gov/content/home/disclaimer",
+    "Privacy":"http://www2.gov.bc.ca/gov/content/home/privacy",
+    "Accessibility":"http://www2.gov.bc.ca/gov/content/home/accessibility",
+    "Copyright":"http://www2.gov.bc.ca/gov/content/home/copyright",
+    "Contact Us":"http://www2.gov.bc.ca/gov/content/home/contact-us"
+  },
+  "createFromClipboardTutorialUrl":"https://www2.gov.bc.ca/assets/download/05553C6629FC4229BD658818AECFEDB4",
+  "createFromFileTutorialUrl":"https://www2.gov.bc.ca/assets/download/8B2253F95D094B0BAC4C978D685A5C19",
+  "createFromGeomarkTutorialUrl":"https://www2.gov.bc.ca/assets/download/53292161A8C543F086D260542626F8D5",
+  "googleEarthTurorialUrl":"https://www2.gov.bc.ca/assets/download/EF3A25878B174B15BE5A581396B95383"
+}

@@ -1,0 +1,16 @@
+.hidden {
+  margin-left: -1px;
+  margin-top: -1px;
+  overflow: hidden;
+  display: inline-block;
+  height: 1px;
+  width: 1px;
+}
+
+textarea {
+  border-width: 0px;
+  background-color: transparent;
+  color: transparent;
+  height: 1px;
+  width: 1px;
+}

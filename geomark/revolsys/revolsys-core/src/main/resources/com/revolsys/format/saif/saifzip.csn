@@ -1,0 +1,29 @@
+<PrimitiveType
+subclass: String
+>
+<PrimitiveType
+subclass: OctetString
+>
+<PrimitiveType
+subclass: Boolean 
+>
+<PrimitiveType
+subclass: Integer
+>
+<AggregateType
+subclass: Set 
+>
+<PrimitiveType
+subclass: AbstractObject
+>
+<AbstractObject
+  subclass: ExportedObjectHandle
+  attributes: type String
+    objectSubset  String
+    offset  Integer
+    sharable  Boolean
+>
+<AbstractObject
+  subclass: ExportedObjects
+  attributes: handles Set(ExportedObjectHandle)
+>

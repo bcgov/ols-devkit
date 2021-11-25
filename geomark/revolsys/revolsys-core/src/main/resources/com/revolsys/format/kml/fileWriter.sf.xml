@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    https://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/util
+    https://www.springframework.org/schema/util/spring-util.xsd
+  "
+>
+  <bean
+    id="kmlFileWriter"
+    class="com.revolsys.gis.format.kml.io.KmlWriter"
+    p:file="objects.kml"
+  />
+
+  <bean
+    id="kmlFileStatisticsWriter"
+    class="com.revolsys.gis.io.LabelCountWriter"
+  >
+    <constructor-arg ref="kmlFileWriter" />
+  </bean>
+
+  <bean
+    id="kmlFileWriterProcess"
+    class="com.revolsys.gis.parallel.WriterProcess"
+    p:writer-ref="kmlFileStatisticsWriter"
+  />
+  
+  <bean
+    id="kmlFileStatisticsWriterStats"
+    factory-bean="kmlFileStatisticsWriter"
+    factory-method="getStatistics"
+  />
+</beans>

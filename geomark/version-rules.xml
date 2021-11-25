@@ -1,0 +1,36 @@
+<ruleset
+  comparisonMethod="maven"
+  xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0
+    http://mojo.codehaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd
+  ">
+  <ignoreVersions>
+    <ignoreVersion type="regex">.*-alpha.*</ignoreVersion>
+    <ignoreVersion type="regex">.*-beta.*</ignoreVersion>
+    <ignoreVersion type="regex">.*-MTEC.*</ignoreVersion>
+  </ignoreVersions>
+  <rules>
+    <rule groupId="org.jeometry" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="com.revolsys.open" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="org.postgresql" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*.jre.*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+    <rule groupId="ca.bc.gov.geomark" comparisonMethod="maven">
+      <ignoreVersions>
+        <ignoreVersion type="regex">.*</ignoreVersion>
+      </ignoreVersions>
+    </rule>
+  </rules>
+</ruleset>

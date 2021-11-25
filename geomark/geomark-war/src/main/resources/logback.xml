@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+<appender name="FileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/geomark-web.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/geomark-web.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+      <maxHistory>10</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+    </rollingPolicy>
+
+    <encoder>
+      <pattern>%d\t%p\t%c\t%m%n</pattern>
+    </encoder>
+  </appender> 
+
+  <logger name="ca.bc.gov.geomark.web.domain.GeomarkUiBuilder" level="info" />
+  
+  <root level="error">
+    <appender-ref ref="FileLog"/>
+  </root>
+</configuration>

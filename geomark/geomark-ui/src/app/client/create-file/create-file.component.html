@@ -1,0 +1,37 @@
+<div>
+  <h2><span>
+      <app-fa-icon name="upload"></app-fa-icon> Create from File
+    </span></h2>
+
+  <div>
+    <p><b>General business example</b> - an applicant / user has created an area of interest that needs
+      to be shared with a party that does not support that file format or coordinate system. This
+      option enables the file to be uploaded and converted to a geomark so the recipient can download
+      it in a format that is compatible to their computer software.</p>
+
+    <p>This option allows the user to upload a shape or other file format into the 'Create Geomark from
+      File' form and convert it to a geomark. There are seven different <a
+        href="https://pauldaustin.github.io/geomark/fileFormats.html">file
+        formats</a> that can be uploaded and converted to a geomark.</p>
+
+    <p>Click <a [href]="config.properties.createFromFileTutorialUrl">here</a>
+      to access the tutorial.</p>
+  </div>
+  <form [formGroup]="form">
+
+    <input name="formName" type="hidden" value="file">
+
+    <app-format-cs [formGroup]="form"></app-format-cs>
+
+    <app-geometry-type [formGroup]="form"></app-geometry-type>
+
+    <app-file-upload [formGroup]="form" [fileType]="form.value.format?.fileExtension"></app-file-upload>
+
+    <app-buffer-settings [formGroup]="form"></app-buffer-settings>
+
+    <input name="failureRedirectUrl" type="hidden" value="/pub/geomark/geomarks#file">
+
+    <button mat-raised-button color="primary" [disabled]="form.invalid || saving" (click)="createGeomark()">Create
+      Geomark</button>
+  </form>
+</div>

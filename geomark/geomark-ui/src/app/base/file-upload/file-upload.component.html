@@ -1,0 +1,18 @@
+<input hidden type="file" #fileInput (change)="addFilesInput($event)" [accept]="'.' + fileType">
+
+<mat-form-field appearance="outline" floatLabel="always" appDragDrop (fileDropped)="addFiles($event)">
+  <mat-label>File</mat-label>
+  <input matInput placeholder="Drag & Drop files, or click to add file" readonly *ngIf="!file"
+    (click)="selectFile($event)" />
+  <mat-chip-list #chipList required>
+    <mat-chip *ngIf="file" (removed)="removeFile()">
+      <div>{{file.name}} (<small>{{fileSize(file)}}</small>)</div>
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  <button matPrefix mat-icon-button (click)="selectFile($event)">
+    <app-fa-icon name="file-upload"></app-fa-icon>
+  </button>
+  <app-help-button [url]="glossaryUrl('body')" matSuffix></app-help-button>
+
+</mat-form-field>

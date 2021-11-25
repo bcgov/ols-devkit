@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<!-- InstanceBegin template="/Templates/DocTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Geomark Developer Guide</title>
+<!-- InstanceEndEditable -->
+
+<link
+  href="https://code.jquery.com/ui/1.11.2/themes/cupertino/jquery-ui.css"
+  rel="stylesheet" type="text/css" />
+<link
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  rel="stylesheet" type="text/css" />
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+  rel="stylesheet" type="text/css" />
+<link
+  href="https://cdn.datatables.net/scroller/1.2.2/css/dataTables.scroller.css"
+  rel="stylesheet" type="text/css" />
+<link
+  href="https://cdn.datatables.net/plug-ins/1.10.6/integration/bootstrap/3/dataTables.bootstrap.css"
+  rel="stylesheet" type="text/css" />
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css"
+  rel="stylesheet" type="text/css" />
+<link href="css/rs.css" rel="stylesheet" type="text/css" />
+<link href="css/bcgov.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript"
+  src="https://code.jquery.com/jquery-1.12.1.min.js">
+  
+</script>
+<script type="text/javascript"
+  src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js">
+  
+</script>
+<script type="text/javascript"
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+  
+</script>
+<script type="text/javascript"
+  src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js">
+  
+</script>
+<script type="text/javascript"
+  src="https://cdn.datatables.net/scroller/1.2.2/js/dataTables.scroller.min.js">
+  
+</script>
+<script type="text/javascript"
+  src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js">
+  
+</script>
+<script type="text/javascript" src="../js/rs.js">
+  
+</script>
+
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+
+<body class="nooverflow-100">
+  <header class="header">
+    <nav id="mainMenu" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-brand">
+            <span class="navbar-brand-title">Geomark Web Service
+              Developer Guide</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-content">
+    <div class="container-fluid">
+
+      <ol class="breadcrumb">
+        <li><a href="/pub/geomark/">Geomarks</a></li>
+        <li class="active">Developer Guide</li>
+      </ol>
+      <!-- InstanceBeginEditable name="body" -->
+
+      <div id="coordinateSystem">
+        <h1>Geomark Glossary of Terms</h1>
+
+        <div class="table-responsive">
+          <table
+            class="table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Term</th>
+                <th>Definition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="area">
+                <td>Area (area)</td>
+                <td>Area of the placemark in hectares.</td>
+              </tr>
+              <tr id="placemarkKml">
+                <td>Placemark KML (placemarkKml)</td>
+                <td>KML text that specifies geometry or geometries
+                  of a geomark.</td>
+              </tr>
+              <tr id="boundingBox">
+                <td>Bounding Box (boundingBox)</td>
+                <td>A comma separated list of the western,
+                  southern, eastern, and northern extent of the geomark
+                  in geographic coordinates. Western and eastern extent
+                  are displayed as decimal degrees of longitude.
+                  Northern and southern extent are displayed as decimal
+                  degrees of latitude.</td>
+              </tr>
+              <tr id="bufferCap">
+                <td>Buffer Cap (bufferCap)</td>
+                <td>The style of buffer to use at each end of a
+                  buffered line (e.g., round, square, flat).</td>
+              </tr>
+              <tr id="bufferJoin">
+                <td>Buffer Join (bufferJoin)</td>
+                <td>The style of buffer to use for joins between
+                  the line segments for lines and polygons (e.g., round,
+                  mitre,bevel).</td>
+              </tr>
+              <tr id="bufferMitreLimit">
+                <td>Buffer Mitre Limit (bufferMitreLimit)</td>
+                <td>The number of line segments used in each
+                  quadrant to approximate the curve for round end-cap
+                  and join styles. Must be a positive number.</td>
+              </tr>
+              <tr id="bufferMetres">
+                <td>Buffer Width (bufferMetres)</td>
+                <td>The amount to buffer the geometry (in metres).
+                  Must be a positive integer (e.g., 10). If left blank,
+                  no buffer will be added to input geometries and points
+                  and lines will stay points and lines. If a buffer is
+                  specified, point and line inputs will become polygons.</td>
+              </tr>
+              <tr id="centroid)">
+                <td>Centroid (centroid)</td>
+                <td>The latitude and longitude of a point at or
+                  near the centre of a geomark or, if the centre is
+                  outside the polygon, some point guaranteed to be
+                  inside the polygon</td>
+              </tr>
+              <tr id="creationDate">
+                <td>Creation Date (creationDate)</td>
+                <td>The date the geomark was created.</td>
+              </tr>
+              <tr id="expiryDate">
+                <td>Expiry Date (expiryDate)</td>
+                <td>The date a geomark expires. Once expired, it
+                  will no longer be accessible. If a geomark is in use
+                  by a government application, it will never expire
+                  until it is no longer required by that application.</td>
+              </tr>
+              <tr id="geomarkid">
+                <td>ID (geomarkId)</td>
+                <td>A unique, immutable, and meaningless identifier
+                  assigned to the geomark.</td>
+              </tr>
+              <tr id="geometryCount">
+                <td>Geometry Count (geometryCount)</td>
+                <td>The number of geometries in the geomark. If you
+                  select One, the first geometry in a feature, feature
+                  collection or geometry collection will be used. If you
+                  select Many, all geometries of the selected geometry
+                  type will be used. Multiple geometries, buffered or
+                  not, can’t overlap. (1mm tolerance)</td>
+              </tr>
+              <tr id="geometryType">
+                <td>Geometry Type (geometryType)</td>
+                <td>Type of input geometry. Valids types are Point,
+                  Line, Polygon, Any.</td>
+              </tr>
+              <tr id="isRobust">
+                <td>Is Geometry Robust (isRobust)</td>
+                <td>A geometry that has a minimum clearance of less
+                  than one millimetre is not robust. Minimum clearance
+                  is the shortest distance between any two points or
+                  between a line and a point in the geometry. A geometry
+                  that is not robust will self-intersect when loaded
+                  into a spatial data store or application. For more
+                  info, see Interchange of Spatial Data – Inhibiting
+                  Factors (PDF)</td>
+              </tr>
+              <tr id="isSimple">
+                <td>Is Geometry Simple (isSimple)</td>
+                <td>A simple geometry is closed and doesn’t
+                  self-intersect or have self-tangent points. For more
+                  info, see the Simple Feature Access - Part 2: SQL
+                  Option</td>
+              </tr>
+              <tr id="isValid">
+                <td></td>
+                <td>A geometry is valid if it meets the validity
+                  conditions for the given geometry type. For example, a
+                  linear ring must be simple. A polygon must consist of
+                  one outer boundary and zero or more inner boundaries,
+                  all of which must be simple. All inner boundaries must
+                  be contained within the outer boundary without
+                  touching. For more info, see ST_IsValid - PostGIS</td>
+              </tr>
+              <tr id="length">
+                <td>Length (length)</td>
+                <td>Length of the geomark in kilometers.</td>
+              </tr>
+              <tr id="numVertices">
+                <td>Vertex Count (numVertices)</td>
+                <td>Number of vertices in all polygon boundaries of
+                  the geomark. A polygon without holes has a single,
+                  outer boundary, a polygon with one hole has one outer
+                  boundary and one inner boundary.</td>
+              </tr>
+              <tr id="validationError">
+                <td>Validation Error (validationError)</td>
+                <td>Detailed validation error message if geometry
+                  is not valid; blank otherwise.</td>
+              </tr>
+               <tr id="geomark">
+                <td>geomark</td>
+                <td>A point, line, or polygon of interest that can
+                  be shared in a variety of formats and map projections.
+                  Geomarks are created by the <a
+                  href="https://apps.gov.bc.ca/pub/geomark/"
+                  rel="nofollow">Geomark Service</a>.
+                </td>
+              </tr>
+              <tr id="downloadGeometryType">
+                <td>Download Geometry Type</td>
+                <td>The type of geometry included in the download file.<ul>
+                <li>[numParts] [geometryType] (e.g. 2 Polygons) - For multi-part geometries there will be one record for each part of the geometry.</li>
+                <li>[geometryType] (e.g. MultiPolygon) - There will be one record containing the single or Multi-part geometry.</li>
+                <li>Point inside first part - A single point that is contained in the first part of the geometry.</li>
+                <li>Polygon bounding rectangle - A polygon that is the bounding rectangle of the geometry.</li>
+                </ul></td>
+              </tr>
+              <tr id="version">
+                <td>version</td>
+                <td>Software version of the REST Web Service</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- InstanceEndEditable -->
+    </div>
+  </div>
+
+
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js">
+      
+    </script>
+</body>
+<!-- InstanceEnd -->
+</html>
