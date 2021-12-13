@@ -11,10 +11,7 @@ GEOMARK = "gm-..."
 GROUP = "gg-..."
 SECRET_KEY = "kg-..."
 
-REQ_PATH = "/geomarkGroups/" + GROUP + "/geomarks/add"
 TIMESTAMP = str(int(time.time() * 1000))
-
-MESSAGE = REQ_PATH + ":" + TIMESTAMP + ":" + "geomarkId=" + GEOMARK
 
 def url_encode(s):
     s1 = urllib.parse.quote(s)
