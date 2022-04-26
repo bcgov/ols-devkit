@@ -717,14 +717,17 @@
 			case 'tst':
 				gcApi = "https://geocodertst.api.gov.bc.ca/";
 				break;
-		  case 'dlv':
-			  gcApi = "https://geocoderdlv.api.gov.bc.ca/";
+		  	case 'dlv':
+			  	gcApi = "https://geocoderdlv.api.gov.bc.ca/";
 				break;
 			case 'rri':
 				gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
 				break
 			case 'local':
 				gcApi = "http://localhost:8080/pub/geocoder/";
+				break;
+			case 'dip':
+				gcApi = "https://data-integration-geocoder-prod.apps.silver.devops.gov.bc.ca/pub/geocoder/";
 		}
 
 		switch(queryParams['rt']) {
@@ -742,6 +745,9 @@
 				break
 			case 'local':
 				routeApi = "http://localhost:8080/pub/router/";
+				break;
+			case 'dip':
+				routeApi = "https://data-integration-router-api-prod.apps.silver.devops.gov.bc.ca/";
 				break;
 			default:
 				routeMethod = 'GET';
