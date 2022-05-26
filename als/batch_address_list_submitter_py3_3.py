@@ -73,8 +73,10 @@ url = SERVICE_URL + 'apps/geocoder/multiple.json'
 log("Sending initial request to: " + url)
 r1 = requests.post(url, files=files, headers=headers,
 				   data=fields, auth=HTTPDigestAuth(username, password))
-print(r1.status_code)
-print(r1.text)
+
+while r1.status_code == 404:
+	print("Geocoder Plugin not ready")
+
 m = re.search('\/jobs\/(\d+)\/', r1.url)
 
 if m:
