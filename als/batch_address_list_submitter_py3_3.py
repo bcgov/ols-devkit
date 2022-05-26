@@ -75,6 +75,8 @@ r1 = requests.post(url, files=files, headers=headers,
 				   data=fields, auth=HTTPDigestAuth(username, password))
 
 while r1.status_code == 404:
+	r1 = requests.post(url, files=files, headers=headers,
+					   data=fields, auth=HTTPDigestAuth(username, password))
 	print("Geocoder Plugin not ready")
 
 m = re.search('\/jobs\/(\d+)\/', r1.url)
