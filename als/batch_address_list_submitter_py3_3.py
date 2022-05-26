@@ -44,7 +44,7 @@ email = None
 if len(sys.argv) == 6:
 	email = sys.argv[5]
 
-if len(sys.argv) == 7
+if len(sys.argv) == 7:
 	SERVICE_URL = sys.argv[6]
 
 # Setup parameters for job submission
