@@ -26,9 +26,9 @@ def log(msg):
 
 
 # Get parameters from the command-line
-if len(sys.argv) < 5 or len(sys.argv) > 6:
+if len(sys.argv) < 5 or len(sys.argv) > 7:
 	print(('Usage: <python> address_list_submitter.py ' +
-		   '<url|file> <local file> <username> <password> [<e-mail>]'))
+		   '<url|file> <local file> <username> <password> [<e-mail> <service-url>]'))
 	sys.exit(0)
 
 # Alternatively you can hard-code the parameters below
@@ -43,6 +43,9 @@ password = sys.argv[4]
 email = None
 if len(sys.argv) == 6:
 	email = sys.argv[5]
+
+if len(sys.argv) == 7:
+	SERVICE_URL = sys.argv[6]
 
 # Setup parameters for job submission
 headers = {'Accept': 'application/json'}
@@ -70,6 +73,7 @@ url = SERVICE_URL + 'apps/geocoder/multiple.json'
 log("Sending initial request to: " + url)
 r1 = requests.post(url, files=files, headers=headers,
 				   data=fields, auth=HTTPDigestAuth(username, password))
+
 m = re.search('\/jobs\/(\d+)\/', r1.url)
 
 if m:
