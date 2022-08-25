@@ -21,11 +21,11 @@ Example:
         python createGeomarksFromFolder.py H:\proj2\files\
 
 Notes:
-1. To modify the number of input arguments, see the 'fields' dictionary below.
-2. This version of the createGeomarksFromFolder.py script does not support the
-   'Any' value for geometryType. Input files must contain a single geometryType.
-3. This version of the createGeomarksFromFolder.py script does not support the
-   GeoPackage file format.
+1. This script does not process the contents of subfolders.
+2. This version of the script does not support the 'Any' value for
+   geometryType. Input files must contain a single geometryType.
+3. This version of the script does not support the GeoPackage file format.
+4. To modify the number of input arguments, see the 'fields' dictionary below.
 """
 # -------------------------------------------------------------------
 # -------------------------------------------------------------------
