@@ -6,15 +6,23 @@ This script will iterate through a CSV file containing
 two sets of coordinates. Each iteration will submit a request
 to the BC Route Planner. Specifically, it will use betweenPairs
 to compute the distance between a list of fromPoints and toPoints
-in the csv. The script then partitions
-the response and saves these distances to a new CSV file.
+in the csv. The number of fromPoints times the number of toPoints 
+should not exceed 100 or the request will time out.
+
+The script then partitions the response and saves these 
+distances to a new CSV file.
+
+Note:
+If creating a CSV file in MS Excel you may need to select
+the 'CSV UTF-8' file type.
 
 Instructions:
 
 1. Start menu -> Run -> Type 'cmd'
 2. Navigate to the folder where this script is located
 
-        python <Script_name>.py <workspace filepath including final slash>
+        python <Script_name>.py <your API key>
+                                <workspace filepath including final slash>
                                 <input filename including file extension>
                                 <criteria> - written as 'shortest' or 'fastest'
                                 <mode> - written as 'table'
