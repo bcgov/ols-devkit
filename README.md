@@ -12,7 +12,7 @@ The [gh-pages branch](https://github.com/bcgov/ols-devkit/tree/gh-pages) of this
 [Batch Address List Metrics](https://github.com/bcgov/ols-devkit/tree/gh-pages/alm)|Python script|Python Script provides summary stats based on an output file from the Batch Geocoder.| developers|
 [Batch Address List Submitter](https://github.com/bcgov/ols-devkit/tree/gh-pages/als)|Python script|Python Script submits an address list to the Batch Geocoder plugin running in the Concurrent Processing Framework and retrieves the results| developers|
 [Distance Between Pairs](https://github.com/bcgov/ols-devkit/tree/gh-pages/bps)|Python script and sample input files| Script computes distances by road between a list of source points and a list of destination points|developers|
-[Geomark Web Service Requests](https://github.com/bcgov/ols-devkit/tree/gh-pages/geomark/scripts)|Python script| A collection of scripts to submit Geomark requests as well as to add to Geomark groups.| developers|
+[Geomark Web Service Requests](https://github.com/bcgov/ols-devkit/tree/gh-pages/geomark/scripts)|Python script| A collection of scripts to submit Geomark requests and to add Geomarks to a group.| developers|
 [Location Services In Action](https://bcgov.github.io/ols-devkit/ols-demo/index.html)|Web app|Demonstrates how to hook up the geocoder and route planner to a Javascript/Leaflet web app|Web app developers, Location Services engagement staff, end users|
 
 
