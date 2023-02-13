@@ -2,7 +2,7 @@
 
 ## OLS Developer Toolkit
 
-The [gh-pages branch](https://github.com/bcgov/ols-devkit/tree/gh-pages) of this repository is home to the OLS Developer Toolkit which includes web applications aimed primarily at developers so they can see how to integrate the [BC Address Geocoder](https://www2.gov.bc.ca/gov/content?id=118DD57CD9674D57BDBD511C2E78DC0D), [BC Route Planner](https://www2.gov.bc.ca/gov/content?id=9D99E684CCD042CD88FADC51E079B4B5) and the [Geomark Web Service](https://www2.gov.bc.ca/gov/content?id=F6BAF45131954020BCFD2EBCC456F084) into their own web apps. Applications can also be used by end users directly or in demos to end users to explain what our services actually do. The repository also contains Python scripts that are aimed solely at developers seeking to integrate the ols-geocoder and ols-route-planner into their automated workflows.
+The [gh-pages branch](https://github.com/bcgov/ols-devkit/tree/gh-pages) of this repository is home to the OLS Developer Toolkit which includes web applications aimed primarily at developers so they can see how to integrate the [BC Address Geocoder](https://www2.gov.bc.ca/gov/content?id=118DD57CD9674D57BDBD511C2E78DC0D), [BC Route Planner](https://www2.gov.bc.ca/gov/content?id=9D99E684CCD042CD88FADC51E079B4B5) and the [Geomark Web Service](https://www2.gov.bc.ca/gov/content?id=F6BAF45131954020BCFD2EBCC456F084) into their own web apps. Applications can also be used by end users directly or in demonstrations to end users to explain what our services can do. The repository also contains Python scripts that are aimed solely at developers seeking to integrate our services into their automated workflows.
 
 |Name|Type|Description|Audience
 |----|:----:|----|----|
