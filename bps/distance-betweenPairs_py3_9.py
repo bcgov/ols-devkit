@@ -6,10 +6,10 @@ This script will iterate through a CSV file containing
 two sets of coordinates. Each iteration will submit a request
 to the BC Route Planner. Specifically, it will use betweenPairs
 to compute the distance between a list of fromPoints and toPoints
-in the csv. The number of fromPoints times the number of toPoints 
+in the csv. The number of fromPoints times the number of toPoints
 should not exceed 100 or the request will time out.
 
-The script then partitions the response and saves these 
+The script then partitions the response and saves these
 distances to a new CSV file.
 
 Note:
@@ -210,7 +210,6 @@ dfInputFileContent = pd.read_csv(inputFile)
 rows, columns = dfInputFileContent.shape
 print(("This file has " + str(rows) + " rows"))
 
-
 # --------------------------------------------------------
 # Step 2: Assign fields from the dataframe to lists
 # --------------------------------------------------------
@@ -266,6 +265,8 @@ for fromKey in locationName_1:
     nameCounter = 0
     for toKey in locationName_2:
         if toKey != fromKey:
+            if pd.isnull(toKey) is True:
+                break
             if toPoint == "":
                 toPoint = locationDict_2[toKey]
                 toNames = toKey
