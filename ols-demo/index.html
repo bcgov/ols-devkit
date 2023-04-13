@@ -1175,16 +1175,27 @@
 		});
 		overlays["Intersections"] = intLayer;
 
-		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW/ows?SERVICE=WMS&',
+		var parcelIdLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW/ows?SERVICE=WMS&',
 			{
 				maxZoom: 20,
-				styles: [7834,5898],
+				styles: 7834,
 				layers: 'pub:WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW',
 				transparent: true,
 				format: 'image/png'
 			});
 		//parcelLayer.addTo(map);
-		overlays['ParcelMap BC'] = parcelLayer;
+		overlays['ParcelMap BC - Labels - PID'] = parcelIdLayer;
+
+		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW/ows?SERVICE=WMS&',
+			{
+				maxZoom: 20,
+				styles: 5898,
+				layers: 'pub:WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW',
+				transparent: true,
+				format: 'image/png'
+			});
+		//parcelLayer.addTo(map);
+		overlays['ParcelMap BC - Outlined'] = parcelLayer;
 
 		var draLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/ows?',
 			{
