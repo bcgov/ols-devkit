@@ -51,6 +51,7 @@ if len(sys.argv) == 7:
 headers = {'Accept': 'application/json'}
 fields = {'inputDataContentType': 'csv',
 		  'resultSrid': '4326',
+	          'echo': 'on',
 		  'interpolation': 'adaptive',
 		  'locationDescriptor': 'any',
 		  'resultDataContentType': 'csv',
