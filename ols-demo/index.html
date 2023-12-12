@@ -634,7 +634,8 @@
 			Global Distortion Field
 			<table id="gdfTable">
 				<thead>
-					<tr><th rowspan="2">Road Class</th><th colspan="2">Friction Factor</th></tr>
+					<tr><th rowspan="3">Road Class</th><th colspan="3">Friction Factor</th></tr>
+					<tr><th rowspan="2">CAR</th><th colspan="2">TRUCK</th></tr>
 					<tr><th>Base</th><th>TruckRoute</th></tr>
 				</thead>
 				<tbody>
@@ -2538,20 +2539,24 @@
 					$('#leftTruckTurnCost').val(turnCosts[2]);
 					$('#rightTruckTurnCost').val(turnCosts[3]);
 				}
-				if(data.globalDistortionField) {
-					$tbody = $("#gdfTable > tbody");
-					$tbody.empty();
-					const keys = Object.keys(data.globalDistortionField);
-					for (const key of keys) {
-						if(key.endsWith(".truck")) continue;
-						var value = data.globalDistortionField[key];
-						var truckValue = data.globalDistortionField[key + ".truck"];
-						$tbody.append("<tr><td>" + key + "</td>"
-							  + "<td><input id=\"" + key + "\" class=\"routeOnChange gdf\" value=\"" + value
-										+ "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td>"
-								+ "<td><input id=\"" + key + ".truck\" class=\"routeOnChange gdf\" value=\"" + truckValue
-								    + "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td></tr>");
-					}
+				var gdfData = {};
+				if(!data.globalDistortionField.TRUCK) {
+					gdfData.TRUCK = data.globalDistortionField;
+				} else {
+					gdfData = data.globalDistortionField
+				}
+				$tbody = $("#gdfTable > tbody");
+				$tbody.empty();
+				const keys = Object.keys(gdfData.TRUCK);
+				for (const key of keys) {
+					if(key.endsWith(".truck")) continue;
+					$tbody.append("<tr><td>" + key + "</td>"
+						+ "<td><input id=\"" + key + ".CAR\" class=\"routeOnChange gdfCar\" value=\"" + gdfData.CAR?.[key]
+									+ "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td>"
+						+ "<td><input id=\"" + key + ".TRUCK\" class=\"routeOnChange gdfTruck\" value=\"" + gdfData.TRUCK[key]
+									+ "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td>"
+							+ "<td><input id=\"" + key + ".truck.TRUCK\" class=\"routeOnChange gdfTruck\" value=\"" + gdfData.TRUCK[key + ".truck"]
+								+ "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td></tr>");
 				}
 				updateConfigString();
 			},
@@ -2965,15 +2970,21 @@
 		}
 
 		function buildGdfString() {
+			var gdfSelector = 'input.gdfCar';
+			if($('#truckControlsChk').is(':checked')) {
+				gdfSelector = 'input.gdfTruck';
+			}
 			var s = "";
-			$('input.gdf').each( function() {
-				s += $(this).prop('id') + ":" + $(this).val() + ",";
+			$(gdfSelector).each( function() {
+				var fieldName = $(this).prop('id');
+				fieldName = fieldName.substring(0, fieldName.lastIndexOf('.'));
+				s += fieldName + ":" + $(this).val() + ",";
 			});
 			return s;
 		}
 
 		function updateConfigString() {
-			var s = "globalDistortionField=" + buildGdfString()
+			var s = "gdf=" + buildGdfString()
 					+ "&xingCost=" + buildXingCostString()
 					+ "&turnCost=" + $('#leftTurnCost').val() + "," + $('#rightTurnCost').val() + ","
 					+ $('#leftTruckTurnCost').val() + "," + $('#rightTruckTurnCost').val();
