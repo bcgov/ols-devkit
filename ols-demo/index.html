@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.Default.css" type="text/css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.css" type="text/css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tag-it@2.0.0/css/jquery.tagit.css" type="text/css" />
+	<script src="https://kit.fontawesome.com/17084b3326.js" crossorigin="anonymous"></script>
 	<style>
 		/* make the map fullscreen */
 		html, body {
@@ -137,7 +138,7 @@
 		.gnsLabel {
 			white-space: nowrap;
 			/*-webkit-text-stroke: 0.25px white;*/
-			font-face: verdana;
+			font-family: Verdana, sans-serif;
 			font-weight: bolder;
 			font-size: 16px;
 			text-shadow:
@@ -161,6 +162,16 @@
 			position: absolute;
 			top: 0px;
 			left: 0px;
+		}
+		.iconDiv {
+			background: none;
+			border: none;
+		}
+		.itn {
+			color: rgb(175, 0, 0);
+		}
+		.rdm {
+			color: rgb(255, 51, 0);
 		}
 		#adminAreaInfo {
 		  margin: 1em 0;
@@ -224,6 +235,51 @@
 			margin: 2px;
 			border: 1px solid #ffff99;
 			background-color: #ffffdd;
+		}
+		.laneRequirement {
+			padding: 5px;
+			margin: 2px;
+			border: 1px solid #ffaaaa;
+			background-color: #ffdddd;
+			display: flex;
+		}
+		.noShrink {
+			flex-shrink: 0 ;
+		}
+		table.safeLanesTable {
+			border-collapse: collapse;
+			border: 1px solid grey;
+			background-color: #dddddd;
+		}
+		table.safeLanesTable tr td:first-child {
+			width: 5px;
+		}
+		table.safeLanesTable tr td.centerLine {
+			width: 4px;
+			background-color: #dfd461;
+			border-left: 1px solid #c4aa56;
+			border-right: 1px solid #c4aa56;
+		}
+		table.safeLanesTable tr td {
+			width: 20px;
+			height: 35px;
+			text-align: center;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			font-weight: bold;
+		}
+		table.safeLanesTable tr td.centerLine + td { 
+			border-left: none;
+		}
+		table.safeLanesTable tr td:last-child {
+			border-right: 1px solid grey;
+		}
+		table.safeLanesTable tr td.unsafe {
+			background-color: #ffaaaa;
+			border-left: 2px dashed white;
+		}
+		table.safeLanesTable tr td.safe {
+			background-color: #96b393;
+			border-left: 2px dashed white;
 		}
 		#directions {
 			overflow-y: scroll;
@@ -347,7 +403,7 @@
 						<a href="#tabs-1" aria-controls="tabs-1" role="tab" data-toggle="tab">Address</a>
 					</li>
 					<li role="presentation">
-						<a href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Route</a>
+						<a id="routerTab" href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Route</a>
 					</li>
 					<li role="presentation">
 						<a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Businesses by Tag</a>
@@ -380,6 +436,9 @@
 									<span class="glyphicon glyphicon-remove" aria-label="Clear"></span>
 								</button>
 							</div>
+						</div>
+						<div>
+							<input id="exactSpellingChk" type="checkbox" aria-label="Exact Spelling" title="Exact Spelling"> Exact Spelling<br/>
 						</div>
 						</form>
 						<div>
@@ -468,6 +527,9 @@
 									</button>
 								</div>
 							</div>
+							<div>
+								<input id="routeOptionsChk" type="checkbox" aria-label="Hide Route Options" title="Hide Route Options"> Hide Route Options</br>
+							</div>
 							<div id="routerControls">
 								<div class="routerControl">
 									<input name="criteria" type="radio" value="fastest" aria-label="Fastest"  checked="checked"> <span class="fastest">Fastest</span><br>
@@ -479,42 +541,73 @@
 									<input id="nearestStopChk" type="checkbox" aria-label="Nearest Stop" title="Nearest Stop"> Nearest Stop
 								</div>
 								<div class="routerControl">
+									<input id="gdfChk" class="routeOnChange" type="checkbox" aria-label="Global Distortion Field" title="Global Distortion Field"> <a class="configDialogLink">Global Distortion Field</a><br/>
+									<input id="ldfChk" class="routeOnChange" type="checkbox" aria-label="Local Distortion Field" title="Local Distortion Field"> Local Distortion Field<br/>
+								</div>
+								<div class="routerControl">
+									<input id="timeDependentChk" class="routeOnChange" type="checkbox" aria-label="Time Dependent" title="Time Dependent"> Time Dependent<br/>
+									Start Date/Time:
+									<input id="date" class="routeOnChange" aria-label="Date" title="Date">
+									<input id="time" class="routeOnChange" aria-label="Time" title="Time"><br/>
 									<input id="ferrySchedulesChk" class="routeOnChange" type="checkbox" aria-label="Ferry Schedules" title="Ferry Schedules"> Ferry Schedules<br/>
 									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic"> Traffic<br/>
 									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events"> Events<br/>
-									<input id="gdfChk" class="routeOnChange" type="checkbox" aria-label="Global Distortion Field" title="Global Distortion Field"> <a class="configDialogLink">Global Distortion Field</a><br/>
-									<input id="ldfChk" class="routeOnChange" type="checkbox" aria-label="Local Distortion Field" title="Local Distortion Field"> Local Distortion Field<br/>
-									<input id="timeDependentChk" class="routeOnChange" type="checkbox" aria-label="Time Dependent" title="Time Dependent"> Time Dependent<br/>
+								</div>
+								<div class="routerControl">
 									<input id="turnRestrictionsChk" class="routeOnChange" type="checkbox" aria-label="Turn Restrictions" title="Turn Restrictions"> Turn Restrictions<br/>
 									<input id="xingCostsChk" class="routeOnChange" type="checkbox" aria-label="Crossing Costs" title="Crossing Costs"> <a class="configDialogLink">Crossing Costs</a><br/>
 									<input id="turnCostsChk" class="routeOnChange" type="checkbox" aria-label="Turn Costs" title="Turn Costs"> <a class="configDialogLink">Turn Costs</a><br/>
-								</div>
-								<div class="routerControl">
-									Start Date/Time:
-									<input id="date" class="routeOnChange" aria-label="Date" title="Date">
-									<input id="time" class="routeOnChange" aria-label="Time" title="Time">
-								</div>
-								<div class="routerControl">
 									<input id="correctSideChk" class="routeOnChange" type="checkbox" aria-label="Correct Side" title="Correct Side"> Correct Side<br/>
 								</div>
-							</div>
-							<div class="routerControl">
-								<input id="truckControlsChk" class="routeOnChange" type="checkbox" aria-label="Truck Mode" title="Truck Mode"> Truck Mode</br>
-								<div id="truckControls">
-									<input id="followTruckRouteChk" class="routeOnChange" type="checkbox" aria-label="Follow Truck Route" title="Follow Truck Route"> Follow Truck Route</br>
-									<table>
-										<tbody>
-											<tr><td>Truck Route Multiplier:</td><td><input id="truckRouteMultiplier" class="routeOnChange" type="text" aria-label="Truck Route Multiplier" title="Truck Route Multiplier"></td></tr>
-											<tr><td>Height OAH (m):</td><td><input id="height" class="routeOnChange" type="text" aria-label="Height" title="Height"></td></tr>
-											<tr><td>Width OAW (m):</td><td><input id="width" class="routeOnChange" type="text" aria-label="Width" title="Width"></td></tr>
-											<tr><td>Length OAL (m):</td><td><input id="length" class="routeOnChange" type="text" aria-label="Length" title="Length"></td></tr>
-											<tr><td>Weight GVW (kg):</td><td><input id="weight" class="routeOnChange" type="text" aria-label="Weight" title="Weight"></td></tr>
-										</tbody>
-									</table>
+								<div class="routerControl">
+									<input id="simplifyDirectionsChk" class="routeOnChange" type="checkbox" aria-label="Simplify Directions" title="Simplify Directions"> Simplify Directions &nbsp; 
+									Threshold (m): <input id="simplifyThreshold" class="routeOnChange" type="input" value="250" size="10" aria-label="Simply Threshold" title="Simplify Threshold">
+								</div>
+								<div class="routerControl">
+									<input id="truckControlsChk" class="routeOnChange" type="checkbox" aria-label="Truck Mode" title="Truck Mode"> Truck Mode</br>
+									<div id="truckControls">
+										<input id="followTruckRouteChk" class="routeOnChange" type="checkbox" aria-label="Follow Truck Route" title="Follow Truck Route"> Follow Truck Route; 
+										Multiplier:<input id="truckRouteMultiplier" class="routeOnChange" type="text" aria-label="Truck Route Multiplier" title="Truck Route Multiplier" size="2"></br>
+										<input id="noCommercialVehicleChk" class="routeOnChange" type="checkbox" aria-label="No Commercial Vehicle" title="No Commercial Vehicle"> No Commercial Vehicle &nbsp; 
+										<input id="noSelfIssueChk" class="routeOnChange" type="checkbox" aria-label="No Self Issue" title="No Self Issue"> No Self Issue</br>
+										<table>
+											<tbody>
+												<tr>
+													<td>Partition On:</td>
+													<td>
+														<select id="partition" class="routeOnChange" aria-label="Partition" title="Partition">
+															<option selected>isTruckRoute</option>
+															<option>ownership</option>
+														</select>
+													</td>
+												</tr>
+												<tr><td>Height OAH (m):</td><td><input id="height" class="routeOnChange" type="text" aria-label="Height" title="Height"></td></tr>
+												<tr><td>Width OAW (m):</td><td><input id="width" class="routeOnChange" type="text" aria-label="Width" title="Width"></td></tr>
+												<tr><td>Length OAL (m):</td><td><input id="length" class="routeOnChange" type="text" aria-label="Length" title="Length"></td></tr>
+												<tr><td>Weight GVW (kg):</td><td><input id="weight" class="routeOnChange" type="text" aria-label="Weight" title="Weight"></td></tr>
+												<tr><td>Axle Weights (kg):</td><td>
+													1:<input id="weight1axle" class="routeOnChange" type="text" aria-label="Weight 1 Axle" title="Weight 1 Axle" size="4">
+													2:<input id="weight2axle" class="routeOnChange" type="text" aria-label="Weight 2 Axle" title="Weight 2 Axle" size="4">
+													3:<input id="weight3axle" class="routeOnChange" type="text" aria-label="Weight 3 Axle" title="Weight 3 Axle" size="4">
+												</td></tr>
+												<tr>
+													<td>Restriction Source:</td>
+													<td>
+														<select id="restrictionSource" class="routeOnChange" aria-label="Restriction Source">
+															<option selected>ITN</option>
+															<option>RDM</option>
+														</select>
+													</td>
+												</tr>
+												<tr><td>Exclude Restrictions:</td><td><input id="excludeRestrictions" class="routeOnChange" type="text" aria-label="Exclude Restrictions" title="Exclude Restrictions"></td></tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 							<div id="routerInfo">
 								<div id="timing" class="timing"></div>
+								<button id="downloadKml" class="btn btn-default" type="button" title="Download Route as KML">Download KML</button>
 							</div>
 							<div id="notifications"></div>
 							<div id="directionsHeader"></div>
@@ -674,6 +767,9 @@
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
 	<script type="text/javascript" src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
 	<script>
+		// prevent an routing from being done until everything is set up
+		var settingUp = true;
+
 		L.NumberedIcon = L.Icon.extend({
 			options: {
     			number: '',
@@ -700,38 +796,35 @@
 		});
 
 		// parse query params
-		var queryParams = {};
-		location.search.substr(1).split("&").forEach(function(item) {
-			var s = item.split("="), k = s[0], v = s[1] && decodeURIComponent(s[1]);
-			queryParams[k] = v;
-		});
+		var queryParams = new URL(document.location).searchParams;
 
+		// Keys
 		var BING_KEY = 'ArFQcMQQdw-tWyNSzt5Mafl-kq4I6naIWvX7YZjq-P20-f-txYOcMzPnl0yoNvvn';
+		var DATABC_APIKEY = "11dd756f680c47b5aef5093d95543738";
 
 		// API URLs
-		var DATABC_APIKEY = "11dd756f680c47b5aef5093d95543738";
 		var gcApi = "https://geocoder.api.gov.bc.ca/";
 		var routeApi = "https://router.api.gov.bc.ca/";
 		var routeMethod = 'POST';
 		//var routeMethod = 'GET';
-		switch(queryParams['gc']) {
+		switch(queryParams.get('gc')) {
 			case 'tst':
 				gcApi = "https://geocodertst.api.gov.bc.ca/";
 				break;
-		  	case 'dlv':
-			  	gcApi = "https://geocoderdlv.api.gov.bc.ca/";
+			case 'dlv':
+			  gcApi = "https://geocoderdlv.api.gov.bc.ca/";
 				break;
 			case 'rri':
-				gcApi = "https://ssl.refractions.net/ols/pub/geocoder/";
+				gcApi = "https://ssl.refractions.net/ols/geocoder/";
 				break
 			case 'local':
-				gcApi = "http://localhost:8080/pub/geocoder/";
+				gcApi = "http://localhost:8080/";
 				break;
 			case 'dip':
 				gcApi = "https://data-integration-geocoder-prod.apps.silver.devops.gov.bc.ca/";
 		}
 
-		switch(queryParams['rt']) {
+		switch(queryParams.get('rt')) {
 			case 'tst':
 				routeApi = "https://routertst.api.gov.bc.ca/";
 				break;
@@ -741,11 +834,8 @@
 		 	case 'rri':
 				routeApi = "https://ssl.refractions.net/ols/router/";
 				break;
-			case 'dev':
-				routeApi = "http:///192.168.50.126:8080/pub/router/";
-				break
 			case 'local':
-				routeApi = "http://localhost:8080/pub/router/";
+				routeApi = "http://localhost:8080/";
 				break;
 			case 'dip':
 				routeApi = "https://data-integration-router-api-prod.apps.silver.devops.gov.bc.ca/";
@@ -762,8 +852,8 @@
 		}
 
 		var xmdx = 5000;
-		if(queryParams['xmdx']) {
-			var num = parseInt(queryParams['xmdx']);
+		if(queryParams.get('xmdx')) {
+			var num = parseInt(queryParams.get('xmdx'));
 			if(!isNaN(num)) {
 				xmdx = num;
 			}
@@ -772,6 +862,12 @@
 		var matchPrecisionNot = "";
 		if('noStreets' in queryParams) {
 			matchPrecisionNot = "street";
+		}
+
+		var defaultLocationDescriptor = 'parcelPoint';
+		if(queryParams.get('locationDescriptor') == 'accessPoint'
+				|| queryParams,get('locationDescriptor') == 'routingPoint') {
+			defaultLocationDescriptor = queryParams.get('locationDescriptor');
 		}
 
 		// Leaflet Map setup
@@ -951,11 +1047,51 @@
 			iconSize: [16, 16],
 			iconAnchor: [8, 8]
 		});
-		navInfoIcons['HR'] = new L.Icon({
-			iconUrl: 'img/restriction.png',
-			iconSize: [16, 16],
-			iconAnchor: [8, 8]
-		});
+		navInfoIcons['HR'] = {};
+		// navInfoIcons['HR']['HORIZONTAL'] = {
+		// 	'ITN': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-arrows-left-right-to-line fa-lg itn"></i>'}),
+		// 	'RDM': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-arrows-left-right-to-line fa-lg rdm"></i>'})
+		// };
+		// navInfoIcons['HR']['VERTICAL'] = {
+		// 	'ITN': new L.DivIcon({className: 'iconDiv',  html: '<i class="fa-solid fa-arrows-left-right-to-line fa-rotate-90 fa-lg itn"></i>'}),
+		// 	'RDM': new L.DivIcon({className: 'iconDiv',  html: '<i class="fa-solid fa-arrows-left-right-to-line fa-rotate-90 fa-lg rdm"></i>'})
+		// };
+		//navInfoIcons['HR']['GVW'] = {
+		// 	'ITN': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-weight-hanging fa-lg itn"></i>'}),
+		// 	'RDM': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-weight-hanging fa-lg rdm"></i>'})
+		//};
+		navInfoIcons['HR']['HORIZONTAL'] = {
+			'ITN': new L.Icon({iconUrl: 'img/horizontal_blue.svg', iconSize: [25,25]}),
+			'RDM': new L.Icon({iconUrl: 'img/horizontal_red.svg', iconSize: [25,25]})
+		};
+		navInfoIcons['HR']['VERTICAL'] = {
+			'ITN': new L.Icon({iconUrl: 'img/vertical_blue.svg', iconSize: [25,25]}),
+			'RDM': new L.Icon({iconUrl: 'img/vertical_red.svg', iconSize: [25,25]})
+		};
+		navInfoIcons['HR']['GVW'] = {
+			'ITN': new L.Icon({iconUrl: 'img/weight_blue.svg', iconSize: [25,25]}),
+			'RDM': new L.Icon({iconUrl: 'img/weight_red.svg', iconSize: [25,25]})
+		};
+		navInfoIcons['HR']['WEIGHT-GVW'] = {
+			'ITN': new L.Icon({iconUrl: 'img/weight_blue.svg', iconSize: [25,25]}),
+			'RDM': new L.Icon({iconUrl: 'img/weight_red.svg', iconSize: [25,25]})
+		};
+
+		navInfoIcons['HR']['NCV'] = {
+			'RDM': new L.Icon({iconUrl: 'img/restriction.png', iconSize: [25,25]})
+		};
+		navInfoIcons['HR']['NSI'] = {
+			'RDM': new L.Icon({iconUrl: 'img/restriction.png', iconSize: [25,25]})
+		};
+		navInfoIcons['HR']['WEIGHT-1AXLE'] = {
+			'RDM': new L.Icon({iconUrl: 'img/weight_red.svg', iconSize: [25,25]})
+		};
+		navInfoIcons['HR']['WEIGHT-2AXLE'] = {
+			'RDM': new L.Icon({iconUrl: 'img/weight_red.svg', iconSize: [25,25]})
+		};
+		navInfoIcons['HR']['WEIGHT-3AXLE'] = {
+			'RDM': new L.Icon({iconUrl: 'img/weight_red.svg', iconSize: [25,25]})
+		};
 		navInfoIcons['EV'] = new L.Icon({
 			iconUrl: 'img/cone.png',
 			iconSize: [32, 32],
@@ -979,6 +1115,11 @@
 					iconSize: [56, 20],
 					iconAnchor: [28, 10]
 				});
+			} else if(props.type == 'HR') {
+				if(!navInfoIcons[props.type][props.subType]) {
+					console.log(props.subType);
+				}
+				icon = navInfoIcons[props.type][props.subType][props.source];
 			} else if(props.type != 'TR') {
 				icon = navInfoIcons[props.type];
 			} else {
@@ -1185,7 +1326,6 @@
 				transparent: true,
 				format: 'image/png'
 			});
-		//parcelLayer.addTo(map);
 		overlays['ParcelMap BC - Labels - PID'] = parcelIdLayer;
 
 		var parcelLayer = L.tileLayer.wms('https://openmaps.gov.bc.ca/geo/pub/WHSE_CADASTRE.PMBC_PARCEL_FABRIC_POLY_SVW/ows?SERVICE=WMS&',
@@ -1196,7 +1336,6 @@
 				transparent: true,
 				format: 'image/png'
 			});
-		//parcelLayer.addTo(map);
 		overlays['ParcelMap BC - Outlined'] = parcelLayer;
 
 		var draLayer = L.tileLayer.wms('http://openmaps.gov.bc.ca/geo/ows?',
@@ -1304,14 +1443,15 @@
 		});
 		overlays["Navigation Info"] = navInfoLayer;
 
-		var hardRestrictionLayer = new L.layerJSON({
-			//url: routeApi + "navInfo.json?types=HR&bbox={lon1},{lat1},{lon2},{lat2}",
+		var itnHardRestrictionLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=HR&restrictionSource=ITN&bbox={lon1},{lat1},{lon2},{lat2}",
 			callData: function(bbox, callback) {
 				return jQuery.ajax({
 					url: routeApi + "navInfo.json?" + routeQuery,
 					headers: routeHeaders,
 					data: {
 						types: 'HR',
+						restrictionSource: 'ITN',
 						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
 					},
 					success: callback
@@ -1328,7 +1468,34 @@
 				return getNavInfoIcon(data.properties);
 			}
 		});
-		overlays["Hard Restrictions"] = hardRestrictionLayer;
+		overlays["ITN Hard Restrictions"] = itnHardRestrictionLayer;
+
+		var rdmHardRestrictionLayer = new L.layerJSON({
+			//url: routeApi + "navInfo.json?types=HR&restrictionSource=RDMbbox={lon1},{lat1},{lon2},{lat2}",
+			callData: function(bbox, callback) {
+				return jQuery.ajax({
+					url: routeApi + "navInfo.json?" + routeQuery,
+					headers: routeHeaders,
+					data: {
+						types: 'HR',
+						restrictionSource: 'RDM',
+						bbox: bbox[0][1] + ',' + bbox[0][0] + ',' + bbox[1][1] + ',' + bbox[1][0]
+					},
+					success: callback
+				});
+			},
+			minZoom: 10,
+			caching: false,
+			propertyItems: "features",
+			propertyId: null,
+			propertyTitle: "properties.detail",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function(data) {
+				return getNavInfoIcon(data.properties);
+			}
+		});
+		overlays["RDM Hard Restrictions"] = rdmHardRestrictionLayer;
 
 		var eventLayer = new L.layerJSON({
 			//url: routeApi + "navInfo.json?types=EV&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -1517,8 +1684,8 @@
 		});
 		overlays["Internal Segment Ids"] = segIdLayer;
 
-		if(queryParams['test_results']) {
-			addTestResults(queryParams['test_results']);
+		if(queryParams.get('test_results')) {
+			addTestResults(queryParams.get('test_results'));
 		}
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -1533,12 +1700,6 @@
 				turnMarkers = [];
 			}
 		}
-
-		// tabs UI setup
-		$('#myTabs a').click(function (e) {
-			e.preventDefault();
-			$(this).tab('show');
-		});
 
 		// datepicker/timepicker UI setup
 		$('#date').datepicker();
@@ -1635,7 +1796,9 @@
 				echo: true,
 				brief: true,
 				autoComplete: true,
+				exactSpelling: $('#exactSpellingChk').is(':checked'),
 				matchPrecisionNot: matchPrecisionNot,
+				locationDescriptor: defaultLocationDescriptor,
 				addressString: request.term
 			};
 			$.extend(params, options);
@@ -1735,7 +1898,7 @@
 		var geocodeLayer = null;
 
 		// Geocode Address event handler
-		function geocode($field, callback, locationDescriptor = 'parcelPoint') {
+		function geocode($field, callback, locationDescriptor = defaultLocationDescriptor) {
 			var latLng = isCoords($field.val());
 			if(latLng) {
 				callback(latLng);
@@ -1782,7 +1945,7 @@
 				map.removeLayer(geocodeLayer);
 				geocodeLayer = null;
 			}
-			randomAddress($('#geocodeField'), 'parcelPoint', function(data) {
+			randomAddress($('#geocodeField'), defaultLocationDescriptor, function(data) {
 				receiveGeocode(data, false);
 			});
 		});
@@ -1793,7 +1956,8 @@
 
 		$('#listBtn').on("click", function() {
 			var url = gcApi + "addresses.xhtml"
-					+	"?locationDescriptor=parcelPoint&echo=true&brief=true"
+					+	"?locationDescriptor=" + defaultLocationDescriptor
+					+ "&echo=true&brief=true"
 					+ "&minScore=50&maxResults=5&autoComplete=true"
 					+ "&matchPrecisionNot=" + matchPrecisionNot
 					+ "&addressString=" + $('#geocodeField').val();
@@ -1824,6 +1988,7 @@
 
 		function clearRoute() {
 			$('#timing').empty();
+			$('#downloadKml').hide();
 			$('#notifications').empty();
 			$('#directionsHeader').empty();
 			$('#directions').empty();
@@ -1834,29 +1999,19 @@
 			if(directionSelectMarker != null) {
 				map.removeLayer(directionSelectMarker);
 			}
+			if(restrictionSelectMarker != null) {
+				map.removeLayer(restrictionSelectMarker);
+			}
 		}
 
-		function route($field, center = true) {
-			// test will be an empty string if all inputs have a point
-			var test = $('#routerList input.input-field').map( function(index, element) {
-				if( $(element).data('marker') ) {
-					return "";
-				}
-				return "1";
-			}).get().join("");
-			if(test != "") {
-				if($field && center) {
-					map.panTo($field.data('marker').getLatLng());
-				}
-				return;
-			}
-			clearRoute();
-			$('#timing').html('Calculating Route...');
-
+		function buildRouteParams() {
 			var params = {};
 			params['points'] = $('#routerList input.input-field').map( function(index, element) {
-				var latLng = $(element).data('marker').getLatLng();
-				return latLng.lng + "," + latLng.lat;
+				if($(element).data('marker')) {
+					var latLng = $(element).data('marker').getLatLng();
+					return latLng.lng + "," + latLng.lat;
+				}
+				return null;
 			}).get().join(',');
 
 			params['criteria'] = $('input[name=criteria]:checked').val();
@@ -1896,12 +2051,20 @@
 					params['turnCost'] = $('#leftTurnCost').val() + "," + $('#rightTurnCost').val();
 				}
 			}
+			if($('#simplifyDirectionsChk').is(':checked')) {
+				params['simplifyDirections'] = "true";
+			}
+			if(!isNaN( $('#simplifyThreshold').val()) ) {
+				params['simplifyThreshold'] = $('#simplifyThreshold').val();
+			}
+
 			var date = $('#time').timepicker('getTime', $('#date').datepicker('getDate'));
 			params['departure'] = date2String(date);
-			var queryPrefix = ""
 			if($('#truckControlsChk').is(':checked')) {
-				queryPrefix = "truck/";
-				params['partition'] = "isTruckRoute";
+				params['vehicleType'] = "truck";
+				if($('#partition').val()) {
+					params['partition'] = $('#partition').val();
+				}
 				if($('#followTruckRouteChk').is(':checked')) {
 					params['followTruckRoute'] = "true";
 				}
@@ -1920,6 +2083,33 @@
 				if($('#weight').val()) {
 					params['weight'] = $('#weight').val();
 				}
+				if($('#restrictionSource').val()) {
+					params['restrictionSource'] = $('#restrictionSource').val();
+				}
+				if($('#excludeRestrictions').val()) {
+					params['excludeRestrictions'] = $('#excludeRestrictions').val();
+				}
+				
+				var restrictionValues = [];
+				if($('#noCommercialVehicleChk').is(':checked')) {
+					restrictionValues.push('NCV:1');
+				}
+				if($('#noSelfIssueChk').is(':checked')) {
+					restrictionValues.push('NSI:1');
+				}
+				if($('#weight1axle').val()) {
+					restrictionValues.push('WEIGHT-1AXLE:' + $('#weight1axle').val());
+				}
+				if($('#weight2axle').val()) {
+					restrictionValues.push('WEIGHT-2AXLE:' + $('#weight2axle').val());
+				}
+				if($('#weight3axle').val()) {
+					restrictionValues.push('WEIGHT-3AXLE:' + $('#weight3axle').val());
+				}
+				if(restrictionValues.length > 0) {
+					params['restrictionValues'] = restrictionValues.join(',');
+				}
+
 			}
 
 			if($('#correctSideChk').is(':checked')) {
@@ -1928,16 +2118,146 @@
 				params['correctSide'] = 'false';
 			}
 
-			var query = 'directions.json';
-
-			if($('#optimizeChk').is(':checked')) {
-				query = 'optimalDirections.json';
-			}
-
 			if($('#roundTripChk').is(':checked')) {
 				params['roundTrip'] = 'true';
 			} else {
 				params['roundTrip'] = 'false';
+			}
+
+			return params;
+		}
+
+		function loadRouteParamsFromUrl() {
+			let params = JSON.parse(decodeURIComponent(queryParams.get('routeParams')));
+			if(!params) return;
+			$('#routerTab').click();
+			// add a point for each point
+			if(params['points']) {
+				let p = params['points'].split(',');
+				for(var i = 0; i < p.length; i += 2) {
+					addDest(p[i+1] + "," + p[i]);
+				}
+			} 
+			if(params['criteria']) {
+				$('input[name=criteria]').val([params['criteria']]);
+			}
+			if(params['enable'] !== undefined) {
+				let enable = params['enable'].split(",");
+				setCheckbox('#ferrySchedulesChk', enable.includes('sc'));
+				setCheckbox('#trafficChk', enable.includes('tf'));
+				setCheckbox('#eventsChk', enable.includes('ev'));
+				setCheckbox('#gdfChk', enable.includes('gdf'));
+				setCheckbox('#ldfChk', enable.includes('ldf'));
+				setCheckbox('#timeDependentChk', enable.includes('td'));
+				setCheckbox('#turnRestrictionsChk', enable.includes('tr'));
+				setCheckbox('#xingCostsChk', enable.includes('xc'));
+				setCheckbox('#timeDependentChk', enable.includes('td'));
+				setCheckbox('#turnCostsChk', enable.includes('tc'));
+			}
+			if(params['xingCost']) {
+				importXingCostString(params['xingCost']);
+			}
+
+			setCheckbox('#simplifyDirectionsChk', params['simplifyDirections']);
+			setTextField('#simplifyThreshold', params['simplifyThreshold']);
+
+			if(params['departure']) {
+				let date = new Date(params['departure']);
+				$('#date').datepicker('setDate', date);
+				$('#time').timepicker('setTime', date);
+			}
+
+			// vehicletype="truck" is our indication that truck mode was enabled
+			if(params['vehicleType'] == "truck") {
+				$('#truckControlsChk').prop('checked', true);
+				displayTruckControls();
+				if(params['turnCost']) {
+					var turnCosts = params['turnCost'].split(",");
+					$('#leftTruckTurnCost').val(turnCosts[0]);
+					$('#rightTruckTurnCost').val(turnCosts[1]);
+				}
+			} else {
+				if(params['turnCost']) {
+					var turnCosts = params['turnCost'].split(",");
+					$('#leftTurnCost').val(turnCosts[0]);
+					$('#rightTurnCost').val(turnCosts[1]);
+				}
+			}
+
+			if(params['gdf']) {
+				importGdfString(params['gdf']);
+			}
+
+			setCheckbox('#followTruckRouteChk', params['followTruckRoute']);
+			setTextField('#truckRouteMultiplier', params['truckRouteMultiplier']);
+			setTextField('#partition', params['partition']);
+			setTextField('#height', params['height']);
+			setTextField('#width', params['width']);
+			setTextField('#length', params['length']);
+			setTextField('#weight', params['weight']);
+			setTextField('#restrictionSource', params['restrictionSource']);
+			setTextField('#excludeRestrictions', params['excludeRestrictions']);
+			setCheckbox('#correctSideChk', params['correctSide']);
+			setCheckbox('#roundTripChk', params['roundTrip']);
+		}
+
+		function setTextField(selector, value) {
+			if(value !== undefined) {
+				$(selector).val(value);
+			}
+		}
+
+		function setCheckbox(selector, value) {
+			if(value !== undefined) {
+				if(value == "true" || value === true) {
+					$(selector).prop('checked', true);
+				} else {
+					$(selector).prop('checked', false);
+				}
+			}
+		}
+
+		function setUrlParams(params) {
+			var url = new URL(window.location.href);
+			url.searchParams.set("routeParams", encodeURIComponent(JSON.stringify(params)));
+			window.history.replaceState(null, document.title, url);
+		}
+
+		function route($field, center = true) {
+			// don't route while we're seting up
+			if(settingUp) return;
+
+			// assemble the route parameters
+			let params = buildRouteParams();
+
+			// put the params in the URL
+			setUrlParams(params);
+
+			// check for at least two points to route between
+			// test will be an empty string if all inputs have a point
+			var test = $('#routerList input.input-field').map( function(index, element) {
+				if( $(element).data('marker') ) {
+					return "";
+				}
+				return "1";
+			}).get().join("");
+			if(test != "") {
+				if($field && center) {
+					map.panTo($field.data('marker').getLatLng());
+				}
+				return;
+			}
+			clearRoute();
+			$('#timing').html('Calculating Route...');
+
+			var queryPrefix = ""
+			if($('#truckControlsChk').is(':checked')) {
+				queryPrefix = "truck/";
+			}
+			var query = 'directions.json';
+
+			if($('#optimizeChk').is(':checked')) {
+				query = 'optimalDirections.json';
 			}
 
 			if($('#nearestStopChk').is(':checked')) {
@@ -1980,6 +2300,9 @@
 				}
 			});
 		}
+
+
+
 
 		function addTestResults(ids) {
 			$.ajax({
@@ -2051,11 +2374,11 @@
 								features.push({
 									type: "Feature",
 									properties: {
-										isTruckRoute: data.partitions[p].isTruckRoute
+										value: (data.partitions[p].isTruckRoute || data.partitions[p].ownership == "Ministry of Transportation")
 									},
 									geometry: {
 										type: "LineString",
-							      coordinates: data.route.slice(data.partitions[p].index, end)
+										coordinates: data.route.slice(data.partitions[p].index, end)
 									}
 								});
 							}
@@ -2066,7 +2389,7 @@
 							routeLayer = L.geoJson(geoJson, {
 									pane: map.getPane('routePane'),
 									onEachFeature: function(feature, layer) {
-										if(feature.properties.isTruckRoute) {
+										if(feature.properties.value) {
 											layer.setStyle({
 												color:"#0000FF",
 												weight:7,
@@ -2141,6 +2464,7 @@
 						} else {
 							$('#timing').html('Route calculated in ' + data.executionTime/1000 + ' seconds<br\>Route travels ' + data.distance + ' km in ' + data.timeText);
 						}
+						$('#downloadKml').show();
 						var notes = data.notifications;
 						if(notes) {
 							for(i = 0; i < notes.length; i++) {
@@ -2161,6 +2485,16 @@
 								}
 							}
 							$dirBody.append(dirs[i].text);
+							if(dirs[i].laneRequirements) {
+								var lrs = dirs[i].laneRequirements;
+								for(var n = 0; n < lrs.length; n++) {
+									var $laneRequirement = $("<div class=\"laneRequirement\"></div>");
+									$laneRequirement.append("<div>" + lrs[n].message + "</div>");
+									$laneRequirement.append($("<div class=\"noShrink\"></div>").append(makeSafeLanesTable(lrs[n])));
+									$dirBody.append($laneRequirement);
+									$laneRequirement.data('latlng', {'lat': lrs[n].location.coordinates[1], 'lng': lrs[n].location.coordinates[0]});
+								}
+							}
 							$dir.append($dirBody);
 							$('#directions').append($dir);
 							$dir.data('latlng', {'lat': dirs[i].point[1], 'lng': dirs[i].point[0]});
@@ -2177,6 +2511,23 @@
 					}
 				}
 			});
+		}
+
+		function makeSafeLanesTable(laneRequirements) {
+			var safeLanes = laneRequirements.safeLanes;
+			var $table = $("<table class=\"safeLanesTable\"></table>");
+			var $row = $("<tr></tr>");
+			$row.append("<td></td>");
+			$row.append("<td class=\"centerLine\"></td>");
+			for(var i = 0; i < safeLanes.length; i++) {
+				var cls = "unsafe";
+				if(safeLanes[i]) {
+					cls = "safe";
+				}
+				$row.append("<td class=\"" + cls + "\">" + (i+1) + "</td>");
+			}
+			$table.append($row);
+			return $table;
 		}
 
 		Sortable.create(document.getElementById('routerList'),{
@@ -2242,6 +2593,7 @@
 				// must leave at least 2 fields, just clear this field
 				$inputField.val('');
 				$inputField.data('marker', null);
+				setUrlParams(buildRouteParams());
 			}
 		});
 
@@ -2281,10 +2633,6 @@
 			$('#addAddrField').val('');
 		});
 
-		$('input[name=criteria]').on('change', function(evt) {
-			route(null, false);
-		});
-
 		$('#configDialog').dialog({
 			autoOpen: false,
 			resizable: false,
@@ -2295,9 +2643,6 @@
 			$('#configDialog').dialog('open');
 		});
 
-		$('.routeOnChange').on('change', function(evt) {
-			route(null, false);
-		});
 		// need this to catch change events from dynamically added config inputs
 		$('#configDialog').on('change', '.routeOnChange', function(evt) {
 			updateConfigString();
@@ -2330,6 +2675,14 @@
 						$('#rightTruckTurnCost').val(turnCosts[3]);
 				}
 			});
+		});
+
+		$('input[name=criteria]').on('change', function(evt) {
+			route(null, false);
+		});
+
+		$('.routeOnChange').on('change', function(evt) {
+			route(null, false);
 		});
 
 		$('#date').on('change', function(evt) {
@@ -2379,13 +2732,44 @@
 			route(null, false);
 		});
 
-		$('#truckControls').hide();
+		function displayTruckControls() {
+			if($('#truckControlsChk').is(':checked')) {
+				$('#truckControls').show();
+			} else {
+				$('#truckControls').hide();
+			}
+		}
+		displayTruckControls();
 		$('#truckControlsChk').on('change', function(evt) {
-			$('#truckControls').toggle();
+			displayTruckControls();
+		});
+		$('#routeOptionsChk').on('change', function(evt) {
+			if($('#routeOptionsChk').is(':checked')) {
+				$('#routerControls').hide();
+			} else {
+				$('#routerControls').show();
+			}
+		});
+		$('#downloadKml').hide();
+		$('#downloadKml').on('click', function() {
+			let params = buildRouteParams();
+			var queryPrefix = ""
+			if($('#truckControlsChk').is(':checked')) {
+				queryPrefix = "truck/";
+			}
+			var query = 'directions.kml';
+
+			if($('#optimizeChk').is(':checked')) {
+				query = 'optimalDirections.kml';
+			}
+			window.open(routeApi + queryPrefix + query + '?' + routeQuery + '&' + $.param(params));
 		});
 
 		var directionMarker = null;
 		var directionSelectMarker = null;
+
+		var restrictionMarker = null;
+		var restrictionSelectMarker = null;
 
 		$('#directions').on('mouseenter', 'div.direction', function(evt) {
 			if(directionMarker != null) {
@@ -2403,6 +2787,7 @@
 			}
 		});
 
+		// handler for clicks on directions
 		$('#directions').on('click', 'div.direction', function(evt) {
 			var $dirDiv = $(evt.currentTarget);
 			if(directionSelectMarker != null) {
@@ -2423,6 +2808,46 @@
 					centerMap(L.latLngBounds(latlng, latlng));
 				}
 			}
+		});
+
+		$('#directions').on('mouseenter', 'div.laneRequirement', function(evt) {
+			if(restrictionMarker != null) {
+				map.removeLayer(restrictionMarker);
+			}
+			var latlng = $(evt.target).data('latlng');
+			if(latlng) {
+				restrictionMarker = L.circleMarker(latlng, {color : '#FF0000', pane:'popupPane'}).addTo(map);
+			}
+		});
+
+		$('#directions').on('mouseleave', 'div.laneRequirement', function(evt) {
+			if(restrictionMarker != null) {
+				map.removeLayer(restrictionMarker);
+			}
+		});
+
+		// handler for clicks on restrictions
+		$('#directions').on('click', 'div.laneRequirement', function(evt) {
+			var $lrDiv = $(evt.currentTarget);
+			if(restrictionSelectMarker != null) {
+				map.removeLayer(restrictionSelectMarker);
+			}
+			if($lrDiv.hasClass('selectedRestriction')) {
+				$lrDiv.removeClass('selectedRestriction')
+					.prop('title', 'Click to zoom in to restriction location.');
+				centerMap(routeLayer.getBounds());
+			} else {
+				$('#directions div.selectedRestriction').removeClass('selectedRestriction')
+					.prop('title', 'Click to zoom in to restriction location.');
+				$lrDiv.addClass('selectedRestriction')
+					.prop('title', 'Click to zoom out to route extent.');
+				var latlng = $lrDiv.data('latlng');
+				if(latlng) {
+					restrictionSelectMarker = L.circleMarker(latlng, {color : '#FF0000'}).addTo(map);
+					centerMap(L.latLngBounds(latlng, latlng));
+				}
+			}
+			evt.stopPropagation(); //prevents also handling the click on the enclosing direction
 		});
 
 		function receiveRouteGeocode(data, $field, center = true) {
@@ -2525,6 +2950,9 @@
 				if(data.defaultTruckRouteMultiplier) {
 					$('#truckRouteMultiplier').val(data.defaultTruckRouteMultiplier);
 				}
+				if(data.simplifyThreshold) {
+					$('#simplifyThreshold').val(data.simplifyThreshold);
+				}
 				if(data.xingCost) {
 					var xingCosts = data.xingCost.split(",");
 					$('#yieldCost').val(xingCosts[0]);
@@ -2558,7 +2986,10 @@
 							+ "<td><input id=\"" + key + ".truck.TRUCK\" class=\"routeOnChange gdfTruck\" value=\"" + gdfData.TRUCK[key + ".truck"]
 								+ "\" required type=\"number\" min=\"0.1\" max=\"10\" step=\"any\"></td></tr>");
 				}
+				loadRouteParamsFromUrl();
 				updateConfigString();
+				settingUp = false;
+				route(null);
 			},
 			error: function(request) {
 				// alert(baseErrorMsg + "Error retrieving default config from server.");
@@ -2991,10 +3422,30 @@
 			$('#configString').val(s);
 		}
 
-		if(queryParams['q']) {
-			$('#geocodeField').val(queryParams['q']);
+		function importGdfString(gdfString) {
+			var vehicleType = 'CAR';
+			if($('#truckControlsChk').is(':checked')) {
+				vehicleType = 'TRUCK';
+			}
+			gdfString.split(",").forEach(function(gdf) {
+				var pair = gdf.split(":"), key = pair[0], value = pair[1];
+				$('#' + key.replace(/\./g, "\\.") + "\\." + vehicleType).val(value);
+			});
+		}
+
+		function importXingCostString(xingCostString) {
+			var xingCosts = xingCostString.split(",");
+			$('#yieldCost').val(xingCosts[0]);
+			$('#signCost').val(xingCosts[1]);
+			$('#lightCost').val(xingCosts[2]);
+			$('#multiplier').val(xingCosts[3]);
+		}
+
+		if(queryParams.get('q')) {
+			$('#geocodeField').val(queryParams.get('q'));
 			geocode($('#geocodeField'), receiveGeocode);
 		}
+
 	</script>
 </body>
 </html>
