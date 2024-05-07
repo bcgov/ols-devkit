@@ -437,9 +437,9 @@
 								</button>
 							</div>
 						</div>
-						<!--<div>
+						<!--div>
 							<input id="exactSpellingChk" type="checkbox" aria-label="Exact Spelling" title="Exact Spelling"> Exact Spelling<br/>
-						</div>-->
+						</div-->
 						</form>
 						<div>
 							<h4>Examples:</h4>
@@ -1796,7 +1796,7 @@
 				echo: true,
 				brief: true,
 				autoComplete: true,
-				exactSpelling: $('#exactSpellingChk').is(':checked'),
+				//exactSpelling: $('#exactSpellingChk').is(':checked'),
 				matchPrecisionNot: matchPrecisionNot,
 				locationDescriptor: defaultLocationDescriptor,
 				addressString: request.term
@@ -2304,9 +2304,9 @@
 
 
 
-		function addTestResults(ids) {
+		function addTestResults(url) {
 			$.ajax({
-				url: "http://office.refractions.net/~chodgson/gc/test/result_geojson.php?ids=" + ids,
+				url: url,
 				dataType: "json",
 				success: function(data) {
 					var testResultsLayer = L.geoJSON(data.features, {
