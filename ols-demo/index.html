@@ -1685,7 +1685,7 @@
 		overlays["Internal Segment Ids"] = segIdLayer;
 
 		if(queryParams.get('test_results')) {
-			addTestResults(queryParams.get('test_results'));
+			getAndAddTestResults(queryParams.get('test_results'));
 		}
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -2301,45 +2301,50 @@
 			});
 		}
 
+		// receives test result data through iframe from testing app
+		window.addEventListener("message", (event) => {
+			if(event.data.features)
+			addTestResults(event.data);
+		});
 
+		function addTestResults(data) {
+			var testResultsLayer = L.geoJSON(data.features, {
+				style: getTestStyle,
+				pane: map.getPane('routePane')
+			});
+			testResultsLayer.bindPopup(function(layer) {
+				return makeTestResultPopupText(layer.feature.properties);
+			});
+			// add start and end markers, and partition markers
+			for(var i = 0; i < data.features.length; i++) {
+				var coords = data.features[i].geometry.coordinates
+				var startCoord = coords[0];
+				var endCoord = coords[coords.length-1];
+				if(Array.isArray(startCoord[0])) {
+					startCoord = startCoord[0];
+					endCoord = endCoord[endCoord.length-1];
+				}
+				testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(startCoord), {icon: getRouteIcon(0)}));
+				testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(endCoord), {icon: getRouteIcon(-1)}));
+				// add partition markers
+				var partition_indices = data.features[i].properties.partition_indices;
+				for(var j = 0; j < partition_indices.length; j++) {
+					var index = partition_indices[j];
+					if(index != '') {
+						var coord = data.features[i].geometry.coordinates[index];
+						testResultsLayer.addLayer(L.circleMarker(L.GeoJSON.coordsToLatLng(coord), {color: "red"}));
+					}
+				}
+			}
+			testResultsLayer.addTo(map);
+			centerMap(testResultsLayer.getBounds());
+		}
 
-
-		function addTestResults(url) {
+		function getAndAddTestResults(url) {
 			$.ajax({
 				url: url,
 				dataType: "json",
-				success: function(data) {
-					var testResultsLayer = L.geoJSON(data.features, {
-						style: getTestStyle,
-						pane: map.getPane('routePane')
-					});
-					testResultsLayer.bindPopup(function(layer) {
-						return makeTestResultPopupText(layer.feature.properties);
-					});
-					// add start and end markers, and partition markers
-					for(var i = 0; i < data.features.length; i++) {
-						var coords = data.features[i].geometry.coordinates
-						var startCoord = coords[0];
-						var endCoord = coords[coords.length-1];
-						if(Array.isArray(startCoord[0])) {
-							startCoord = startCoord[0];
-							endCoord = endCoord[endCoord.length-1];
-						}
-						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(startCoord), {icon: getRouteIcon(0)}));
-						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(endCoord), {icon: getRouteIcon(-1)}));
-						// add partition markers
-						var partition_indices = data.features[i].properties.partition_indices;
-						for(var j = 0; j < partition_indices.length; j++) {
-							var index = partition_indices[j];
-							if(index != '') {
-								var coord = data.features[i].geometry.coordinates[index];
-								testResultsLayer.addLayer(L.circleMarker(L.GeoJSON.coordsToLatLng(coord), {color: "red"}));
-							}
-						}
-					}
-					testResultsLayer.addTo(map);
-					centerMap(testResultsLayer.getBounds());
-				}
+				success: addTestResults
 			});
 		}
 
