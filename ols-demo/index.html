@@ -851,14 +851,6 @@
 			routeQuery = 'apikey=' + DATABC_APIKEY
 		}
 
-		var xmdx = 5000;
-		if(queryParams.get('xmdx')) {
-			var num = parseInt(queryParams.get('xmdx'));
-			if(!isNaN(num)) {
-				xmdx = num;
-			}
-		}
-
 		var matchPrecisionNot = "";
 		if('noStreets' in queryParams) {
 			matchPrecisionNot = "street";
@@ -2308,7 +2300,12 @@
 		});
 
 		function addTestResults(data) {
-			var testResultsLayer = L.geoJSON(data.features, {
+			// don't draw the geometry for any failed routes
+			var features = [];
+			for(let f of data.features) {
+				if(f.properties.distance > 0) features.push(f);
+			}
+			var testResultsLayer = L.geoJSON(features, {
 				style: getTestStyle,
 				pane: map.getPane('routePane')
 			});
@@ -2430,9 +2427,7 @@
 								}
 							}).addTo(map);
 						}
-						if(center) {
-							centerMap(routeLayer.getBounds(), center);
-						}
+						centerMap(routeLayer.getBounds(), center);
 
 						// update icon numbering
 						$('#routerList input.input-field').each( function(index, element) {
@@ -3311,7 +3306,7 @@
 		}
 
 		// Random Address event handler
-		function randomAddress($field, locationDescriptor, callback, $statusDiv = null, retries = 0) {
+		function randomAddress($field, locationDescriptor, callback, $statusDiv = null) {
 			if($statusDiv) {
 				$statusDiv.html('Jumping to random civic address...');
 			}
@@ -3337,7 +3332,6 @@
 				url: gcApi + "sites/nearest.json",
 				data: {
 					locationDescriptor: locationDescriptor,
-					maxDistance: xmdx,
 					excludeUnits: true,
 					onlyCivic: true,
 					brief: true,
@@ -3347,19 +3341,17 @@
 					if($statusDiv) {
 						$statusDiv.empty();
 					}
-					$field.val(data.properties.fullAddress);
-					return callback(data, $field);
+					if(data.properties?.fullAddress) {
+						$field.val(data.properties.fullAddress);
+						return callback(data, $field);
+					}
 				},
 				error: function(request) {
-					if(retries < 100) {
-						randomAddress($field, locationDescriptor, callback, $statusDiv, retries+1);
-					} else {
-						if($statusDiv) {
-							$statusDiv.empty();
-						}
-						alert(baseErrorMsg + "Error retrieving nearest site to random point, please try your request again.");
-						console.log(request);
+					if($statusDiv) {
+						$statusDiv.empty();
 					}
+					alert(baseErrorMsg + "Error retrieving nearest site to random point, please try your request again.");
+					console.log(request);
 				}
 			});
 		}
@@ -3375,15 +3367,23 @@
 			var options = {
 				maxZoom: 16
 			};
+			options.paddingBottomRight = [20,20];
+			options.paddingTopLeft = [20,20];
 			if(tabs) {
-				options.paddingTopLeft = [400,0];
+				options.paddingTopLeft = [420,20];
 			}
 			if(center) {
 				map.fitBounds(bounds.pad(0.25), options);
-			} else if(!map.getBounds().contains(bounds.pad(0.25))) {
-				// if the bounds aren't within the current map bounds
-				// zoom out to include the bounds
-				map.fitBounds(bounds.extend(map.getBounds()).pad(0.25), options);
+			} else {
+				// check if the point is hidden behind the options tabs (400px wide)
+				let mapLL = L.CRS.EPSG3857.latLngToPoint(map.getBounds().getSouthWest(), map.getZoom());
+				let boundsLL = L.CRS.EPSG3857.latLngToPoint(bounds.getSouthWest(), map.getZoom());
+				let diff = boundsLL.x - mapLL.x;
+				if(!map.getBounds().contains(bounds) || (tabs && (diff < 400)) ) {
+					// if the bounds aren't within the current map bounds
+					// zoom out to include the bounds
+					map.fitBounds(bounds.extend(map.getBounds()).pad(0.25), options);
+				}
 			}
 		}
 		function date2String(date) {
