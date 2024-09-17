@@ -2062,6 +2062,10 @@
 			if(!isNaN( $('#simplifyThreshold').val()) ) {
 				params['simplifyThreshold'] = $('#simplifyThreshold').val();
 			}
+			
+			if($('#snapDistanceChk').is(':checked')) {
+				params['snapDistance'] = "true";
+			}
 			if(!isNaN( $('#snapDistance').val()) ) {
 				params['snapDistance'] = $('#snapDistance').val();
 			}
@@ -2169,6 +2173,7 @@
 			setCheckbox('#simplifyDirectionsChk', params['simplifyDirections']);
 			setTextField('#simplifyThreshold', params['simplifyThreshold']);
 
+			setCheckbox('#snapDistanceChk', params['snapDistance']);
 			setTextField('#snapDistance', params['snapDistance']);
 
 			if(params['departure']) {
