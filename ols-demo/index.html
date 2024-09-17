@@ -2060,6 +2060,9 @@
 			if(!isNaN( $('#simplifyThreshold').val()) ) {
 				params['simplifyThreshold'] = $('#simplifyThreshold').val();
 			}
+			if(!isNaN( $('#snapDistance').val()) ) {
+				params['snapDistance'] = $('#snapDistance').val();
+			}
 
 			var date = $('#time').timepicker('getTime', $('#date').datepicker('getDate'));
 			params['departure'] = date2String(date);
@@ -2163,6 +2166,8 @@
 
 			setCheckbox('#simplifyDirectionsChk', params['simplifyDirections']);
 			setTextField('#simplifyThreshold', params['simplifyThreshold']);
+
+			setTextField('#snapDistance', params['snapDistance']);
 
 			if(params['departure']) {
 				let date = new Date(params['departure']);
@@ -2955,6 +2960,9 @@
 				}
 				if(data.simplifyThreshold) {
 					$('#simplifyThreshold').val(data.simplifyThreshold);
+				}
+				if(data.snapDistance) {
+					$('#snapDistance').val(data.snapDistance);
 				}
 				if(data.xingCost) {
 					var xingCosts = data.xingCost.split(",");
