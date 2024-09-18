@@ -856,14 +856,6 @@
 			routeQuery = 'apikey=' + DATABC_APIKEY
 		}
 
-		var xmdx = 5000;
-		if(queryParams.get('xmdx')) {
-			var num = parseInt(queryParams.get('xmdx'));
-			if(!isNaN(num)) {
-				xmdx = num;
-			}
-		}
-
 		var matchPrecisionNot = "";
 		if('noStreets' in queryParams) {
 			matchPrecisionNot = "street";
@@ -1690,7 +1682,7 @@
 		overlays["Internal Segment Ids"] = segIdLayer;
 
 		if(queryParams.get('test_results')) {
-			addTestResults(queryParams.get('test_results'));
+			getAndAddTestResults(queryParams.get('test_results'));
 		}
 		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
@@ -1801,7 +1793,7 @@
 				echo: true,
 				brief: true,
 				autoComplete: true,
-				exactSpelling: $('#exactSpellingChk').is(':checked'),
+				//exactSpelling: $('#exactSpellingChk').is(':checked'),
 				matchPrecisionNot: matchPrecisionNot,
 				locationDescriptor: defaultLocationDescriptor,
 				addressString: request.term
@@ -2316,45 +2308,55 @@
 			});
 		}
 
+		// receives test result data through iframe from testing app
+		window.addEventListener("message", (event) => {
+			if(event.data.features)
+			addTestResults(event.data);
+		});
 
-
-
-		function addTestResults(ids) {
-			$.ajax({
-				url: "http://office.refractions.net/~chodgson/gc/test/result_geojson.php?ids=" + ids,
-				dataType: "json",
-				success: function(data) {
-					var testResultsLayer = L.geoJSON(data.features, {
-						style: getTestStyle,
-						pane: map.getPane('routePane')
-					});
-					testResultsLayer.bindPopup(function(layer) {
-						return makeTestResultPopupText(layer.feature.properties);
-					});
-					// add start and end markers, and partition markers
-					for(var i = 0; i < data.features.length; i++) {
-						var coords = data.features[i].geometry.coordinates
-						var startCoord = coords[0];
-						var endCoord = coords[coords.length-1];
-						if(Array.isArray(startCoord[0])) {
-							startCoord = startCoord[0];
-							endCoord = endCoord[endCoord.length-1];
-						}
-						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(startCoord), {icon: getRouteIcon(0)}));
-						testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(endCoord), {icon: getRouteIcon(-1)}));
-						// add partition markers
-						var partition_indices = data.features[i].properties.partition_indices;
-						for(var j = 0; j < partition_indices.length; j++) {
-							var index = partition_indices[j];
-							if(index != '') {
-								var coord = data.features[i].geometry.coordinates[index];
-								testResultsLayer.addLayer(L.circleMarker(L.GeoJSON.coordsToLatLng(coord), {color: "red"}));
-							}
-						}
-					}
-					testResultsLayer.addTo(map);
-					centerMap(testResultsLayer.getBounds());
+		function addTestResults(data) {
+			// don't draw the geometry for any failed routes
+			var features = [];
+			for(let f of data.features) {
+				if(f.properties.distance > 0) features.push(f);
+			}
+			var testResultsLayer = L.geoJSON(features, {
+				style: getTestStyle,
+				pane: map.getPane('routePane')
+			});
+			testResultsLayer.bindPopup(function(layer) {
+				return makeTestResultPopupText(layer.feature.properties);
+			});
+			// add start and end markers, and partition markers
+			for(var i = 0; i < data.features.length; i++) {
+				var coords = data.features[i].geometry.coordinates
+				var startCoord = coords[0];
+				var endCoord = coords[coords.length-1];
+				if(Array.isArray(startCoord[0])) {
+					startCoord = startCoord[0];
+					endCoord = endCoord[endCoord.length-1];
 				}
+				testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(startCoord), {icon: getRouteIcon(0)}));
+				testResultsLayer.addLayer(L.marker(L.GeoJSON.coordsToLatLng(endCoord), {icon: getRouteIcon(-1)}));
+				// add partition markers
+				var partition_indices = data.features[i].properties.partition_indices;
+				for(var j = 0; j < partition_indices.length; j++) {
+					var index = partition_indices[j];
+					if(index != '') {
+						var coord = data.features[i].geometry.coordinates[index];
+						testResultsLayer.addLayer(L.circleMarker(L.GeoJSON.coordsToLatLng(coord), {color: "red"}));
+					}
+				}
+			}
+			testResultsLayer.addTo(map);
+			centerMap(testResultsLayer.getBounds());
+		}
+
+		function getAndAddTestResults(url) {
+			$.ajax({
+				url: url,
+				dataType: "json",
+				success: addTestResults
 			});
 		}
 
@@ -2440,9 +2442,7 @@
 								}
 							}).addTo(map);
 						}
-						if(center) {
-							centerMap(routeLayer.getBounds(), center);
-						}
+						centerMap(routeLayer.getBounds(), center);
 
 						// update icon numbering
 						$('#routerList input.input-field').each( function(index, element) {
@@ -3324,7 +3324,7 @@
 		}
 
 		// Random Address event handler
-		function randomAddress($field, locationDescriptor, callback, $statusDiv = null, retries = 0) {
+		function randomAddress($field, locationDescriptor, callback, $statusDiv = null) {
 			if($statusDiv) {
 				$statusDiv.html('Jumping to random civic address...');
 			}
@@ -3350,7 +3350,6 @@
 				url: gcApi + "sites/nearest.json",
 				data: {
 					locationDescriptor: locationDescriptor,
-					maxDistance: xmdx,
 					excludeUnits: true,
 					onlyCivic: true,
 					brief: true,
@@ -3360,19 +3359,17 @@
 					if($statusDiv) {
 						$statusDiv.empty();
 					}
-					$field.val(data.properties.fullAddress);
-					return callback(data, $field);
+					if(data.properties?.fullAddress) {
+						$field.val(data.properties.fullAddress);
+						return callback(data, $field);
+					}
 				},
 				error: function(request) {
-					if(retries < 100) {
-						randomAddress($field, locationDescriptor, callback, $statusDiv, retries+1);
-					} else {
-						if($statusDiv) {
-							$statusDiv.empty();
-						}
-						alert(baseErrorMsg + "Error retrieving nearest site to random point, please try your request again.");
-						console.log(request);
+					if($statusDiv) {
+						$statusDiv.empty();
 					}
+					alert(baseErrorMsg + "Error retrieving nearest site to random point, please try your request again.");
+					console.log(request);
 				}
 			});
 		}
@@ -3388,15 +3385,23 @@
 			var options = {
 				maxZoom: 16
 			};
+			options.paddingBottomRight = [20,20];
+			options.paddingTopLeft = [20,20];
 			if(tabs) {
-				options.paddingTopLeft = [400,0];
+				options.paddingTopLeft = [420,20];
 			}
 			if(center) {
 				map.fitBounds(bounds.pad(0.25), options);
-			} else if(!map.getBounds().contains(bounds.pad(0.25))) {
-				// if the bounds aren't within the current map bounds
-				// zoom out to include the bounds
-				map.fitBounds(bounds.extend(map.getBounds()).pad(0.25), options);
+			} else {
+				// check if the point is hidden behind the options tabs (400px wide)
+				let mapLL = L.CRS.EPSG3857.latLngToPoint(map.getBounds().getSouthWest(), map.getZoom());
+				let boundsLL = L.CRS.EPSG3857.latLngToPoint(bounds.getSouthWest(), map.getZoom());
+				let diff = boundsLL.x - mapLL.x;
+				if(!map.getBounds().contains(bounds) || (tabs && (diff < 400)) ) {
+					// if the bounds aren't within the current map bounds
+					// zoom out to include the bounds
+					map.fitBounds(bounds.extend(map.getBounds()).pad(0.25), options);
+				}
 			}
 		}
 		function date2String(date) {
