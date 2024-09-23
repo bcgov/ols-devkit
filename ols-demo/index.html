@@ -2056,10 +2056,7 @@
 				params['simplifyThreshold'] = $('#simplifyThreshold').val();
 			}
 			
-			if($('#snapDistanceChk').is(':checked')) {
-				params['snapDistance'] = "true";
-			}
-			if(!isNaN( $('#snapDistance').val()) ) {
+			if($('#snapDistanceChk').is(':checked') && !isNaN( $('#snapDistance').val()) ) {
 				params['snapDistance'] = $('#snapDistance').val();
 			}
 
