@@ -437,11 +437,13 @@
 								</button>
 							</div>
 						</div>
-						<!--div>
-							<input id="exactSpellingChk" type="checkbox" aria-label="Exact Spelling" title="Exact Spelling"> Exact Spelling<br/>
-						</div-->
-						</form>
 						<div>
+							<input id="exactSpellingChk" type="checkbox" aria-label="Exact Spelling" title="Exact Spelling"> Exact Spelling<br/>
+						</div>
+						</form>
+						
+						<div>
+							<h5><b>Note:</b> exactSpelling is only suitable for demos. Enable by appending '&gc=tst' to the URL of this web application.</h5><br/>
 							<h4>Examples:</h4>
 							<ul>
 	   						<li>1175 Douglas St Victoria BC</li>
@@ -562,6 +564,10 @@
 								<div class="routerControl">
 									<input id="simplifyDirectionsChk" class="routeOnChange" type="checkbox" aria-label="Simplify Directions" title="Simplify Directions"> Simplify Directions &nbsp; 
 									Threshold (m): <input id="simplifyThreshold" class="routeOnChange" type="input" value="250" size="10" aria-label="Simply Threshold" title="Simplify Threshold">
+								</div>
+								<div class="routerControl" style="margin-right: 50px;">
+									<input id="snapDistanceChk" class="routeOnChange" type="checkbox" aria-label="Snap Distance" title="Snap Distance">
+									Snap Distance (m): <input id="snapDistance" class="routeOnChange" type="input" value="1000" size="10" aria-label="Snap Distance" title="Snap Distance">
 								</div>
 								<div class="routerControl">
 									<input id="truckControlsChk" class="routeOnChange" type="checkbox" aria-label="Truck Mode" title="Truck Mode"> Truck Mode</br>
@@ -1788,7 +1794,7 @@
 				echo: true,
 				brief: true,
 				autoComplete: true,
-				//exactSpelling: $('#exactSpellingChk').is(':checked'),
+				exactSpelling: $('#exactSpellingChk').is(':checked'),
 				matchPrecisionNot: matchPrecisionNot,
 				locationDescriptor: defaultLocationDescriptor,
 				addressString: request.term
@@ -2049,6 +2055,13 @@
 			if(!isNaN( $('#simplifyThreshold').val()) ) {
 				params['simplifyThreshold'] = $('#simplifyThreshold').val();
 			}
+			
+			if($('#snapDistanceChk').is(':checked')) {
+				params['snapDistance'] = "true";
+			}
+			if(!isNaN( $('#snapDistance').val()) ) {
+				params['snapDistance'] = $('#snapDistance').val();
+			}
 
 			var date = $('#time').timepicker('getTime', $('#date').datepicker('getDate'));
 			params['departure'] = date2String(date);
@@ -2152,6 +2165,9 @@
 
 			setCheckbox('#simplifyDirectionsChk', params['simplifyDirections']);
 			setTextField('#simplifyThreshold', params['simplifyThreshold']);
+
+			setCheckbox('#snapDistanceChk', params['snapDistance']);
+			setTextField('#snapDistance', params['snapDistance']);
 
 			if(params['departure']) {
 				let date = new Date(params['departure']);
@@ -2952,6 +2968,9 @@
 				}
 				if(data.simplifyThreshold) {
 					$('#simplifyThreshold').val(data.simplifyThreshold);
+				}
+				if(data.snapDistance) {
+					$('#snapDistance').val(data.snapDistance);
 				}
 				if(data.xingCost) {
 					var xingCosts = data.xingCost.split(",");
