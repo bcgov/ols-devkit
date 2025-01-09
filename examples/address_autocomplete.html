@@ -60,53 +60,48 @@ h2 {
 
 <body>
 <div id="chs"></div>
-<div id="main" class="body">
+<div id="main" class="container">
   <h1>Address Autocompletion Example</h1>
   <div id="content">
-    <div>This is an example showing how web application developers can
-      incorporate the power of the BC Physical Address Geocoder service into their application easily, including advanced auto-complete functionality.</div>
+    <p>This is an example showing how web application developers can incorporate the power of the BC Physical Address Geocoder service into their application easily, including advanced auto-complete functionality.</p>
 
     <div class="spacer">
+      <label for="geocodeField">Enter Address:</label>
       <input type="text" id="geocodeField" placeholder="Type an address" />
-      <label>
+      <label for="exactSpelling">
         <input type="checkbox" id="exactSpelling" /> Exact Spelling
       </label>
     </div>
-    Result:
-    <pre id="output"></pre>
+    <p>Result:</p>
+    <pre id="output" aria-live="polite"></pre>
 
     <h2>Documentation</h2>
-				<p>For further information on jQuery UI's Autocomplete function, see the
-					<a href="https://jqueryui.com/autocomplete/">jQuery Documentation</a>.</p>
-				<p>There are various options available, set using the "params" variable in the geocodeSuggest function.
-					Here is a description of the options which can be used to configure the results returned by the
-					REST API and address auto-completion suggestions</p>
-
-					     <ul>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#autoComplete">autoComplete</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#brief">brief</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#echo">echo</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#maxResults">maxResults</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#minScore">minScore</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#outputSRS">outputSRS</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#setBack">setBack</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#interpolation">interpolation</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#locationDescriptor">locationDescriptor</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#bbox">bbox</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#centre">centre</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#maxDistance">maxDistance</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#localities">localities</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#localitiesNot">localitiesNot</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#matchPrecision">matchPrecision</a></li>
-					      <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#matchPrecisionNot">matchPrecisionNot</a></li>
-					    </ul>
-
-
-				<p>For more information on these geocoder parameters, see the
-					<a href="https://openapi.apps.gov.bc.ca/?url=https://raw.githubusercontent.com/bcgov/api-specs/master/geocoder/geocoder-combined.json">REST API
-						Console</a>
+    <p>For further information on jQuery UI's Autocomplete function, see the
+      <a href="https://jqueryui.com/autocomplete/">jQuery Documentation</a>.</p>
+    <p>There are various options available, set using the "params" variable in the geocodeSuggest function. Here is a description of the options which can be used to configure the results returned by the REST API and address auto-completion suggestions:</p>
+    <ul>
+        <li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#autoComplete">autoComplete</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#brief">brief</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#echo">echo</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#maxResults">maxResults</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#minScore">minScore</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#outputSRS">outputSRS</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#setBack">setBack</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#interpolation">interpolation</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#locationDescriptor">locationDescriptor</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#bbox">bbox</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#centre">centre</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#maxDistance">maxDistance</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#localities">localities</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#localitiesNot">localitiesNot</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#matchPrecision">matchPrecision</a></li>
+	<li><a href="https://github.com/bcgov/ols-geocoder/blob/gh-pages/glossary.md#matchPrecisionNot">matchPrecisionNot</a></li>
+    </ul>
+    <p>For more information on these geocoder parameters, see the
+      <a href="https://openapi.apps.gov.bc.ca/?url=https://raw.githubusercontent.com/bcgov/api-specs/master/geocoder/geocoder-combined.json">REST API Console</a>.</p>
   </div>
 </div>
+	
 <div id="cfs"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
