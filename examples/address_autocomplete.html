@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
 <title>Geocoder Developer Toolkit</title>
-<!--
-<script type="text/javascript" src="https://unipear.api.gov.bc.ca/v1/bcgov/"></script>
--->
 <script type="text/javascript">
     unippear({
         "headerContainer": "#chs",
@@ -40,190 +37,50 @@ h2 {
   margin-bottom: 12px;
 }
 .spacer {
-	margin: 10px;
+  margin: 10px;
 }
 #geocodeField {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 1.3em;
-	//height: 1.7em;
-	width: 350px;
-	border-radius: 4px;
-	padding: 0.2em;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1.3em;
+  width: 350px;
+  border-radius: 4px;
+  padding: 0.2em;
 }
 #output {
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   height: 200px;
   overflow: auto;
   margin: 10px;
   padding: 5px 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
-
 }
 </style>
 </head>
 
 <body>
 <div id="chs"></div>
-			<div id="main" class="body">
-				<h1>Address Autocompletion Example</h1>
-			<div id="content">
-				<div>This is an example showing how web application	developers can
-					incorporate the power of the BC Physical Address
-					Geocoder service into their application easily, including advanced
-					auto-complete functionality.</div>
+<div id="main" class="body">
+  <h1>Address Autocompletion Example</h1>
+  <div id="content">
+    <div>This is an example showing how web application developers can
+      incorporate the power of the BC Physical Address Geocoder service into their application easily, including advanced auto-complete functionality.</div>
 
-				<div class="spacer">
-					<input type="text" id="geocodeField" placeholder="Type an address"/>
-				</div>
-				Result:
-				<pre id="output"></pre>
-
-				<h2>Documentation</h2>
-				<p>This address auto-completion example makes use of jQuery UI's "autocomplete" function.
-				The following stylesheet and scripts must be included in order to use jQuery UI:</p>
-				<pre>
-&lt;link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
-&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"&gt;&lt;/script&gt;
-</pre>
-				<p>Next you must include a text input field on your page, which
-					you will use for geocoding with auto-completion:</p>
-				<pre>
-&lt;input type="text" id="geocodeField" placeholder="Type an address" /&gt;
-</pre>
-				<p>Then you tell jQuery to perform auto-completion on this field,
-					and provide it a function which will return a list of potential
-					auto-completions for a given input, as well as a function to call
-					when one of the suggestions is selected. Below, "geocodeSuggest" uses
-					a jQuery ajax call to obtain the potential address matches from the
-					geocoder REST API. An in-line function takes the selected suggestion
-					and displays the selection's details in formatted JSON text in the result box.</p>
-				<pre>
-// Geocode Address autocomplete
-$('#geocodeField').autocomplete({
-	minLength: 3,
-	source: geocodeSuggest,
-	select: function(evt, ui) {
-		$('#output').text(JSON.stringify(ui.item.data, null, 4));
-	}
-});
-
-// function for suggesting geocode autocompletion options
-function geocodeSuggest(request, response, options) {
-	var params = {
-		minScore: 50,
-		maxResults: 5,
-		echo: 'false',
-		brief: true,
-		autoComplete: true,
-		addressString: request.term
-	};
-	$.extend(params, options);
-	$.ajax({
-		url: gcApi + "addresses.json",
-		data: params,
-		success: function(data) {
-			var list = [];
-			if(data.features && data.features.length > 0) {
-				list = data.features.map( function(item) {
-					return {
-						value: item.properties.fullAddress,
-						data: item
-					}
-				});
-			}
-			response(list);
-		},
-		error: function() {
-			response([]);
-		}
-	});
-}
-				</pre>
-				<p>For further information on jQuery UI's Autocomplete function, see the
-					<a href="https://jqueryui.com/autocomplete/">jQuery Documentation</a>.</p>
-				<p>There are various options available, set using the "params" variable in the geocodeSuggest function.
-					Here is a description of the options which can be used to configure the results returned by the
-					REST API ad address auto-completion suggestions:</p>
-					<h4>autocomplete</h4>
-					<p>With autocomplete='true', the geocoder allows for the last word of input to be only partially input,
-					 	trying to automatically complete is as would be expected. When autocomplete='false', the geocoder
-						expects a complete address to be input and only allows for minor spelling mistakes or typos; this
-						is good for validating complete addresses but will not provide as good of a user experience when used
-						for auto-completion.</p>
-					<h4>brief</h4>
-					<p>when brief='true', significantly fewer result attributes are returned for each match, reducing the data
-						transfer overhead of the autocomplete process.</p>
-					<h4>echo</h4>
-					<p>If echo is set to true, site name and unit number details
-						will be echoed back as part of the results even if they are not
-						actually matched.</p>
-					<h4>maxResults</h4>
-					<p>This specifies the maximum number of results to show in
-						the drop-down list while the user is typing.</p>
-					<h4>minScore</h4>
-					<p>This specifies the minimum score of results to return. Any
-						results with a score less than the specified minimum will not be
-						returned.</p>
-					<h4>outputSRS</h4>
-					<p>
-						This specifies the Spatial Reference System to use for the output
-						coordinates, using standard EPSG codes. The list of acceptable
-						code is specified <a
-							href="https://github.com/bcgov/api-specs/wiki/Geocoder-Glossary">here</a>.
-					</p>
-					<h4>setBack</h4>
-					<p>This specifies the distance from the street curb to set
-						back the returned point, in meters. By default the returned point
-						is intended to be located on the curb.</p>
-					<h4>interpolation</h4>
-					<p>This specifies the allowable method of interpolation. By
-						default, "adaptive" interpolation is used. Alternatively, "linear"
-						or "none" can be specified.</p>
-					<h4>locationDescriptor</h4>
-					<p>This specifies the type of location point to return, one
-						of "any", "accessPoint", "frontDoorPoint", "parcelPoint",
-						"rooftopPoint", or "routingPoint".</p>
-					<h4>bbox</h4>
-					<p>This specifies a bounding box to filter the results,
-						specified as "minx,miny,maxx,maxy" in the output-SRS coordinate
-						system.</p>
-					<h4>centre</h4>
-					<p>This specifies the centre point of a distance filter,
-						specified as "x,y" in the output-SRS coordinate system. Must also
-						use data-distance.</p>
-					<h4>maxDistance</h4>
-					<p>This specifies the maximum distance from the centre point
-						which results may be, in meters, relative to the point specified
-						by "centre".</p>
-					<h4>localities</h4>
-					<p>This specifies a list of locality names which results must be in
-						one of. The list must be comma-delimited and must contain
-						exact spellings of locality names and so is not generally
-						suitable for user input.</p>
-					<h4>localitiesNot</h4>
-					<p>This specifies a list of locality names which results must
-						not be in. The list must be comma-delimited and must contain
-						exact spellings of locality names and so is not generally
-						suitable for user input.</p>
-					<h4>matchPrecision</h4>
-					<p>This specifies a list of MatchPrecision values which results
-						must have one of. The list must be comma-delimited and may contain
-						any of the MatchPrecision values: "occupant", "unit", "site",
-						"civic_number", "intersection", "block", "street", "locality",
-						"province"</p>
-					<h4>matchPrecisionNot</h4>
-					<p>This specifies a list of MatchPrecision values which results
-						must have none of. The list must be comma-delimited and may contain
-						any of the MatchPrecision values: "occupant", "unit", "site",
-						"civic_number", "intersection", "block", "street", "locality",
-						"province"</p>
-				<p>For more information on these geocoder parameters, see the
-					<a href="https://openapi.apps.gov.bc.ca/?url=https://raw.githubusercontent.com/bcgov/api-specs/master/geocoder/geocoder-combined.json">REST API
-						Console</a>
-      </div>
+    <div class="spacer">
+      <input type="text" id="geocodeField" placeholder="Type an address" />
+      <label>
+        <input type="checkbox" id="exactSpelling" /> Exact Spelling
+      </label>
     </div>
+    Result:
+    <pre id="output"></pre>
+
+    <h2>Documentation</h2>
+    <p>For further information on jQuery UI's Autocomplete function, see the
+      <a href="https://jqueryui.com/autocomplete/">jQuery Documentation</a>.</p>
+
+  </div>
+</div>
 <div id="cfs"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
@@ -232,45 +89,49 @@ var gcApi = "https://geocoder.api.gov.bc.ca/";
 
 // Geocode Address autocomplete
 $('#geocodeField').autocomplete({
-	minLength: 3,
-	source: geocodeSuggest,
-	select: function(evt, ui) {
-		$('#output').text(JSON.stringify(ui.item.data, null, 4));
-	}
+  minLength: 3,
+  source: geocodeSuggest,
+  select: function(evt, ui) {
+    $('#output').text(JSON.stringify(ui.item.data, null, 4));
+  }
 });
 
 // reusable function for suggesting geocode autocompletion options
 function geocodeSuggest(request, response, options) {
-	var params = {
-		minScore: 50,
-		maxResults: 5,
-		echo: 'false',
-		brief: true,
-		autoComplete: true,
-		addressString: request.term
-	};
-	$.extend(params, options);
-	$.ajax({
-		url: gcApi + "addresses.json",
-		data: params,
-		success: function(data) {
-			var list = [];
-			if(data.features && data.features.length > 0) {
-				list = data.features.map( function(item) {
-					return {
-						value: item.properties.fullAddress,
-						data: item
-					}
-				});
-			}
-			response(list);
-		},
-		error: function() {
-			response([]);
-		}
-	});
-}
+  var params = {
+    minScore: 50,
+    maxResults: 5,
+    echo: 'false',
+    brief: true,
+    autoComplete: true,
+    addressString: request.term
+  };
 
+  // Check the exact spelling checkbox state
+  var exactSpelling = $('#exactSpelling').is(':checked');
+  params.exactSpelling = exactSpelling;
+
+  $.extend(params, options);
+  $.ajax({
+    url: gcApi + "addresses.json",
+    data: params,
+    success: function(data) {
+      var list = [];
+      if (data.features && data.features.length > 0) {
+        list = data.features.map(function(item) {
+          return {
+            value: item.properties.fullAddress,
+            data: item
+          };
+        });
+      }
+      response(list);
+    },
+    error: function() {
+      response([]);
+    }
+  });
+}
 </script>
-  </body>
+</body>
 </html>
