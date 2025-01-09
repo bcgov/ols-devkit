@@ -76,9 +76,87 @@ h2 {
     <pre id="output"></pre>
 
     <h2>Documentation</h2>
-    <p>For further information on jQuery UI's Autocomplete function, see the
-      <a href="https://jqueryui.com/autocomplete/">jQuery Documentation</a>.</p>
-
+				<p>For further information on jQuery UI's Autocomplete function, see the
+					<a href="https://jqueryui.com/autocomplete/">jQuery Documentation</a>.</p>
+				<p>There are various options available, set using the "params" variable in the geocodeSuggest function.
+					Here is a description of the options which can be used to configure the results returned by the
+					REST API ad address auto-completion suggestions:</p>
+					<h4>autocomplete</h4>
+					<p>With autocomplete='true', the geocoder allows for the last word of input to be only partially input,
+					 	trying to automatically complete is as would be expected. When autocomplete='false', the geocoder
+						expects a complete address to be input and only allows for minor spelling mistakes or typos; this
+						is good for validating complete addresses but will not provide as good of a user experience when used
+						for auto-completion.</p>
+					<h4>brief</h4>
+					<p>when brief='true', significantly fewer result attributes are returned for each match, reducing the data
+						transfer overhead of the autocomplete process.</p>
+					<h4>echo</h4>
+					<p>If echo is set to true, site name and unit number details
+						will be echoed back as part of the results even if they are not
+						actually matched.</p>
+					<h4>maxResults</h4>
+					<p>This specifies the maximum number of results to show in
+						the drop-down list while the user is typing.</p>
+					<h4>minScore</h4>
+					<p>This specifies the minimum score of results to return. Any
+						results with a score less than the specified minimum will not be
+						returned.</p>
+					<h4>outputSRS</h4>
+					<p>
+						This specifies the Spatial Reference System to use for the output
+						coordinates, using standard EPSG codes. The list of acceptable
+						code is specified <a
+							href="https://github.com/bcgov/api-specs/wiki/Geocoder-Glossary">here</a>.
+					</p>
+					<h4>setBack</h4>
+					<p>This specifies the distance from the street curb to set
+						back the returned point, in meters. By default the returned point
+						is intended to be located on the curb.</p>
+					<h4>interpolation</h4>
+					<p>This specifies the allowable method of interpolation. By
+						default, "adaptive" interpolation is used. Alternatively, "linear"
+						or "none" can be specified.</p>
+					<h4>locationDescriptor</h4>
+					<p>This specifies the type of location point to return, one
+						of "any", "accessPoint", "frontDoorPoint", "parcelPoint",
+						"rooftopPoint", or "routingPoint".</p>
+					<h4>bbox</h4>
+					<p>This specifies a bounding box to filter the results,
+						specified as "minx,miny,maxx,maxy" in the output-SRS coordinate
+						system.</p>
+					<h4>centre</h4>
+					<p>This specifies the centre point of a distance filter,
+						specified as "x,y" in the output-SRS coordinate system. Must also
+						use data-distance.</p>
+					<h4>maxDistance</h4>
+					<p>This specifies the maximum distance from the centre point
+						which results may be, in meters, relative to the point specified
+						by "centre".</p>
+					<h4>localities</h4>
+					<p>This specifies a list of locality names which results must be in
+						one of. The list must be comma-delimited and must contain
+						exact spellings of locality names and so is not generally
+						suitable for user input.</p>
+					<h4>localitiesNot</h4>
+					<p>This specifies a list of locality names which results must
+						not be in. The list must be comma-delimited and must contain
+						exact spellings of locality names and so is not generally
+						suitable for user input.</p>
+					<h4>matchPrecision</h4>
+					<p>This specifies a list of MatchPrecision values which results
+						must have one of. The list must be comma-delimited and may contain
+						any of the MatchPrecision values: "occupant", "unit", "site",
+						"civic_number", "intersection", "block", "street", "locality",
+						"province"</p>
+					<h4>matchPrecisionNot</h4>
+					<p>This specifies a list of MatchPrecision values which results
+						must have none of. The list must be comma-delimited and may contain
+						any of the MatchPrecision values: "occupant", "unit", "site",
+						"civic_number", "intersection", "block", "street", "locality",
+						"province"</p>
+				<p>For more information on these geocoder parameters, see the
+					<a href="https://openapi.apps.gov.bc.ca/?url=https://raw.githubusercontent.com/bcgov/api-specs/master/geocoder/geocoder-combined.json">REST API
+						Console</a>
   </div>
 </div>
 <div id="cfs"></div>
