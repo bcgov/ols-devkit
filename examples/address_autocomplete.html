@@ -179,15 +179,12 @@ function geocodeSuggest(request, response, options) {
   var params = {
     minScore: 50,
     maxResults: 5,
-    echo: 'false',
+    echo: false,
     brief: true,
     autoComplete: true,
+    exactSpelling: $('#exactSpelling').is(':checked'),
     addressString: request.term
   };
-
-  // Check the exact spelling checkbox state
-  var exactSpelling = $('#exactSpelling').is(':checked');
-  params.exactSpelling = exactSpelling;
 
   $.extend(params, options);
   $.ajax({
