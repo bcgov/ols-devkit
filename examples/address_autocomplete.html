@@ -71,6 +71,9 @@ h2 {
       <label for="exactSpelling">
         <input type="checkbox" id="exactSpelling" /> Exact Spelling
       </label>
+      <label>
+        <input type="checkbox" id="fuzzyMatch"> Fuzzy Match
+      </label>	    
     </div>
     <p>Result:</p>
     <pre id="output" aria-live="polite"></pre>
@@ -120,13 +123,14 @@ $('#geocodeField').autocomplete({
 // reusable function for suggesting geocode autocompletion options
 function geocodeSuggest(request, response, options) {
   var params = {
-    minScore: 50,
+    addressString: request.term,
     maxResults: 5,
+    minScore: 50,
     echo: false,
     brief: true,
     autoComplete: true,
     exactSpelling: $('#exactSpelling').is(':checked'),
-    addressString: request.term
+    fuzzyMatch: $('#fuzzyMatch').is(':checked')
   };
 
   $.extend(params, options);
