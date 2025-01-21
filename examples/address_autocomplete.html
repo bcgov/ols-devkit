@@ -82,6 +82,67 @@ h2 {
     <pre id="output" aria-live="polite"></pre>
 
     <h2>Documentation</h2>
+	<p>This address auto-completion example makes use of jQuery UI's "autocomplete" function.
+	The following stylesheet and scripts must be included in order to use jQuery UI:</p>
+	<pre>
+		&lt;link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" /&gt;
+		&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"&gt;&lt;/script&gt;
+		&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"&gt;&lt;/script&gt;
+        </pre>
+				<p>Next you must include a text input field on your page, which
+					you will use for geocoding with auto-completion:</p>
+				<pre>
+&lt;input type="text" id="geocodeField" placeholder="Type an address" /&gt;
+</pre>
+				<p>Then you tell jQuery to perform auto-completion on this field,
+					and provide it a function which will return a list of potential
+					auto-completions for a given input, as well as a function to call
+					when one of the suggestions is selected. Below, "geocodeSuggest" uses
+					a jQuery ajax call to obtain the potential address matches from the
+					geocoder REST API. An in-line function takes the selected suggestion
+					and displays the selection's details in formatted JSON text in the result box.</p>
+				<pre>
+// Geocode Address autocomplete
+$('#geocodeField').autocomplete({
+	minLength: 3,
+	source: geocodeSuggest,
+	select: function(evt, ui) {
+		$('#output').text(JSON.stringify(ui.item.data, null, 4));
+	}
+});
+
+// function for suggesting geocode autocompletion options
+function geocodeSuggest(request, response, options) {
+	var params = {
+		minScore: 50,
+		maxResults: 5,
+		echo: 'false',
+		brief: true,
+		autoComplete: true,
+		addressString: request.term
+	};
+	$.extend(params, options);
+	$.ajax({
+		url: gcApi + "addresses.json",
+		data: params,
+		success: function(data) {
+			var list = [];
+			if(data.features && data.features.length > 0) {
+				list = data.features.map( function(item) {
+					return {
+						value: item.properties.fullAddress,
+						data: item
+					}
+				});
+			}
+			response(list);
+		},
+		error: function() {
+			response([]);
+		}
+	});
+}
+    </pre>
     <p>For further information on jQuery UI's Autocomplete function, see the
       <a href="https://jqueryui.com/autocomplete/">jQuery Documentation</a>.</p>
     <p>Here is a description of the options which can be used to configure the results returned by the REST API and address autoComplete suggestions:</p>
