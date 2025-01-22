@@ -439,6 +439,7 @@
 						</div>
 						<div>
 							<input id="exactSpellingChk" type="checkbox" aria-label="Exact Spelling" title="Exact Spelling"> Exact Spelling<br/>
+							<input id="fuzzyMatchChk" type="checkbox" aria-label="Fuzzy Match" title="Fuzzy Match"> Fuzzy Match<br/>
 						</div>
 						</form>
 						
@@ -1795,6 +1796,7 @@
 				brief: true,
 				autoComplete: true,
 				exactSpelling: $('#exactSpellingChk').is(':checked'),
+				fuzzyMatch: $('#fuzzyMatchChk').is(':checked'),
 				matchPrecisionNot: matchPrecisionNot,
 				locationDescriptor: defaultLocationDescriptor,
 				addressString: request.term
