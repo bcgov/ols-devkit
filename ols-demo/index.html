@@ -1720,7 +1720,7 @@
 			return str;
 		}
 
-		function makePopupText(props) {
+		function makePopupText(props, geometry) {
 			console.log("Popup props:", props);
 			var str = '<span class="popup-title">' + props.fullAddress + '</span> ';
 			if(!props.occupantName) {
@@ -1728,14 +1728,9 @@
 					+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
 					+ "</button>";
 			}
-			if(props.coordinates || props.localityType || props.score || props.degree || props.occupantName) {
+			if(props.localityType || props.score || props.geometry.coordinates || props.degree || props.occupantName) {
 				str +='<table class="popup-table">';
-
-				if (props.location && props.location.x !== undefined && props.location.y !== undefined) {
-					str += "Coordinates: " + props.location.y.toFixed(6) + ", " + props.location.x.toFixed(6) + "<br/>";
-				}
 				if(props.localityType) {
-					str += '<tr><td class="rowName">Coordinates:</td><td>' + props.coordinates + '</td></tr>';
 					str += '<tr><td class="rowName">Locality Type:</td><td>' + props.localityType + '</td></tr>';
 					str += '<tr><td class="rowName">Electoral Area:</td><td>' + props.electoralArea + '</td></tr>';
 				}
@@ -1752,6 +1747,10 @@
 					str += '</table></td></tr>';
 				}
 
+				if(props.geometry.coordinates) {
+					str += '<tr><td class="rowName">Coordinates:</td><td>' + props.geometry.coordinates + '</td></tr>';
+				}
+				
 				if(props.degree) {
 					str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
 				}
