@@ -1728,7 +1728,7 @@
 					+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
 					+ "</button>";
 			}
-			if(props.localityType || props.score || props.geometry.coordinates || props.degree || props.occupantName) {
+			if(props.localityType || props.score || props.degree || props.occupantName) {
 				str +='<table class="popup-table">';
 				if(props.localityType) {
 					str += '<tr><td class="rowName">Locality Type:</td><td>' + props.localityType + '</td></tr>';
@@ -1746,14 +1746,6 @@
 					}
 					str += '</table></td></tr>';
 				}
-
-				if (geometry && geometry.coordinates) {
-					const [x, y] = geometry.coordinates;
-				        str += "Coordinates: " + y.toFixed(6) + ", " + x.toFixed(6) + "<br/>";
-				}
-				else {
-        			str += "Coordinates: not available<br/>";
-    				}
 
 				
 				if(props.degree) {
@@ -1780,6 +1772,13 @@
 
 				str += '</table>';
 			}
+			if (geometry && geometry.coordinates) {
+				const [x, y] = geometry.coordinates;
+				str += "Coordinates: " + y.toFixed(6) + ", " + x.toFixed(6) + "<br/>";
+			}
+			else {
+        			str += "Coordinates: not available<br/>";
+    			}
 			return str;
 		}
 
