@@ -1730,8 +1730,8 @@
 			if(props.coordinates || props.localityType || props.score || props.degree || props.occupantName) {
 				str +='<table class="popup-table">';
 
-				if(props.coordinates) {
-					str += '<tr><td class="rowName">Coordinates:</td><td>' + props.coordinates + '</td></tr>';
+				if (props.location && props.location.x !== undefined && props.location.y !== undefined) {
+					str += "Coordinates: " + props.location.y.toFixed(6) + ", " + props.location.x.toFixed(6) + "<br/>";
 				}
 				if(props.localityType) {
 					str += '<tr><td class="rowName">Coordinates:</td><td>' + props.coordinates + '</td></tr>';
