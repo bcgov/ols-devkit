@@ -1744,7 +1744,7 @@
 						var f = props.faults[i];
 						str += '<tr><td>' + f.value + '</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
 					}
-					str += '</td>'
+					str += '</table></td></tr>';
 
 				if (geometry && geometry.coordinates) {
 					const [x, y] = geometry.coordinates;
@@ -1753,7 +1753,6 @@
 				else {
         				str += '<tr><td class="rowName">Coordinates:</td><td>' + 'Not available' + '</td></tr>';
     				}
-				str += '</table></td></tr>';
 
 				
 				if(props.degree) {
