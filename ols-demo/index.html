@@ -1292,7 +1292,7 @@
 				return occIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
 		overlays["Businesses"] = occLayer;
@@ -1310,7 +1310,7 @@
 				return intIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+				marker.bindPopup(makePopupText(feature.properties));
 			}
 		});
 		overlays["Intersections"] = intLayer;
