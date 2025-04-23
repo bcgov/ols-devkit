@@ -1742,10 +1742,9 @@
 					str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
 					for(var i = 0, len = props.faults.length; i < len; i++) {
 						var f = props.faults[i];
-						str += '<tr><td>"' + f.value + '"</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+						str += '<tr><td>' + f.value + '</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
 					}
-					
-				}
+
 				if (geometry && geometry.coordinates) {
 					const [x, y] = geometry.coordinates;
 					str += '<tr><td class="rowName">Coordinates:</td><td>' + y.toFixed(6) + ', ' + x.toFixed(6) + '</td></tr>';
