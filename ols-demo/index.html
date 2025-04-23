@@ -1253,7 +1253,7 @@
 				return siteIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties,feature.coordinates));
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
 			}
 
 		});
