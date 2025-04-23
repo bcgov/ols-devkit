@@ -1744,8 +1744,16 @@
 						var f = props.faults[i];
 						str += '<tr><td>"' + f.value + '"</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
 					}
-					str += '</table></td></tr>';
+					
 				}
+				if (geometry && geometry.coordinates) {
+					const [x, y] = geometry.coordinates;
+					str += '<tr><td class="rowName">Coordinates:</td><td>' + y.toFixed(6) + ', ' + x.toFixed(6) + '</td></tr>';
+				}
+				else {
+        				str += '<tr><td class="rowName">Coordinates:</td><td>' + 'Not available' + '</td></tr>';
+    				}
+				str += '</table></td></tr>';
 
 				
 				if(props.degree) {
@@ -1772,13 +1780,6 @@
 
 				str += '</table>';
 			}
-			if (geometry && geometry.coordinates) {
-				const [x, y] = geometry.coordinates;
-				str += "Coordinates: " + y.toFixed(6) + ", " + x.toFixed(6) + "<br/>";
-			}
-			else {
-        			str += "Coordinates: not available<br/>";
-    			}
 			return str;
 		}
 
