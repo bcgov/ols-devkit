@@ -1253,7 +1253,7 @@
 				return siteIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties, feature.geometry));
 			}
 
 		});
@@ -1274,7 +1274,7 @@
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties, feature.geometry));
 			}
 		});
 		overlays["Addresses – access point "] = apLayer;
@@ -1292,7 +1292,7 @@
 				return occIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties, feature.geometry));
 			}
 		});
 		overlays["Businesses"] = occLayer;
@@ -1310,7 +1310,7 @@
 				return intIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties, feature.geometry));
 			}
 		});
 		overlays["Intersections"] = intLayer;
@@ -1365,7 +1365,7 @@
 				return L.divIcon({html: data.properties.name, className: "gnsLabel"});
 			},
 			onEachMarker: function(feature, layer) {
-				//layer.bindPopup(makePopupText(feature.properties));
+				//layer.bindPopup(makePopupText(feature.properties, feature.geometry));
 			}
 		});
 		overlays['BC Geographical Names'] = gnsLayer;
@@ -1834,7 +1834,7 @@
 			} else {
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText(feature.properties));
+						layer.bindPopup(makePopupText(feature.properties, feature.geometry));
 						layer.options['title'] = feature.properties.fullAddress;
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
@@ -3057,7 +3057,7 @@
 					return occIcon;
 				},
 				onEachMarker: function(feature, layer) {
-					layer.bindPopup(makePopupText(feature.properties));
+					layer.bindPopup(makePopupText(feature.properties, feature.geometry));
 					layer.options['title'] = feature.properties.fullAddress;
 				}
 			});
@@ -3109,7 +3109,7 @@
 				}
 				namedOccLayer = L.geoJson(ui.item.data, {
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText(feature.properties));
+						layer.bindPopup(makePopupText(feature.properties, feature.geometry));
 						layer.options['title'] = feature.properties.fullAddress;
 					}
 				}).addTo(map);
@@ -3136,7 +3136,7 @@
 					}
 					namedOccLayer = L.geoJson(data, {
 						onEachFeature: function(feature, layer) {
-							layer.bindPopup(makePopupText(feature.properties));
+							layer.bindPopup(makePopupText(feature.properties, feature.geometry));
 							layer.options['title'] = feature.properties.fullAddress;
 						}
 					}).addTo(map);
