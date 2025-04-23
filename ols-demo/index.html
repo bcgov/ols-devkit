@@ -1747,9 +1747,11 @@
 					str += '</table></td></tr>';
 				}
 
-				if(props.geometry.coordinates) {
-					str += '<tr><td class="rowName">Coordinates:</td><td>' + props.geometry.coordinates + '</td></tr>';
+				if (geometry && geometry.coordinates) {
+					const [x, y] = geometry.coordinates;
+				        str += "Coordinates: " + y.toFixed(6) + ", " + x.toFixed(6) + "<br/>";
 				}
+
 				
 				if(props.degree) {
 					str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
