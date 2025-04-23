@@ -1727,9 +1727,12 @@
 					+ "<span class=\"glyphicon glyphicon-plus\" aria-label=\"Add Location to Route\"></span>"
 					+ "</button>";
 			}
-			if(props.localityType || props.score || props.degree || props.occupantName) {
+			if(props.coordinates || props.localityType || props.score || props.degree || props.occupantName) {
 				str +='<table class="popup-table">';
 
+				if(props.coordinates) {
+					str += '<tr><td class="rowName">Coordinates:</td><td>' + props.coordinates + '</td></tr>';
+				}
 				if(props.localityType) {
 					str += '<tr><td class="rowName">Coordinates:</td><td>' + props.coordinates + '</td></tr>';
 					str += '<tr><td class="rowName">Locality Type:</td><td>' + props.localityType + '</td></tr>';
