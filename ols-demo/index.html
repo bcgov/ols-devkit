@@ -1721,6 +1721,7 @@
 		}
 
 		function makePopupText(props) {
+			console.log("Popup props:", props);
 			var str = '<span class="popup-title">' + props.fullAddress + '</span> ';
 			if(!props.occupantName) {
 				str += "<button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
