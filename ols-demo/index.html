@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+.<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1274,7 +1274,7 @@
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties, feature.geometry));
 			}
 		});
 		overlays["Addresses – access point "] = apLayer;
