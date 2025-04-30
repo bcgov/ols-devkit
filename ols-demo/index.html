@@ -981,6 +981,13 @@
 			popupAnchor: [0,-32],
 		});
 
+		var rpIcon = L.icon({
+			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png',
+			iconSize: [32,32],
+			iconAnchor: [16,32],
+			popupAnchor: [0,-32],
+		});
+
 		var intIcon = L.icon({
 			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png',
 			iconSize: [32,37],
@@ -1330,7 +1337,7 @@
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
 			buildIcon: function() {
-				return apIcon;
+				return rpIcon;
 			},
 			onEachMarker: function(feature, marker) {
 				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
@@ -1350,7 +1357,7 @@
 			locAsGeoJSON: true,
 			propertyLoc: "geometry.coordinates",
 			buildIcon: function() {
-				return apIcon;
+				return rpIcon;
 			},
 			onEachMarker: function(feature, marker) {
 				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
