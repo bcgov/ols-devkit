@@ -1257,7 +1257,7 @@
 			}
 
 		});
-		overlays["Addresses - parcel point (excluding units)"] = siteLayer;
+		overlays["Addresses – parcel point (excluding units)"] = siteLayer;
 		
 		var siteLayerUnits = new L.layerJSON({
 			url: gcApi + "sites/within.json?excludeUnits=false&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -1276,7 +1276,7 @@
 			}
 
 		});
-		overlays["Addresses - parcel point (including units)"] = siteLayerUnits;
+		overlays["Addresses – parcel point (including units)"] = siteLayerUnits;
 
 		var apLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json"
