@@ -1318,6 +1318,46 @@
 		});
 		overlays["Addresses – access point (including units)"] = apLayerUnits;
 
+		var rpLayer = new L.layerJSON({
+			url: gcApi + "sites/within.json"
+				+ "?excludeUnits=true&brief=true&locationDescriptor=routingPoint"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return apIcon;
+			},
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+			}
+		});
+		overlays["Addresses – routing point (excluding units)"] = rpLayer;
+		
+		var rpLayerUnits = new L.layerJSON({
+			url: gcApi + "sites/within.json"
+				+ "?excludeUnits=false&brief=true&locationDescriptor=routingPoint"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return apIcon;
+			},
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+			}
+		});
+		overlays["Addresses – routing point (including units)"] = rpLayerUnits;
+		
 		var occLayer = new L.layerJSON({
 			url: gcApi + "occupants/within.json?brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 1,
