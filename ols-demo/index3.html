@@ -16,7 +16,6 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.Default.css" type="text/css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.css" type="text/css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tag-it@2.0.0/css/jquery.tagit.css" type="text/css" />
-	<script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
 	<script src="https://kit.fontawesome.com/17084b3326.js" crossorigin="anonymous"></script>
 	<style>
 		/* make the map fullscreen */
@@ -1175,14 +1174,6 @@
 		});
 		baseLayers['MapBox Streets'] = mapboxStreetsLayer;
 		mapboxStreetsLayer.addTo(map);
-
-		var bcBasemapLayer = new ol.layer.VectorTile({
-		        source: new ol.source.VectorTile({
-		          format: new ol.format.MVT(),
-		          url: 'https://tiles.arcgis.com/tiles/ubm4tcTYICKBpist/arcgis/rest/services/BC_BASEMAP_20240307/VectorTileServer/tile/{z}/{y}/{x}.pbf'
-		        })
-		});
-		baseLayers['BC Base Map'] = bcBasemapLayer;
 
 		var esriStreetsLayer = L.esri.basemapLayer('Streets', {
 			maxZoom: 20
