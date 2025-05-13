@@ -981,6 +981,13 @@
 			popupAnchor: [0,-32],
 		});
 
+		var rpIcon = L.icon({
+			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png',
+			iconSize: [32,32],
+			iconAnchor: [16,32],
+			popupAnchor: [0,-32],
+		});
+		
 		var intIcon = L.icon({
 			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png',
 			iconSize: [32,37],
@@ -1799,7 +1806,8 @@
 			return str;
 		}
 
-		function makePopupText(props) {
+		function makePopupText(props, geometry) {
+			console.log("Popup props:", props);
 			var str = '<span class="popup-title">' + props.fullAddress + '</span> ';
 			if(!props.occupantName) {
 				str += "<button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
@@ -1808,7 +1816,6 @@
 			}
 			if(props.localityType || props.score || props.degree || props.occupantName) {
 				str +='<table class="popup-table">';
-
 				if(props.localityType) {
 					str += '<tr><td class="rowName">Locality Type:</td><td>' + props.localityType + '</td></tr>';
 					str += '<tr><td class="rowName">Electoral Area:</td><td>' + props.electoralArea + '</td></tr>';
@@ -1821,11 +1828,20 @@
 					str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
 					for(var i = 0, len = props.faults.length; i < len; i++) {
 						var f = props.faults[i];
-						str += '<tr><td>"' + f.value + '"</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+						str += '<tr><td>' + f.value + '</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
 					}
 					str += '</table></td></tr>';
 				}
 
+				if (geometry && geometry.coordinates) {
+					const [x, y] = geometry.coordinates;
+					str += '<tr><td class="rowName">Coordinates:</td><td>' + y.toFixed(6) + ', ' + x.toFixed(6) + '</td></tr>';
+				}
+				else {
+        				str += '<tr><td class="rowName">Coordinates:</td><td>' + 'Not available' + '</td></tr>';
+    				}
+
+				
 				if(props.degree) {
 					str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
 				}
