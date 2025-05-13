@@ -1168,6 +1168,7 @@
 		var bcBaseMapLayer = L.tileLayer.wms('https://tiles.arcgis.com/tiles/ubm4tcTYICKBpist/arcgis/rest/services/BC_BASEMAP_20240307/VectorTileServer',
 			{
 				maxZoom: 20,
+				layers: '0'
 			});
 		baseLayers['BC Base Map'] = bcBaseMapLayer;
 		bcBaseMapLayer.addTo(map);
