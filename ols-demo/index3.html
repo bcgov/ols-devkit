@@ -1925,7 +1925,7 @@
 			} else {
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText(feature.properties));
+						layer.bindPopup(makePopupText(feature.properties,feature.geometry));
 						layer.options['title'] = feature.properties.fullAddress;
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
