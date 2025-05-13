@@ -1165,13 +1165,6 @@
 		}
 
 		var baseErrorMsg = "An unexpected server error occurred; No response from server.\n";
-
-		var bcBasemapLayer = new ol.layer.VectorTile({
-		        source: new ol.source.VectorTile({
-		          format: new ol.format.MVT(),
-		          url: 'https://tiles.arcgis.com/tiles/ubm4tcTYICKBpist/arcgis/rest/services/BC_BASEMAP_20240307/VectorTileServer/tile/{z}/{y}/{x}.pbf'
-		        })
-		});
 		
 		var mapboxStreetsLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
 			maxZoom: 20,
@@ -1182,6 +1175,14 @@
 		});
 		baseLayers['MapBox Streets'] = mapboxStreetsLayer;
 		mapboxStreetsLayer.addTo(map);
+
+		var bcBasemapLayer = new ol.layer.VectorTile({
+		        source: new ol.source.VectorTile({
+		          format: new ol.format.MVT(),
+		          url: 'https://tiles.arcgis.com/tiles/ubm4tcTYICKBpist/arcgis/rest/services/BC_BASEMAP_20240307/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+		        })
+		});
+		baseLayers['BC Base Map'] = bcBasemapLayer;
 
 		var esriStreetsLayer = L.esri.basemapLayer('Streets', {
 			maxZoom: 20
