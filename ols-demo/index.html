@@ -1165,6 +1165,13 @@
 
 		var baseErrorMsg = "An unexpected server error occurred; No response from server.\n";
 
+		var bcBaseMapLayer = L.tileLayer.wms('https://tiles.arcgis.com/tiles/ubm4tcTYICKBpist/arcgis/rest/services/BC_BASEMAP_20240307/VectorTileServer',
+			{
+				maxZoom: 20,
+			});
+		baseLayers['BC Base Map'] = bcBaseMapLayer;
+		bcBaseMapLayer.addTo(map);
+		
 		var mapboxStreetsLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
 			maxZoom: 20,
 			tileSize: 512,
@@ -1173,7 +1180,6 @@
 			id: 'mapbox/streets-v11'
 		});
 		baseLayers['MapBox Streets'] = mapboxStreetsLayer;
-		mapboxStreetsLayer.addTo(map);
 
 		var esriStreetsLayer = L.esri.basemapLayer('Streets', {
 			maxZoom: 20
