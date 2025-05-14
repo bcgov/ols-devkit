@@ -1,4 +1,4 @@
-.<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,8 +10,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" type="text/css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" type="text/css" />
-	<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /> -->
-	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.css" type="text/css" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" type="text/css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.6/dist/MarkerCluster.css" type="text/css" />
@@ -19,8 +17,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.css" type="text/css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tag-it@2.0.0/css/jquery.tagit.css" type="text/css" />
 	<script src="https://kit.fontawesome.com/17084b3326.js" crossorigin="anonymous"></script>
-	<!-- <script src="https://unpkg.com/esri-leaflet@3.0.11/dist/esri-leaflet.js"></script>-->
-	<!-- <script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js"></script>-->
 	<style>
 		/* make the map fullscreen */
 		html, body {
@@ -699,7 +695,7 @@
 		</div> <!-- tabWrapper -->
 		<div id="map"></div>
 	</div> <!-- container -->
-	<div id="configDialog" title="Configuration" style="display: none;">
+	<div id="configDialog" title="Configuration">
 		<div>
 		<div>
 			<table>
@@ -991,7 +987,7 @@
 			iconAnchor: [16,32],
 			popupAnchor: [0,-32],
 		});
-
+		
 		var intIcon = L.icon({
 			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png',
 			iconSize: [32,37],
@@ -1168,7 +1164,7 @@
 		}
 
 		var baseErrorMsg = "An unexpected server error occurred; No response from server.\n";
-
+		
 		var mapboxStreetsLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
 			maxZoom: 20,
 			tileSize: 512,
@@ -1177,7 +1173,7 @@
 			id: 'mapbox/streets-v11'
 		});
 		baseLayers['MapBox Streets'] = mapboxStreetsLayer;
-		MapboxStreetsLayer.addTo(map);
+		mapboxStreetsLayer.addTo(map);
 
 		var esriStreetsLayer = L.esri.basemapLayer('Streets', {
 			maxZoom: 20
@@ -1368,7 +1364,7 @@
 			}
 		});
 		overlays["Addresses – routing point (including units)"] = rpLayerUnits;
-		
+
 		var occLayer = new L.layerJSON({
 			url: gcApi + "occupants/within.json?brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
 			minZoom: 1,
@@ -1929,7 +1925,7 @@
 			} else {
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText(feature.properties, feature.geometry));
+						layer.bindPopup(makePopupText(feature.properties,feature.geometry));
 						layer.options['title'] = feature.properties.fullAddress;
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
