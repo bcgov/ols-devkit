@@ -552,8 +552,8 @@
 									<input id="date" class="routeOnChange" aria-label="Date" title="Date">
 									<input id="time" class="routeOnChange" aria-label="Time" title="Time"><br/>
 									<input id="ferrySchedulesChk" class="routeOnChange" type="checkbox" aria-label="Ferry Schedules" title="Ferry Schedules"> Ferry Schedules<br/>
-									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic"> Traffic<br/>
-									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events"> Events<br/>
+									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic"> Traffic (demo only)<br/>
+									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events"> Events (demo only)<br/>
 								</div>
 								<div class="routerControl">
 									<input id="turnRestrictionsChk" class="routeOnChange" type="checkbox" aria-label="Turn Restrictions" title="Turn Restrictions"> Turn Restrictions<br/>
@@ -1605,7 +1605,7 @@
 				return getNavInfoIcon(data.properties);
 			}
 		});
-		overlays["Open511 Events"] = eventLayer;
+		overlays["Open511 Events (demo only)"] = eventLayer;
 
 		var truckRouteLayer = new L.layerJSON({
 			//url: routeApi + "navInfo.json?types=TRK&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -1704,7 +1704,7 @@
 				layer.setStyle({color:color, weight:4, opacity: 0.75});
 			}
 		});
-		overlays["Traffic"] = trafficLayer;
+		overlays["Traffic (demo only)"] = trafficLayer;
 
 		var ferryTerminalLayer = new L.layerJSON({
 			callData: function(bbox, callback) {
