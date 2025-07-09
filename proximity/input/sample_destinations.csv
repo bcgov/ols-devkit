@@ -1,0 +1,195 @@
+id,address,school_nam,albers_x,albers_y
+0,4195 Alexandra St,Little Flower Academy,1208205,474434
+1,3663 Penticton St,Lord Beaconsfield Elementary,1214710,475113
+2,3455 W King Edward Av,Lord Kitchener Elementary,1205430,474562
+3,1150 Nelson St,Lord Roberts Annex,1208956,478319
+4,4444 Dumfries St,Lord Selkirk Annex,1213302,474297
+5,2678 W Broadway,Madrona School,1206409,476041
+6,2300 Guelph St,Mount Pleasant StrongStart Centre,1211649,476302
+7,2550 Camosun St,Our Lady of Perpetual Help,1204210,476021
+8,1819 Larch St,Pacific Rim Montessori Academy,1206640,476746
+9,1580 W Broadway,Peak House,1208284,476091
+10,4102 W 16th Av,Queen Elizabeth Elementary,1203878,475302
+11,1850 E 3rd Av,Queen Victoria Annex,1213646,476743
+12,3315 E 22nd Av,Renfrew Community Elementary,1216215,475100
+13,4250 Marguerite St,Shaughnessy Elementary,1208091,474457
+14,960 E 39th Av,Sir Alexander Mackenzie Elementary,1212313,473057
+15,419 E 24th Av,Sir Charles Tupper Secondary,1211654,474722
+16,3250 Kingsway,Sir Guy Carleton Community Elementary,1215891,473184
+17,1300 E 29th Av,Sir Richard McBride Elementary,1212891,474150
+18,1950 E Hastings St,Sir William Macdonald Community,1213706,478250
+19,7055 Heather St,Sir Winston Churchill Secondary,1209541,471445
+20,5855 Ontario St,Sir Wm Van Horne Elementary,1210881,472668
+21,1370 W 73rd Av,St Anthony of Padua,1208785,469569
+22,2215 W 10th Av,St John's School,1207126,476030
+23,5239 Joyce St,St Mary's,1216160,473546
+24,115 E 11th Av,St Patrick Regional Secondary,1211034,475992
+25,2850 Quebec St,St Patrick's Elementary,1211054,475810
+26,3155 E 27th Av,Sunny Hill Hospital Program,1215866,474536
+27,2325 Cassiar St,Thunderbird Elementary,1216172,476454
+28,3525 Dumphries St,Tyee Elementary,1213165,475208
+29,3496 Mons Drive,Vancouver Christian,1216454,475472
+30,5400 Cartier St,Vancouver College,1208709,472956
+31,1545 W 62nd Av,Vancouver Hebrew Academy,1208418,470778
+32,8650 Barnard St,Vancouver Montessori School,1208215,469915
+33,1000 E 59th Av,Walter Moberly Elementary,1212570,471018
+34,3075 Slocan St,Westside Montessori Academy,1214855,475653
+35,4176 Alexandra St,York House School,1208343,474486
+36,688 W Hastings St,Alexander Academy,1210097,478578
+37,5025 Willow St,BC Children's Adol. Psych. Unit,1209444,473506
+38,1001 Cotton Drive,Britannia Community Secondary,1213204,477619
+39,3340 E 54th Av,Captain James Cook Elementary,1216090,471528
+40,3340 E 54th Av,Captain James Cook StrongStart Centre,1216090,471528
+41,3400 Balaclava St,Carnarvon Community Elementary,1205890,475248
+42,2684 E 2nd Av,Chief Maquinna StrongStart Centre,1214790,476868
+43,3575 Kaslo St,Children's Hearing and Speech Centre BC,1215025,475151
+44,3417 Euclid Av,Collingwood Neighbourhood School,1216267,473422
+45,1755 E 55th Av,David Thompson Secondary,1213550,471540
+46,555 Lillooet St,Dr A R Lord Elementary,1215541,478206
+47,6350 Tisdall St,Dr Annie B Jamieson Elementary,1209850,472107
+48,3050 Crown St,Ecole Jules Quesnel Elementary,1204495,475524
+49,150 Drake St,Elsie Roy Elementary,1209538,477136
+50,4070 Oak St,Emily Carr Elementary,1209375,474661
+51,4196 W 4th Av,Family Montessori School,1204044,476407
+52,2294 W 10th Av,Fraser Academy,1207048,475970
+53,2330 E 37th Av,G T Cunningham Elementary,1214434,473389
+54,3633 Tanner St,Graham Bruce Community Elementary,1216724,474078
+55,1551 Cypress St,Henry Hudson Elementary,1207582,477057
+56,2490 W 37th Av,Ivy Montessori School,1206807,473231
+57,451 E 53rd Av,John Henderson Elementary,1211745,471702
+58,4710 Slocan St,John Norquay Elementary,1214836,473927
+59,5718 Willow St,King David High School,1209691,472828
+60,1755 Barclay St,King George Secondary,1208443,479047
+61,1130 Keefer St,Admiral Seymour StrongStart Centre,1212578,477967
+62,5025 Willow St,BC Childrens Hosp School Program,1209444,473506
+63,2251 Collingwood St,Bayview Community Elementary,1205207,476322
+64,1690 Matthews Av,Canuck Place School Program,1208132,474791
+65,6955 Frontenac St,Champlain Heights Community Elementary,1216673,471693
+66,1010 E 17th Av,Charles Dickens Elementary,1212535,475325
+67,2684 E 2nd Av,Chief Maquinna Elementary,1214790,476868
+68,3417 Euclid Av,Collingwood StrongStart Centre,1216267,473422
+69,438 Terminal Av,Columbia College,1211535,477142
+70,1580 W Broadway,Continuing Ed SD 39,1208284,476091
+71,6344 Nanaimo St,Corpus Christi School,1214473,472242
+72,8370 Cartier St,David Lloyd George Elementary,1208809,470181
+73,8370 Cartier St,David Lloyd George StrongStart Centre,1208809,470181
+74,2421 Scarboro Av,David Oppenheimer Elementary,1214481,470787
+75,7455 Maple St,Dr R E McKechnie Elementary,1207487,470989
+76,5025 Willow St,Eric Hamber Secondary,1209444,473506
+77,900 School Green,False Creek Elementary,1209243,476553
+78,2740 Guelph St,Florence Nightingale StrongStart Centre,1211687,475869
+79,1025 Slocan St,Garibaldi Annex,1214779,477705
+80,2896 W 6th Av,General Gordon Elementary,1206058,476299
+81,4105 Gladstone St,Gladstone Secondary,1214080,474584
+82,3745 W 28th Av,Immaculate Conception School,1204900,474208
+83,7455 Ontario St,J.W. Sexsmith Community Elementary,1210783,471074
+84,801 E 54th Av,John Henderson StrongStart Centre,1212278,471555
+85,530 E 41st Av,John Oliver Secondary,1211882,472752
+86,3250 W 43rd Av,Kerrisdale Annex,1205715,472604
+87,2550 W 10th Av,Kitsilano Secondary,1206589,475951
+88,1166 W 14th Av,L'Ecole Bilingue Elementary,1209026,475541
+89,3939 W 16th Av,Lord Byng Secondary,1204496,475524
+90,2235 Kitchener St,Lord Nelson Elementary,1214105,477353
+91,2235 Kitchener St,Lord Nelson StrongStart Centre,1214105,477353
+92,1750 E 22nd Av,Lord Selkirk StrongStart Centre,1213533,474792
+93,6360 Maple St,Magee Secondary,1207619,472200
+94,3375 Nootka St,Nootka Community Elementary,1215413,475304
+95,2880 Venables St,Notre Dame Regional Secondary,1215119,477762
+96,575 Slocan St,Our Lady of Sorrows,1214768,478166
+97,2409 E Pender St,PALS Autism School,1214341,478254
+98,4196 W 4th Av,Pacific Spirit School,1204044,476407
+99,5750 Oak St,Pacific Torah Institute International,1209340,472811
+100,449 E 62nd Av,Pierre Elliott Trudeau Elementary,1211659,470797
+101,3417 Euclid Av,Prov. Early Intervention Resource Prg,1216267,473422
+102,1300 E Broadway,Queen Alexandra StrongStart Centre,1212974,476135
+103,4275 Crown St,Queen Elizabeth Annex,1204385,474337
+104,2000 Trimble St,Queen Mary Elementary,1203566,476409
+105,1025 Slocan St,SD 39 DL Elementary,1214779,477705
+106,2150 Brigadoon Av,Sir James Douglas Elementary,1214005,471071
+107,250S Skeena St,Sir John Franklin Community,1216396,478560
+108,1430 Lillooet St,Sir Matthew Begbie Elementary,1215687,477344
+109,590 W 65th Av,Sir Wilfrid Laurier Annex,1210037,470315
+110,5970 Selkirk St,Sir William Osler Elementary,1208984,472501
+111,5351 Camosun St,Southlands Elementary,1204205,473130
+112,450 E 47th Av,St Andrew's,1211681,472216
+113,2145 W 8th Av,St Augustine's,1207308,476260
+114,870 Victoria Drive,St Francis of Assisi,1213696,477823
+115,4175 W 29th Av,St George's School,1204116,474176
+116,3261 Fleming St,St Joseph's,1213313,475475
+117,2953 E 15th Av,St Jude's,1215422,475633
+118,727 Templeton Drive,Templeton Secondary,1214006,478009
+119,5400 Cartier St,Vancouver College DL,1208709,472956
+120,5621 Killarney St,Vancouver Formosa Academy,1215256,473091
+121,2600 E Broadway,Vancouver Technical Secondary,1214771,476074
+122,1000 E 59th Av,Walter Moberly StrongStart Centre,1212570,471018
+123,6111 Elliott St,Waverley Elementary,1214597,472406
+124,6111 Elliott St,Waverley StrongStart Centre,1214597,472406
+125,4157 Oak St,Westside Montessori,1209243,474492
+126,3155 E 27th Av,Windermere Community Secondary,1215866,474536
+127,3274 East Boulevard,York House Little School,1207452,475324
+128,1130 Keefer St,Admiral Seymour Elementary,1212578,477967
+129,1351 Hornby St,Anchor Point Montessori,1208902,477646
+130,5025 Willow St,BCCH Eating Disorders School Program,1209444,473506
+131,3020 Heather St,Blessed Sacrament School,1209826,475602
+132,1110 Cotton Drive,Britannia Community Elementary,1213247,477541
+133,1788 W Broadway,Century High School,1207916,476085
+134,7835 Champlain Crescent,Champlain Heights Annex,1216499,470956
+135,7835 Champlain Crescent,Champlain Heights Annex StrongStart Cntr,1216499,470956
+136,3877 Glen Drive,Charles Dickens Annex,1212533,474809
+137,2882 E 4th Av,Chief Maquinna Annex,1215195,476722
+138,3200 W 41st Av,Crofton House,1205725,472694
+139,55 Expo Blvd,Crosstown Elementary,1210665,477892
+140,315 E 23rd Av,David Livingstone Elementary,1211419,474823
+141,2900 E 44th Av,Dr George M Weir Elementary,1215418,472634
+142,6100 Battison St,Dr H N MacCorkindale Elementary,1216522,472504
+143,500 W 20th Av,Edith Cavell Elementary,1210008,475005
+144,2740 Guelph St,Florence Nightingale Elementary,1211687,475869
+145,5025 Willow St,G F Strong School Program,1209444,473506
+146,4860 Main St,General Brock Elementary,1211269,473756
+147,4251 Ontario St,General Wolfe Elementary,1210854,474408
+148,2055 Woodland Dr,Grandview Elementary,1213067,476608
+149,2625 Franklin St,Hastings Community Elementary,1214723,478503
+150,801 E 54th Av,John Henderson Annex,1212278,471555
+151,5555 Carnarvon St,Kerrisdale Elementary,1205988,472981
+152,6454 Killarney St,Killarney Secondary,1215456,472160
+153,2500 Lakewood Drive,Laura Secord Elementary,1214117,476156
+154,1100 Bidwell St,Lord Roberts Elementary,1208355,478705
+155,1750 E 22nd Av,Lord Selkirk Elementary,1213533,474792
+156,592 E Pender St,Lord Strathcona Community Elementary,1211760,478069
+157,1936 W 10th Av,Lord Tennyson Elementary,1207624,475977
+158,1950 E Hastings St,MacDonald StrongStart Centre,1213706,478250
+159,6199 Cypress St,Maple Grove Elementary,1207616,472295
+160,2300 Guelph St,Mount Pleasant Elementary,1211649,476302
+161,4102 W 16th Av,Norma Rose Point School,1203878,475302
+162,5750 Oak St,Pacific Torah Institute,1209340,472811
+163,981 Nelson St,Pattison High School,1209307,478110
+164,981 Nelson St,Pattison School,1209307,478110
+165,5350 East Boulevard,Point Grey Secondary,1207442,473164
+166,2250 Eddington Drive,Prince of Wales Secondary,1206963,474001
+167,1300 E Broadway,Queen Alexandra Elementary,1212974,476135
+168,5300 Maple St,Quilchena Elementary,1207577,473165
+169,8610 Ash St,Royal Canadian College,1210114,469931
+170,100 W 15th Av,Simon Fraser Elementary,1210646,475505
+171,960 E 39th Av,Sir Alexander Mackenzie StrongStart,1212313,473057
+172,6901 Elliott St,Sir Charles Kingsford-Smith,1214632,471714
+173,7668 Borden St,Sir James Douglas Annex,1213381,470909
+174,4750 St. Catherines St,Sir Richard McBride Annex,1212408,473884
+175,1401 E 49th Av,Sir Sandford Fleming Elementary,1213092,472111
+176,3323 Wellington Av,Sir Wilfred Grenfell Community,1216055,474141
+177,3323 Wellington Av,Sir Wilfred Grenfell StrongStart Centre,1216055,474141
+178,7350 Laurel St,Sir Wilfrid Laurier Elementary,1209597,471080
+179,428 Great Northern Way,St Francis Xavier,1211599,476578
+180,1885 W Broadway,St John's International,1207725,476151
+181,3000 Commercial Drive,Stratford Hall,1213464,475654
+182,1551 E 37th Av,Tecumseh Annex,1213293,473384
+183,1850 E 41st Av,Tecumseh Elementary,1213688,472837
+184,788 Beatty St,The Westside School,1210172,477754
+185,2325 Cassiar St,Thunderbird StrongStart Centre,1216172,476454
+186,2450 Cambridge St,Tillicum Annex StrongStart Centre,1214341,478893
+187,2450 Cambridge St,Tillicum Community Annex,1214341,478893
+188,4170 Trafalgar St,Trafalgar Elementary,1206570,474563
+189,1580 W Broadway,Vancouver Alternate,1208284,476091
+190,530 E 41st Av,Vancouver Learning Network,1211882,472752
+191,998 W 26th Av,Vancouver Talmud Torah Elementary,1209333,474385
+192,15 N Renfrew St,West Coast Christian School,1215151,478784
+193,4125 W 8th Av,West Point Grey Academy,1203809,476331
