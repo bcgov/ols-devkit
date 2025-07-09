@@ -551,9 +551,9 @@
 									Start Date/Time:
 									<input id="date" class="routeOnChange" aria-label="Date" title="Date">
 									<input id="time" class="routeOnChange" aria-label="Time" title="Time"><br/>
-									<input id="ferrySchedulesChk" class="routeOnChange" type="checkbox" aria-label="Ferry Schedules" title="Ferry Schedules"> Ferry Schedules<br/>
-									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic"> Traffic<br/>
-									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events"> Events<br/>
+									<input id="ferrySchedulesChk" class="routeOnChange" type="checkbox" aria-label="Ferry Schedules" title="Ferry Schedules"> Ferry Schedules (demo only)<br/>
+									<input id="trafficChk" class="routeOnChange" type="checkbox" aria-label="Traffic" title="Traffic"> Traffic (demo only)<br/>
+									<input id="eventsChk" class="routeOnChange" type="checkbox" aria-label="Events" title="Events"> Events (demo only)<br/>
 								</div>
 								<div class="routerControl">
 									<input id="turnRestrictionsChk" class="routeOnChange" type="checkbox" aria-label="Turn Restrictions" title="Turn Restrictions"> Turn Restrictions<br/>
@@ -981,6 +981,13 @@
 			popupAnchor: [0,-32],
 		});
 
+		var rpIcon = L.icon({
+			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/routingPoint_high.png',
+			iconSize: [32,32],
+			iconAnchor: [16,32],
+			popupAnchor: [0,-32],
+		});
+		
 		var intIcon = L.icon({
 			iconUrl: 'https://cdn.rawgit.com/bcgov/ols-devkit/master/kml/icons/geocoder/intersectionPoint_high.png',
 			iconSize: [32,37],
@@ -1157,7 +1164,7 @@
 		}
 
 		var baseErrorMsg = "An unexpected server error occurred; No response from server.\n";
-
+		
 		var mapboxStreetsLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY2hvZGdzb24iLCJhIjoiY2oxM3JibHM4MDF3dTJxcDhlcnd1enF5aSJ9.Z_z0AGjZf6P9oh8NWY1JqQ', {
 			maxZoom: 20,
 			tileSize: 512,
@@ -1253,11 +1260,30 @@
 				return siteIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
 			}
 
 		});
-		overlays["Addresses - parcel point"] = siteLayer;
+		overlays["Addresses – parcel point (excluding units)"] = siteLayer;
+		
+		var siteLayerUnits = new L.layerJSON({
+			url: gcApi + "sites/within.json?excludeUnits=false&brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return siteIcon;
+			},
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+			}
+
+		});
+		overlays["Addresses – parcel point (including units)"] = siteLayerUnits;
 
 		var apLayer = new L.layerJSON({
 			url: gcApi + "sites/within.json"
@@ -1274,10 +1300,70 @@
 				return apIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
 			}
 		});
-		overlays["Addresses – access point "] = apLayer;
+		overlays["Addresses – access point (excluding units)"] = apLayer;
+		
+		var apLayerUnits = new L.layerJSON({
+			url: gcApi + "sites/within.json"
+				+ "?excludeUnits=false&brief=true&locationDescriptor=accessPoint"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return apIcon;
+			},
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+			}
+		});
+		overlays["Addresses – access point (including units)"] = apLayerUnits;
+
+		var rpLayer = new L.layerJSON({
+			url: gcApi + "sites/within.json"
+				+ "?excludeUnits=true&brief=true&locationDescriptor=routingPoint"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return rpIcon;
+			},
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+			}
+		});
+		overlays["Addresses – routing point (excluding units)"] = rpLayer;
+		
+		var rpLayerUnits = new L.layerJSON({
+			url: gcApi + "sites/within.json"
+				+ "?excludeUnits=false&brief=true&locationDescriptor=routingPoint"
+				+ "&bbox={lon1},{lat1},{lon2},{lat2}",
+			minZoom: 14,
+			caching: false,
+			propertyItems: "features",
+			propertyId: "properties.fullAddress",
+			propertyTitle: "properties.fullAddress",
+			locAsGeoJSON: true,
+			propertyLoc: "geometry.coordinates",
+			buildIcon: function() {
+				return rpIcon;
+			},
+			onEachMarker: function(feature, marker) {
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
+			}
+		});
+		overlays["Addresses – routing point (including units)"] = rpLayerUnits;
 
 		var occLayer = new L.layerJSON({
 			url: gcApi + "occupants/within.json?brief=true&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -1292,7 +1378,7 @@
 				return occIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
 			}
 		});
 		overlays["Businesses"] = occLayer;
@@ -1310,7 +1396,7 @@
 				return intIcon;
 			},
 			onEachMarker: function(feature, marker) {
-				marker.bindPopup(makePopupText(feature.properties));
+				marker.bindPopup(makePopupText(feature.properties,feature.geometry));
 			}
 		});
 		overlays["Intersections"] = intLayer;
@@ -1519,7 +1605,7 @@
 				return getNavInfoIcon(data.properties);
 			}
 		});
-		overlays["Open511 Events"] = eventLayer;
+		overlays["Open511 Events (demo only)"] = eventLayer;
 
 		var truckRouteLayer = new L.layerJSON({
 			//url: routeApi + "navInfo.json?types=TRK&bbox={lon1},{lat1},{lon2},{lat2}",
@@ -1618,7 +1704,7 @@
 				layer.setStyle({color:color, weight:4, opacity: 0.75});
 			}
 		});
-		overlays["Traffic"] = trafficLayer;
+		overlays["Traffic (demo only)"] = trafficLayer;
 
 		var ferryTerminalLayer = new L.layerJSON({
 			callData: function(bbox, callback) {
@@ -1720,7 +1806,8 @@
 			return str;
 		}
 
-		function makePopupText(props) {
+		function makePopupText(props, geometry) {
+			console.log("Popup props:", props);
 			var str = '<span class="popup-title">' + props.fullAddress + '</span> ';
 			if(!props.occupantName) {
 				str += "<button id=\"addSiteToRouteBtn\" class=\"btn btn-default miniBtn\" type=\"button\" title=\"Add Location to Route\">"
@@ -1729,7 +1816,6 @@
 			}
 			if(props.localityType || props.score || props.degree || props.occupantName) {
 				str +='<table class="popup-table">';
-
 				if(props.localityType) {
 					str += '<tr><td class="rowName">Locality Type:</td><td>' + props.localityType + '</td></tr>';
 					str += '<tr><td class="rowName">Electoral Area:</td><td>' + props.electoralArea + '</td></tr>';
@@ -1742,11 +1828,20 @@
 					str += '<tr><td class="rowName">Faults:</td><td><table class="popup-table">';
 					for(var i = 0, len = props.faults.length; i < len; i++) {
 						var f = props.faults[i];
-						str += '<tr><td>"' + f.value + '"</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
+						str += '<tr><td>' + f.value + '</td><td>' + f.element + '.<wbr>' + f.fault + '</td><td>' + f.penalty + '</td></tr>';
 					}
 					str += '</table></td></tr>';
 				}
 
+				if (geometry && geometry.coordinates) {
+					const [x, y] = geometry.coordinates;
+					str += '<tr><td class="rowName">Coordinates:</td><td>' + y.toFixed(6) + ', ' + x.toFixed(6) + '</td></tr>';
+				}
+				else {
+        				str += '<tr><td class="rowName">Coordinates:</td><td>' + 'Not available' + '</td></tr>';
+    				}
+
+				
 				if(props.degree) {
 					str += '<tr><td class="rowName">Degree:</td><td>' + props.degree + '</td></tr>';
 				}
@@ -1830,7 +1925,7 @@
 			} else {
 				layer = L.geoJson(data, {
 					onEachFeature: function(feature, layer) {
-						layer.bindPopup(makePopupText(feature.properties));
+						layer.bindPopup(makePopupText(feature.properties,feature.geometry));
 						layer.options['title'] = feature.properties.fullAddress;
 						//layer.bindTooltip(feature.properties.fullAddress, {
 						//		permanent: true
