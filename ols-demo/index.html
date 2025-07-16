@@ -755,7 +755,7 @@
 	<script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js"
 		integrity="sha512-m+BZ3OSlzGdYLqUBZt3u6eA0sH+Txdmq7cqA1u8/B2aTXviGMMLOfrKyiIW7181jbzZAY0u+3jWoiL61iLcTKQ=="
 		crossorigin=""></script>
-	<script src="leaflet-bing-layer.js"></script>
+	<!--script src="leaflet-bing-layer.js"></script-->
 	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script-->
 	<!--script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script-->
 	<!--script src="https://unpkg.com/leaflet.markercluster@1.0.6/dist/leaflet.markercluster.js"></script-->
@@ -805,7 +805,7 @@
 		var queryParams = new URL(document.location).searchParams;
 
 		// Keys
-		var BING_KEY = 'ArFQcMQQdw-tWyNSzt5Mafl-kq4I6naIWvX7YZjq-P20-f-txYOcMzPnl0yoNvvn';
+		// var BING_KEY = 'ArFQcMQQdw-tWyNSzt5Mafl-kq4I6naIWvX7YZjq-P20-f-txYOcMzPnl0yoNvvn';
 		var DATABC_APIKEY = "11dd756f680c47b5aef5093d95543738";
 
 		// API URLs
@@ -1185,12 +1185,13 @@
 		});
 		baseLayers['Google Roads'] = googleRoads;
 
-		var bingRoads = L.tileLayer.bing({
-			bingMapsKey: BING_KEY,
-			imagerySet: 'Road',
-			maxZoom: 20
-		});
-		baseLayers['Bing Roads'] = bingRoads;
+		
+		//var bingRoads = L.tileLayer.bing({
+		//	bingMapsKey: BING_KEY,
+		//	imagerySet: 'Road',
+		//	maxZoom: 20
+		//});
+		//baseLayers['Bing Roads'] = bingRoads;
 
 		var bcRoadsBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcgis/services/province/roads_wm/MapServer/WmsServer?',
 			{
@@ -1218,12 +1219,12 @@
 		});
 		baseLayers['Google Satellite'] = googleSatellite;
 
-		var bingAerial = L.tileLayer.bing({
-			bingMapsKey: BING_KEY,
-			imagerySet: 'Aerial',
-			maxZoom: 20
-		});
-		baseLayers['Bing Aerial'] = bingAerial;
+		//var bingAerial = L.tileLayer.bing({
+		//	bingMapsKey: BING_KEY,
+		//	imagerySet: 'Aerial',
+		//	maxZoom: 20
+		//});
+		//baseLayers['Bing Aerial'] = bingAerial;
 
 		var esriTopoLayer = L.esri.basemapLayer('Topographic', {
 			maxZoom: 20
