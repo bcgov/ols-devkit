@@ -1053,18 +1053,7 @@
 			iconAnchor: [8, 8]
 		});
 		navInfoIcons['HR'] = {};
-		// navInfoIcons['HR']['HORIZONTAL'] = {
-		// 	'ITN': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-arrows-left-right-to-line fa-lg itn"></i>'}),
-		// 	'RDM': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-arrows-left-right-to-line fa-lg rdm"></i>'})
-		// };
-		// navInfoIcons['HR']['VERTICAL'] = {
-		// 	'ITN': new L.DivIcon({className: 'iconDiv',  html: '<i class="fa-solid fa-arrows-left-right-to-line fa-rotate-90 fa-lg itn"></i>'}),
-		// 	'RDM': new L.DivIcon({className: 'iconDiv',  html: '<i class="fa-solid fa-arrows-left-right-to-line fa-rotate-90 fa-lg rdm"></i>'})
-		// };
-		//navInfoIcons['HR']['GVW'] = {
-		// 	'ITN': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-weight-hanging fa-lg itn"></i>'}),
-		// 	'RDM': new L.DivIcon({className: 'iconDiv', html: '<i class="fa-solid fa-weight-hanging fa-lg rdm"></i>'})
-		//};
+
 		navInfoIcons['HR']['HORIZONTAL'] = {
 			'ITN': new L.Icon({iconUrl: 'img/horizontal_blue.svg', iconSize: [25,25]}),
 			'RDM': new L.Icon({iconUrl: 'img/horizontal_red.svg', iconSize: [25,25]})
@@ -1185,14 +1174,6 @@
 		});
 		baseLayers['Google Roads'] = googleRoads;
 
-		
-		//var bingRoads = L.tileLayer.bing({
-		//	bingMapsKey: BING_KEY,
-		//	imagerySet: 'Road',
-		//	maxZoom: 20
-		//});
-		//baseLayers['Bing Roads'] = bingRoads;
-
 		var bcRoadsBaseLayer = L.tileLayer.wms('https://maps.gov.bc.ca/arcgis/services/province/roads_wm/MapServer/WmsServer?',
 			{
 				maxZoom: 20,
@@ -1218,13 +1199,6 @@
 			type: 'satellite' // valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
 		});
 		baseLayers['Google Satellite'] = googleSatellite;
-
-		//var bingAerial = L.tileLayer.bing({
-		//	bingMapsKey: BING_KEY,
-		//	imagerySet: 'Aerial',
-		//	maxZoom: 20
-		//});
-		//baseLayers['Bing Aerial'] = bingAerial;
 
 		var esriTopoLayer = L.esri.basemapLayer('Topographic', {
 			maxZoom: 20
@@ -1432,12 +1406,6 @@
 			});
 		overlays['BC Digital Road Atlas'] = draLayer;
 
-		// var gnsLayer = L.tileLayer.wms('http://test.openmaps.gov.bc.ca/geo/pub/WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP/ows?',
-		// 	{
-		// 		layers: 'pub:WHSE_BASEMAPPING.GNS_GEOGRAPHICAL_NAMES_SP',
-		// 		transparent: true,
-		// 		format: 'image/png'
-		// 	});
 		var gnsLayer = new L.layerJSON({
 			url: "https://apps.gov.bc.ca/pub/bcgnws/names/official/inside"
 				+ "?itemsPerPage=50&sortBy=name&outputFormat=json&outputSRS=4326"
