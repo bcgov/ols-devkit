@@ -571,7 +571,7 @@
 								</div>
 								<div class="routerControl" style="margin-right: 50px;">
 									<input id="minRoutingDistanceChk" class="routeOnChange" type="checkbox" aria-label="Minimum Routing Distance" title="Minimum Routing Distance">
-									Minimum Routing Distance (m): <input id="minRoutingDistance" class="routeOnChange" type="input" value="1" size="10" aria-label="Minimum Routing Distance" title="Minimum Routing Distance">
+									Minimum Routing Distance (m): <input id="minRoutingDistance" class="routeOnChange" type="input" value="0" size="10" aria-label="Minimum Routing Distance" title="Minimum Routing Distance">
 								</div>
 								<div class="routerControl">
 									<input id="truckControlsChk" class="routeOnChange" type="checkbox" aria-label="Truck Mode" title="Truck Mode"> Truck Mode</br>
@@ -2129,6 +2129,10 @@
 				params['snapDistance'] = $('#snapDistance').val();
 			}
 
+			if($('#minRoutingDistanceChk').is(':checked') && !isNaN( $('#minRoutingDistance').val()) ) {
+				params['minRoutingDistance'] = $('#minRoutingDistance').val();
+			}
+			
 			var date = $('#time').timepicker('getTime', $('#date').datepicker('getDate'));
 			params['departure'] = date2String(date);
 			if($('#truckControlsChk').is(':checked')) {
