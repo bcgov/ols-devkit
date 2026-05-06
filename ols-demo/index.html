@@ -936,10 +936,10 @@
 					}
 
 					// roadNetworkTimestamp
-					if (data.roadNetworkTimestamp) {
+					if (data.dataProcessingTimestamp) {
 
 						// Convert ISO date to readable format
-						const date = new Date(data.roadNetworkTimestamp);
+						const date = new Date(data.dataProcessingTimestamp);
 						const formattedDateRt = date.toLocaleDateString("en-CA", {
 							year: "numeric",
 							month: "long",
