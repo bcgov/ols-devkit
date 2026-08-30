@@ -798,7 +798,7 @@
 			</button>
 		</div>
 	</div>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO2a43ItOYdAuRFcbCSLLn8AQwnMlf6sI"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO2a43ItOYdAuRFcbCSLLn8AQwnMlf6sI&region=CA"></script>
 	<script src='https://unpkg.com/leaflet.gridlayer.googlemutant@0.11.2/dist/Leaflet.GoogleMutant.js'></script>
 	<script src="https://cdn.jsdelivr.net/leaflet.locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
 	<script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js"
@@ -2152,7 +2152,9 @@
 		});
 
 		$('#gmapsBtn').on("click", function() {
-			window.open('http://maps.google.com/?q=' + $('#geocodeField').val());
+		    window.open(
+		        'http://maps.google.com/?q=' + $('#geocodeField').val() + '&region=CA'
+		    );
 		});
 
 		$('#listBtn').on("click", function() {
@@ -2783,8 +2785,16 @@
 
 		// open in gmaps button
 		$('#routerList').on('click', 'button.gmaps', function() {
-			window.open('http://maps.google.com/?q='
-					+ $(this).parents('div.form-group').find('input.input-field').val());
+		    window.open(
+		        'https://www.google.com/maps/search/?api=1'
+		        + '&query='
+		        + encodeURIComponent(
+		            $(this).parents('div.form-group')
+		                   .find('input.input-field')
+		                   .val()
+		        )
+		        + '&region=CA'
+		    );
 		});
 
 		// zoom to Location button
